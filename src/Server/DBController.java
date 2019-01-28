@@ -1128,7 +1128,7 @@ public class DBController {
 	public ArrayList<String> getCurrentLoans(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan,searchAuthorName;
 		ResultSet rsLoan,rsAuthorName;
-		searchLoan = conn.prepareStatement("SELECT CopyID,BookName,LoanDate,ActualReturnDate,BookID FROM loanbook WHERE MemberID=? AND IsReturned = 'false' ORDER BY ActualReturnDate DESC");
+		searchLoan = conn.prepareStatement("SELECT CopyID,BookName,LoanDate,ExpectedReturnDate,BookID FROM loanbook WHERE MemberID=? AND IsReturned = 'false' ORDER BY ExpectedReturnDate DESC");
 		searchLoan.setString(1,searchData.get(1));
 		rsLoan = searchLoan.executeQuery();
 		ArrayList<String> currentLoans = new ArrayList<>();
@@ -1144,7 +1144,7 @@ public class DBController {
 			while(rsAuthorName.next())
 				currentLoans.add(rsAuthorName.getString(1));//AuthorsName
 			currentLoans.add(rsLoan.getString(3));//LoanDate
-			currentLoans.add(rsLoan.getString(4));//ActualReturnDate	
+			currentLoans.add(rsLoan.getString(4));//ExpectedReturnDate	
 		}
 
 		if (currentLoans.size()==1) {

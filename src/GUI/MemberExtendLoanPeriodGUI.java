@@ -98,7 +98,7 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
 		System.out.println("before get loans");
-		LoanController.getCurrentLoans(Client.arrayUser.get(1));
+		LoanController.getCurrentLoans(Client.arrayUser.get(0));
 		System.out.println("after get loans");
 	}
 }
