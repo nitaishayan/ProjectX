@@ -1,0 +1,6 @@
+
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.rightPane {
+    -fx-background-image:url('file:/C:/Users/lior/Pictures/1a.jpg');
+    -fx-background-size: cover;
+}

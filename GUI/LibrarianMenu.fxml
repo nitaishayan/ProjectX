@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane fx:id="mainSplitPane" dividerPositions="0.18550531914893617" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianMenuGUI">
+  <items>
+      <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="233.0">
+         <children>
+            <VBox layoutY="228.0" prefHeight="725.0" prefWidth="275.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
+               <children>
+                  <Button fx:id="btnRegistration" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#RegistrationScreen" prefHeight="79.0" prefWidth="349.0" text="Registration">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSearchReader" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchReaderScreen" prefHeight="85.0" prefWidth="351.0" text="Search Reader's card">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSearchBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchBookScreen" prefHeight="85.0" prefWidth="348.0" text="Search book">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn_LoanBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Loan book">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnReturnBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ReturnBookScreen" prefHeight="85.0" prefWidth="347.0" text="Return book">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInventory" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#InventoryScreen" prefHeight="85.0" prefWidth="349.0" text="Inventory">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnShow_Report" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ShowReportScreen" prefHeight="91.0" prefWidth="275.0" text="Show Report">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <Label layoutX="90.0" layoutY="128.0" text="Menu" underline="true">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnLog_out" layoutX="185.0" layoutY="16.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
+            <Label fx:id="lblUser_name" layoutX="81.0" layoutY="21.0" text="Label">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="rightPane" prefHeight="928.0" prefWidth="1232.0" />
+  </items>
+</SplitPane>

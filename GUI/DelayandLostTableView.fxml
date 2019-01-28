@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPane" prefHeight="639.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DelayandLostDetailsTableViewGUI">
+   <children>
+      <Label layoutX="163.0" layoutY="43.0" text="Delay and lost books by member" underline="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="memberDetails" layoutX="550.0" layoutY="43.0" prefHeight="28.0" prefWidth="181.0" underline="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="TableViewLostorDelayed" layoutX="33.0" layoutY="114.0" prefHeight="472.0" prefWidth="856.0">
+        <columns>
+          <TableColumn fx:id="CopyName" prefWidth="134.4000244140625" text="Copy name" />
+          <TableColumn fx:id="CopyID" prefWidth="143.20001220703125" text="Copy ID" />
+            <TableColumn fx:id="c" prefWidth="392.79998779296875" text="Delay or Lost" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ReturnBookGUI">
+   <children>
+      <Label layoutX="354.0" layoutY="14.0" prefHeight="30.0" prefWidth="122.0" text="Return book" underline="true" AnchorPane.leftAnchor="354.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="107.0" layoutY="137.0" text="Book name:" />
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="205.0" layoutY="132.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="506.0" layoutY="137.0" text="Member Status:" />
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="616.0" layoutY="177.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="107.0" layoutY="94.0" text="Copy ID:" />
+      <TextField fx:id="txtCopy_ID" layoutX="205.0" layoutY="89.0" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="225.0" promptText="Insert Copy ID and click &quot;Enter&quot;" />
+      <Label layoutX="506.0" layoutY="182.0" text="First name:" />
+      <TextField fx:id="txtMember_Status" disable="true" layoutX="616.0" layoutY="132.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="506.0" layoutY="229.0" text="Last name:" />
+      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="616.0" layoutY="224.0" prefHeight="31.0" prefWidth="225.0" />
+      <Button fx:id="btnReturn" disable="true" layoutX="151.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickReturnButton" text="Return">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="177.0" fitWidth="194.0" layoutX="328.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Pictures/bookreturn_decal_d.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="506.0" layoutY="94.0" text="Member ID:" />
+      <TextField fx:id="txtMember_ID" disable="true" layoutX="616.0" layoutY="89.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="108.0" layoutY="182.0" text="Retun date:" />
+      <TextField fx:id="txtReturn_Date" disable="true" layoutX="205.0" layoutY="177.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="438.0" layoutY="94.0" text="*" textFill="RED" />
+   </children>
+</AnchorPane>

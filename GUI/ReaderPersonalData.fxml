@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberPersonalDataGUI">
+   <children>
+      <Label layoutX="316.0" layoutY="21.0" text="Personal details" underline="true" wrapText="true">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="110.0" layoutY="120.0" text="First name:" />
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="203.0" layoutY="115.0" />
+      <Label layoutX="414.0" layoutY="120.0" text="Last name:" />
+      <TextField fx:id="txtLast_Name" disable="true" layoutX="529.0" layoutY="115.0" />
+      <Label layoutX="109.0" layoutY="172.0" text="ID:" />
+      <TextField fx:id="txtID" disable="true" layoutX="203.0" layoutY="167.0" />
+      <Label layoutX="415.0" layoutY="172.0" text="Phone number:" />
+      <TextField fx:id="txtPhone_Number" layoutX="529.0" layoutY="167.0" />
+      <Label layoutX="107.0" layoutY="222.0" text="Email:" />
+      <TextField fx:id="txtEmail" layoutX="203.0" layoutY="217.0" />
+      <Button fx:id="btnSave" layoutX="226.0" layoutY="388.0" mnemonicParsing="false" onAction="#updateMemberDetails" prefHeight="77.0" prefWidth="126.0" text="Save">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtStatus" disable="true" layoutX="529.0" layoutY="218.0" />
+      <Label layoutX="415.0" layoutY="222.0" text="Status:" />
+      <Button fx:id="btnHistory" layoutX="921.0" layoutY="445.0" mnemonicParsing="false" onAction="#viewPersonalHistory" prefHeight="58.0" prefWidth="162.0" text="View history of loan" />
+   </children>
+</AnchorPane>
