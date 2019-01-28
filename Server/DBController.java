@@ -10,8 +10,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import com.mysql.fabric.xmlrpc.base.Data;
-import com.mysql.jdbc.UpdatableResultSet;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
@@ -19,8 +17,6 @@ import GUI.LibrarianMenuGUI;
 import logic.CommonController;
 import sun.awt.windows.ThemeReader;
 
-
-//tt
 
 public class DBController {
 
