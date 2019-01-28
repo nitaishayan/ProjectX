@@ -1124,7 +1124,7 @@ public class DBController {
 	//		}
 	//		return null;
 	//	}
-
+//lior
 	public ArrayList<String> getCurrentLoans(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan,searchAuthorName;
 		ResultSet rsLoan,rsAuthorName;
