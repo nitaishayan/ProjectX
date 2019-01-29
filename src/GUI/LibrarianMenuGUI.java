@@ -124,6 +124,12 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Loan.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
+	
+	@FXML
+    void extendLoanScreen(ActionEvent event) throws IOException {
+		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianExtend.fxml"));
+		rightPane.getChildren().setAll(pane);
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {	

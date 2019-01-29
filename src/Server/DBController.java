@@ -1215,7 +1215,7 @@ public class DBController {
 		long diff = expectedReturnDate.getTime() - currentDate.getTime();
 		long diffDays = diff / (24 * 60 * 60 * 1000);
 		if(diffDays >= 7) {
-			extendLoan.add("The copy expected return date is more than a week hence extension can't be made!");
+			extendLoan.add("The copy expected return date is more than a week\nhence extension can't be made!");
 			return extendLoan;
 		}
 

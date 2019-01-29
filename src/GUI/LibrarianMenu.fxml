@@ -33,6 +33,11 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#extendLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Extend loan period">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="btnReturnBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ReturnBookScreen" prefHeight="85.0" prefWidth="347.0" text="Return book">
                      <font>
                         <Font name="System Bold" size="18.0" />

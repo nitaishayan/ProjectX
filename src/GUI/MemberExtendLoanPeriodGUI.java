@@ -5,8 +5,10 @@ import java.util.ResourceBundle;
 import Client.Client;
 import Common.GuiInterface;
 import Common.LoanDetails;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -15,7 +17,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import logic.BookHandlerController;
 import logic.LoanController;
 import logic.Main;
 
@@ -46,7 +50,12 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 	private TableColumn<LoanDetails, String> endLoanDateCol;
 
 	@Override
-	public void showSuccess(String string) {
+	public void showSuccess(String message) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText("An successful operation");
+			alert.setContentText(message);
+			alert.showAndWait();
 	}
 
 	@Override
@@ -79,6 +88,20 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 			i++;
 			j+=5;
 		}
+
+		Platform.runLater(() -> {	
+			table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					if (Client.arrayUser.size() > 2)
+					{
+						BookHandlerController.extendLoanPeriodByMember(Client.arrayUser.get(0),table.getSelectionModel().getSelectedItem().getCopyID(),table.getSelectionModel().getSelectedItem().getBookName(), table.getSelectionModel().getSelectedItem().getAuthorName());
+					}
+				}
+
+			});
+		});
+
 		table.setItems(loanarray);
 	}
 
