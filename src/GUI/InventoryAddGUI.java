@@ -97,16 +97,16 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	private CheckBox CHBOX_NO;
-	
-	 @FXML
-	    private Button btn_browse;
+
+	@FXML
+	private Button btn_browse;
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	String wanted;
 	public static String nextBookID;
-	
+
 	@FXML
-    void name_author(KeyEvent event) {
+	void name_author(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
 			if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
 				showFailed("fill the missing fields.");
@@ -120,10 +120,11 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 				InventoryController.checkExistence((ArrayList<String>) msg);
 				Enablefields(false);
 				btnCopy.setDisable(true);
+				btn_browse.setDisable(false);
 			}
 		}
 
-    }
+	}
 
 	@FXML
 	public void pdf(ActionEvent event) {
@@ -154,10 +155,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	void AddBook(ActionEvent event) {
 		if (checkfields())
 			showFailed("Fill all the dields");
-		else {
+		else 
 			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),wanted,txtDescription.getText());
-			BookHandlerController.sendPdf(PDF, nextBookID);
-		}
 	}
 
 	public void Enablefields(boolean status) {
@@ -193,6 +192,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			InventoryController.checkExistence((ArrayList<String>) msg);
 			Enablefields(false);
 			btnCopy.setDisable(true);
+			btn_browse.setDisable(false);
+			txtTable_Of_Content.setDisable(true);
 		}
 	}
 
@@ -209,10 +210,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			return true;
 		if ((txtDescription.getText().isEmpty()))
 			return true;
+		if (txtTable_Of_Content.getText().isEmpty())
+			return true;
 		if ((CHBOX_NO.isSelected()==false&&CHBOX_YES.isSelected()==false))
 			return true;
-		//		if ((btnAdd.getText().isEmpty()))
-		//			return true;
 		return false;
 	}
 
@@ -227,9 +228,11 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		alert.setTitle("Confirm");
 		alert.setHeaderText(string);
 		alert.showAndWait();
-		if (PDF==null)
-			System.out.println("pdf problem");	
-		else BookHandlerController.sendPdf(PDF, nextBookID);
+		if (string.contains("Book")) {
+			if (PDF==null)
+				System.out.println("pdf problem");	
+			else BookHandlerController.sendPdf(PDF, nextBookID);
+		}
 	}
 
 	@Override
@@ -262,7 +265,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			txtAuthor.setDisable(true);
 			btnCopy.setDisable(false);
 			btnAdd.setDisable(true);
-			btn_browse.setDisable(false);
+			btn_browse.setDisable(true);
 		});
 	}
 

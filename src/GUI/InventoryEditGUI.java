@@ -2,6 +2,7 @@ package GUI;
 
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -27,12 +28,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.util.converter.LocalDateStringConverter;
+import logic.BookHandlerController;
 import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
 
 public class InventoryEditGUI implements Initializable,GuiInterface {
+	public static File PDF;
 
 	@FXML
 	private AnchorPane MainPane;
@@ -118,6 +122,15 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	void WANTED_NO(ActionEvent event) {
 			CHBOX_YES.setSelected(false);
 			wanted="false";
+	}
+	
+	@FXML
+	public void pdf(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		PDF=fileChooser.showOpenDialog(OBLcontroller.librarianStage);
+		if (PDF!=null)
+			txtPdf.setText(PDF.getName());
 	}
 
 	@FXML
@@ -256,6 +269,13 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		alert.showAndWait();
 		rdioBook_Name.setSelected(false);
 		rdioBook_ID.setSelected(false);
+		if (string.contains("Book")) {
+			if (PDF==null)
+				System.out.println("pdf problem");	
+			else {BookHandlerController.sendPdf(PDF, txtBook_ID.getText());
+			System.out.println("Sent");
+			}
+		}
 	}
 
 	public void Disable(boolean choice) {

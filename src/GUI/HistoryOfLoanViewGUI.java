@@ -9,9 +9,6 @@ import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
-import com.sun.glass.ui.Application;
-import com.sun.java.swing.plaf.windows.resources.windows;
-import com.sun.webkit.ThemeClient;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import Common.GuiInterface;
@@ -33,7 +30,6 @@ import logic.Main;
 
 public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
-//liorrrrrr
     @FXML
     private TableView<LoanDetails> TableViewLoanHistory;
 

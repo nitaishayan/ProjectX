@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.net.ssl.SSLException;
-
 import Client.Client;
 import Common.GuiInterface;
 import Common.User;
@@ -38,7 +37,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import logic.Main;
 import logic.RegistrationController;
-import sun.reflect.generics.tree.DoubleSignature;
 
 public class OBLcontroller implements Initializable, GuiInterface {
 

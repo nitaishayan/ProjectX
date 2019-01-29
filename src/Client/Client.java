@@ -37,7 +37,6 @@ public class Client extends AbstractClient
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
 
-	//liorrrrrrrr
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
