@@ -172,6 +172,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 				if (update) {
 					showSuccess("The member "+txtFirst_Name.getText()+" "+txtLast_Name.getText()+" Details updated successfully");
 					memberStatus=cmbStatus.getValue().toString();
+					update=false;
 
 				}
 			}
