@@ -8,37 +8,61 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ReturnBookGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ReturnBookGUI">
    <children>
-      <Label layoutX="354.0" layoutY="14.0" prefHeight="30.0" prefWidth="122.0" text="Return book" underline="true" AnchorPane.leftAnchor="354.0">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="465.0" layoutY="84.0" prefHeight="51.0" prefWidth="238.0" text="Return book" underline="true" AnchorPane.leftAnchor="465.0">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="107.0" layoutY="137.0" text="Book name:" />
-      <TextField fx:id="txtBook_Name" disable="true" layoutX="205.0" layoutY="132.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="506.0" layoutY="137.0" text="Member Status:" />
-      <TextField fx:id="txtFirst_Name" disable="true" layoutX="616.0" layoutY="177.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="107.0" layoutY="94.0" text="Copy ID:" />
-      <TextField fx:id="txtCopy_ID" layoutX="205.0" layoutY="89.0" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="225.0" promptText="Insert Copy ID and click &quot;Enter&quot;" />
-      <Label layoutX="506.0" layoutY="182.0" text="First name:" />
-      <TextField fx:id="txtMember_Status" disable="true" layoutX="616.0" layoutY="132.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="506.0" layoutY="229.0" text="Last name:" />
-      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="616.0" layoutY="224.0" prefHeight="31.0" prefWidth="225.0" />
-      <Button fx:id="btnReturn" disable="true" layoutX="151.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickReturnButton" text="Return">
+      <Label layoutX="223.0" layoutY="330.0" text="Book name:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="344.0" layoutY="325.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="670.0" layoutY="326.0" text="Member Status:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="842.0" layoutY="369.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="223.0" layoutY="287.0" text="Copy ID:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtCopy_ID" layoutX="344.0" layoutY="282.0" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="225.0" promptText="Insert Copy ID and click &quot;Enter&quot;" />
+      <Label layoutX="670.0" layoutY="371.0" text="First name:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtMember_Status" disable="true" layoutX="842.0" layoutY="324.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="670.0" layoutY="418.0" text="Last name:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="842.0" layoutY="416.0" prefHeight="31.0" prefWidth="225.0" />
+      <Button fx:id="btnReturn" disable="true" layoutX="530.0" layoutY="587.0" mnemonicParsing="false" onAction="#clickReturnButton" text="Return">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <ImageView fitHeight="177.0" fitWidth="194.0" layoutX="328.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Pictures/bookreturn_decal_d.jpg" />
-         </image>
-      </ImageView>
-      <Label layoutX="506.0" layoutY="94.0" text="Member ID:" />
-      <TextField fx:id="txtMember_ID" disable="true" layoutX="616.0" layoutY="89.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="108.0" layoutY="182.0" text="Retun date:" />
-      <TextField fx:id="txtReturn_Date" disable="true" layoutX="205.0" layoutY="177.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="438.0" layoutY="94.0" text="*" textFill="RED" />
+      <Label layoutX="670.0" layoutY="282.0" text="Member ID:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtMember_ID" disable="true" layoutX="844.0" layoutY="280.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="223.0" layoutY="375.0" text="Retun date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtReturn_Date" disable="true" layoutX="344.0" layoutY="370.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="577.0" layoutY="287.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
    </children>
 </AnchorPane>
