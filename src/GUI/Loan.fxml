@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoanGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoanGUI">
    <children>
       <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
          <image>
@@ -23,17 +23,25 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <FlowPane layoutX="261.0" layoutY="214.0" prefHeight="239.0" prefWidth="711.0">
+      <FlowPane layoutX="261.0" layoutY="214.0" prefHeight="239.0" prefWidth="780.0">
          <children>
             <Label contentDisplay="CENTER" prefHeight="52.0" prefWidth="123.0" text="Member ID:" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="19.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_MemberID" onKeyPressed="#memberKeyPressed" prefHeight="31.0" prefWidth="165.0" promptText="Fill field and click &quot;Enter&quot;">
+            <TextField fx:id="txt_MemberID" onKeyPressed="#memberKeyPressed" prefHeight="31.0" prefWidth="159.0" promptText="Fill field and click &quot;Enter&quot;">
                <FlowPane.margin>
                   <Insets left="15.0" />
                </FlowPane.margin></TextField>
+            <ImageView fitHeight="31.0" fitWidth="39.0" onMouseClicked="#memberMouse" pickOnBounds="true">
+               <image>
+                  <Image url="@../Image/magnifier%20icon.jpg" />
+               </image>
+               <FlowPane.margin>
+                  <Insets left="5.0" right="15.0" />
+               </FlowPane.margin>
+            </ImageView>
             <Label text="*" textFill="RED">
                <padding>
                   <Insets left="5.0" />
@@ -47,22 +55,22 @@
                   <Font name="System Bold Italic" size="19.0" />
                </font>
                <FlowPane.margin>
-                  <Insets left="30.0" />
+                  <Insets />
                </FlowPane.margin>
             </Label>
             <TextField fx:id="txt_CopyID" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="164.0" promptText="Fill field and click &quot;Enter&quot;">
                <FlowPane.margin>
-                  <Insets left="40.0" />
+                  <Insets left="35.0" />
                </FlowPane.margin>
             </TextField>
-            <Label text="*" textFill="RED">
-               <padding>
+            <ImageView fitHeight="31.0" fitWidth="39.0" onMouseClicked="#copyMouse" pickOnBounds="true">
+               <image>
+                  <Image url="@../Image/magnifier%20icon.jpg" />
+               </image>
+               <FlowPane.margin>
                   <Insets left="5.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
+               </FlowPane.margin>
+            </ImageView>
             <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="96.0" text="Status:">
                <FlowPane.margin>
                   <Insets />
@@ -82,7 +90,7 @@
                   <Font name="System Bold Italic" size="19.0" />
                </font>
                <FlowPane.margin>
-                  <Insets left="5.0" />
+                  <Insets left="25.0" />
                </FlowPane.margin>
             </Label>
             <TextField fx:id="txt_BookName" disable="true" prefHeight="31.0" prefWidth="167.0">
@@ -106,12 +114,12 @@
                   <Font name="System Bold Italic" size="19.0" />
                </font>
                <FlowPane.margin>
-                  <Insets left="5.0" />
+                  <Insets left="20.0" />
                </FlowPane.margin>
             </Label>
             <TextField fx:id="txt_BookStatus" disable="true" prefHeight="34.0" prefWidth="168.0">
                <FlowPane.margin>
-                  <Insets left="5.0" />
+                  <Insets left="10.0" />
                </FlowPane.margin></TextField>
             <Region prefHeight="52.0" prefWidth="343.0" />
          </children>
@@ -121,5 +129,13 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Button>
+      <Label layoutX="242.0" layoutY="230.0" text="*" textFill="RED">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
