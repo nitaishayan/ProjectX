@@ -14,19 +14,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onKeyPressed="#searchBookEnter" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianSearchBookGUI">
+<AnchorPane onKeyPressed="#searchBookEnter" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianSearchBookGUI">
    <children>
       <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
          <image>
             <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="487.0" layoutY="38.0" prefHeight="47.0" prefWidth="258.0" text="Librarian search" textAlignment="CENTER" underline="true">
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="487.0" layoutY="38.0" prefHeight="53.0" prefWidth="271.0" text="Librarian search" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <VBox layoutX="223.0" layoutY="197.0" prefHeight="284.0" prefWidth="786.0">
+      <VBox layoutX="223.0" layoutY="197.0" prefHeight="284.0" prefWidth="848.0">
          <children>
             <HBox fx:id="HBOX1" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
@@ -38,42 +38,42 @@
                         <ToggleGroup fx:id="group" />
                      </toggleGroup>
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="System Bold Italic" size="19.0" />
                      </font>
                   </RadioButton>
                   <TextField fx:id="txtCopy_ID">
                      <HBox.margin>
-                        <Insets left="70.0" />
+                        <Insets left="80.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox fx:id="HBOX2" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <RadioButton fx:id="radio_btn_book_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book name:" toggleGroup="$group">
+                  <RadioButton fx:id="radio_btn_book_name" mnemonicParsing="false" onAction="#openAndCloseFields" prefHeight="28.0" prefWidth="171.0" text="Book name:" toggleGroup="$group">
                      <HBox.margin>
                         <Insets left="15.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="System Bold Italic" size="19.0" />
                      </font>
                   </RadioButton>
                   <TextField fx:id="txtBook_Name" disable="true">
                      <HBox.margin>
-                        <Insets left="45.0" />
+                        <Insets left="15.0" />
                      </HBox.margin>
                   </TextField>
-                  <RadioButton fx:id="radio_btn_authors_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Author's name:" toggleGroup="$group">
+                  <RadioButton fx:id="radio_btn_authors_name" mnemonicParsing="false" onAction="#openAndCloseFields" prefHeight="28.0" prefWidth="191.0" text="Author's name:" toggleGroup="$group">
                      <HBox.margin>
                         <Insets left="55.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="System Bold Italic" size="19.0" />
                      </font>
                   </RadioButton>
-                  <TextField fx:id="txtAuthor_name" disable="true">
+                  <TextField fx:id="txtAuthor_name" disable="true" prefHeight="31.0" prefWidth="185.0">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </TextField>
                </children>
@@ -85,7 +85,7 @@
                         <Insets left="15.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="System Bold Italic" size="19.0" />
                      </font>
                   </RadioButton>
                   <TextField fx:id="txtBook_Theme" disable="true">
@@ -93,24 +93,24 @@
                         <Insets left="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <RadioButton fx:id="radio_btn_free_text" mnemonicParsing="false" onAction="#openAndCloseFields" prefHeight="22.0" prefWidth="99.0" text="Free text:" toggleGroup="$group">
+                  <RadioButton fx:id="radio_btn_free_text" mnemonicParsing="false" onAction="#openAndCloseFields" prefHeight="28.0" prefWidth="132.0" text="Free text:" toggleGroup="$group">
                      <HBox.margin>
                         <Insets left="55.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold Italic" size="15.0" />
+                        <Font name="System Bold Italic" size="19.0" />
                      </font>
                   </RadioButton>
                   <TextField fx:id="txtFree_Text" disable="true">
                      <HBox.margin>
-                        <Insets left="65.0" />
+                        <Insets left="60.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button alignment="CENTER" layoutX="554.0" layoutY="530.0" mnemonicParsing="false" onAction="#SearchBook" prefHeight="99.0" prefWidth="206.0" text="Search">
+      <Button alignment="CENTER" layoutX="520.0" layoutY="457.0" mnemonicParsing="false" onAction="#SearchBook" prefHeight="99.0" prefWidth="206.0" text="Search">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>

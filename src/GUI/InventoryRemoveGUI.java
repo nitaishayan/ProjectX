@@ -65,6 +65,9 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private CheckBox CHBOX_NO;
+	
+	@FXML
+    private Button btn_browse;
 
 	String wanted;
 
@@ -144,6 +147,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(12));
 		btnRemove.setDisable(false);
 		txtCatalog_Number.setEditable(false);
+		btn_browse.setDisable(false);
 	}
 
 	@Override
@@ -178,6 +182,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtPurchase_Date.clear();
 		this.txtShelf_Location.clear();
 		btnRemove.setDisable(true);
+		btn_browse.setDisable(true);
 	}
 }
 

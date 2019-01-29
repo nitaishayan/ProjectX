@@ -142,6 +142,10 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		searchForReader=primaryStage;
+		primaryStage.setMinWidth(1232);
+		primaryStage.setMaxWidth(1232);
+		primaryStage.setMaxHeight(928);
+		primaryStage.setMinHeight(928);
 		primaryStage.show();
 	}
 

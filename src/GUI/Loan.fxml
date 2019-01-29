@@ -20,7 +20,7 @@
       </ImageView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="565.0" layoutY="38.0" prefHeight="46.0" prefWidth="102.0" text="Loan" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
       <FlowPane layoutX="246.0" layoutY="144.0" prefHeight="239.0" prefWidth="747.0">
@@ -124,7 +124,7 @@
             <Region prefHeight="52.0" prefWidth="343.0" />
          </children>
       </FlowPane>
-      <Button fx:id="buttonLoan" disable="true" layoutX="527.0" layoutY="403.0" mnemonicParsing="false" onAction="#clickLoanButton" prefHeight="81.0" prefWidth="162.0" text="Loan">
+      <Button fx:id="buttonLoan" disable="true" layoutX="527.0" layoutY="383.0" mnemonicParsing="false" onAction="#clickLoanButton" prefHeight="81.0" prefWidth="162.0" text="Loan">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>

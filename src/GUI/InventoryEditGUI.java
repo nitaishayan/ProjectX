@@ -102,6 +102,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
     @FXML
     private ImageView IDButton;
+    
+    @FXML
+    private Button btn_browse;
 	
 	String wanted;
 
@@ -303,6 +306,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(false);
 		BookName_must.setVisible(false);
 		Author_must.setVisible(false);
+		btn_browse.setDisable(false);
 	}
 
 
@@ -335,6 +339,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		Author_must.setVisible(false);
 		AuthorButton.setVisible(false);
 		IDButton.setVisible(false);
+		btn_browse.setDisable(true);
 
 	}
 

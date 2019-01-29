@@ -7,29 +7,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryGUI">
+<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryGUI">
    <children>
       <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
          <image>
             <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="522.0" layoutY="68.0" prefHeight="40.0" prefWidth="187.0" text="Inventory" textAlignment="CENTER" underline="true" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="523.0" layoutY="54.0" prefHeight="40.0" prefWidth="187.0" text="Inventory" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button layoutX="507.0" layoutY="374.0" mnemonicParsing="false" onAction="#RemoveScreen" prefHeight="89.0" prefWidth="144.0" text="Remove">
+      <Button layoutX="540.0" layoutY="349.0" mnemonicParsing="false" onAction="#RemoveScreen" prefHeight="89.0" prefWidth="144.0" text="Remove">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Button>
-      <Button layoutX="237.0" layoutY="374.0" mnemonicParsing="false" onAction="#AddScreen" prefHeight="89.0" prefWidth="144.0" text="Add">
+      <Button layoutX="270.0" layoutY="349.0" mnemonicParsing="false" onAction="#AddScreen" prefHeight="89.0" prefWidth="144.0" text="Add">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Button>
-      <Button layoutX="787.0" layoutY="374.0" mnemonicParsing="false" onAction="#EditScreen" prefHeight="89.0" prefWidth="144.0" text="Edit">
+      <Button layoutX="820.0" layoutY="349.0" mnemonicParsing="false" onAction="#EditScreen" prefHeight="89.0" prefWidth="144.0" text="Edit">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>

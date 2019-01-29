@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberCardGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberCardGUI">
    <children>
-      <ImageView fitHeight="928.0" fitWidth="1232.0" layoutX="-4.0" opacity="0.8" pickOnBounds="true">
+      <ImageView fitHeight="928.0" fitWidth="1239.0" layoutX="-4.0" opacity="0.8" pickOnBounds="true">
          <image>
             <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="439.0" layoutY="38.0" text="Search Reader's card" underline="true">
+      <Label layoutX="437.0" layoutY="26.0" text="Search Reader's card" underline="true">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
       <Label layoutX="209.0" layoutY="132.0" text="Member ID:">
@@ -63,8 +63,8 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <TextArea fx:id="txtArea_Notes" disable="true" layoutX="603.0" layoutY="408.0" prefHeight="217.0" prefWidth="331.0" />
-      <Label layoutX="603.0" layoutY="380.0" text="Notes:">
+      <TextArea fx:id="txtArea_Notes" disable="true" layoutX="637.0" layoutY="435.0" prefHeight="217.0" prefWidth="331.0" />
+      <Label layoutX="637.0" layoutY="407.0" text="Notes:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>

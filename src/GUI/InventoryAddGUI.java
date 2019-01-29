@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import Client.Client;
 import Common.GuiInterface;
 import javafx.application.Platform;
@@ -96,6 +97,9 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@FXML
 	private CheckBox CHBOX_NO;
+	
+	 @FXML
+	    private Button btn_browse;
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	String wanted;
@@ -258,6 +262,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			txtAuthor.setDisable(true);
 			btnCopy.setDisable(false);
 			btnAdd.setDisable(true);
+			btn_browse.setDisable(false);
 		});
 	}
 
@@ -286,6 +291,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		txtAuthor.setEditable(true);
 		txtBook_Name.setEditable(true);
 		Enablefields(true);
+		btn_browse.setDisable(true);
 
 	}
 }

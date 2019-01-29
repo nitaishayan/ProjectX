@@ -29,9 +29,9 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Button>
-      <Label layoutX="495.0" layoutY="49.0" text="Activities History">
+      <Label layoutX="471.0" layoutY="51.0" text="Activities History" underline="true">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
    </children>
