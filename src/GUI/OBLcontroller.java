@@ -138,7 +138,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		((Node)event.getSource()).getScene().getWindow().hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml").openStream());
+		AnchorPane root = loader.load(getClass().getResource("/GUI/SearchBook.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		searchForReader=primaryStage;
