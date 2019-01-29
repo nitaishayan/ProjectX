@@ -51,7 +51,6 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 	@FXML
 	private TableView<LoanDetails> table;
 
-
 	@FXML
 	void memberID_Enter(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
@@ -59,6 +58,7 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 				CommonController.checkMemberExistence(txtMember_ID.getText());
 			} catch (Exception e) {
 				showFailed(e.getMessage());
+				freshStart();
 			}
 		}
 	}
@@ -69,6 +69,7 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 			CommonController.checkMemberExistence(txtMember_ID.getText());
 		} catch (Exception e) {
 			showFailed(e.getMessage());
+			freshStart();
 		}
 	}
 
@@ -93,7 +94,7 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 		ArrayList<String> msg = (ArrayList<String>)obj;
 		switch(msg.get(0)) {
 		case "CurrentLoans":
-			ArrayList<String> 			currentLoans 	= (ArrayList<String>)obj;
+			ArrayList<String> currentLoans = (ArrayList<String>)obj;
 
 			if (currentLoans.size() <= 2)
 			{
@@ -127,7 +128,7 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 					public void handle(MouseEvent event) {
 						if (Client.arrayUser.size() > 2)
 						{
-							BookHandlerController.extendLoanPeriodByLibrarian(Client.arrayUser.get(0),table.getSelectionModel().getSelectedItem().getCopyID(),table.getSelectionModel().getSelectedItem().getBookName(), table.getSelectionModel().getSelectedItem().getAuthorName(),Client.arrayUser.get(0));
+							BookHandlerController.extendLoanPeriodByLibrarian(txtMember_ID.getText(),table.getSelectionModel().getSelectedItem().getCopyID(),table.getSelectionModel().getSelectedItem().getBookName(), table.getSelectionModel().getSelectedItem().getAuthorName(),Client.arrayUser.get(0));
 						}
 					}
 
@@ -166,6 +167,7 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 	@Override
 	public void freshStart() {
 		txtMember_ID.clear();
+		table.setItems(null);
 	}
 
 }

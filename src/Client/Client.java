@@ -37,7 +37,7 @@ public class Client extends AbstractClient
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
 
-//liorrrrrrrr
+	//liorrrrrrrr
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
@@ -262,7 +262,7 @@ public class Client extends AbstractClient
 					clientUI.display(msg);
 				});
 				break;
-				
+
 			case "Extend Loan Period By Member"://show reader card details for read only - tableView
 				if(((ArrayList<String>)msg).size() != 3) {
 					Platform.runLater(() -> {
@@ -278,14 +278,10 @@ public class Client extends AbstractClient
 
 			case "Extend Loan Period By Librarian"://show reader card details for read only - tableView
 				if(((ArrayList<String>)msg).size() != 3) {
-					Platform.runLater(() -> {
-						clientUI.showFailed(((ArrayList<String>)msg).get(1));
-					});
+					clientUI.showFailed(((ArrayList<String>)msg).get(1));
 				}
 				else {
-					Platform.runLater(() -> {
-						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
-					});
+					clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
 				}
 				break;
 

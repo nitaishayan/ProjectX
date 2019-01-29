@@ -1255,7 +1255,7 @@ public class DBController {
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = inFormat.format(dt);
 		ArrayList<String> extendLoan = new ArrayList<String>();
-		extendLoan.add("Extend Loan Period By Member");
+		extendLoan.add("Extend Loan Period By Librarian");
 		ArrayList<String> checkWanted = new ArrayList<String>();
 		checkWanted.add("Check Copy Wanted Status");
 		checkWanted.add(msg.get(1));
@@ -1283,7 +1283,7 @@ public class DBController {
 		long diff = expectedReturnDate.getTime() - currentDate.getTime();
 		long diffDays = diff / (24 * 60 * 60 * 1000);
 		if(diffDays >= 7) {
-			extendLoan.add("The copy expected return date is more than a week hence extension can't be made!");
+			extendLoan.add("The copy expected return date is more than a week\nhence extension can't be made!");
 			return extendLoan;
 		}
 
@@ -1291,12 +1291,13 @@ public class DBController {
 			extendLoan.add("The copy is reserved hence extension can't be made!");
 			return extendLoan;
 		}
-		
+
 		Calendar c = Calendar.getInstance();
 		c.setTime(expectedReturnDate);
 		c.add(Calendar.DATE, 7);
 		String newExpectedReturnDate = inFormat.format(c.getTime());
-		
+
+
 		PreparedStatement ps = conn.prepareStatement("UPDATE loanbook SET ExpectedReturnDate = ? WHERE MemberID = ? AND CopyID = ? AND IsReturned = ?");
 		ps.setString(1, newExpectedReturnDate);
 		ps.setString(2, data.get(1));
