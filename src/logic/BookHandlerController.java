@@ -106,4 +106,25 @@ public class BookHandlerController {
 		System.out.println(bookid);
 		Main.client.handleMessageFromClientUI(requestPDF);
 	}
+	
+	public static void extendLoanPeriodByMember(String memberID, String copyID, String bookName, String authorsName) {
+		ArrayList<String> extendData = new ArrayList<>();
+		extendData.add("Extend Loan Period By Member");
+		extendData.add(memberID);
+		extendData.add(copyID);
+		extendData.add(bookName);
+		extendData.add(authorsName);		
+		Main.client.handleMessageFromClientUI(extendData);
+	}
+
+	public static void extendLoanPeriodByLibrarian(String memberID, String copyID, String bookName, String authorsName, String librarianID) {
+		ArrayList<String> extendData = new ArrayList<>();
+		extendData.add("Extend Loan Period By Librarian");
+		extendData.add(memberID);
+		extendData.add(copyID);
+		extendData.add(bookName);
+		extendData.add(authorsName);
+		extendData.add(librarianID);		
+		Main.client.handleMessageFromClientUI(extendData);
+	}
 }

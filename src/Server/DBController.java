@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -1174,6 +1175,151 @@ public class DBController {
 		else {
 			return dataDetails;
 		}
+	}
+	
+	public ArrayList<String> extendLoanPeriodByMember(ArrayList<String> data) throws SQLException, ParseException {
+		ArrayList<String> msg = new ArrayList<>();
+		msg.add("Get BookID");
+		msg.add(data.get(3));
+		msg.add(data.get(4));
+		msg = inventoryCheckExistence(msg);
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+		ArrayList<String> extendLoan = new ArrayList<String>();
+		extendLoan.add("Extend Loan Period By Member");
+		ArrayList<String> checkWanted = new ArrayList<String>();
+		checkWanted.add("Check Copy Wanted Status");
+		checkWanted.add(msg.get(1));
+		checkWanted = isCopyWanted(checkWanted);
+		if(checkWanted.size() == 1) {
+			extendLoan.add("Book doesn't exist!");
+			return extendLoan;
+		}
+		if(checkWanted.get(4).equals("true")) {
+			extendLoan.add("Copy labeled as \"Wanted\" hence can't be extend!");
+			return extendLoan;
+		}
+		ArrayList<String> checkDate = new ArrayList<String>();
+		checkDate.add("Check Copy Date");
+		checkDate.add(data.get(2));
+		checkDate = isCopyLoaned(checkDate);
+		if(checkDate.size() == 1) {
+			extendLoan.add("Copy isn't loan yet!");
+			return extendLoan;
+		}
+
+		String copyExpectedReturnDate = checkDate.get(2);
+		Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+		Date currentDate = inFormat.parse(currentTime); 
+		long diff = expectedReturnDate.getTime() - currentDate.getTime();
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+		if(diffDays >= 7) {
+			extendLoan.add("The copy expected return date is more than a week hence extension can't be made!");
+			return extendLoan;
+		}
+
+		if(checkDate.get(8).equals("true")) {
+			extendLoan.add("The copy is reserved hence extension can't be made!");
+			return extendLoan;
+		}
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(expectedReturnDate);
+		c.add(Calendar.DATE, 7);
+		String newExpectedReturnDate = inFormat.format(c.getTime());
+
+
+		PreparedStatement ps = conn.prepareStatement("UPDATE loanbook SET ExpectedReturnDate = ? WHERE MemberID = ? AND CopyID = ? AND IsReturned = ?");
+		ps.setString(1, newExpectedReturnDate);
+		ps.setString(2, data.get(1));
+		ps.setString(3, data.get(2));
+		ps.setString(4, "false");
+		if(ps.executeUpdate() == 0) {
+			extendLoan.add("Couldn't update the new expected return date!");
+			return extendLoan;
+		}
+
+		extendLoan.add(newExpectedReturnDate);
+		extendLoan.add("Success");
+		return extendLoan;
+	}
+
+	public ArrayList<String> extendLoanPeriodByLibrarian(ArrayList<String> data) throws SQLException, ParseException {
+		ArrayList<String> msg = new ArrayList<>();
+		msg.add("Get BookID");
+		msg.add(data.get(3));
+		msg.add(data.get(4));
+		msg = inventoryCheckExistence(msg);
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+		ArrayList<String> extendLoan = new ArrayList<String>();
+		extendLoan.add("Extend Loan Period By Member");
+		ArrayList<String> checkWanted = new ArrayList<String>();
+		checkWanted.add("Check Copy Wanted Status");
+		checkWanted.add(msg.get(1));
+		checkWanted = isCopyWanted(checkWanted);
+		if(checkWanted.size() == 1) {
+			extendLoan.add("Book doesn't exist!");
+			return extendLoan;
+		}
+		if(checkWanted.get(4).equals("true")) {
+			extendLoan.add("Copy labeled as \"Wanted\" hence can't be extend!");
+			return extendLoan;
+		}
+		ArrayList<String> checkDate = new ArrayList<String>();
+		checkDate.add("Check Copy Date");
+		checkDate.add(data.get(2));
+		checkDate = isCopyLoaned(checkDate);
+		if(checkDate.size() == 1) {
+			extendLoan.add("Copy isn't loan yet!");
+			return extendLoan;
+		}
+
+		String copyExpectedReturnDate = checkDate.get(2);
+		Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+		Date currentDate = inFormat.parse(currentTime); 
+		long diff = expectedReturnDate.getTime() - currentDate.getTime();
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+		if(diffDays >= 7) {
+			extendLoan.add("The copy expected return date is more than a week hence extension can't be made!");
+			return extendLoan;
+		}
+
+		if(checkDate.get(8).equals("true")) {
+			extendLoan.add("The copy is reserved hence extension can't be made!");
+			return extendLoan;
+		}
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(expectedReturnDate);
+		c.add(Calendar.DATE, 7);
+		String newExpectedReturnDate = inFormat.format(c.getTime());
+		
+		PreparedStatement ps = conn.prepareStatement("UPDATE loanbook SET ExpectedReturnDate = ? WHERE MemberID = ? AND CopyID = ? AND IsReturned = ?");
+		ps.setString(1, newExpectedReturnDate);
+		ps.setString(2, data.get(1));
+		ps.setString(3, data.get(2));
+		ps.setString(4, "false");
+		if(ps.executeUpdate() == 0) {
+			extendLoan.add("Couldn't update the new expected return date!");
+			return extendLoan;
+		}
+		
+		PreparedStatement ps1 = conn.prepareStatement("INSERT into manualextend values(?,?,?,?)");
+		ps1.setString(1, data.get(1));
+		ps1.setString(2, data.get(2));
+		ps1.setString(3, currentTime);
+		ps1.setString(4, data.get(5));
+		if(ps1.executeUpdate() == 0) {
+			extendLoan.add("Couldn't insert new row in manualextend!");
+			return extendLoan;
+		}
+
+		extendLoan.add(newExpectedReturnDate);
+		extendLoan.add("Success");
+		return extendLoan;
 	}
 
 	public ArrayList<String> getStatusHistory(ArrayList<String> msg) throws SQLException {

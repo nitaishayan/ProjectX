@@ -262,6 +262,32 @@ public class Client extends AbstractClient
 					clientUI.display(msg);
 				});
 				break;
+				
+			case "Extend Loan Period By Member"://show reader card details for read only - tableView
+				if(((ArrayList<String>)msg).size() != 3) {
+					Platform.runLater(() -> {
+						clientUI.showFailed(((ArrayList<String>)msg).get(1));
+					});
+				}
+				else {
+					Platform.runLater(() -> {
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
+					});
+				}
+				break;
+
+			case "Extend Loan Period By Librarian"://show reader card details for read only - tableView
+				if(((ArrayList<String>)msg).size() != 3) {
+					Platform.runLater(() -> {
+						clientUI.showFailed(((ArrayList<String>)msg).get(1));
+					});
+				}
+				else {
+					Platform.runLater(() -> {
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
+					});
+				}
+				break;
 
 			default:
 				break;

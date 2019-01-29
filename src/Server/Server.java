@@ -375,6 +375,22 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
+				
+			case "Extend Loan Period By Member":
+				try {
+					client.sendToClient(DBController.getInstance().extendLoanPeriodByMember((ArrayList<String>)msg));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+				
+			case "Extend Loan Period By Librarian":
+				try {
+					client.sendToClient(DBController.getInstance().extendLoanPeriodByLibrarian((ArrayList<String>)msg));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
 
 			default:
 				break;
