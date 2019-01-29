@@ -26,28 +26,28 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtMember_ID" layoutX="352.0" layoutY="131.0" onKeyPressed="#searchMember" prefHeight="31.0" prefWidth="223.0" promptText="Insert ID and press 'Enter'" />
+      <TextField fx:id="txtMember_ID" layoutX="352.0" layoutY="131.0" onKeyPressed="#searchMember" prefHeight="31.0" prefWidth="214.0" promptText="Insert ID and press 'Enter'" />
       <Label layoutX="209.0" layoutY="174.0" text="First name:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtFirst_Name" disable="true" layoutX="352.0" layoutY="173.0" prefHeight="31.0" prefWidth="223.0" />
-      <Label layoutX="623.0" layoutY="133.0" text="Status:">
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="352.0" layoutY="173.0" prefHeight="31.0" prefWidth="214.0" />
+      <Label layoutX="666.0" layoutY="133.0" text="Status:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <Label layoutX="623.0" layoutY="173.0" text="Last name:">
+      <Label layoutX="666.0" layoutY="173.0" text="Last name:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtLast_Name" disable="true" layoutX="728.0" layoutY="172.0" />
+      <TextField fx:id="txtLast_Name" disable="true" layoutX="771.0" layoutY="172.0" prefHeight="26.0" prefWidth="187.0" />
       <Label layoutX="211.0" layoutY="216.0" text="Phone number:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtPhone_Number" disable="true" layoutX="352.0" layoutY="215.0" prefHeight="31.0" prefWidth="223.0" />
-      <TextField fx:id="txtEmail" disable="true" layoutX="728.0" layoutY="214.0" />
-      <Label layoutX="627.0" layoutY="216.0" text="Email:">
+      <TextField fx:id="txtPhone_Number" disable="true" layoutX="352.0" layoutY="215.0" prefHeight="31.0" prefWidth="214.0" />
+      <TextField fx:id="txtEmail" disable="true" layoutX="771.0" layoutY="214.0" prefWidth="187.0" />
+      <Label layoutX="670.0" layoutY="216.0" text="Email:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
@@ -73,8 +73,8 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Button>
-      <ComboBox fx:id="cmbStatus" disable="true" layoutX="726.0" layoutY="132.0" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: white;" />
-      <Label layoutX="579.0" layoutY="136.0" text="*" textFill="RED">
+      <ComboBox fx:id="cmbStatus" disable="true" layoutX="769.0" layoutY="132.0" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: white;" />
+      <Label layoutX="190.0" layoutY="139.0" text="*" textFill="RED">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
@@ -82,5 +82,10 @@
          <font>
             <Font size="15.0" />
          </font></Button>
+      <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="573.0" layoutY="131.0" onMouseClicked="#mouseClick" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/magnifier%20icon.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

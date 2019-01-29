@@ -22,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.CommonController;
 import logic.Main;
@@ -100,6 +101,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		stage.setMaxWidth(806);
 		stage.show();
 	}
+    @FXML
+    void mouseClick(MouseEvent event) {
+		RegistrationController.searchMember(txtMember_ID.getText());
+    }
+    
 	@FXML
 	void searchMember(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
