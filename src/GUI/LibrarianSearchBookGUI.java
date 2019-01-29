@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -91,7 +92,36 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		}
 	}
 
-
+    @FXML
+    void searchBookEnter(KeyEvent event) {
+		String searchPick;
+		if (group.getSelectedToggle().equals(radio_btn_book_name))
+		{
+			searchPick = "Book Name";
+			SearchBookController.searchBook(searchPick,txtBook_Name.getText());
+		}
+		else if (group.getSelectedToggle().equals(radio_btn_authors_name))
+		{
+			searchPick = "Authors Name";
+			SearchBookController.searchBook(searchPick,txtAuthor_name.getText());
+		}
+		else if (group.getSelectedToggle().equals(radio_btn_book_theme))
+		{
+			searchPick = "Book Theme";
+			SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
+		}
+		else if (group.getSelectedToggle().equals(radio_btn_free_text))
+		{
+			searchPick = "Free text";
+			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
+		}
+		else if (group.getSelectedToggle().equals(radio_btn_copy_id))
+		{
+			searchPick = "Copy ID";
+			SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
+		}
+    }
+    
 	@FXML
 	void openAndCloseFields(ActionEvent event) 
 	{

@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import logic.CommonController;
@@ -67,6 +68,19 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	}
 
+    @FXML
+    void registerEnter(KeyEvent event) {
+		String ans = CommonController.checkRegistrationInput(txtPhone_number.getText(), txtEmail.getText(), txtID.getText(),txtPassword.getText());
+		if (checkfields())
+		{
+			showFailed("Fill all the dields");
+			return;
+		}
+		else if(!(ans.equals("Success")))
+					showFailed(ans);
+		else {	RegistrationController.registration(txtPhone_number.getText(),txtID.getText(),txtLast_name.getText(),txtFirst_name.getText(),txtEmail.getText(),txtPassword.getText());
+		}
+    }
 	/**
 	 * this method check if all the fields in the screen are full
 	 * @return true if yes, false else.
