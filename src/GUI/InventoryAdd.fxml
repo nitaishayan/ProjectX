@@ -31,14 +31,14 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtBook_Name" layoutX="305.0" layoutY="245.0" />
-      <TextField fx:id="txtAuthor" layoutX="707.0" layoutY="245.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtEdition" disable="true" layoutX="305.0" layoutY="293.0" />
+      <TextField fx:id="txtBook_Name" layoutX="305.0" layoutY="245.0" onKeyPressed="#name_author" prefHeight="26.0" prefWidth="158.0" />
+      <TextField fx:id="txtAuthor" layoutX="707.0" layoutY="245.0" onKeyPressed="#name_author" prefHeight="31.0" prefWidth="174.0" />
+      <TextField fx:id="txtEdition" disable="true" layoutX="305.0" layoutY="293.0" prefHeight="26.0" prefWidth="158.0" />
       <Label layoutX="133.0" layoutY="292.0" text="Edition:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtTheme" disable="true" layoutX="305.0" layoutY="339.0" />
+      <TextField fx:id="txtTheme" disable="true" layoutX="305.0" layoutY="339.0" prefHeight="26.0" prefWidth="158.0" />
       <Label layoutX="133.0" layoutY="338.0" text="Theme:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -51,7 +51,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="707.0" layoutY="339.0" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="707.0" layoutY="339.0" prefHeight="31.0" prefWidth="174.0" />
       <Label layoutX="548.0" layoutY="342.0" text="Catalog number:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -60,12 +60,12 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtCopies" disable="true" layoutX="305.0" layoutY="386.0" />
+      <TextField fx:id="txtCopies" disable="true" layoutX="305.0" layoutY="386.0" prefHeight="26.0" prefWidth="162.0" />
       <Label layoutX="548.0" layoutY="389.0" text="purchase date:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtShelf_Location" disable="true" layoutX="305.0" layoutY="435.0" />
+      <TextField fx:id="txtShelf_Location" disable="true" layoutX="305.0" layoutY="435.0" prefHeight="26.0" prefWidth="162.0" />
       <Label layoutX="133.0" layoutY="434.0" text="Shelf location:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -74,12 +74,12 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextArea fx:id="txtDescription" disable="true" layoutX="707.0" layoutY="434.0" prefHeight="81.0" prefWidth="218.0" />
+      <TextArea fx:id="txtDescription" disable="true" layoutX="707.0" layoutY="434.0" prefHeight="82.0" prefWidth="174.0" />
       <Button layoutX="780.0" layoutY="624.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button layoutX="462.0" layoutY="482.0" mnemonicParsing="false" onAction="#pdf" text="..." />
+      <Button layoutX="465.0" layoutY="483.0" mnemonicParsing="false" onAction="#pdf" prefHeight="31.0" prefWidth="24.0" text="..." />
       <Label layoutX="133.0" layoutY="482.0" text="Table of Contents:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -102,16 +102,49 @@
       <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="707.0" layoutY="293.0" />
       <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="320.0" layoutY="534.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
       <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="414.0" layoutY="534.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
-      <Label layoutX="106.0" layoutY="247.0" text="*" textFill="RED" />
-      <Label layoutX="106.0" layoutY="295.0" text="*" textFill="RED" />
-      <Label layoutX="106.0" layoutY="342.0" text="*" textFill="RED" />
-      <Label layoutX="106.0" layoutY="388.0" text="*" textFill="RED" />
-      <Label layoutX="106.0" layoutY="438.0" text="*" textFill="RED" />
-      <Label layoutX="106.0" layoutY="485.0" text="*" textFill="RED" />
-      <Label layoutX="106.0" layoutY="532.0" text="*" textFill="RED" />
-      <Label layoutX="529.0" layoutY="255.0" text="*" textFill="RED" />
-      <Label layoutX="529.0" layoutY="303.0" text="*" textFill="RED" />
-      <Label layoutX="529.0" layoutY="396.0" text="*" textFill="RED" />
-      <Label layoutX="529.0" layoutY="446.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="247.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="295.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="342.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="388.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="438.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="485.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="532.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="529.0" layoutY="255.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="529.0" layoutY="303.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="529.0" layoutY="396.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="529.0" layoutY="446.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
    </children>
 </AnchorPane>

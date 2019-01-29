@@ -20,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -98,6 +100,26 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	String wanted;
 	public static String nextBookID;
+	
+	@FXML
+    void name_author(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER){
+			if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
+				showFailed("fill the missing fields.");
+				txtBook_Name.setEditable(true);
+				txtAuthor.setEditable(true);
+			}
+			else{
+				ArrayList<String> msg=new ArrayList<>();
+				msg.add(txtBook_Name.getText());
+				msg.add(txtAuthor.getText());
+				InventoryController.checkExistence((ArrayList<String>) msg);
+				Enablefields(false);
+				btnCopy.setDisable(true);
+			}
+		}
+
+    }
 
 	@FXML
 	public void pdf(ActionEvent event) {
