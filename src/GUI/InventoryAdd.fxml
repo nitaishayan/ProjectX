@@ -6,66 +6,112 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-image: file:///C:/Users/lior/git/repository/obl-12/OBL/Imag/05-72.jpg;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
+<AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-image: file:///C:/Users/lior/git/repository/obl-12/OBL/Imag/05-72.jpg;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryAddGUI">
    <children>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Add" textAlignment="CENTER" underline="true" wrapText="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/Books%201_21.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="519.0" layoutY="91.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Add" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnAdd" disable="true" layoutX="449.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="124.0" text="Add">
+      <Button fx:id="btnAdd" disable="true" layoutX="499.0" layoutY="606.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="124.0" text="Add">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
-      <Label layoutX="83.0" layoutY="135.0" text="Book name:" />
-      <TextField fx:id="txtBook_Name" layoutX="207.0" layoutY="131.0" />
-      <TextField fx:id="txtAuthor" layoutX="575.0" layoutY="131.0" prefHeight="31.0" prefWidth="218.0" />
-      <TextField fx:id="txtEdition" disable="true" layoutX="207.0" layoutY="179.0" />
-      <Label layoutX="83.0" layoutY="183.0" text="Edition:" />
-      <TextField fx:id="txtTheme" disable="true" layoutX="207.0" layoutY="225.0" />
-      <Label layoutX="83.0" layoutY="229.0" text="Theme:" />
-      <Label layoutX="458.0" layoutY="136.0" text="Author:" />
-      <Label layoutX="458.0" layoutY="184.0" text="Print date:" />
-      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="575.0" layoutY="225.0" prefHeight="31.0" prefWidth="218.0" />
-      <Label layoutX="458.0" layoutY="230.0" text="Catalog number:" />
-      <Label layoutX="83.0" layoutY="276.0" text="Copies:" />
-      <TextField fx:id="txtCopies" disable="true" layoutX="207.0" layoutY="272.0" />
-      <Label layoutX="458.0" layoutY="277.0" text="purchase date:" />
-      <TextField fx:id="txtShelf_Location" disable="true" layoutX="207.0" layoutY="321.0" />
-      <Label layoutX="83.0" layoutY="325.0" text="Shelf location:" />
-      <Label layoutX="458.0" layoutY="326.0" text="Desciption:" />
-      <TextArea fx:id="txtDescription" disable="true" layoutX="575.0" layoutY="320.0" prefHeight="81.0" prefWidth="218.0" />
-      <Button layoutX="730.0" layoutY="515.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <Label layoutX="133.0" layoutY="244.0" text="Book name:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtBook_Name" layoutX="305.0" layoutY="245.0" />
+      <TextField fx:id="txtAuthor" layoutX="707.0" layoutY="245.0" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtEdition" disable="true" layoutX="305.0" layoutY="293.0" />
+      <Label layoutX="133.0" layoutY="292.0" text="Edition:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtTheme" disable="true" layoutX="305.0" layoutY="339.0" />
+      <Label layoutX="133.0" layoutY="338.0" text="Theme:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="548.0" layoutY="248.0" text="Author:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="548.0" layoutY="296.0" text="Print date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="707.0" layoutY="339.0" prefHeight="31.0" prefWidth="218.0" />
+      <Label layoutX="548.0" layoutY="342.0" text="Catalog number:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="133.0" layoutY="385.0" text="Copies:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtCopies" disable="true" layoutX="305.0" layoutY="386.0" />
+      <Label layoutX="548.0" layoutY="389.0" text="purchase date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtShelf_Location" disable="true" layoutX="305.0" layoutY="435.0" />
+      <Label layoutX="133.0" layoutY="434.0" text="Shelf location:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="548.0" layoutY="438.0" text="Desciption:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextArea fx:id="txtDescription" disable="true" layoutX="707.0" layoutY="434.0" prefHeight="81.0" prefWidth="218.0" />
+      <Button layoutX="780.0" layoutY="624.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" onAction="#pdf" text="..." />
-      <Label layoutX="83.0" layoutY="373.0" text="Table of Contents:" />
-      <TextField fx:id="txtTable_Of_Content" disable="true" layoutX="209.0" layoutY="368.0" prefHeight="31.0" prefWidth="158.0" />
-      <Label layoutX="83.0" layoutY="414.0" text="Wanted:" />
-      <Button layoutX="829.0" layoutY="126.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="137.0" text="Check exsitens" />
-      <Button fx:id="btnCopy" disable="true" layoutX="230.0" layoutY="497.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="150.0" text="Add Copy">
+      <Button layoutX="462.0" layoutY="482.0" mnemonicParsing="false" onAction="#pdf" text="..." />
+      <Label layoutX="133.0" layoutY="482.0" text="Table of Contents:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtTable_Of_Content" disable="true" layoutX="307.0" layoutY="482.0" prefHeight="31.0" prefWidth="158.0" />
+      <Label layoutX="133.0" layoutY="523.0" text="Wanted:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Button layoutX="960.0" layoutY="245.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="137.0" text="Check exsitens">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
+      <Button fx:id="btnCopy" disable="true" layoutX="280.0" layoutY="606.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="150.0" text="Add Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="575.0" layoutY="272.0" />
-      <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="575.0" layoutY="179.0" />
-      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="222.0" layoutY="420.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
-      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="316.0" layoutY="420.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
-      <Label layoutX="403.0" layoutY="135.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="183.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="230.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="276.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="326.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="373.0" text="*" textFill="RED" />
-      <Label layoutX="403.0" layoutY="420.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="135.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="183.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="276.0" text="*" textFill="RED" />
-      <Label layoutX="800.0" layoutY="326.0" text="*" textFill="RED" />
+      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="707.0" layoutY="386.0" />
+      <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="707.0" layoutY="293.0" />
+      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="320.0" layoutY="534.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
+      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="414.0" layoutY="534.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
+      <Label layoutX="106.0" layoutY="247.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="295.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="342.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="388.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="438.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="485.0" text="*" textFill="RED" />
+      <Label layoutX="106.0" layoutY="532.0" text="*" textFill="RED" />
+      <Label layoutX="529.0" layoutY="255.0" text="*" textFill="RED" />
+      <Label layoutX="529.0" layoutY="303.0" text="*" textFill="RED" />
+      <Label layoutX="529.0" layoutY="396.0" text="*" textFill="RED" />
+      <Label layoutX="529.0" layoutY="446.0" text="*" textFill="RED" />
    </children>
 </AnchorPane>
