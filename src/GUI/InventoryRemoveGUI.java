@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import logic.InventoryController;
 
@@ -90,6 +91,11 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 			InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
 		}
 	}
+	
+	@FXML
+    void copyIDMouse(MouseEvent event) {
+		InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
+    }
 
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
