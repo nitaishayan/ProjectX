@@ -8,58 +8,122 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryEditGUI">
    <children>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Inventory-Edit" textAlignment="CENTER" underline="true" wrapText="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/Books%201_21.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="471.0" layoutY="25.0" prefHeight="39.0" prefWidth="218.0" text="Inventory-Edit" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="btnSave" disable="true" layoutX="568.0" layoutY="601.0" mnemonicParsing="false" onAction="#Save" prefHeight="81.0" prefWidth="124.0" text="Save">
+      <Button fx:id="btnSave" disable="true" layoutX="386.0" layoutY="713.0" mnemonicParsing="false" onAction="#Save" prefHeight="81.0" prefWidth="124.0" text="Save">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="29.0" />
          </font></Button>
-      <Label layoutX="188.0" layoutY="205.0" text="Book name:" />
-      <TextField fx:id="txtBook_Name" disable="true" layoutX="346.0" layoutY="205.0" onKeyPressed="#EnterBook_Name" promptText="fill and click &quot;Enter&quot;" />
-      <TextField fx:id="txtEdition" disable="true" layoutX="774.0" layoutY="244.0" />
-      <Label layoutX="654.0" layoutY="249.0" text="Edition:" />
-      <TextField fx:id="txtTheme" disable="true" layoutX="346.0" layoutY="299.0" />
-      <Label layoutX="188.0" layoutY="292.0" text="Theme:" />
-      <TextField fx:id="txtAuthors" disable="true" layoutX="774.0" layoutY="200.0" onKeyPressed="#EnterBook_Name" />
-      <Label layoutX="657.0" layoutY="205.0" text="Author:" />
-      <Label layoutX="657.0" layoutY="308.0" text="Print date:" />
-      <Label layoutX="188.0" layoutY="346.0" text="Copies:" />
-      <TextField fx:id="txtCopies" disable="true" layoutX="346.0" layoutY="346.0" />
-      <Label layoutX="654.0" layoutY="348.0" text="purchase date:" />
-      <TextField fx:id="txtLocation" disable="true" layoutX="346.0" layoutY="395.0" />
-      <Label layoutX="188.0" layoutY="395.0" text="Shelf location:" />
-      <Label layoutX="654.0" layoutY="397.0" text="Desciption:" />
-      <TextArea fx:id="txtDescription" disable="true" layoutX="774.0" layoutY="385.0" prefHeight="63.0" prefWidth="187.0" />
-      <Button layoutX="876.0" layoutY="620.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <Label layoutX="179.0" layoutY="297.0" text="Book name:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="351.0" layoutY="302.0" onKeyPressed="#EnterBook_Name" promptText="fill and click &quot;Enter&quot;" />
+      <TextField fx:id="txtEdition" disable="true" layoutX="791.0" layoutY="345.0" prefHeight="31.0" prefWidth="218.0" />
+      <Label layoutX="642.0" layoutY="346.0" text="Edition:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtTheme" disable="true" layoutX="351.0" layoutY="396.0" />
+      <Label layoutX="179.0" layoutY="384.0" text="Theme:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtAuthors" disable="true" layoutX="791.0" layoutY="302.0" onKeyPressed="#EnterBook_Name" prefHeight="31.0" prefWidth="218.0" />
+      <Label layoutX="645.0" layoutY="302.0" text="Author:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="635.0" layoutY="396.0" text="Print date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="179.0" layoutY="438.0" text="Copies:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtCopies" disable="true" layoutX="351.0" layoutY="443.0" />
+      <Label layoutX="635.0" layoutY="443.0" text="purchase date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtLocation" disable="true" layoutX="351.0" layoutY="492.0" />
+      <Label layoutX="179.0" layoutY="487.0" text="Shelf location:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label layoutX="635.0" layoutY="493.0" text="Desciption:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextArea fx:id="txtDescription" disable="true" layoutX="791.0" layoutY="492.0" prefHeight="63.0" prefWidth="187.0" />
+      <Button layoutX="694.0" layoutY="732.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <TextField fx:id="txtPdf" disable="true" layoutX="343.0" layoutY="442.0" prefHeight="31.0" prefWidth="162.0" />
-      <Label layoutX="187.0" layoutY="442.0" text="Table of Contents:" />
-      <Button layoutX="506.0" layoutY="442.0" mnemonicParsing="false" text="..." />
-      <Label layoutX="188.0" layoutY="481.0" text="Wanted:" />
-      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="774.0" layoutY="343.0" />
-      <DatePicker fx:id="txtPrint_date" disable="true" layoutX="774.0" layoutY="303.0" />
-      <RadioButton fx:id="rdioBook_ID" layoutX="630.0" layoutY="127.0" mnemonicParsing="false" onAction="#book_ID" text="Book ID:">
+      <TextField fx:id="txtPdf" disable="true" layoutX="348.0" layoutY="539.0" prefHeight="31.0" prefWidth="162.0" />
+      <Label layoutX="178.0" layoutY="534.0" text="Table of Contents:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Button fx:id="btn_browse" disable="true" layoutX="511.0" layoutY="539.0" mnemonicParsing="false" text="..." />
+      <Label layoutX="179.0" layoutY="573.0" text="Wanted:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="794.0" layoutY="444.0" />
+      <DatePicker fx:id="txtPrint_date" disable="true" layoutX="791.0" layoutY="397.0" />
+      <RadioButton fx:id="rdioBook_ID" layoutX="618.0" layoutY="204.0" mnemonicParsing="false" onAction="#book_ID" text="Book ID:">
          <toggleGroup>
             <ToggleGroup fx:id="choice" />
          </toggleGroup>
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font>
       </RadioButton>
-      <RadioButton fx:id="rdioBook_Name" layoutX="162.0" layoutY="127.0" mnemonicParsing="false" onAction="#book_name" text="Book Name &amp; Author:" toggleGroup="$choice" />
-      <TextField fx:id="txtBook_ID" disable="true" layoutX="346.0" layoutY="244.0" onAction="#book_ID" onKeyPressed="#Enter_BookID" />
-      <Label layoutX="190.0" layoutY="249.0" text="Book ID:" />
-      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="348.0" layoutY="492.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
-      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="445.0" layoutY="492.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
-      <Label fx:id="BookName_must" layoutX="546.0" layoutY="210.0" text="*" textFill="RED" visible="false" />
-      <Label fx:id="Author_must" layoutX="975.0" layoutY="205.0" text="*" textFill="RED" visible="false" />
-      <Label fx:id="BookID_must" layoutX="546.0" layoutY="249.0" text="*" textFill="RED" visible="false" />
+      <RadioButton fx:id="rdioBook_Name" layoutX="148.0" layoutY="199.0" mnemonicParsing="false" onAction="#book_name" text="Book Name &amp; Author:" toggleGroup="$choice">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></RadioButton>
+      <TextField fx:id="txtBook_ID" disable="true" layoutX="351.0" layoutY="341.0" onAction="#book_ID" onKeyPressed="#Enter_BookID" />
+      <Label layoutX="181.0" layoutY="341.0" text="Book ID:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="353.0" layoutY="589.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="450.0" layoutY="589.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></CheckBox>
+      <Label fx:id="BookName_must" layoutX="158.0" layoutY="301.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label fx:id="Author_must" layoutX="627.0" layoutY="302.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label fx:id="BookID_must" layoutX="159.0" layoutY="346.0" text="*" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
    </children>
 </AnchorPane>

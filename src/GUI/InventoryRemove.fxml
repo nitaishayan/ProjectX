@@ -5,50 +5,102 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="MainPane" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InventoryRemoveGUI">
    <children>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="214.0" text="Inventory-Remove" textAlignment="CENTER" underline="true" wrapText="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/Books%201_21.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="483.0" layoutY="41.0" prefHeight="45.0" prefWidth="281.0" text="Inventory-Remove" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="btnRemove" disable="true" layoutX="239.0" layoutY="482.0" mnemonicParsing="false" onAction="#RemoveCopy" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
+      <Button fx:id="btnRemove" disable="true" layoutX="348.0" layoutY="709.0" mnemonicParsing="false" onAction="#RemoveCopy" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
-      <Label disable="true" layoutX="464.0" layoutY="135.0" text="Book name:" />
-      <TextField fx:id="txtBook_Name" disable="true" layoutX="581.0" layoutY="131.0" />
-      <TextField fx:id="txtEdition" disable="true" layoutX="207.0" layoutY="179.0" />
-      <Label disable="true" layoutX="83.0" layoutY="183.0" text="Edition:" />
-      <TextField fx:id="txtTheme" disable="true" layoutX="207.0" layoutY="225.0" />
-      <Label disable="true" layoutX="83.0" layoutY="229.0" text="Theme:" />
-      <TextField fx:id="txtAuthor" disable="true" layoutX="581.0" layoutY="178.0" />
-      <Label disable="true" layoutX="468.0" layoutY="183.0" text="Author:" />
-      <TextField fx:id="txtPrint_Date" disable="true" layoutX="581.0" layoutY="222.0" />
-      <Label disable="true" layoutX="464.0" layoutY="227.0" text="Print date:" />
-      <TextField fx:id="txtCatalog_Number" layoutX="208.0" layoutY="132.0" onKeyPressed="#PressEnter" promptText="Enter and click &quot;Enter&quot;" />
-      <Label layoutX="83.0" layoutY="138.0" text="Copy ID:" />
-      <Label disable="true" layoutX="83.0" layoutY="276.0" text="Copies:" />
-      <TextField fx:id="txtCopies" disable="true" layoutX="207.0" layoutY="272.0" />
-      <Label disable="true" layoutX="464.0" layoutY="275.0" text="purchase date:" />
-      <TextField fx:id="txtPurchase_Date" disable="true" layoutX="581.0" layoutY="270.0" />
-      <TextField fx:id="txtShelf_Location" disable="true" layoutX="207.0" layoutY="321.0" />
-      <Label disable="true" layoutX="83.0" layoutY="325.0" text="Shelf location:" />
-      <Label disable="true" layoutX="464.0" layoutY="324.0" text="Desciption:" />
-      <TextArea fx:id="txtDescription" disable="true" layoutX="581.0" layoutY="318.0" prefHeight="63.0" prefWidth="187.0" />
-      <Button layoutX="496.0" layoutY="447.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <Label disable="true" layoutX="591.0" layoutY="300.0" text="Book name:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="728.0" layoutY="295.0" />
+      <TextField fx:id="txtEdition" disable="true" layoutX="354.0" layoutY="344.0" />
+      <Label disable="true" layoutX="179.0" layoutY="347.0" text="Edition:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtTheme" disable="true" layoutX="354.0" layoutY="390.0" />
+      <Label disable="true" layoutX="179.0" layoutY="393.0" text="Theme:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtAuthor" disable="true" layoutX="728.0" layoutY="342.0" />
+      <Label disable="true" layoutX="595.0" layoutY="348.0" text="Author:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtPrint_Date" disable="true" layoutX="728.0" layoutY="386.0" />
+      <Label disable="true" layoutX="591.0" layoutY="392.0" text="Print date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtCatalog_Number" layoutX="355.0" layoutY="297.0" onKeyPressed="#PressEnter" promptText="Enter and click &quot;Enter&quot;" />
+      <Label layoutX="179.0" layoutY="302.0" text="Copy ID:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label disable="true" layoutX="179.0" layoutY="440.0" text="Copies:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtCopies" disable="true" layoutX="354.0" layoutY="437.0" />
+      <Label disable="true" layoutX="591.0" layoutY="440.0" text="purchase date:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField fx:id="txtPurchase_Date" disable="true" layoutX="728.0" layoutY="434.0" />
+      <TextField fx:id="txtShelf_Location" disable="true" layoutX="354.0" layoutY="486.0" />
+      <Label disable="true" layoutX="179.0" layoutY="489.0" text="Shelf location:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <Label disable="true" layoutX="591.0" layoutY="489.0" text="Desciption:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextArea fx:id="txtDescription" disable="true" layoutX="728.0" layoutY="482.0" prefHeight="63.0" prefWidth="187.0" />
+      <Button layoutX="737.0" layoutY="727.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button layoutX="364.0" layoutY="368.0" mnemonicParsing="false" text="..." />
-      <Label disable="true" layoutX="83.0" layoutY="373.0" text="Table of Contents:" />
-      <TextField disable="true" layoutX="205.0" layoutY="368.0" prefHeight="31.0" prefWidth="162.0" />
-      <Label disable="true" layoutX="83.0" layoutY="419.0" text="Wanted:" />
-      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="212.0" layoutY="419.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
-      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="309.0" layoutY="419.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
-      <Label fx:id="BookName_must" layoutX="409.0" layoutY="138.0" text="*" textFill="RED" />
+      <Button layoutX="511.0" layoutY="533.0" mnemonicParsing="false" text="..." />
+      <Label disable="true" layoutX="179.0" layoutY="537.0" text="Table of Contents:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <TextField disable="true" layoutX="352.0" layoutY="533.0" prefHeight="31.0" prefWidth="162.0" />
+      <Label disable="true" layoutX="179.0" layoutY="583.0" text="Wanted:">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></Label>
+      <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="367.0" layoutY="583.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="464.0" layoutY="583.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font></CheckBox>
+      <Label fx:id="BookName_must" layoutX="159.0" layoutY="306.0" text="*" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
    </children>
 </AnchorPane>
