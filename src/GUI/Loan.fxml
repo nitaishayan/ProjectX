@@ -23,7 +23,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <FlowPane layoutX="261.0" layoutY="214.0" prefHeight="239.0" prefWidth="747.0">
+      <FlowPane layoutX="246.0" layoutY="144.0" prefHeight="239.0" prefWidth="747.0">
          <children>
             <Label contentDisplay="CENTER" prefHeight="52.0" prefWidth="123.0" text="Member ID:" textAlignment="CENTER">
                <font>
@@ -124,12 +124,12 @@
             <Region prefHeight="52.0" prefWidth="343.0" />
          </children>
       </FlowPane>
-      <Button fx:id="buttonLoan" disable="true" layoutX="535.0" layoutY="518.0" mnemonicParsing="false" onAction="#clickLoanButton" prefHeight="81.0" prefWidth="162.0" text="Loan">
+      <Button fx:id="buttonLoan" disable="true" layoutX="527.0" layoutY="403.0" mnemonicParsing="false" onAction="#clickLoanButton" prefHeight="81.0" prefWidth="162.0" text="Loan">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Button>
-      <Label layoutX="242.0" layoutY="230.0" text="*" textFill="RED">
+      <Label layoutX="233.0" layoutY="125.0" text="*" textFill="RED">
          <padding>
             <Insets left="5.0" />
          </padding>

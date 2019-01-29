@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
@@ -42,8 +43,6 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtMember_ID;
 
-	@FXML
-	private TextField txtReturn_Date;
 
 	private String copyID;
 	private Member memb;
@@ -60,6 +59,15 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	  @FXML
+	    void copyMouse(MouseEvent event) {
+		  try {
+				BookHandlerController.isCopyExist(txtCopy_ID.getText());
+			} catch (Exception e) {
+				showFailed(e.getMessage());
+			}
+	    }
+	  
 	@FXML
 	void clickReturnButton(ActionEvent event) {
 		if(txtCopy_ID.getText().equals(copyID)) {
@@ -115,7 +123,6 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 			}
 			else {
 				txtBook_Name.setText(msg.get(2));
-				txtReturn_Date.setText(msg.get(5));
 				BookHandlerController.isCopyLoaned(txtCopy_ID.getText());
 			}
 			break;
@@ -125,7 +132,6 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 				showFailed("Book return was unsuccessful!");
 			}
 			else {
-				txtReturn_Date.setText(msg.get(1));
 				if(oldStatus.equals(memb.getStatus())) {
 					showSuccess("Copy of the book " + txtBook_Name.getText() + " returned successfully");
 				}
@@ -202,7 +208,6 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		txtMember_Status.clear();
 		txtFirst_Name.clear();
 		txtLast_name.clear();
-		txtReturn_Date.clear();
 		txtBook_Name.clear();
 		btnReturn.setDisable(true);		
 	}

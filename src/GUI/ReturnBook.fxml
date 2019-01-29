@@ -15,54 +15,54 @@
             <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="465.0" layoutY="84.0" prefHeight="51.0" prefWidth="238.0" text="Return book" underline="true" AnchorPane.leftAnchor="465.0">
+      <Label layoutX="547.0" layoutY="27.0" prefHeight="51.0" prefWidth="188.0" text="Return book" underline="true" AnchorPane.leftAnchor="547.0">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="223.0" layoutY="330.0" text="Book name:">
+      <Label layoutX="225.0" layoutY="236.0" text="Book name:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtBook_Name" disable="true" layoutX="344.0" layoutY="325.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="670.0" layoutY="326.0" text="Member Status:">
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="346.0" layoutY="231.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="672.0" layoutY="232.0" text="Member Status:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtFirst_Name" disable="true" layoutX="842.0" layoutY="369.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="223.0" layoutY="287.0" text="Copy ID:">
+      <TextField fx:id="txtFirst_Name" disable="true" layoutX="844.0" layoutY="275.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="225.0" layoutY="193.0" text="Copy ID:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtCopy_ID" layoutX="344.0" layoutY="282.0" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="225.0" promptText="Insert Copy ID and click &quot;Enter&quot;" />
-      <Label layoutX="670.0" layoutY="371.0" text="First name:">
+      <TextField fx:id="txtCopy_ID" layoutX="346.0" layoutY="188.0" onKeyPressed="#copyKeyPressed" prefHeight="31.0" prefWidth="225.0" promptText="Insert Copy ID and click &quot;Enter&quot;" />
+      <Label layoutX="672.0" layoutY="277.0" text="First name:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtMember_Status" disable="true" layoutX="842.0" layoutY="324.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="670.0" layoutY="418.0" text="Last name:">
+      <TextField fx:id="txtMember_Status" disable="true" layoutX="844.0" layoutY="230.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="672.0" layoutY="324.0" text="Last name:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="842.0" layoutY="416.0" prefHeight="31.0" prefWidth="225.0" />
-      <Button fx:id="btnReturn" disable="true" layoutX="530.0" layoutY="587.0" mnemonicParsing="false" onAction="#clickReturnButton" text="Return">
+      <TextField fx:id="txtLast_name" disable="true" editable="false" layoutX="844.0" layoutY="322.0" prefHeight="31.0" prefWidth="225.0" />
+      <Button fx:id="btnReturn" disable="true" layoutX="532.0" layoutY="403.0" mnemonicParsing="false" onAction="#clickReturnButton" text="Return">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Label layoutX="670.0" layoutY="282.0" text="Member ID:">
+      <Label layoutX="672.0" layoutY="188.0" text="Member ID:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtMember_ID" disable="true" layoutX="844.0" layoutY="280.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="223.0" layoutY="375.0" text="Retun date:">
-         <font>
-            <Font name="System Bold Italic" size="19.0" />
-         </font></Label>
-      <TextField fx:id="txtReturn_Date" disable="true" layoutX="344.0" layoutY="370.0" prefHeight="31.0" prefWidth="225.0" />
-      <Label layoutX="577.0" layoutY="287.0" text="*" textFill="RED">
+      <TextField fx:id="txtMember_ID" disable="true" layoutX="846.0" layoutY="186.0" prefHeight="31.0" prefWidth="225.0" />
+      <Label layoutX="209.0" layoutY="196.0" text="*" textFill="RED">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
+      <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="577.0" layoutY="188.0" onMouseClicked="#copyMouse" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/magnifier%20icon.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
