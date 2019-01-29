@@ -23,7 +23,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <FlowPane layoutX="261.0" layoutY="214.0" prefHeight="239.0" prefWidth="780.0">
+      <FlowPane layoutX="261.0" layoutY="214.0" prefHeight="239.0" prefWidth="747.0">
          <children>
             <Label contentDisplay="CENTER" prefHeight="52.0" prefWidth="123.0" text="Member ID:" textAlignment="CENTER">
                <font>
