@@ -17,7 +17,7 @@
             <Image url="@../Image/1_Cbj_BcK5ePD4Mc4TK4sfvQ.jpeg" />
          </image>
       </ImageView>
-      <Pane fx:id="pane" layoutX="526.0" layoutY="187.0" prefHeight="418.0" prefWidth="327.0" style="-fx-background-color: white; -fx-border-color: black;">
+      <Pane fx:id="pane" layoutX="526.0" layoutY="187.0" onKeyPressed="#loginEnter" prefHeight="418.0" prefWidth="327.0" style="-fx-background-color: white; -fx-border-color: black;">
          <children>
             <Button fx:id="btnLogin" layoutX="98.0" layoutY="136.0" mnemonicParsing="false" onAction="#login" prefHeight="60.0" prefWidth="125.0" text="Login">
                <font>
