@@ -98,7 +98,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		ArrayList<String>memberData=(ArrayList<String>) obj;
 		member=new Common.Member(memberData.get(1), memberData.get(2), memberData.get(3), memberData.get(4), memberData.get(5), memberData.get(6), memberData.get(7), memberData.get(8), memberData.get(9), memberData.get(10), memberData.get(11), memberData.get(12));
 		setCardMember(memberData);
-		setEditableMember();
+//		setEditableMember();
 	}
 
 	@Override

@@ -25,6 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
@@ -100,6 +102,34 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			searchPick = "Free text";
 			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 		}
+	}
+
+	@FXML
+	void enterPress(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER){
+			String searchPick;
+			if (choice.getSelectedToggle().equals(radio_btn_book_name))
+			{
+				searchPick = "Book Name";
+				SearchBookController.searchBook(searchPick,txtBook_Name.getText());
+			}
+			else if (choice.getSelectedToggle().equals(radio_btn_authors_name))
+			{
+				searchPick = "Authors Name";
+				SearchBookController.searchBook(searchPick,txtAuthor_Name.getText());
+			}
+			else if (choice.getSelectedToggle().equals(radio_btn_book_theme))
+			{
+				searchPick = "Book Theme";
+				SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
+			}
+			else if (choice.getSelectedToggle().equals(radio_btn_free_text))
+			{
+				searchPick = "Free text";
+				SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
+			}
+		}
+
 	}
 
 	@FXML

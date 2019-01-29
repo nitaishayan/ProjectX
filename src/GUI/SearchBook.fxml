@@ -7,67 +7,92 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SearchBookGUI">
+<AnchorPane onKeyPressed="#enterPress" prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SearchBookGUI">
    <children>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="309.0" layoutY="29.0" prefHeight="40.0" prefWidth="187.0" text="Search menu:" textAlignment="CENTER" underline="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/boo.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="523.0" layoutY="46.0" prefHeight="56.0" prefWidth="206.0" text="Search menu" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <VBox layoutX="42.0" layoutY="101.0" prefHeight="266.0" prefWidth="721.0">
+      <VBox layoutX="256.0" layoutY="214.0" prefHeight="266.0" prefWidth="770.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <RadioButton fx:id="radio_btn_book_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book name">
+                  <RadioButton fx:id="radio_btn_book_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book name:">
                      <toggleGroup>
                         <ToggleGroup fx:id="choice" />
                      </toggleGroup>
+                     <font>
+                        <Font name="System Bold Italic" size="19.0" />
+                     </font>
                   </RadioButton>
-                  <TextField fx:id="txtBook_Name" disable="true">
+                  <TextField fx:id="txtBook_Name" disable="true" prefHeight="31.0" prefWidth="179.0">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets left="25.0" />
                      </HBox.margin>
                   </TextField>
                   <RadioButton fx:id="radio_btn_authors_name" mnemonicParsing="false" onAction="#openAndCloseFields" text="Author's name:" toggleGroup="$choice">
                      <padding>
                         <Insets left="20.0" />
                      </padding>
-                  </RadioButton>
-                  <TextField fx:id="txtAuthor_Name" disable="true">
+                     <font>
+                        <Font name="System Bold Italic" size="19.0" />
+                     </font>
                      <HBox.margin>
-                        <Insets left="25.0" />
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <TextField fx:id="txtAuthor_Name" disable="true" prefHeight="31.0" prefWidth="188.0">
+                     <HBox.margin>
+                        <Insets left="15.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
-                  <RadioButton fx:id="radio_btn_book_theme" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book theme:" toggleGroup="$choice" />
-                  <TextField fx:id="txtBook_Theme" disable="true">
+                  <RadioButton fx:id="radio_btn_book_theme" mnemonicParsing="false" onAction="#openAndCloseFields" text="Book theme:" toggleGroup="$choice">
+                     <font>
+                        <Font name="System Bold Italic" size="19.0" />
+                     </font></RadioButton>
+                  <TextField fx:id="txtBook_Theme" disable="true" prefHeight="31.0" prefWidth="178.0">
                      <HBox.margin>
-                        <Insets left="25.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
                   <RadioButton fx:id="radio_btn_free_text" mnemonicParsing="false" onAction="#openAndCloseFields" text="Free text:" toggleGroup="$choice">
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </RadioButton>
                   <TextField fx:id="txtFree_Text" disable="true">
                      <HBox.margin>
-                        <Insets left="55.0" />
+                        <Insets left="70.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button fx:id="btnSearch" alignment="CENTER" layoutX="157.0" layoutY="358.0" mnemonicParsing="false" onAction="#onSearchClick" prefHeight="99.0" prefWidth="206.0" text="Search">
+      <Button fx:id="btnSearch" alignment="CENTER" layoutX="377.0" layoutY="452.0" mnemonicParsing="false" onAction="#onSearchClick" prefHeight="99.0" prefWidth="206.0" text="Search">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -75,7 +100,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button fx:id="btnBack" alignment="CENTER" layoutX="436.0" layoutY="366.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="84.0" prefWidth="149.0" text="Back">
+      <Button fx:id="btnBack" alignment="CENTER" layoutX="707.0" layoutY="460.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="84.0" prefWidth="149.0" text="Back">
          <font>
             <Font size="28.0" />
          </font>

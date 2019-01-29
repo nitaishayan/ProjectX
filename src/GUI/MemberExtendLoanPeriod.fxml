@@ -3,23 +3,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="653.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberExtendLoanPeriodGUI">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberExtendLoanPeriodGUI">
    <children>
-      <Label fx:id="titelLabel" layoutX="239.0" layoutY="47.0" prefHeight="27.0" prefWidth="176.0" text="Books in loan period">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/boo.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="titelLabel" layoutX="512.0" layoutY="42.0" prefHeight="45.0" prefWidth="209.0" text="Books on loan" underline="true">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="table" layoutX="9.0" layoutY="122.0" prefHeight="200.0" prefWidth="637.0">
+      <TableView fx:id="table" layoutX="279.0" layoutY="245.0" prefHeight="461.0" prefWidth="674.0">
         <columns>
             <TableColumn fx:id="CopyIDCol" prefWidth="101.0" text="Copy ID" />
             <TableColumn fx:id="bookNameCol" prefWidth="96.0" text="Book Name" />
-          <TableColumn fx:id="authorNameCol" prefWidth="91.0" text="Authors Name" />
-            <TableColumn fx:id="startLoanDateCol" prefWidth="100.0" text="Start Loan Date" />
-          <TableColumn fx:id="endLoanDateCol" prefWidth="110.0" text="End LoanDate" />
+          <TableColumn fx:id="authorNameCol" prefWidth="121.0" text="Authors Name" />
+            <TableColumn fx:id="startLoanDateCol" prefWidth="187.0" text="Start Loan Date" />
+          <TableColumn fx:id="endLoanDateCol" prefWidth="168.0" text="End LoanDate" />
         </columns>
       </TableView>
    </children>
