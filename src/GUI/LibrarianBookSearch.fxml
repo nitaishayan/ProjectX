@@ -14,19 +14,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianSearchBookGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LibrarianSearchBookGUI">
    <children>
-      <ImageView fitHeight="928.0" fitWidth="1232.0" layoutX="-9.0" opacity="0.8" pickOnBounds="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
          <image>
             <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="417.0" layoutY="41.0" prefHeight="47.0" prefWidth="258.0" text="Librarian search" textAlignment="CENTER" underline="true">
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="487.0" layoutY="38.0" prefHeight="47.0" prefWidth="258.0" text="Librarian search" textAlignment="CENTER" underline="true">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <VBox layoutX="112.0" layoutY="131.0" prefHeight="284.0" prefWidth="786.0">
+      <VBox layoutX="223.0" layoutY="197.0" prefHeight="284.0" prefWidth="786.0">
          <children>
             <HBox fx:id="HBOX1" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="678.0">
                <children>
@@ -110,7 +110,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button alignment="CENTER" layoutX="443.0" layoutY="464.0" mnemonicParsing="false" onAction="#SearchBook" prefHeight="99.0" prefWidth="206.0" text="Search">
+      <Button alignment="CENTER" layoutX="554.0" layoutY="530.0" mnemonicParsing="false" onAction="#SearchBook" prefHeight="99.0" prefWidth="206.0" text="Search">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
