@@ -21,9 +21,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.converter.LocalDateStringConverter;
 import logic.CommonController;
@@ -94,6 +96,12 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
     @FXML
     private Label Author_must;
+    
+    @FXML
+    private ImageView AuthorButton;
+
+    @FXML
+    private ImageView IDButton;
 	
 	String wanted;
 
@@ -122,6 +130,8 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(true);
 		BookName_must.setVisible(false);
 		Author_must.setVisible(false);
+		AuthorButton.setVisible(false);
+		IDButton.setVisible(true);
 	}
 
 	@FXML
@@ -132,7 +142,36 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(false);
 		BookName_must.setVisible(true);
 		Author_must.setVisible(true);
+		IDButton.setVisible(false);
+		AuthorButton.setVisible(true);
+
 	}
+	
+	 @FXML
+	    void bookIdMouse(MouseEvent event) {
+		 if (txtBook_ID.getText().isEmpty()) {
+				showFailed("fill book ID.");
+			}
+			else {
+				ArrayList<String> msg=new ArrayList<>();
+				msg.add(txtBook_ID.getText());
+				InventoryController.checkExistence((ArrayList<String>) msg);
+			}
+	    }
+
+	    @FXML
+	    void bookNameMouse(MouseEvent event) {
+	    	if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
+				showFailed("fill book.");
+			}
+			else {
+				ArrayList<String> msg=new ArrayList<>();
+				msg.add(txtBook_Name.getText());
+				msg.add(txtAuthors.getText());
+				InventoryController.checkExistence((ArrayList<String>) msg);
+			}
+	    }
+
 
 	@FXML
 	void EnterBook_Name(KeyEvent event) {
@@ -294,6 +333,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		BookID_must.setVisible(false);
 		BookName_must.setVisible(false);
 		Author_must.setVisible(false);
+		AuthorButton.setVisible(false);
+		IDButton.setVisible(false);
+
 	}
 
 	@Override
