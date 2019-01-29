@@ -25,13 +25,15 @@ public class CommonController {
 		Main.client.handleMessageFromClientUI(checkMemberExistence);
 	}
 
-	public static void changeMemberStatus(String memberID, String status) {
+	public static void changeMemberStatus(String memberID, String oldStatus, String newStatus) {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Change Member Status");
 		memberData.add(memberID);
-		memberData.add(status);
+		memberData.add(oldStatus);
+		memberData.add(newStatus);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
+	
 	public static void checkManager(String ID) {
 		ArrayList<String> librarianData = new ArrayList<>();
 		librarianData.add("CheckLibrarianManager");
@@ -165,5 +167,11 @@ public class CommonController {
 		memberData.add(memberID);
 		System.out.println("getStatusHistory-now in common controller");
 		Main.client.handleMessageFromClientUI(memberData);
+	}
+	
+	public static void ShowEmployeeRecords () {
+		ArrayList<String> EmployeeList = new ArrayList<>();
+		EmployeeList.add("EmployeeRecords");
+		Main.client.handleMessageFromClientUI(EmployeeList);
 	}
 }

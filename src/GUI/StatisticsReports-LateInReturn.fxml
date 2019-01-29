@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PaneLateInReturn" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.StatisticsReportsGUI_LateInReturn">
+   <children>
+      <Label layoutX="333.0" layoutY="82.0" text="Statistic Reports - Late On Return">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="82.0" layoutY="220.0" text="Average:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_Average" layoutX="326.0" layoutY="228.0" prefHeight="20.0" prefWidth="105.0" />
+      <Label layoutX="82.0" layoutY="270.0" text="Median:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_Median" layoutX="326.0" layoutY="282.0" prefHeight="20.0" prefWidth="92.0" />
+      <Label layoutX="82.0" layoutY="325.0" text="Decimal Distribution:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewLates" layoutX="472.0" layoutY="464.0" prefHeight="337.0" prefWidth="428.0">
+        <columns>
+          <TableColumn fx:id="bookIDCol" prefWidth="75.0" text="Book ID" />
+          <TableColumn fx:id="bookNameCol" prefWidth="75.0" text="Book Name" />
+            <TableColumn fx:id="authorsNameCol" prefWidth="75.0" text="Author's Name" />
+            <TableColumn fx:id="editionNoCol" prefWidth="75.0" text="Edition No." />
+            <TableColumn fx:id="isWantedCol" prefWidth="75.0" text="Is Wanted" />
+        </columns>
+      </TableView>
+      <Button fx:id="btn_Total" layoutX="60.0" layoutY="464.0" mnemonicParsing="false" onAction="#ReturnToTotal" prefHeight="53.0" prefWidth="210.0" text="Press For Total Books">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <GridPane fx:id="gridPane" layoutX="82.0" layoutY="373.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <Button fx:id="btn_backScreen" layoutX="304.0" layoutY="464.0" mnemonicParsing="false" onAction="#backScreen" prefHeight="53.0" prefWidth="98.0" text="Back">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

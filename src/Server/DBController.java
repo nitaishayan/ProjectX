@@ -856,16 +856,26 @@ public class DBController {
 
 
 	public static ArrayList<String> changeMemberStatus(ArrayList<String> data) throws SQLException {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(dt);
 		ArrayList<String> changeStatus = new ArrayList<>();
 		changeStatus.add("Change Member Status");
+		PreparedStatement UpdateStatus = conn.prepareStatement("INSERT memberstatus values(?,?,?,?)");
+		UpdateStatus.setString(1, data.get(1));//memberID
+		UpdateStatus.setString(2, data.get(2));//prev status
+		UpdateStatus.setString(3, data.get(3));//current status
+		UpdateStatus.setString(4,currentTime);
+		UpdateStatus.executeUpdate();
 		PreparedStatement ps = conn.prepareStatement("UPDATE members SET Status = ? WHERE MemberID = ?");
-		ps.setString(1, data.get(2));
+		ps.setString(1, data.get(3));
 		ps.setString(2, data.get(1));
 		if(ps.executeUpdate() != 0) {
-			changeStatus.add(data.get(2));
+			changeStatus.add(data.get(3));
 		}
 		return changeStatus;
 	}
+	
 	public static ArrayList<String> CheckLibrarianManager(ArrayList<String> msg) throws SQLException {
 		ArrayList<String> CheckLibrarianManager = new ArrayList<String>();
 		CheckLibrarianManager.add("CheckLibrarianManager");
@@ -1105,25 +1115,51 @@ public class DBController {
 		return listMember;
 	}
 
-	//	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
-	//		ResultSet rs;
-	//		PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduated = ? WHERE MemberID = ?");
-	//		ps.setString(1, "true");
-	//		ps.setString(2, data.get(?)); // ? == memberID
-	//		if(ps.executeUpdate() == 0) {
-	//			//error
-	//		}
-	//		
-	//		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
-	//		ps1.setString(1, x); // x == memberID
-	//		ps1.setString(2, y); // y == First Name
-	//		ps1.setString(3, z); // z == Last Name
-	//		if(ps1.executeUpdate() == 0) {
-	//			//error
-	//		}
-	//		return null;
-	//	}
-//lior
+	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
+		ArrayList<String> changeMemberToGraduated = new ArrayList<String>();
+		if(data.get(12).equals("true")) {
+			changeMemberToGraduated.add("Member already graduated!");
+			return changeMemberToGraduated;
+		}
+		
+		if(data.get(11) == null) {
+			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ?, Status = ? WHERE MemberID = ?");
+			ps.setString(1, "true");
+			ps.setString(2, "Locked");
+			ps.setString(3, data.get(1)); // ? == memberID
+			if(ps.executeUpdate() == 0) {
+				changeMemberToGraduated.add("Couldn't update memeber status!");
+				return changeMemberToGraduated;
+			}
+			changeMemberToGraduated.add("Locked");
+		}
+		else {
+			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ?, Status = ? WHERE MemberID = ?");
+			ps.setString(1, "true");
+			ps.setString(2, "Frozen");
+			ps.setString(3, data.get(1)); // ? == memberID
+			if(ps.executeUpdate() == 0) {
+				changeMemberToGraduated.add("Couldn't update memeber status!");
+				return changeMemberToGraduated;
+			}
+			changeMemberToGraduated.add("Frozen");
+		}
+
+
+		PreparedStatement ps1 = conn.prepareStatement("INSERT into graduatedstudent values(?,?,?)");
+		ps1.setString(1, data.get(1)); // x == memberID
+		ps1.setString(2, data.get(5)); // y == First Name
+		ps1.setString(3, data.get(6)); // z == Last Name
+		if(ps1.executeUpdate() == 0) {
+			changeMemberToGraduated.add("Couldn't insert memeber to graduated table!");
+			return changeMemberToGraduated;
+		}
+		
+		changeMemberToGraduated.add("Succsess!");
+		changeMemberToGraduated.add("Succsess!");
+		return changeMemberToGraduated;
+	}
+	
 	public ArrayList<String> getCurrentLoans(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan,searchAuthorName;
 		ResultSet rsLoan,rsAuthorName;
@@ -1344,6 +1380,205 @@ public class DBController {
 			return dataDetails;
 		}
 	}
+	
+	public ArrayList<String> EmployeeRecords () throws SQLException{
+		ArrayList<String> listLibrarians = new ArrayList<String>();
+		PreparedStatement stmt = conn.prepareStatement("SELECT LibrarianID,FirstName,LastName,Email,IsManager FROM librarian");
+		ResultSet rs = stmt.executeQuery();
+		listLibrarians.add("EmployeeRecords");
+		while(rs.next()) {
+			listLibrarians.add(rs.getString(1));//librarian ID
+			listLibrarians.add(rs.getString(2));//first name
+			listLibrarians.add(rs.getString(3));//last name
+			listLibrarians.add(rs.getString(4));//email
+			listLibrarians.add(rs.getString(5));//is manager
+		}
+		return listLibrarians;
+	}
+	
+	//data for statistics - late in return
+		public ArrayList<String> StatisticsShowBooks (String option,String bookID) throws SQLException, ParseException{
+			
+			ArrayList<String> listBooks = new ArrayList<String>();
+			listBooks.add("StatisticsBooks");
+			listBooks.add(option);
+			
+			System.out.println(listBooks.toString()+" inside DB Controller");
+			
+			switch (option) {
+				case "Total":
+					
+					listBooks.add("labels");
+					
+					//Add SUM, COUNT and MAX of days and hours late in return
+					double sumOfDays=0,maxOfDays=0;
+					int counter=0;
+					PreparedStatement as = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate");
+					ResultSet a = as.executeQuery();
+					Date dt1 = new java.util.Date();
+					SimpleDateFormat inFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String currentTime1 = inFormat1.format(dt1);
+					
+					while(a.next()) {
+						String copyActualReturnDate1 = a.getString(1);
+						String copyExpectedReturnDate1 = a.getString(2);
+
+						Date expectedReturnDate1 = inFormat1.parse(copyExpectedReturnDate1); 
+						Date actualReturnDate1 = inFormat1.parse(copyActualReturnDate1); 
+						
+						long diff1 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
+						long diffDays1 = diff1 / (24 * 60 * 60 * 1000);
+						
+						double diff11 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
+						double diffHours1 = (diff11 / (60 * 60 * 1000) % 24)*0.01;
+						
+						//SUM
+						sumOfDays += (diffDays1+diffHours1);
+						//COUNT
+						counter++;
+						//MAX
+						if ((diffDays1+diffHours1)>maxOfDays) {
+							maxOfDays = (diffDays1+diffHours1);
+						}
+					}
+					listBooks.add(String.valueOf(sumOfDays));
+					listBooks.add(String.valueOf(counter));
+					listBooks.add(String.valueOf(maxOfDays));
+					
+					//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
+					PreparedStatement st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
+					ResultSet r = st.executeQuery();
+					
+					Date dt = new java.util.Date();
+					SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String currentTime = inFormat.format(dt);
+					
+					while(r.next()) {
+						String copyActualReturnDate = r.getString(1);
+						String copyExpectedReturnDate = r.getString(2);
+
+						Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+						Date actualReturnDate = inFormat.parse(copyActualReturnDate); 
+						
+						long diff = actualReturnDate.getTime() - expectedReturnDate.getTime();
+						long diffDays = diff / (24 * 60 * 60 * 1000);
+						
+						double diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+						double diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+						
+						listBooks.add(String.valueOf(diffDays+diffHours));//All delayed copies in ascending order
+					}
+					
+					break;
+				case "Specific Book":
+					
+					listBooks.add("labels");
+					
+//					PreparedStatement stmtB1 = conn.prepareStatement("SELECT SUM(DaysLateInReturn), COUNT(MemberID), MAX(DaysLateInReturn) FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND  CopyID LIKE'"+bookID+"%'");
+//					ResultSet rsB1 = stmtB1.executeQuery();
+//					while(rsB1.next()) {
+//						System.out.println(rsB1.getString(1)+" "+rsB1.getString(2)+" "+rsB1.getString(3));
+//							listBooks.add(rsB1.getString(1));//SUM of DaysLateInReturn - Total
+//							listBooks.add(rsB1.getString(2));//COUNT of books delayed on return
+//							listBooks.add(rsB1.getString(3));//MAX of books delayed on return
+//							System.out.println(listBooks.toString()+" inside listBooks DB SUM COUNT MAX");
+//					}
+					
+					//Add SUM, COUNT and MAX of days and hours late in return
+					double sumOfDaysS=0,maxOfDaysS=0;
+					int counterS=0;
+					PreparedStatement asS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
+					ResultSet aS = asS.executeQuery();
+					Date dt1S = new java.util.Date();
+					SimpleDateFormat inFormat1S = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String currentTime1S = inFormat1S.format(dt1S);
+					
+					while(aS.next()) {
+						String copyActualReturnDate1S = aS.getString(1);
+						String copyExpectedReturnDate1S = aS.getString(2);
+
+						Date expectedReturnDate1S = inFormat1S.parse(copyExpectedReturnDate1S); 
+						Date actualReturnDate1S = inFormat1S.parse(copyActualReturnDate1S); 
+						
+						long diff1S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
+						long diffDays1S = diff1S / (24 * 60 * 60 * 1000);
+						
+						double diff11S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
+						double diffHours1S = (diff11S / (60 * 60 * 1000) % 24)*0.01;
+						
+						//SUM
+						sumOfDaysS += (diffDays1S+diffHours1S);
+						//COUNT
+						counterS++;
+						//MAX
+						if ((diffDays1S+diffHours1S)>maxOfDaysS) {
+							maxOfDaysS = (diffDays1S+diffHours1S);
+						}
+					}
+					listBooks.add(String.valueOf(sumOfDaysS));
+					listBooks.add(String.valueOf(counterS));
+					listBooks.add(String.valueOf(maxOfDaysS));
+					
+					
+//					PreparedStatement stmtB2 = conn.prepareStatement("SELECT DaysLateInReturn FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND CopyID LIKE'"+bookID+"%' ORDER BY DaysLateInReturn ASC");
+//					ResultSet rsB2 = stmtB2.executeQuery();
+//					while(rsB2.next()) {
+//							listBooks.add(rsB2.getString(1));//All delayed copies in ascending order
+//					}
+					//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
+					PreparedStatement stSS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND CopyID LIKE'"+bookID+"%' ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
+					ResultSet rSS = stSS.executeQuery();
+					
+					Date dtSS = new java.util.Date();
+					SimpleDateFormat inFormatSS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String currentTimeSS = inFormatSS.format(dtSS);
+					
+					while(rSS.next()) {
+						String copyActualReturnDateSS = rSS.getString(1);
+						String copyExpectedReturnDateSS = rSS.getString(2);
+
+						Date expectedReturnDateSS = inFormatSS.parse(copyExpectedReturnDateSS); 
+						Date actualReturnDateSS = inFormatSS.parse(copyActualReturnDateSS); 
+						
+						long diffSS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
+						long diffDaysSS = diffSS / (24 * 60 * 60 * 1000);
+						
+						double diff2SS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
+						double diffHoursSS = (diff2SS / (60 * 60 * 1000) % 24)*0.01;
+						
+						listBooks.add(String.valueOf(diffDaysSS+diffHoursSS));//All delayed copies in ascending order
+					}
+					
+					break;
+					
+					
+				default:
+					break;
+				}
+			
+			return listBooks;
+		}
+		
+		//get BOOKS from DB to show in tableView - for statistics-lateInReturn
+		public ArrayList<String> showTableViewBooks () throws SQLException{
+		
+		ArrayList<String> listBooks2 = new ArrayList<String>();
+		listBooks2.add("showTableView");
+		listBooks2.add(" ");
+		listBooks2.add("tableView");
+		
+		PreparedStatement stmtB3 = conn.prepareStatement("SELECT BookID,BookName,Wanted,AuthorsName,EditionNumber FROM book");
+		ResultSet rsB3 = stmtB3.executeQuery();
+
+		while(rsB3.next()) {
+			listBooks2.add(rsB3.getString(1));//Book ID
+			listBooks2.add(rsB3.getString(2));//Book Name
+			listBooks2.add(rsB3.getString(3));//Wanted
+			listBooks2.add(rsB3.getString(4));//Authors Name
+			listBooks2.add(rsB3.getString(5));//Edition Number
+			}
+		return listBooks2;
+		}
 
 	private static Connection connectToDatabase() {
 		try 

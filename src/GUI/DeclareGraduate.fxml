@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="GUI.DeclareGraduateGUI">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DeclareGraduateGUI">
    <children>
       <Pane prefHeight="550.0" prefWidth="758.0">
          <children>
@@ -18,8 +17,8 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_MemberID" layoutX="132.0" layoutY="94.0" />
-            <Button layoutX="320.0" layoutY="94.0" mnemonicParsing="false" onAction="#commitButtonPressed" text="Commit" />
+            <TextField fx:id="txt_MemberID" layoutX="132.0" layoutY="94.0" onKeyPressed="#enterKeyPressed" />
+            <Button layoutX="289.0" layoutY="94.0" mnemonicParsing="false" onAction="#commitButtonPressed" text="Commit" />
          </children>
       </Pane>
    </children>
