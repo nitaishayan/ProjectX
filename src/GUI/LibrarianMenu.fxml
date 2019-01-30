@@ -57,17 +57,17 @@
                   </Button>
                </children>
             </VBox>
-            <Label layoutX="90.0" layoutY="128.0" text="Menu" underline="true">
+            <Label layoutX="90.0" layoutY="63.0" text="Menu" underline="true">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
-            <Button fx:id="btnLog_out" layoutX="185.0" layoutY="16.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
+            <Button fx:id="btnLog_out" layoutX="176.0" layoutY="149.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
             <Label fx:id="lblUser_name" layoutX="81.0" layoutY="21.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="113.0" layoutY="70.0" onMouseClicked="#InboxMouseClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="40.0" layoutY="140.0" onMouseClicked="#InboxMouseClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Image/Inbox.jpg" />
                </image>

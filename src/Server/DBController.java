@@ -175,8 +175,10 @@ public class DBController {
 	}
 
 
-	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
+	public static ArrayList<String> RemoveCopy(ArrayList<String> data) throws SQLException{
 		String bookID,copyid,memberid;
+		ArrayList<String> reStrings=new ArrayList<>();
+		reStrings.add("RemoveCopy");
 		int answer=0;
 		copyid=data.get(1);
 		
@@ -184,7 +186,8 @@ public class DBController {
 		checkloan.setString(1, copyid);
 		ResultSet rs1=checkloan.executeQuery();
 		if (rs1.next()) {
-			return -1;
+			reStrings.add("-1");
+			return reStrings;
 		}
 		
 		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
@@ -193,8 +196,10 @@ public class DBController {
 		if(rs.next()) {
 			bookID=rs.getString(1);
 		}
-		else return 0;
-
+		else {
+			reStrings.add("0");
+			return reStrings;
+		}
 		PreparedStatement reserved = conn.prepareStatement("SELECT IsActive,MemberID FROM reservations WHERE CopyID=? AND IsActive='true'");
 		reserved.setString(1, copyid);
 		ResultSet rs2 = reserved.executeQuery();
@@ -215,7 +220,9 @@ public class DBController {
 				res=2;
 			}
 		}
-		return res;
+		reStrings.add(bookID);
+		reStrings.add(String.valueOf(res));
+		return reStrings;
 	}
 
 	public static ArrayList<String> checkExistenceByCopy(ArrayList<String> msg) throws SQLException {
@@ -860,6 +867,7 @@ public class DBController {
 	}
 
 
+
 	public static ArrayList<String> changeMemberStatus(ArrayList<String> data) throws SQLException {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -983,7 +991,10 @@ public class DBController {
 		ps.setString(8,"false");
 		ps.setString(9, data.get(5));
 		ps.setString(10, data.get(6));
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 		if(ps.executeUpdate() == 0) {
 			return loanBook;
 		}

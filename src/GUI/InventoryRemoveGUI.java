@@ -20,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import logic.BookHandlerController;
 import logic.InventoryController;
 
 public class InventoryRemoveGUI implements Initializable, GuiInterface {
@@ -71,11 +72,15 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextField txtPdf;
-	
+
 	@FXML
-    private Button btn_lostbook;
+	private Button btn_lostbook;
 
 	String wanted;
+
+	@FXML
+	void lostBook(ActionEvent event) {
+	}
 
 	@FXML
 	void WANTED_YES(ActionEvent event) {

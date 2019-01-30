@@ -165,7 +165,9 @@ public class Client extends AbstractClient
 				clientUI.display(arrayObject);
 				break;
 			case "Return Book":
+				Platform.runLater(()->{
 				clientUI.display(arrayObject);
+				});
 				break;
 			case "Registration":
 				System.out.println(msg);
