@@ -416,6 +416,14 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
+				
+				case "InBoxMessage":
+				try {
+					client.sendToClient(DBController.getInstance().getInBoxMessage(arrayObject));
+				} catch (SQLException | IOException e) {
+					e.printStackTrace();
+				}
+				break;
 
 			default:
 				break;

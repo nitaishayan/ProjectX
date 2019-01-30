@@ -102,11 +102,13 @@ public class StatisticReportsController {
 		else {//if un-pair
 			if (AmountDaysLate == 1) {
 				index = 0;
+				medianRes = DelayedBooksDays.get(index);
 			}
 			else {
 			index = (AmountDaysLate-1)/2;
-			}
 			medianRes = DelayedBooksDays.get(index+1);
+			}
+			
 		}
 		
 		return String.valueOf(medianRes);

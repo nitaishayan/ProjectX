@@ -174,4 +174,11 @@ public class CommonController {
 		EmployeeList.add("EmployeeRecords");
 		Main.client.handleMessageFromClientUI(EmployeeList);
 	}
+
+	public static void getMessage(String memberID) {
+		ArrayList<String> messageList = new ArrayList<>();
+		messageList.add("InBoxMessage");
+		messageList.add(memberID);
+		Main.client.handleMessageFromClientUI(messageList);
+	}
 }

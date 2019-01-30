@@ -311,6 +311,12 @@ public class Client extends AbstractClient
 					clientUI.display(msg);
 				});
 				break;
+				
+			case "InBoxMessage":
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
 
 			default:
 				break;

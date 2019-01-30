@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.Main;
 import logic.RegistrationController;
@@ -30,46 +31,55 @@ import logic.RegistrationController;
 public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
-    private SplitPane mainSplitPane;
+	private SplitPane mainSplitPane;
 
-    @FXML
-    private AnchorPane leftPane;
+	@FXML
+	private AnchorPane leftPane;
 
-    @FXML
-    private Button btnRegistration;
+	@FXML
+	private Button btnRegistration;
 
-    @FXML
-    private Button btnSearchReader;
+	@FXML
+	private Button btnSearchReader;
 
-    @FXML
-    private Button btnSearchBook;
+	@FXML
+	private Button btnSearchBook;
 
-    @FXML
-    private Button btn_LoanBook;
+	@FXML
+	private Button btn_LoanBook;
 
-    @FXML
-    private Button btnReturnBook;
+	@FXML
+	private Button btnReturnBook;
 
-    @FXML
-    private Button btnInventory;
+	@FXML
+	private Button btnInventory;
 
-    @FXML
-    private Button btnShow_Report;
+	@FXML
+	private Button btnShow_Report;
 
-    @FXML
-    private Button btnLog_out;
+	@FXML
+	private Button btnLog_out;
 
-    @FXML
-    private Label lblUser_name;
+	@FXML
+	private Label lblUser_name;
 
-    @FXML
-    private AnchorPane rightPane;
-    	
-    @FXML
-    void InboxMouseClick(MouseEvent event) {
+	@FXML
+	private AnchorPane rightPane;
 
-    }
-    
+	@FXML
+	void InboxMouseClick(MouseEvent event) throws IOException {
+		Stage primaryStage = new Stage();
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader();
+		AnchorPane root = loader.load(getClass().getResource("/GUI/InBox.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.setMinWidth(635);
+		primaryStage.setMaxWidth(635);
+		primaryStage.setMaxHeight(433);
+		primaryStage.setMinHeight(433);
+		primaryStage.showAndWait();
+	}
 
 	public void init() throws IOException {
 		Main.client.clientUI=this;
@@ -131,12 +141,12 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Loan.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
-	
+
 	@FXML
-    void extendLoanScreen(ActionEvent event) throws IOException {
+	void extendLoanScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianExtend.fxml"));
 		rightPane.getChildren().setAll(pane);
-    }
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {	
@@ -151,7 +161,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
