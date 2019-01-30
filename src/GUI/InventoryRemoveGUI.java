@@ -59,30 +59,33 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextArea txtDescription;
-	
+
 	@FXML
 	private CheckBox CHBOX_YES;
 
 	@FXML
 	private CheckBox CHBOX_NO;
-	
+
 	@FXML
-    private Button btn_browse;
+	private Button btn_browse;
+
+	@FXML
+	private TextField txtPdf;
 
 	String wanted;
 
 	@FXML
 	void WANTED_YES(ActionEvent event) {
-			CHBOX_NO.setSelected(false);
-			wanted="true";
+		CHBOX_NO.setSelected(false);
+		wanted="true";
 	}
-	
+
 	@FXML
 	void WANTED_NO(ActionEvent event) {
-			CHBOX_YES.setSelected(false);
-			wanted="false";
+		CHBOX_YES.setSelected(false);
+		wanted="false";
 	}
-	
+
 	@FXML
 	void RemoveCopy(ActionEvent event) {
 		InventoryController.RemoveCopy(txtCatalog_Number.getText());
@@ -94,11 +97,11 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 			InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
 		}
 	}
-	
+
 	@FXML
-    void copyIDMouse(MouseEvent event) {
+	void copyIDMouse(MouseEvent event) {
 		InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
-    }
+	}
 
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
@@ -124,6 +127,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Client.clientUI=this;
+		txtPdf.setEditable(false);
 
 	}
 

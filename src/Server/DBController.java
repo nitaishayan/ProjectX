@@ -177,6 +177,14 @@ public class DBController {
 		String bookID,copyid,memberid;
 		int answer=0;
 		copyid=data.get(1);
+		
+		PreparedStatement checkloan = conn.prepareStatement("SELECT * FROM loanbook WHERE CopyID=? AND IsReturned='false'");
+		checkloan.setString(1, copyid);
+		ResultSet rs1=checkloan.executeQuery();
+		if (rs1.next()) {
+			return -1;
+		}
+		
 		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
 		getbookid.setString(1, copyid);
 		ResultSet rs = getbookid.executeQuery();
@@ -761,9 +769,7 @@ public class DBController {
 		rs1 = ps1.executeQuery();
 		while(rs1.next()) {
 			bookID =rs1.getString(1);
-			System.out.println("1111111111111111111"+ bookID);
 			shelfLocation =rs1.getString(2);
-			System.out.println("1111111111111111111" + shelfLocation);
 		}
 		PreparedStatement ps2 = conn.prepareStatement("SELECT BookID FROM copies WHERE BookID = ? AND IsLoaned = ?");
 		ps2.setString(1, bookID);
@@ -786,9 +792,6 @@ public class DBController {
 				returnDate = rs3.getString(1);
 				memberID = rs3.getString(2);
 				copyID = rs3.getString(3);
-				System.out.println("2222222222222222222" + returnDate);
-				System.out.println("2222222222222222222" + memberID);
-				System.out.println("2222222222222222222" + copyID);
 			}
 			msg.add("0");
 			msg.add(returnDate);
@@ -797,7 +800,6 @@ public class DBController {
 			msg.add(copyID);
 		}
 		else {
-			System.out.println("7777777777");
 			msg.add("1");
 			msg.add(shelfLocation);
 		}
@@ -1030,7 +1032,7 @@ public class DBController {
 	}
 
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
-		int copies,answer,reserveamount;
+		int copies,answer,reserveamount=0;
 		String bookID=bookdata.get(1),currentTime;
 		String copyID = null;
 		System.out.println(bookID);
