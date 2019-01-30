@@ -171,11 +171,11 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
 		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		mainVbox.setMinHeight(390);
-		mainVbox.setMinWidth(550);
+		mainVbox.setMinWidth(580);
 		mainVbox.setMaxHeight(390);
-		mainVbox.setMaxWidth(550);
-		detailes.setText("Press LOST COPY to declere the Book: "+bookname+" Copy id: "+copyid+" as lost.");
-		detailes.setFont(new Font("Ariel", 22));
+		mainVbox.setMaxWidth(580);
+		detailes.setText("Press 'LOST COPY' to declare the copy as lost.\n"+"Book name: "+bookname+" \nCopy id: "+copyid);
+		detailes.setFont(new Font("Ariel", 18));
 		mainVbox.getChildren().add(detailes);
 		mainVbox.setAlignment(Pos.CENTER);
 		mainVbox.getChildren().add(LostCopy);
