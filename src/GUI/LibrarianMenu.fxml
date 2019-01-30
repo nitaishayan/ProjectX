@@ -67,7 +67,7 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <ImageView fitHeight="47.0" fitWidth="52.0" layoutX="112.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="47.0" fitWidth="52.0" layoutX="112.0" layoutY="74.0" onMouseClicked="#InboxMouseClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Image/Inbox.jpg" />
                </image>
