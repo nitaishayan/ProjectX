@@ -21,8 +21,7 @@ public class ServerMain extends Application implements GuiInterface {
 
 	final public static int DEFAULT_PORT = 5555;
 	public static String host;
-//	public static Client client;
-//	public static Stage primary;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		int port = 0; //Port to listen on
@@ -37,26 +36,11 @@ public class ServerMain extends Application implements GuiInterface {
 		} catch (Exception ex) {
 			showFailed("ERROR - Could not listen for clients!");
 		}
-		
-		//		try {
-//			Main.host = getParameters().getRaw().get(0);
-//		}
-//		catch(Exception e) {
-//			Main.host = "localhost";
-//		}
-//		client=new Client(host,DEFAULT_PORT,this);
-		
  		Parent root = FXMLLoader.load(getClass().getResource("/GUI/DeclareGraduate.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("OBL System Server");
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
-//		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//	          public void handle(WindowEvent we) {
-//	              System.out.println("Stage is closing");
-//	          }
-//		});
-//		primary=primaryStage;
 		primaryStage.show();	
 	}
 
