@@ -71,6 +71,9 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
 	private TextField txtPdf;
+	
+	@FXML
+    private Button btn_lostbook;
 
 	String wanted;
 
@@ -122,6 +125,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.CHBOX_NO.setDisable(choice);
 		this.CHBOX_YES.setDisable(choice);
 		this.btnRemove.setDisable(choice);
+		this.btn_lostbook.setDisable(choice);
 	}
 
 	@Override
@@ -152,6 +156,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		btnRemove.setDisable(false);
 		txtCatalog_Number.setEditable(false);
 		btn_browse.setDisable(false);
+		btn_lostbook.setDisable(false);
 	}
 
 	@Override
@@ -187,6 +192,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtShelf_Location.clear();
 		btnRemove.setDisable(true);
 		btn_browse.setDisable(true);
+		btn_lostbook.setDisable(true);
 	}
 }
 
