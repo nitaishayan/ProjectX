@@ -119,6 +119,10 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 						public void handle(MouseEvent event) {
 							if (TableViewLoanHistory.getSelectionModel().getSelectedItem()==null)
 								return;
+							if (!TableViewLoanHistory.getSelectionModel().getSelectedItem().getActualReturnDate().equals("The book is borrowed")) {
+								showFailed("The book is not loaned at the moment.");
+								return;
+							}
 							displayLoanDetails(memberID,TableViewLoanHistory.getSelectionModel().getSelectedItem().getCopyID(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getBookName());						}
 					});
 				});
@@ -154,13 +158,12 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		Label 		 ans  			= new Label();
 		Label		 detailes		= new Label();
 		Scene 		 scene 			= new Scene(mainVbox);
-		Button		 LostCopy = new Button("Lost Copy");
+		Button		 LostCopy = new Button("LOST COPY");
 		HBox 		 hbox2			= new HBox(20);
 
 		LostCopy.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("liorrrrrrrrrrrrrrrr"+status);
 				BookHandlerController.returnBook(copyid, status);
 				BookHandlerController.memberLostBook(memberID, copyid, bookname);
 			}
@@ -171,12 +174,12 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		mainVbox.setMinWidth(550);
 		mainVbox.setMaxHeight(390);
 		mainVbox.setMaxWidth(550);
-		detailes.setText("Detailes result");
+		detailes.setText("Press LOST COPY to declere the Book: "+bookname+" Copy id: "+copyid+" as lost.");
 		detailes.setFont(new Font("Ariel", 22));
 		mainVbox.getChildren().add(detailes);
 		mainVbox.setAlignment(Pos.CENTER);
 		mainVbox.getChildren().add(LostCopy);
-		primaryStage.setTitle("Detailes result");
+		primaryStage.setTitle("Lost book");
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.showAndWait();
