@@ -37,19 +37,22 @@
                   </Button>
                </children>
             </VBox>
-            <Label layoutX="90.0" layoutY="128.0" text="Menu" underline="true">
+            <Label layoutX="90.0" layoutY="58.0" text="Menu" underline="true">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
-            <Button layoutX="185.0" layoutY="6.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
-            <Label fx:id="lblUser_name" layoutX="81.0" layoutY="11.0" text="Label" />
+            <Button layoutX="173.0" layoutY="139.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
+            <Label fx:id="lblUser_name" layoutX="71.0" layoutY="11.0" text="Label">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <ImageView fx:id="asd" fitHeight="54.0" fitWidth="54.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Image/user-2517433_960_720.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="113.0" layoutY="63.0" onMouseClicked="#InboxMouse" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="46.0" layoutY="129.0" onMouseClicked="#InboxMouse" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Image/Inbox.jpg" />
                </image>
