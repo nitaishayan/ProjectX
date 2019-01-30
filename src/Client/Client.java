@@ -36,7 +36,6 @@ public class Client extends AbstractClient
 {
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
-	File pdf;
 
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
@@ -72,7 +71,7 @@ public class Client extends AbstractClient
 		}
 		else {
 			ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
-			switch ((((ArrayList<String>) msg).get(0))) {
+			switch (arrayObject.get(0)) {
 			case "AddBook":
 				Platform.runLater(()->{
 					if (arrayObject.get(arrayObject.size()-1).equals("1")) {
@@ -91,12 +90,13 @@ public class Client extends AbstractClient
 					if (arrayObject.get(arrayObject.size()-1).equals("1"))
 						clientUI.showSuccess("Copy Remove successfully");
 					if (arrayObject.get(arrayObject.size()-1).equals("2")) {
+						System.out.println("delete"+arrayObject);
 						clientUI.showSuccess("book Remove from librariy successfully");
-						//pdf=("/Client/")
-//						if(pdf.delete())
-//							System.out.println("File deleted successfully"); 
-//						else
-//				            System.out.println("Failed to delete the file"); 
+						File pdf=new File("./PDF/"+arrayObject.get(1)+".pdf");
+						if(pdf.delete())
+							System.out.println("File deleted successfully"); 
+						else
+				            System.out.println("Failed to delete the file"); 
 					}
 					if (!arrayObject.get(arrayObject.size()-1).equals("2")&&!arrayObject.get(arrayObject.size()-1).equals("1")) {
 						clientUI.showFailed("remove failed.");
@@ -148,7 +148,7 @@ public class Client extends AbstractClient
 						clientUI.showFailed("No matches results to your search");
 					});
 				}
-				else if (((ArrayList<String>) msg).get(3).equals("1"))
+				else if (arrayObject.get(3).equals("1"))
 				{
 					Platform.runLater(() -> {
 						clientUI.display(msg);
@@ -156,20 +156,20 @@ public class Client extends AbstractClient
 				}
 				break;
 			case "Check Member Existence":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "Check Copy Loan Status":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "Check Copy ID Existence":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "Return Book":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "Registration":
 				System.out.println(msg);
-				if(((ArrayList<String>)msg).get(7).equals("0"))
+				if(arrayObject.get(7).equals("0"))
 				{
 					Platform.runLater(() -> {
 						clientUI.showFailed("Some user have this ID or this phone number");
@@ -183,9 +183,9 @@ public class Client extends AbstractClient
 				}
 				break;
 			case "AddCopy":
-				if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("success")) {
+				if (arrayObject.get(arrayObject.size()-1).equals("success")) {
 					Platform.runLater(()->{
-						clientUI.showSuccess("Copy Added successfuly.   copy id is: "+((ArrayList<String>) msg).get(arrayObject.size()-2).toString());
+						clientUI.showSuccess("Copy Added successfuly.   copy id is: "+arrayObject.get(arrayObject.size()-2).toString());
 					});
 				}else
 					Platform.runLater(()->{
@@ -195,7 +195,7 @@ public class Client extends AbstractClient
 				break;
 			case "checkExistenceByCopy":
 				Platform.runLater(()->{
-					if (((ArrayList<String>) msg).get(arrayObject.size()-1).equals("1"))
+					if (arrayObject.get(arrayObject.size()-1).equals("1"))
 						clientUI.display(msg);
 					else 
 						clientUI.showFailed("copy not exist.");
@@ -203,14 +203,14 @@ public class Client extends AbstractClient
 				break;
 
 			case "Check If Member Is Late On Return":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 
 			case "Change Member Status":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "CheckLibrarianManager":
-				clientUI.display((ArrayList<String>)msg);			
+				clientUI.display(arrayObject);			
 				break;
 			case "Edit":
 				if (arrayObject.get(arrayObject.size()-1).equals("1")) {
@@ -231,10 +231,10 @@ public class Client extends AbstractClient
 				});
 				break;
 			case "Check Copy Wanted Status":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "Loan Book":
-				clientUI.display((ArrayList<String>)msg);
+				clientUI.display(arrayObject);
 				break;
 			case "Reserve":
 				Platform.runLater(()->{
@@ -274,7 +274,7 @@ public class Client extends AbstractClient
 			case "Extend Loan Period By Member"://show reader card details for read only - tableView
 				if(((ArrayList<String>)msg).size() != 3) {
 					Platform.runLater(() -> {
-						clientUI.showFailed(((ArrayList<String>)msg).get(1));
+						clientUI.showFailed(arrayObject.get(1));
 					});
 				}
 				else {
@@ -285,8 +285,8 @@ public class Client extends AbstractClient
 				break;
 
 			case "Extend Loan Period By Librarian"://show reader card details for read only - tableView
-				if(((ArrayList<String>)msg).size() != 3) {
-					clientUI.showFailed(((ArrayList<String>)msg).get(1));
+				if(arrayObject.size() != 3) {
+					clientUI.showFailed(arrayObject.get(1));
 				}
 				else {
 					clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
@@ -307,6 +307,12 @@ public class Client extends AbstractClient
 				
 				
 			case "showTableView"://show book details - tableView
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+				
+			case "InBoxMessage":
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});

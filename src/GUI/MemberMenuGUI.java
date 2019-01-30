@@ -16,8 +16,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.Main;
 import logic.RegistrationController;
@@ -38,6 +40,21 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 
 	@FXML
 	private AnchorPane rightPane;
+	
+	@FXML
+    void InboxMouse(MouseEvent event) throws IOException {
+		Stage primaryStage = new Stage();
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader();
+		AnchorPane root = loader.load(getClass().getResource("/GUI/InBox.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.setMinWidth(844);
+		primaryStage.setMaxWidth(844);
+		primaryStage.setMaxHeight(640);
+		primaryStage.setMinHeight(640);
+		primaryStage.showAndWait();
+    }
 
 	public void Display() throws IOException {
 		System.out.println("1");

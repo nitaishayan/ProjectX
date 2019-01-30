@@ -11,7 +11,7 @@
 
 <SplitPane fx:id="mainSplitPane" dividerPositions="0.18550531914893617" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="928.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberMenuGUI">
   <items>
-      <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="233.0">
+      <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="233.0" style="-fx-background-color: white;">
          <children>
             <VBox layoutY="228.0" prefHeight="725.0" prefWidth="275.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
                <children>
@@ -44,9 +44,14 @@
             </Label>
             <Button layoutX="185.0" layoutY="6.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
             <Label fx:id="lblUser_name" layoutX="81.0" layoutY="11.0" text="Label" />
-            <ImageView fx:id="asd" fitHeight="62.0" fitWidth="63.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="asd" fitHeight="54.0" fitWidth="54.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="file:/C:/Users/lior/Pictures/user-2517433_960_720.png" />
+                  <Image url="@../Image/user-2517433_960_720.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="113.0" layoutY="63.0" onMouseClicked="#InboxMouse" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/Inbox.jpg" />
                </image>
             </ImageView>
          </children>

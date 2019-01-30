@@ -22,7 +22,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="btnRemove" disable="true" layoutX="348.0" layoutY="709.0" mnemonicParsing="false" onAction="#RemoveCopy" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
+      <Button fx:id="btnRemove" disable="true" layoutX="267.0" layoutY="709.0" mnemonicParsing="false" onAction="#RemoveCopy" prefHeight="81.0" prefWidth="201.0" text="Remove Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
@@ -76,7 +76,7 @@
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
       <TextArea fx:id="txtDescription" disable="true" layoutX="746.0" layoutY="483.0" prefHeight="63.0" prefWidth="187.0" />
-      <Button layoutX="737.0" layoutY="727.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <Button layoutX="905.0" layoutY="727.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
@@ -107,5 +107,10 @@
             <Image url="@../Image/magnifier%20icon.jpg" />
          </image>
       </ImageView>
+      <Button fx:id="btn_lostbook" disable="true" layoutX="656.0" layoutY="709.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="201.0" text="Lost Book">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

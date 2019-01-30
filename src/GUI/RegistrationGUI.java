@@ -1,5 +1,4 @@
 package GUI;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import Common.GuiInterface;
@@ -84,6 +83,7 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 			}
 		}
 	}
+	
 	/**
 	 * this method check if all the fields in the screen are full
 	 * @return true if yes, false else.
