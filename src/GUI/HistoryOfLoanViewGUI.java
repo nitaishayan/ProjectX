@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Set;
-
 import Client.Client;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -115,8 +114,11 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
 				Platform.runLater(() -> {	
 					TableViewLoanHistory.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						
 						@Override
 						public void handle(MouseEvent event) {
+							if (TableViewLoanHistory.getSelectionModel().getSelectedItem()==null)
+								return;
 							displayLoanDetails(memberID,TableViewLoanHistory.getSelectionModel().getSelectedItem().getCopyID(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getBookName());						}
 					});
 				});
@@ -158,7 +160,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		LostCopy.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("event kore");
+				System.out.println("liorrrrrrrrrrrrrrrr"+status);
 				BookHandlerController.returnBook(copyid, status);
 				BookHandlerController.memberLostBook(memberID, copyid, bookname);
 			}

@@ -111,7 +111,6 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		memberIDHistory=txtMember_ID.getText();
 		memberFirstName=txtFirst_Name.getText();
 		memberLastName=txtLast_Name.getText();
-		status=cmbStatus.getValue().toString();
 		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/MemberStatusHistory.fxml"));
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
@@ -170,6 +169,8 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		memberIDHistory=txtMember_ID.getText();
 		memberFirstName=txtFirst_Name.getText();
 		memberLastName=txtLast_Name.getText();
+		status=cmbStatus.getValue().toString();
+		System.out.println("combobox "+status);
 		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
