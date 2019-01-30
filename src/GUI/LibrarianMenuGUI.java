@@ -74,10 +74,10 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		AnchorPane root = loader.load(getClass().getResource("/GUI/InBox.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setMinWidth(635);
-		primaryStage.setMaxWidth(635);
-		primaryStage.setMaxHeight(433);
-		primaryStage.setMinHeight(433);
+		primaryStage.setMinWidth(844);
+		primaryStage.setMaxWidth(844);
+		primaryStage.setMaxHeight(640);
+		primaryStage.setMinHeight(640);
 		primaryStage.showAndWait();
 	}
 
