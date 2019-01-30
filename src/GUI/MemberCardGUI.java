@@ -38,6 +38,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	public static String memberIDHistory=null;
 	public static String memberFirstName=null;
 	public static String memberLastName=null;
+	public static String status=null;
 	String isManager;
 	ObservableList<String> list;
 	boolean update=false;
@@ -110,6 +111,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		memberIDHistory=txtMember_ID.getText();
 		memberFirstName=txtFirst_Name.getText();
 		memberLastName=txtLast_Name.getText();
+		status=cmbStatus.getValue().toString();
 		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/MemberStatusHistory.fxml"));
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();

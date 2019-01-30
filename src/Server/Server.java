@@ -13,6 +13,9 @@ import java.io.IOException;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import Common.InventoryBook;
 import Common.MyFile;
 import ocsf.server.*;
@@ -96,9 +99,7 @@ public class Server extends AbstractServer
 
 			case "RemoveCopy":
 				try {
-					int menu=DBController.getInstance().RemoveCopy((ArrayList<String>) msg);
-					((ArrayList<String>) msg).add(Integer.toString(menu));
-					client.sendToClient((ArrayList<String>)msg);
+					client.sendToClient(DBController.getInstance().RemoveCopy(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -429,17 +430,18 @@ public class Server extends AbstractServer
 				break;
 			case "MemberLostBook":
 				try {
-					DBController.getInstance().memberLostBook((ArrayList<String>) msg);
+					DBController.getInstance().memberLostBook(arrayObject);
 					} catch (Exception e){
 					e.printStackTrace();
 				}
 				try {
-					int menu=DBController.getInstance().RemoveCopy((ArrayList<String>) msg);
-					((ArrayList<String>) msg).add(Integer.toString(menu));
-					client.sendToClient((ArrayList<String>)msg);
-					} catch (Exception e){
+					ArrayList<String> data=new ArrayList<>();
+					data.add("");
+					data.add(arrayObject.get(2));
+					client.sendToClient(DBController.getInstance().RemoveCopy(data));
+				} catch (Exception e) {
 					e.printStackTrace();
-				}	
+				}
 			default:
 				break;
 			}
