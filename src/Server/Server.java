@@ -13,6 +13,9 @@ import java.io.IOException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import Common.InventoryBook;
 import Common.MyFile;
 import ocsf.server.*;
@@ -529,6 +532,38 @@ public class Server extends AbstractServer
 		("Server has stopped listening for connections.");
 	}
 
+	
+	public void runServerApplications() {
+		DBController dbController = DBController.getInstance();
+		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+
+		executor.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					dbController.handleLateLoans();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0, 24, TimeUnit.HOURS);
+		
+		executor.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					dbController.handleLateLoans();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0, 24, TimeUnit.HOURS);
+		
+	}
+	
+	
 	//Class methods ***************************************************
 
 	/**

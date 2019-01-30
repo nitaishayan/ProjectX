@@ -33,6 +33,7 @@ public class ServerMain extends Application implements GuiInterface {
 		Server sv = new Server(port);
 		try {
 			sv.listen(); //Start listening for connections
+			sv.runServerApplications();
 		} catch (Exception ex) {
 			showFailed("ERROR - Could not listen for clients!");
 		}
