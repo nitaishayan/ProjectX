@@ -97,9 +97,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Main.primary.hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml").openStream());
+		SplitPane root = loader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
 		Scene scene = new Scene(root);			
-		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);	
 		//Logout when pressed the "exit" button
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -116,9 +115,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Main.primary.hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml"));//.openStream());
+		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml"));
 		Scene scene = new Scene(root);			
-		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);
 		//Logout when pressed the "exit" button
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
