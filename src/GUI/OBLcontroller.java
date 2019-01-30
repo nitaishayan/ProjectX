@@ -116,7 +116,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		Main.primary.hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
-		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml").openStream());
+		SplitPane root = loader.load(getClass().getResource("/GUI/LibrarianMenu.fxml"));//.openStream());
 		Scene scene = new Scene(root);			
 		//		scene.getStylesheets().add(getClass().getResource("/gui/StudentForm.css").toExternalForm());
 		primaryStage.setScene(scene);
