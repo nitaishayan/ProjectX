@@ -36,7 +36,6 @@ public class Client extends AbstractClient
 {
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
-	File pdf;
 
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
@@ -91,12 +90,13 @@ public class Client extends AbstractClient
 					if (arrayObject.get(arrayObject.size()-1).equals("1"))
 						clientUI.showSuccess("Copy Remove successfully");
 					if (arrayObject.get(arrayObject.size()-1).equals("2")) {
+						System.out.println("delete"+arrayObject);
 						clientUI.showSuccess("book Remove from librariy successfully");
-						//pdf=("/Client/")
-//						if(pdf.delete())
-//							System.out.println("File deleted successfully"); 
-//						else
-//				            System.out.println("Failed to delete the file"); 
+						File pdf=new File("./PDF/"+arrayObject.get(1));
+						if(pdf.delete())
+							System.out.println("File deleted successfully"); 
+						else
+				            System.out.println("Failed to delete the file"); 
 					}
 					if (!arrayObject.get(arrayObject.size()-1).equals("2")&&!arrayObject.get(arrayObject.size()-1).equals("1")) {
 						clientUI.showFailed("remove failed.");

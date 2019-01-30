@@ -96,9 +96,7 @@ public class Server extends AbstractServer
 
 			case "RemoveCopy":
 				try {
-					int menu=DBController.getInstance().RemoveCopy(arrayObject);
-					arrayObject.add(Integer.toString(menu));
-					client.sendToClient(arrayObject);
+					client.sendToClient(DBController.getInstance().RemoveCopy(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
