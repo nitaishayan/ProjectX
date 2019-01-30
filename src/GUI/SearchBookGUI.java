@@ -280,20 +280,19 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	}
 
 	private void displayBookDetails(ArrayList<String> detailesData) {
-		System.out.println(detailesData + "7777667676555");
 		Stage 	   	 primaryStage   = new Stage();
 		VBox 	 	 mainVbox       = new VBox(20);
 		Label 		 ans  			= new Label();
 		Label		 detailes		= new Label();
 		Scene 		 scene 			= new Scene(mainVbox);
 		Button		 tableOfContent = new Button("Table Of Content");
-		HBox 		 hbox2			= new HBox();
+		HBox 		 hbox2			= new HBox(20);
+		String		 BookID			= detailesData.get(3);
 
-		System.out.println("lior"+detailesData);
 		tableOfContent.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				BookHandlerController.getPDF(detailesData.get(detailesData.size()-3));
+				BookHandlerController.getPDF(BookID);
 			}
 		});
 
@@ -317,12 +316,14 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			mainVbox.getChildren().addAll(ans,tableOfContent);
 		}
 		else {
-			Button reserveBtn = new Button("Rrserve");
+			Button reserveBtn = new Button("Reserve");
 			reserveBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent event) {
-					BookHandlerController.reserveBook(detailesData.get(6),Client.arrayUser.get(0),detailesData.get(7));				}
+					System.out.println("liorrrrr"+detailesData);
+					BookHandlerController.reserveBook(detailesData.get(3),Client.arrayUser.get(0),detailesData.get(7));		
+				}
 			});
 			Label  ans2		  = new Label();
 			ans.setText("we don't have copy of " + detailesData.get(1) + " by the author " + detailesData.get(2) + " in the library.");
@@ -332,6 +333,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			ans.setPadding(new Insets(0, 0, 0, 20));
 			ans2.setPadding(new Insets(0, 0, 0, 20));
 			hbox2.getChildren().addAll(reserveBtn,tableOfContent);
+			hbox2.setAlignment(Pos.CENTER);
 			mainVbox.getChildren().addAll(ans,ans2,hbox2);
 		}
 		primaryStage.setScene(scene);

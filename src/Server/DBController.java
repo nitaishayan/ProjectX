@@ -173,18 +173,30 @@ public class DBController {
 	}
 
 
-	public static int RemoveCopy(ArrayList<String> data) throws SQLException{
+	public static ArrayList<String> RemoveCopy(ArrayList<String> data) throws SQLException{
 		String bookID,copyid,memberid;
+		ArrayList<String> reStrings=new ArrayList<>();
 		int answer=0;
 		copyid=data.get(1);
+		
+		PreparedStatement checkloan = conn.prepareStatement("SELECT * FROM loanbook WHERE CopyID=? AND IsReturned='false'");
+		checkloan.setString(1, copyid);
+		ResultSet rs1=checkloan.executeQuery();
+		if (rs1.next()) {
+			reStrings.add("-1");
+			return reStrings;
+		}
+		
 		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
 		getbookid.setString(1, copyid);
 		ResultSet rs = getbookid.executeQuery();
 		if(rs.next()) {
 			bookID=rs.getString(1);
 		}
-		else return 0;
-
+		else {
+			reStrings.add("0");
+			return reStrings;
+		}
 		PreparedStatement reserved = conn.prepareStatement("SELECT IsActive,MemberID FROM reservations WHERE CopyID=? AND IsActive='true'");
 		reserved.setString(1, copyid);
 		ResultSet rs2 = reserved.executeQuery();
@@ -205,7 +217,9 @@ public class DBController {
 				res=2;
 			}
 		}
-		return res;
+		reStrings.add(bookID);
+		reStrings.add(String.valueOf(res));
+		return reStrings;
 	}
 
 	public static ArrayList<String> checkExistenceByCopy(ArrayList<String> msg) throws SQLException {
@@ -638,6 +652,7 @@ public class DBController {
 			checkCopyLoanStatus.add(rs.getString(7));
 			checkCopyLoanStatus.add(rs.getString(8));
 			checkCopyLoanStatus.add(rs.getString(9));
+			checkCopyLoanStatus.add(rs.getString(10));
 		}
 		return checkCopyLoanStatus;
 	}
@@ -991,11 +1006,8 @@ public class DBController {
 
 	public Object viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan;
-		//PreparedStatement searchBookName;
 		ResultSet rsLoan;
-		//ResultSet rsBook;
-		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookName,ActualReturnDate FROM loanbook WHERE MemberID=? ORDER BY ActualReturnDate DESC");
-		//searchBookName = conn.prepareStatement("SELECT BookName FROM book WHERE BookID=? ");
+		searchLoan = conn.prepareStatement("SELECT CopyID,LoanDate,BookName,ActualReturnDate,AuthorName FROM loanbook WHERE MemberID=? ORDER BY ActualReturnDate DESC");
 		ArrayList<String> loanDetails = new ArrayList<String>();
 		searchLoan.setString(1,searchData.get(1));
 		rsLoan = searchLoan.executeQuery();
@@ -1003,15 +1015,9 @@ public class DBController {
 		while(rsLoan.next()) {
 			loanDetails.add(rsLoan.getString(1));//CopyID
 			loanDetails.add(rsLoan.getString(2));//LoanDate
-			loanDetails.add(rsLoan.getString(3));//BookID
+			loanDetails.add(rsLoan.getString(3));//BookName
 			loanDetails.add(rsLoan.getString(4));//ActualReturnDate
-			//ArrayList<String> BookID =new ArrayList<String>();
-			//BookID.add(rsLoan.getString(3));//BookID
-			//searchBookName.setString(1,BookID.get(0));
-			//rsBook = searchBookName.executeQuery();
-			//			if (rsBook.next()) {
-			//				loanDetails.add(rsBook.getString(1));//BookName
-			//			}
+			loanDetails.add(rsLoan.getString(5));//AuthorName
 		}
 		if (loanDetails.size()==1) {
 			loanDetails.add("NotExist");
@@ -1024,7 +1030,7 @@ public class DBController {
 	}
 
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
-		int copies,answer,reserveamount;
+		int copies,answer,reserveamount=0;
 		String bookID=bookdata.get(1),currentTime;
 		String copyID = null;
 		System.out.println(bookID);

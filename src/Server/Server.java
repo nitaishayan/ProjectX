@@ -63,11 +63,11 @@ public class Server extends AbstractServer
 		}
 		else {
 			ArrayList<String> arrayObject = (ArrayList<String>)msg; //casting msg-Object to arraylist
-			switch (((ArrayList<String>)msg).get(0)) {
+			switch (arrayObject.get(0)) {
 			case "Registration":
 				try {
-					int registrationSuccess = DBController.getInstance().registretion((ArrayList<String>) msg);
-					((ArrayList<String>) msg).add(Integer.toString(registrationSuccess));
+					int registrationSuccess = DBController.getInstance().registretion(arrayObject);
+					arrayObject.add(Integer.toString(registrationSuccess));
 					client.sendToClient(msg);
 				} catch (SQLException | IOException e) {
 					e.printStackTrace();
@@ -76,7 +76,7 @@ public class Server extends AbstractServer
 
 			case "Login":
 				try {
-					ArrayList<String> userDetails = DBController.getInstance().login((ArrayList<String>) msg);
+					ArrayList<String> userDetails = DBController.getInstance().login(arrayObject);
 					client.sendToClient(userDetails);
 				}
 				catch (Exception e) {
@@ -86,9 +86,9 @@ public class Server extends AbstractServer
 
 			case "AddBook":
 				try {
-					int menu=DBController.getInstance().addBookToInventory((ArrayList<String>) msg);
-					((ArrayList<String>)msg).add(Integer.toString(menu));
-					client.sendToClient((ArrayList<String>)msg);
+					int menu=DBController.getInstance().addBookToInventory(arrayObject);
+					arrayObject.add(Integer.toString(menu));
+					client.sendToClient(arrayObject);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -96,9 +96,7 @@ public class Server extends AbstractServer
 
 			case "RemoveCopy":
 				try {
-					int menu=DBController.getInstance().RemoveCopy((ArrayList<String>) msg);
-					((ArrayList<String>) msg).add(Integer.toString(menu));
-					client.sendToClient((ArrayList<String>)msg);
+					client.sendToClient(DBController.getInstance().RemoveCopy(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -106,7 +104,7 @@ public class Server extends AbstractServer
 
 			case "InventoryCheckExistense":
 				try {
-					client.sendToClient(DBController.getInstance().inventoryCheckExistence((ArrayList<String>) msg));
+					client.sendToClient(DBController.getInstance().inventoryCheckExistence(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("error");
@@ -114,7 +112,7 @@ public class Server extends AbstractServer
 				break;
 			case "Check Member Existence":
 				try {
-					client.sendToClient(DBController.getInstance().isMemberExist((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().isMemberExist(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -122,7 +120,7 @@ public class Server extends AbstractServer
 
 			case "Check Copy Loan Status":
 				try {
-					client.sendToClient(DBController.getInstance().isCopyLoaned((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().isCopyLoaned(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -131,7 +129,7 @@ public class Server extends AbstractServer
 
 			case "Check Copy ID Existence":
 				try {
-					client.sendToClient(DBController.getInstance().isCopyExist((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().isCopyExist(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -139,7 +137,7 @@ public class Server extends AbstractServer
 
 			case "Search book":
 				try {
-					ArrayList<String> answer = DBController.getInstance().searchBook((ArrayList<String>) msg);
+					ArrayList<String> answer = DBController.getInstance().searchBook(arrayObject);
 					client.sendToClient(answer);
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -148,14 +146,14 @@ public class Server extends AbstractServer
 
 			case "Return Book":
 				try {
-					client.sendToClient(DBController.getInstance().returnBook((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().returnBook(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				break;
 			case "AddCopy":
 				try {
-					client.sendToClient(DBController.getInstance().addCopyToInventory((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().addCopyToInventory(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -163,7 +161,7 @@ public class Server extends AbstractServer
 			case "SearchMember":
 				try {
 					ArrayList<String>member;
-					member=(ArrayList<String>) DBController.getInstance().memberSearch((ArrayList<String>) msg);
+					member=(ArrayList<String>) DBController.getInstance().memberSearch(arrayObject);
 					if (member!=null) {//found an existing member
 						try {
 							client.sendToClient(member);
@@ -191,8 +189,7 @@ public class Server extends AbstractServer
 				break;
 			case "checkExistenceByCopy":
 				try {
-					System.out.println(DBController.getInstance().checkExistenceByCopy((ArrayList<String>) msg));
-					client.sendToClient(DBController.getInstance().checkExistenceByCopy((ArrayList<String>) msg));
+					client.sendToClient(DBController.getInstance().checkExistenceByCopy(arrayObject));
 				} catch (SQLException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -200,7 +197,7 @@ public class Server extends AbstractServer
 				break;
 			case "SearchBookDetailes":
 				try {
-					ArrayList<String> answer = DBController.getInstance().searchBookDetailes((ArrayList<String>) msg);
+					ArrayList<String> answer = DBController.getInstance().searchBookDetailes(arrayObject);
 					client.sendToClient(answer);
 				} catch (SQLException  | IOException e) {
 					e.printStackTrace();
@@ -209,8 +206,7 @@ public class Server extends AbstractServer
 			case "Logout":
 				try {
 					System.out.println("inside server - logout");
-					System.out.println(msg);
-					/*client.sendToClient*/DBController.getInstance().logout((ArrayList<String>) msg);
+					DBController.getInstance().logout(arrayObject);
 
 				}
 				catch (Exception e) {
@@ -219,21 +215,21 @@ public class Server extends AbstractServer
 				break;
 			case "Check If Member Is Late On Return":
 				try {
-					client.sendToClient(DBController.getInstance().isMemberLateOnReturn((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().isMemberLateOnReturn(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				break;
 			case "Change Member Status":
 				try {
-					client.sendToClient(DBController.getInstance().changeMemberStatus((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().changeMemberStatus(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				break;
 			case "MemberUpdateMemberDetails":
 				try {
-					DBController.getInstance().MemberUpdateMemberDetails((ArrayList<String>) msg);
+					DBController.getInstance().MemberUpdateMemberDetails(arrayObject);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -242,7 +238,7 @@ public class Server extends AbstractServer
 			case "CheckLibrarianManager":
 				ArrayList<String> librarianData=null;
 				try {
-					librarianData=DBController.getInstance().CheckLibrarianManager((ArrayList<String>) msg);
+					librarianData=DBController.getInstance().CheckLibrarianManager(arrayObject);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -255,7 +251,7 @@ public class Server extends AbstractServer
 				break;
 			case "Edit":
 				try {
-					client.sendToClient(DBController.getInstance().editBook((ArrayList<String>) msg));
+					client.sendToClient(DBController.getInstance().editBook(arrayObject));
 				} catch (SQLException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -267,9 +263,9 @@ public class Server extends AbstractServer
 				try {
 					notify=new ArrayList<String>();
 					notify.add("SearchMember");
-					member=(ArrayList<String>) DBController.getInstance().isMemberExist((ArrayList<String>) msg);
+					member=(ArrayList<String>) DBController.getInstance().isMemberExist(arrayObject);
 					if (member!=null) {
-						DBController.getInstance().librarianUpdateMember((ArrayList<String>) msg);
+						DBController.getInstance().librarianUpdateMember(arrayObject);
 						notify.add("Exist");
 					}
 					else {
@@ -289,7 +285,7 @@ public class Server extends AbstractServer
 
 			case "Check Copy Wanted Status":
 				try {
-					client.sendToClient(DBController.getInstance().isCopyWanted((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().isCopyWanted(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -297,14 +293,14 @@ public class Server extends AbstractServer
 
 			case "Loan Book":
 				try {
-					client.sendToClient(DBController.getInstance().loanBook((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().loanBook(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				break;
 			case "Reserve":
 				try {
-					client.sendToClient(DBController.getInstance().reserveBook((ArrayList<String>) msg));
+					client.sendToClient(DBController.getInstance().reserveBook(arrayObject));
 				} catch (IOException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -314,7 +310,7 @@ public class Server extends AbstractServer
 			case "ViewPersonalHistory":
 				try {
 					ArrayList<String>loanDetails;
-					loanDetails=(ArrayList<String>) DBController.getInstance().viewPersonalHistory((ArrayList<String>) msg);
+					loanDetails=(ArrayList<String>) DBController.getInstance().viewPersonalHistory(arrayObject);
 					try {
 						client.sendToClient(loanDetails);
 					} catch (IOException e) {
@@ -358,7 +354,7 @@ public class Server extends AbstractServer
 			case "getDelayandLostBooks":
 				ArrayList<String>listData;
 				try {
-					listData=DBController.getInstance().getDelayandLostBooks((ArrayList<String>) msg);
+					listData=DBController.getInstance().getDelayandLostBooks(arrayObject);
 						client.sendToClient(listData);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -368,7 +364,7 @@ public class Server extends AbstractServer
 			case "getStatusHistory":
 				ArrayList<String>listmemberStatusData;
 				try {
-					listmemberStatusData=DBController.getInstance().getStatusHistory((ArrayList<String>) msg);
+					listmemberStatusData=DBController.getInstance().getStatusHistory(arrayObject);
 						client.sendToClient(listmemberStatusData);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -378,7 +374,7 @@ public class Server extends AbstractServer
 				
 			case "Extend Loan Period By Member":
 				try {
-					client.sendToClient(DBController.getInstance().extendLoanPeriodByMember((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().extendLoanPeriodByMember(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -386,7 +382,7 @@ public class Server extends AbstractServer
 				
 			case "Extend Loan Period By Librarian":
 				try {
-					client.sendToClient(DBController.getInstance().extendLoanPeriodByLibrarian((ArrayList<String>)msg));
+					client.sendToClient(DBController.getInstance().extendLoanPeriodByLibrarian(arrayObject));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

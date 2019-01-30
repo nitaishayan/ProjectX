@@ -55,7 +55,7 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(bookData);
 	}
 
-	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID, String bookName) {	
+	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID, String bookName, String authorName) {	
 		ArrayList<String> copyData = new ArrayList<>();
 		copyData.add("Loan Book");
 		copyData.add(copyID);
@@ -63,6 +63,7 @@ public class BookHandlerController {
 		copyData.add(bookID);
 		copyData.add(memberID);
 		copyData.add(bookName);
+		copyData.add(authorName);
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 

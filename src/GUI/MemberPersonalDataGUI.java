@@ -78,10 +78,10 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(631);
-		stage.setMinHeight(631);
-		stage.setMinWidth(920);
-		stage.setMaxWidth(920);
+		stage.setMaxHeight(571);
+		stage.setMinHeight(571);
+		stage.setMinWidth(904);
+		stage.setMaxWidth(904);
 		stage.show();
 	}
 	Common.Member member;// object of Member details

@@ -34,14 +34,19 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
     private TableView<LoanDetails> TableViewLoanHistory;
 
     @FXML
-    private TableColumn<LoanDetails, String> BookName;
+    private TableColumn<LoanDetails,String> BookName;
 
     @FXML
-    private TableColumn<LoanDetails, String> CopyID;
+    private TableColumn<LoanDetails,String> CopyID;
+
     @FXML
-    private TableColumn<LoanDetails, String> ActualReturnDate;
+    private TableColumn<LoanDetails,String> AuthorName;
+
     @FXML
-    private TableColumn<LoanDetails, String> LoanDate;
+    private TableColumn<LoanDetails,String> LoanDate;
+
+    @FXML
+    private TableColumn<LoanDetails,String> ActualReturnDate;
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -59,7 +64,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 	@Override
 	public void display(Object obj) {
 
-		int numberOfColumns=4;
+		int numberOfColumns=5;
 		int nonRelevantString=1;
 		ArrayList<String> loanList = (ArrayList<String>)obj;
 		System.out.println(loanList.toString()+"in historyGUI");
@@ -76,25 +81,24 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 				//set up the columns
 				BookName = new TableColumn<>("Book name");
 				CopyID = new TableColumn<>("Copy ID");
+				AuthorName = new TableColumn<>("Author name");
 				LoanDate = new TableColumn<>("Loan Date");
 				ActualReturnDate = new TableColumn<>("Actual return date");
 
-				//set up size
-				BookName.setMinWidth(200);
-				CopyID.setMinWidth(200);
-				LoanDate.setMinWidth(200);
-				ActualReturnDate.setMinWidth(200);
 				//set up order descending
 				BookName.setSortType(TableColumn.SortType.DESCENDING);
 				CopyID.setSortType(TableColumn.SortType.DESCENDING);
 				LoanDate.setSortType(TableColumn.SortType.DESCENDING);
 				ActualReturnDate.setSortType(TableColumn.SortType.DESCENDING);
+				AuthorName.setSortType(TableColumn.SortType.DESCENDING);
+				
 				//Set upSet property
-				TableViewLoanHistory.getColumns().setAll(BookName,CopyID,LoanDate,ActualReturnDate);//attach the columns to the table view (personTable)
+				TableViewLoanHistory.getColumns().setAll(BookName,CopyID,AuthorName,LoanDate,ActualReturnDate);//attach the columns to the table view (personTable)
 				BookName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("bookName"));
 				CopyID.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("copyID"));
 				LoanDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
 				ActualReturnDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("ActualReturnDate"));
+				AuthorName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("AuthorName"));
 
 				
 				ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
@@ -104,26 +108,21 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 				 LoanDetails loanTemp;
 				 while(rowCounter<loanRowSize) {
 					 if (loanList.get(arrayJump+3)==null) {
-						 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),"The book is still borrowed");//create a new object by LoanDetails
-					}
+						 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump+4), loanList.get(arrayJump),loanList.get(arrayJump+1),"The book is borrowed");//create a new object by LoanDetails					
+					 }
 					 else
 					 {
-						 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump), loanList.get(arrayJump+1),loanList.get(arrayJump+3));//create a new object by LoanDetails
-						 TableViewLoanHistory.getRowFactory();
-						 
+						 loanTemp = new LoanDetails(loanList.get(arrayJump+2), loanList.get(arrayJump+4), loanList.get(arrayJump),loanList.get(arrayJump+1),loanList.get(arrayJump+3));//create a new object by LoanDetails					
 					 }
-					 //j+2 Book name ; //j CopyID ; //J+1 Loan Date
+					 //j+2 Book name ; //j CopyID ; //J+1 Loan Date; //J+3 Actual Return Date; //J+4 Author name
 					 rowCounter++;
-					 arrayJump+=4;
+					 arrayJump+=5;
 					 loanDetails.add(loanTemp);
 					 
 				 }
 				 TableViewLoanHistory.setItems(loanDetails);
 			}			
 		}
-
-
-
 	}
 	@Override
 	public void showFailed(String message) {
