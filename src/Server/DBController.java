@@ -991,10 +991,6 @@ public class DBController {
 		ps.setString(8,"false");
 		ps.setString(9, data.get(5));
 		ps.setString(10, data.get(6));
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 		if(ps.executeUpdate() == 0) {
 			return loanBook;
 		}
