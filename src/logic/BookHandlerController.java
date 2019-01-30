@@ -128,4 +128,14 @@ public class BookHandlerController {
 		extendData.add(librarianID);		
 		Main.client.handleMessageFromClientUI(extendData);
 	}
+	public static void memberLostBook(String memberID,String copyID,String copyName) {
+		ArrayList<String> data = new ArrayList<>();
+		data.add("MemberLostBook");
+		data.add(memberID);
+		data.add(copyID);
+		data.add(copyName);
+		Main.client.handleMessageFromClientUI(data);
+
+
+	}
 }

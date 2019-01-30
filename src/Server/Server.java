@@ -419,7 +419,19 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
-
+			case "MemberLostBook":
+				try {
+					DBController.getInstance().memberLostBook((ArrayList<String>) msg);
+					} catch (Exception e){
+					e.printStackTrace();
+				}/*
+				try {
+					int menu=DBController.getInstance().RemoveCopy((ArrayList<String>) msg);
+					((ArrayList<String>) msg).add(Integer.toString(menu));
+					client.sendToClient((ArrayList<String>)msg);
+					} catch (Exception e){
+					e.printStackTrace();
+				}	*/
 			default:
 				break;
 			}

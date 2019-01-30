@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberCardGUI">
+<AnchorPane prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberCardGUI">
    <children>
       <ImageView fitHeight="928.0" fitWidth="1239.0" layoutX="-4.0" opacity="0.8" pickOnBounds="true">
          <image>
@@ -55,7 +55,7 @@
          <font>
             <Font size="19.0" />
          </font></Label>
-      <Button fx:id="btnHistory" disable="true" layoutX="527.0" layoutY="317.0" mnemonicParsing="false" onAction="#viewPersonalHistory" prefHeight="46.0" prefWidth="130.0" text="History of loan">
+      <Button fx:id="btnHistory" disable="true" layoutX="527.0" layoutY="317.0" mnemonicParsing="false" onAction="#viewLoanPersonalHistory" prefHeight="46.0" prefWidth="130.0" text="History of loan">
          <font>
             <Font size="15.0" />
          </font></Button>

@@ -24,10 +24,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
 import logic.RegistrationController;
-
+/**
+ * This class show a details launched by search member in the system and returning details about that member.
+ * Details such as: his reader card info. and his history of activity such as: delay/lost books, status and notes written by librarian
+ * @author nitay shayan
+ *
+ */
 public class MemberCardGUI implements Initializable,GuiInterface{
 	public static String memberIDHistory=null;
 	public static String memberFirstName=null;
@@ -68,7 +74,13 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 
 	@FXML
 	private Button btnStatus;
-
+/**
+ * This method is launch a query in data base to get all the books 
+ * information by a specific member that is delayed or lost books in the library.
+ * @param event Event happend by click on the button
+ * @throws IOException
+ *  
+ */
 	@FXML
 	void getDelayandLostBooks(ActionEvent event) throws IOException {
 		//load table view that present the late and lost book by member
@@ -85,6 +97,13 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		stage.setMaxWidth(904);
 		stage.show();
 	}
+	/**
+	 *  Method that launch a query to find status activity of a specific member in the data base.
+	 * eventually display the data in table view window
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void getStatusHistory(ActionEvent event) throws IOException {
 		//load table view that present the the member status
@@ -101,17 +120,29 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		stage.setMaxWidth(1005);
 		stage.show();
 	}
+	/**
+	 * Method that launch a query to find the requested memberID inserted by the member
+	 * @param event launch by press on button
+	 */
     @FXML
     void mouseClick(MouseEvent event) {
 		RegistrationController.searchMember(txtMember_ID.getText());
     }
-    
+	/**
+	 * Method that launch a query to find the requested memberID inserted by the member
+	 * @param event launch by press enter on keyboard
+	 */
 	@FXML
 	void searchMember(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
 			RegistrationController.searchMember(txtMember_ID.getText());
 		}
 	}
+	/**
+	 * Method that launch a query to update the details send by librarian and memberID inserted by the member
+	 * eventually display a success message or failed message
+	 * @param event launch by press enter on keyboard
+	 */
 	@FXML
 	void librarianUpdateMember(ActionEvent event) {
 		update=true;
@@ -124,8 +155,15 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
 		}
 	}
+	/**
+	 *  Method that launch a query to find a loan history by a memberID inserted by the librarian and recieve the data from the data base
+	 * eventually display the data in table view window
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
-	void viewPersonalHistory(ActionEvent event) throws IOException {
+	void viewLoanPersonalHistory(ActionEvent event) throws IOException {
 		//Load page of loan history
 		memberIDHistory=txtMember_ID.getText();
 		memberFirstName=txtFirst_Name.getText();
@@ -148,7 +186,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		CommonController.checkManager(Client.arrayUser.get(0));
 
 	}
-
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -156,7 +197,24 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		alert.setHeaderText(string);
 		alert.showAndWait();
 	}
-
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
+	@Override
+	public void showFailed(String message) {
+		freshStart();
+		Alert alert=new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(message);
+		alert.showAndWait();
+		setFields(true);
+	}
+	/**
+	 * Interface method that print the Object received by the Server
+	 * the display is check which Librarian is enter, if it's the Librarian manager is enable to edit other details from the member card reader.
+	 *  
+	 */
 	@Override
 	public void display(Object obj) {
 		ArrayList<String>userData=(ArrayList<String>) obj;
@@ -255,15 +313,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtArea_Notes.setText("");
 		cmbStatus.setValue("");
 	}
-	@Override
-	public void showFailed(String message) {
-		freshStart();
-		Alert alert=new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText(message);
-		alert.showAndWait();
-		setFields(true);
-	}
+
 	private void setMsStatusComboBox() {
 		ArrayList<String> msStatusList = new ArrayList<String>();	
 		msStatusList.add("Locked");

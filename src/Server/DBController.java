@@ -1552,7 +1552,18 @@ public class DBController {
 			
 			return listBooks;
 		}
-		
+		public void memberLostBook(ArrayList<String> data) throws SQLException {
+			java.util.Date dt = new java.util.Date();
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(dt);
+			PreparedStatement insert = conn.prepareStatement("insert into delayonreturn values(?,?,?,?,?)");
+			insert.setString(1, data.get(1));//MemberID
+			insert.setString(2, data.get(2));//CopyID
+			insert.setString(3,"Lost");//IslostedorDelayed
+			insert.setString(4, data.get(3));//CopyName
+			insert.setString(5,currentTime);//current time
+			insert.executeUpdate();			
+		}		
 		//get BOOKS from DB to show in tableView - for statistics-lateInReturn
 		public ArrayList<String> showTableViewBooks () throws SQLException{
 		
@@ -1593,4 +1604,5 @@ public class DBController {
 		}
 		return null;
 	}
+
 }
