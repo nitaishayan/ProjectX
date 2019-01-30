@@ -67,26 +67,46 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		String searchPick;
 		if (group.getSelectedToggle().equals(radio_btn_book_name))
 		{
+			if(txtBook_Name.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Book Name";
 			SearchBookController.searchBook(searchPick,txtBook_Name.getText());
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_authors_name))
 		{
+			if(txtAuthor_name.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Authors Name";
 			SearchBookController.searchBook(searchPick,txtAuthor_name.getText());
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_book_theme))
 		{
+			if(txtBook_Theme.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Book Theme";
 			SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_free_text))
 		{
+			if(txtFree_Text.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Free text";
 			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_copy_id))
 		{
+			if(txtCopy_ID.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Copy ID";
 			SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
 		}
@@ -97,26 +117,46 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		String searchPick;
 		if (group.getSelectedToggle().equals(radio_btn_book_name))
 		{
+			if(txtBook_Name.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Book Name";
 			SearchBookController.searchBook(searchPick,txtBook_Name.getText());
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_authors_name))
 		{
+			if(txtAuthor_name.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Authors Name";
 			SearchBookController.searchBook(searchPick,txtAuthor_name.getText());
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_book_theme))
 		{
+			if(txtBook_Theme.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Book Theme";
 			SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_free_text))
 		{
+			if(txtFree_Text.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Free text";
 			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 		}
 		else if (group.getSelectedToggle().equals(radio_btn_copy_id))
 		{
+			if(txtCopy_ID.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Copy ID";
 			SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
 		}

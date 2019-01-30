@@ -1,5 +1,4 @@
 package GUI;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -84,21 +83,37 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		String searchPick;
 		if (choice.getSelectedToggle().equals(radio_btn_book_name))
 		{
+			if(txtBook_Name.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Book Name";
 			SearchBookController.searchBook(searchPick,txtBook_Name.getText());
 		}
 		else if (choice.getSelectedToggle().equals(radio_btn_authors_name))
 		{
+			if(txtAuthor_Name.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Authors Name";
 			SearchBookController.searchBook(searchPick,txtAuthor_Name.getText());
 		}
 		else if (choice.getSelectedToggle().equals(radio_btn_book_theme))
 		{
+			if(txtBook_Theme.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Book Theme";
 			SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
 		}
 		else if (choice.getSelectedToggle().equals(radio_btn_free_text))
 		{
+			if(txtFree_Text.getText().equals(""))
+			{
+				return;
+			}
 			searchPick = "Free text";
 			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 		}
@@ -110,26 +125,41 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			String searchPick;
 			if (choice.getSelectedToggle().equals(radio_btn_book_name))
 			{
+				if(txtBook_Name.getText().equals(""))
+				{
+					return;
+				}
 				searchPick = "Book Name";
 				SearchBookController.searchBook(searchPick,txtBook_Name.getText());
 			}
 			else if (choice.getSelectedToggle().equals(radio_btn_authors_name))
 			{
+				if(txtAuthor_Name.getText().equals(""))
+				{
+					return;
+				}
 				searchPick = "Authors Name";
 				SearchBookController.searchBook(searchPick,txtAuthor_Name.getText());
 			}
 			else if (choice.getSelectedToggle().equals(radio_btn_book_theme))
 			{
+				if(txtBook_Theme.getText().equals(""))
+				{
+					return;
+				}
 				searchPick = "Book Theme";
 				SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
 			}
 			else if (choice.getSelectedToggle().equals(radio_btn_free_text))
 			{
+				if(txtFree_Text.getText().equals(""))
+				{
+					return;
+				}
 				searchPick = "Free text";
 				SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 			}
 		}
-
 	}
 
 	@FXML
