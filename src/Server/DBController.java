@@ -1584,7 +1584,22 @@ public class DBController {
 			}
 		return listBooks2;
 		}
+		public ArrayList<String> getInBoxMessage(ArrayList<String> arrayMessage) throws SQLException {
+			PreparedStatement MessageData;
+			ResultSet rsMessage;
+			MessageData = conn.prepareStatement("SELECT ExecutionDate,Topic,Contents FROM usermessages WHERE UserID=? ");
+			ArrayList<String> dataDetails = new ArrayList<String>();
+			dataDetails.add("InBoxMessage");
+			MessageData.setString(1,arrayMessage.get(1));
+			rsMessage = MessageData.executeQuery();
 
+			while(rsMessage.next()) {
+				dataDetails.add(rsMessage.getString(1));//ExecutionDate
+				dataDetails.add(rsMessage.getString(2));//Topic
+				dataDetails.add(rsMessage.getString(3));//Contents
+			}	
+			return dataDetails;
+		}
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -1604,5 +1619,7 @@ public class DBController {
 		}
 		return null;
 	}
+
+
 
 }
