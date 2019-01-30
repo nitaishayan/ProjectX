@@ -60,6 +60,9 @@ public class InBoxGUI implements Initializable, GuiInterface{
 		dateCol.setCellValueFactory(new PropertyValueFactory<InBoxMessage,String>("date"));
 		topicCol.setCellValueFactory(new PropertyValueFactory<InBoxMessage,String>("topic"));
 		contentCol.setCellValueFactory(new PropertyValueFactory<InBoxMessage,String>("content"));
+		
+		CommonController.setColumnWidth(topicCol, 120, 130, 140);
+		CommonController.setColumnWidth(dateCol, 125, 135, 145);
 
 		while(i<numberOfMessage)
 		{
