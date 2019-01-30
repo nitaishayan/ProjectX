@@ -362,7 +362,7 @@ public class Server extends AbstractServer
 				ArrayList<String>listData;
 				try {
 					listData=DBController.getInstance().getDelayandLostBooks((ArrayList<String>) msg);
-						client.sendToClient(listData);
+					client.sendToClient(listData);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -372,13 +372,13 @@ public class Server extends AbstractServer
 				ArrayList<String>listmemberStatusData;
 				try {
 					listmemberStatusData=DBController.getInstance().getStatusHistory((ArrayList<String>) msg);
-						client.sendToClient(listmemberStatusData);
+					client.sendToClient(listmemberStatusData);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "Extend Loan Period By Member":
 				try {
 					client.sendToClient(DBController.getInstance().extendLoanPeriodByMember((ArrayList<String>)msg));
@@ -386,7 +386,7 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "Extend Loan Period By Librarian":
 				try {
 					client.sendToClient(DBController.getInstance().extendLoanPeriodByLibrarian((ArrayList<String>)msg));
@@ -394,7 +394,7 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "EmployeeRecords":
 				try {
 					client.sendToClient(DBController.getInstance().EmployeeRecords());
@@ -403,7 +403,7 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "StatisticsBooks":
 				try {
 					System.out.println(arrayObject.toString()+" inside server");
@@ -413,7 +413,7 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
-				
+
 			case "showTableView":
 				try {
 					client.sendToClient(DBController.getInstance().showTableViewBooks());
@@ -422,8 +422,8 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
-				
-				case "InBoxMessage":
+
+			case "InBoxMessage":
 				try {
 					client.sendToClient(DBController.getInstance().getInBoxMessage(arrayObject));
 				} catch (SQLException | IOException e) {
@@ -433,7 +433,7 @@ public class Server extends AbstractServer
 			case "MemberLostBook":
 				try {
 					DBController.getInstance().memberLostBook(arrayObject);
-					} catch (Exception e){
+				} catch (Exception e){
 					e.printStackTrace();
 				}
 				try {
@@ -531,6 +531,36 @@ public class Server extends AbstractServer
 	{
 		System.out.println
 		("Server has stopped listening for connections.");
+	}
+
+	public void runServerApplications() {
+		DBController dbController = DBController.getInstance();
+		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+
+		executor.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					dbController.handleLateLoans();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0, 24, TimeUnit.HOURS);
+
+		executor.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					dbController.handleLateLoans();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 0, 24, TimeUnit.HOURS);
+
 	}
 
 	//Class methods ***************************************************
