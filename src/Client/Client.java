@@ -86,15 +86,17 @@ public class Client extends AbstractClient
 				break;
 			case "RemoveCopy":
 				Platform.runLater(()->{
+					if (arrayObject.get(arrayObject.size()-1).equals("-1"))
+						clientUI.showFailed("The copy is loaned, therefore you need to return the book first\n and then remove it.");
 					if (arrayObject.get(arrayObject.size()-1).equals("1"))
 						clientUI.showSuccess("Copy Remove successfully");
 					if (arrayObject.get(arrayObject.size()-1).equals("2")) {
 						clientUI.showSuccess("book Remove from librariy successfully");
 						//pdf=("/Client/")
-						if(pdf.delete())
-							System.out.println("File deleted successfully"); 
-						else
-				            System.out.println("Failed to delete the file"); 
+//						if(pdf.delete())
+//							System.out.println("File deleted successfully"); 
+//						else
+//				            System.out.println("Failed to delete the file"); 
 					}
 					if (!arrayObject.get(arrayObject.size()-1).equals("2")&&!arrayObject.get(arrayObject.size()-1).equals("1")) {
 						clientUI.showFailed("remove failed.");

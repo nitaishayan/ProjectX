@@ -366,6 +366,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;		
+		txtPdf.setEditable(false);
 	}
 
 }
