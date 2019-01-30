@@ -104,7 +104,7 @@ public class LoanGUI implements Initializable, GuiInterface {
 				showFailed("You changed the Copy ID field, to continue reclick enter in Copy ID field");
 			}
 			else {
-				BookHandlerController.loanBook(returnedCopy.getCopyID(),returnedBook.getWanted(),returnedBook.getBookID(),returnedMember.getId(),returnedBook.getBookName());
+				BookHandlerController.loanBook(returnedCopy.getCopyID(),returnedBook.getWanted(),returnedBook.getBookID(),returnedMember.getId(),returnedBook.getBookName(),returnedBook.getAuthorName());
 			}
 		}
 	}
