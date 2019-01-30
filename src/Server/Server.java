@@ -391,6 +391,34 @@ public class Server extends AbstractServer
 					e.printStackTrace();
 				}
 				break;
+				
+			case "EmployeeRecords":
+				try {
+					client.sendToClient(DBController.getInstance().EmployeeRecords());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+				
+			case "StatisticsBooks":
+				try {
+					System.out.println(arrayObject.toString()+" inside server");
+					client.sendToClient(DBController.getInstance().StatisticsShowBooks(arrayObject.get(1),arrayObject.get(2)));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+				
+			case "showTableView":
+				try {
+					client.sendToClient(DBController.getInstance().showTableViewBooks());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
 
 			default:
 				break;

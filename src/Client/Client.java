@@ -36,6 +36,7 @@ public class Client extends AbstractClient
 {
 	public static GuiInterface clientUI;
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
+	File pdf;
 
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
@@ -87,8 +88,14 @@ public class Client extends AbstractClient
 				Platform.runLater(()->{
 					if (arrayObject.get(arrayObject.size()-1).equals("1"))
 						clientUI.showSuccess("Copy Remove successfully");
-					if (arrayObject.get(arrayObject.size()-1).equals("2"))
+					if (arrayObject.get(arrayObject.size()-1).equals("2")) {
 						clientUI.showSuccess("book Remove from librariy successfully");
+						//pdf=("/Client/")
+						if(pdf.delete())
+							System.out.println("File deleted successfully"); 
+						else
+				            System.out.println("Failed to delete the file"); 
+					}
 					if (!arrayObject.get(arrayObject.size()-1).equals("2")&&!arrayObject.get(arrayObject.size()-1).equals("1")) {
 						clientUI.showFailed("remove failed.");
 					}
@@ -282,6 +289,25 @@ public class Client extends AbstractClient
 				else {
 					clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
 				}
+				break;
+				
+			case "EmployeeRecords"://show employee details for read only - tableView
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+				
+			case "StatisticsBooks"://show book details - tableView
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
+				
+				
+			case "showTableView"://show book details - tableView
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
 				break;
 
 			default:

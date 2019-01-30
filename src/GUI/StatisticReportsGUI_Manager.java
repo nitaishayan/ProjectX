@@ -40,13 +40,15 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
     }
 
     @FXML
-    void EmployeeRecordsScreen(ActionEvent event) {
-
+    void EmployeeRecordsScreen(ActionEvent event) throws IOException {
+    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-EmployeeRecords.fxml"));
+    	StatisticsPane.getChildren().setAll(pane);
     }
 
     @FXML
-    void LateOnReturnScreen(ActionEvent event) {
-
+    void LateOnReturnScreen(ActionEvent event) throws IOException {
+    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-LateInReturn.fxml"));
+    	StatisticsPane.getChildren().setAll(pane);
     }
 
     @FXML

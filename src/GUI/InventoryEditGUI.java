@@ -269,7 +269,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		alert.showAndWait();
 		rdioBook_Name.setSelected(false);
 		rdioBook_ID.setSelected(false);
-		if (string.contains("Book")) {
+		if (string.equals("details updated successfully in the system.")) {
 			if (PDF==null)
 				System.out.println("pdf problem");	
 			else {BookHandlerController.sendPdf(PDF, txtBook_ID.getText());

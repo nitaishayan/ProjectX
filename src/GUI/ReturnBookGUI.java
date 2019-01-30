@@ -145,11 +145,11 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		case "Check If Member Is Late On Return":
 			if(Integer.parseInt(((ArrayList<String>)msg).get(1)) == 1) {
 				if(memb.getIsGraduated().equals("true")) {
-					CommonController.changeMemberStatus(memb.getId(), "Locked");	
+					CommonController.changeMemberStatus(memb.getId(), memb.getStatus(), "Locked");	
 				}
 				else {
 					if(Integer.parseInt(memb.getDelayAmount()) != 3){
-						CommonController.changeMemberStatus(memb.getId(), "Active");
+						CommonController.changeMemberStatus(memb.getId(), memb.getStatus(), "Active");
 					}
 				}
 				BookHandlerController.returnBook(txtCopy_ID.getText(),oldStatus);
