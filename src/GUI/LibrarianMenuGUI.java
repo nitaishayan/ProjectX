@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.Main;
 import logic.RegistrationController;
@@ -64,12 +65,6 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
     @FXML
     private AnchorPane rightPane;
 	
-    @FXML
-    void InboxMouseClick(MouseEvent event) {
-
-    }
-    
-
 	public void init() throws IOException {
 		Main.client.clientUI=this;
 		if (Client.arrayUser.get(4).equals("false")) {
