@@ -176,6 +176,7 @@ public class DBController {
 	public static ArrayList<String> RemoveCopy(ArrayList<String> data) throws SQLException{
 		String bookID,copyid,memberid;
 		ArrayList<String> reStrings=new ArrayList<>();
+		reStrings.add("RemoveCopy");
 		int answer=0;
 		copyid=data.get(1);
 		
