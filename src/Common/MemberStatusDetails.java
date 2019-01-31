@@ -1,5 +1,11 @@
 package Common;
 
+/**
+ * Class that appeared as an object in the MemberStatusHistoryGUI
+ * this class is initialized and enter to the table view
+ * @author nitay shayan
+ *
+ */
 public class MemberStatusDetails {
 private String executionDate;
 private String previousStatus;

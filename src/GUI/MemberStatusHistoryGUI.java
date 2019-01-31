@@ -60,8 +60,10 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 	 * @param obj the object received by the server from the data base
 	 * the object is an array list with the values of the requested query
 	 * the order of the arraylist is below
+	 * 
 	 * j is the current counter for each iteration
 	 * j+2 current Status ; //j previous Status   ; //J+1 execution Date
+	 * 
 	 * the method insert the values to the table view 
 	 */
 	@Override

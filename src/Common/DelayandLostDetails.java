@@ -1,5 +1,11 @@
 package Common;
 
+/**
+ * Class that appeared as an object in the DelayandLostDetailsTableViewGUI
+ * this class is initialized and enter to the table view
+ * @author nitay shayan
+ *
+ */
 public class DelayandLostDetails {
 private String copyName;
 private String copyID;

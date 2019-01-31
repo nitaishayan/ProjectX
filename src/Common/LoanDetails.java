@@ -1,5 +1,10 @@
 package Common;
-
+/**
+ * Class that appeared as an object in the historyofLoanViewGUI
+ * this class is initialized and enter to the table view
+ * @author nitay shayan
+ *
+ */
 public class LoanDetails {
 	private String bookName;
 	private String authorName;
