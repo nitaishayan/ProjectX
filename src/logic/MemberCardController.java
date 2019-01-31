@@ -1,9 +1,17 @@
 package logic;
 
 import java.util.ArrayList;
-
+/**
+ * Class that unified the Methods sent to the data base and related to the member Card reader
+ * both in the librarian page and the member page queries
+ * @author nitay shayan
+ *
+ */
 public class MemberCardController {
-	
+	/**
+	 * Method that send to data base the memberID and get the member tuple from DB
+	 * @param memberID
+	 */
 	public static void searchMember(String memberID) {
 		ArrayList<String> searchData=new ArrayList<>();
 		searchData.add("SearchMember");
@@ -12,7 +20,7 @@ public class MemberCardController {
 	}
 	
 	/**
-	 * 
+	 * Method that update the card reader details based on edit by the member
 	 * @param ID
 	 * @param phoneNumber
 	 * @param Email
@@ -29,6 +37,7 @@ public class MemberCardController {
 	}
 	
 	/**
+	 * 
 	 * Get the details that was insert by the librarian in the "search reader card" GUI and insert them into ArrayList, then send the ArrayList to server.
 	 * @param String, String, String, String, Boolean, String
 	 * @return void
