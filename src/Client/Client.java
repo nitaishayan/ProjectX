@@ -305,13 +305,15 @@ public class Client extends AbstractClient
 				});
 				break;
 
-			case "StatisticsBooks"://show book details - tableView
+			case "StatisticsBooks"://show book details
 				Platform.runLater(()->{
-					clientUI.display(msg);
+					if (arrayObject.get(3).equals("Fail"))
+						clientUI.showFailed("There were no delayed books found.");
+					else
+						clientUI.display(msg);
 				});
 				break;
-
-
+				
 			case "showTableView"://show book details - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);

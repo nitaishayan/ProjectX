@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 import Client.Client;
@@ -962,6 +964,8 @@ public class DBController {
 	}
 
 	public static ArrayList<String> loanBook(ArrayList<String> data) throws SQLException {
+		ArrayList<String> loanBook = new ArrayList<>();
+		loanBook.add("Loan Book");
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = sdf.format(dt);
@@ -977,10 +981,20 @@ public class DBController {
 		else {
 			c.add(Calendar.DATE, 14);
 		}
+		
+		
+		ResultSet rs;
+		PreparedStatement ps2 = conn.prepareStatement("SELECT * from loanbook WHERE MemberID = ? AND BookID = ? AND IsReturned = ?");
+		ps2.setString(1, data.get(4));
+		ps2.setString(2, data.get(3));
+		ps2.setString(3, "false");
+		rs = ps2.executeQuery();
+		if(rs.isBeforeFirst()) {
+			loanBook.add("Member already loaned a copy of the same book!");
+			return loanBook;
+		}
 
 		String returnDate = sdf.format(c.getTime());
-		ArrayList<String> loanBook = new ArrayList<>();
-		loanBook.add("Loan Book");
 		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, data.get(1));
 		ps.setString(2, returnDate);
@@ -993,6 +1007,7 @@ public class DBController {
 		ps.setString(9, data.get(5));
 		ps.setString(10, data.get(6));
 		if(ps.executeUpdate() == 0) {
+			loanBook.add("Error");
 			return loanBook;
 		}
 
@@ -1002,6 +1017,7 @@ public class DBController {
 		ps1.setString(3, data.get(1));
 		ps1.executeUpdate();
 		if(ps1.executeUpdate() == 0) {
+			loanBook.add("Error");
 			return loanBook;
 		}
 
@@ -1140,7 +1156,7 @@ public class DBController {
 	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String currentTime = inFormat.format(dt);
+		String currentTime = inFormat.format(dt),ManagerID=null;
 
 		ArrayList<String> changeMemberToGraduated = new ArrayList<String>();
 		if(data.get(12).equals("true")) {
@@ -1155,7 +1171,18 @@ public class DBController {
 		int numberOfBook = (getMemberLoans.size()-1)/5;
 		int i = 0;
 		int j = 0;
-
+		
+		PreparedStatement ps12 = conn.prepareStatement("SELECT LibrarianID FROM librarian WHERE IsManager='true'");
+		ResultSet rs12=ps12.executeQuery();
+		if (rs12.next()) {
+			ManagerID=rs12.getString(1);
+		}
+		PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessages values(?,?,?,?)");
+		ps5.setString(1, ManagerID);
+		ps5.setString(2, "Graduated");
+		ps5.setString(3, currentTime);
+		ps5.setString(4, "MemberID " + data.get(1) + " has graduated.");	
+		ps5.executeUpdate();
 		while(i<numberOfBook) {
 			if(i==0)
 			{
@@ -1481,166 +1508,512 @@ public class DBController {
 
 	//data for statistics - late in return
 	public ArrayList<String> StatisticsShowBooks (String option,String bookID) throws SQLException, ParseException{
-
+		
 		ArrayList<String> listBooks = new ArrayList<String>();
 		listBooks.add("StatisticsBooks");
 		listBooks.add(option);
-
-		System.out.println(listBooks.toString()+" inside DB Controller");
-
+		
+		double sumOfDays=0,sumOfDays2=0,maxOfDays=0,maxOfDays2=0;
+		int counter=0,counter2=0;
+		int counterEmpty=0;
+		Date dt = new java.util.Date();
+		Date expectedReturnDate;
+		Date actualReturnDate;
+		Date LoanDate;
+		Date CurrentTime;
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH");//:mm:ss");
+		String currentTime = inFormat.format(dt);
+		String copyActualReturnDate;
+		String copyExpectedReturnDate;
+		String copyLoanDate;
+		double diff1,diff2;
+		double diffDays,diffHours;
+		
+		PreparedStatement st;
+		ResultSet rs;
+		
 		switch (option) {
-		case "Total":
-
-			listBooks.add("labels");
-
-			//Add SUM, COUNT and MAX of days and hours late in return
-			double sumOfDays=0,maxOfDays=0;
-			int counter=0;
-			PreparedStatement as = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate");
-			ResultSet a = as.executeQuery();
-			Date dt1 = new java.util.Date();
-			SimpleDateFormat inFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTime1 = inFormat1.format(dt1);
-
-			while(a.next()) {
-				String copyActualReturnDate1 = a.getString(1);
-				String copyExpectedReturnDate1 = a.getString(2);
-
-				Date expectedReturnDate1 = inFormat1.parse(copyExpectedReturnDate1); 
-				Date actualReturnDate1 = inFormat1.parse(copyActualReturnDate1); 
-
-				long diff1 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
-				long diffDays1 = diff1 / (24 * 60 * 60 * 1000);
-
-				double diff11 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
-				double diffHours1 = (diff11 / (60 * 60 * 1000) % 24)*0.01;
-
-				//SUM
-				sumOfDays += (diffDays1+diffHours1);
-				//COUNT
-				counter++;
-				//MAX
-				if ((diffDays1+diffHours1)>maxOfDays) {
-					maxOfDays = (diffDays1+diffHours1);
+			case "Total":
+				
+				listBooks.add("labels");
+				
+				//Add SUM, COUNT and MAX of days and hours late in return - for books which haven been returned
+				sumOfDays=0;
+				maxOfDays=0;
+				counter=0;
+				st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate");
+				rs = st.executeQuery();
+				
+				if (!(rs.isBeforeFirst())) {
+					counterEmpty++;
 				}
-			}
-			listBooks.add(String.valueOf(sumOfDays));
-			listBooks.add(String.valueOf(counter));
-			listBooks.add(String.valueOf(maxOfDays));
+				
+				while(rs.next()) {
+					copyActualReturnDate = rs.getString(1);
+					copyExpectedReturnDate = rs.getString(2);
 
-			//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
-			PreparedStatement st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
-			ResultSet r = st.executeQuery();
-
-			Date dt = new java.util.Date();
-			SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTime = inFormat.format(dt);
-
-			while(r.next()) {
-				String copyActualReturnDate = r.getString(1);
-				String copyExpectedReturnDate = r.getString(2);
-
-				Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
-				Date actualReturnDate = inFormat.parse(copyActualReturnDate); 
-
-				long diff = actualReturnDate.getTime() - expectedReturnDate.getTime();
-				long diffDays = diff / (24 * 60 * 60 * 1000);
-
-				double diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
-				double diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
-
-				listBooks.add(String.valueOf(diffDays+diffHours));//All delayed copies in ascending order
-			}
-
-			break;
-		case "Specific Book":
-
-			listBooks.add("labels");
-
-			//					PreparedStatement stmtB1 = conn.prepareStatement("SELECT SUM(DaysLateInReturn), COUNT(MemberID), MAX(DaysLateInReturn) FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND  CopyID LIKE'"+bookID+"%'");
-			//					ResultSet rsB1 = stmtB1.executeQuery();
-			//					while(rsB1.next()) {
-			//						System.out.println(rsB1.getString(1)+" "+rsB1.getString(2)+" "+rsB1.getString(3));
-			//							listBooks.add(rsB1.getString(1));//SUM of DaysLateInReturn - Total
-			//							listBooks.add(rsB1.getString(2));//COUNT of books delayed on return
-			//							listBooks.add(rsB1.getString(3));//MAX of books delayed on return
-			//							System.out.println(listBooks.toString()+" inside listBooks DB SUM COUNT MAX");
-			//					}
-
-			//Add SUM, COUNT and MAX of days and hours late in return
-			double sumOfDaysS=0,maxOfDaysS=0;
-			int counterS=0;
-			PreparedStatement asS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
-			ResultSet aS = asS.executeQuery();
-			Date dt1S = new java.util.Date();
-			SimpleDateFormat inFormat1S = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTime1S = inFormat1S.format(dt1S);
-
-			while(aS.next()) {
-				String copyActualReturnDate1S = aS.getString(1);
-				String copyExpectedReturnDate1S = aS.getString(2);
-
-				Date expectedReturnDate1S = inFormat1S.parse(copyExpectedReturnDate1S); 
-				Date actualReturnDate1S = inFormat1S.parse(copyActualReturnDate1S); 
-
-				long diff1S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
-				long diffDays1S = diff1S / (24 * 60 * 60 * 1000);
-
-				double diff11S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
-				double diffHours1S = (diff11S / (60 * 60 * 1000) % 24)*0.01;
-
-				//SUM
-				sumOfDaysS += (diffDays1S+diffHours1S);
-				//COUNT
-				counterS++;
-				//MAX
-				if ((diffDays1S+diffHours1S)>maxOfDaysS) {
-					maxOfDaysS = (diffDays1S+diffHours1S);
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					actualReturnDate = inFormat.parse(copyActualReturnDate); 
+					
+					diff1 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffDays = diff1 / (24 * 60 * 60 * 1000);
+					
+					diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					
+					//SUM
+					sumOfDays += (diffDays+diffHours);
+					//COUNT
+					counter++;
+					//MAX
+					if ((diffDays+diffHours)>maxOfDays) {
+						maxOfDays = (diffDays+diffHours);
+					}
 				}
+
+				//Add SUM, COUNT and MAX of days and hours late in return - for books which yet haven't been returned
+				sumOfDays2=0;
+				maxOfDays2=0;
+				counter2=0;
+				CurrentTime = inFormat.parse(currentTime);
+				
+				st = conn.prepareStatement("SELECT ExpectedReturnDate FROM loanbook WHERE IsReturned = 'false' AND ExpectedReturnDate < ?");
+				st.setString(1,currentTime);
+				
+				rs = st.executeQuery();
+				
+				if (!(rs.isBeforeFirst())) {
+					counterEmpty++;
+				}
+				if (counterEmpty==2) {
+					listBooks.add("Fail");
+				}
+				
+				while(rs.next()) {
+					copyExpectedReturnDate = rs.getString(1);
+
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					 
+					diff1 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffDays = (diff1 / (24 * 60 * 60 * 1000));
+					String s = String.valueOf(diffDays);
+					int indexOfDot = s.indexOf(".");
+					String ss = s.substring(0, indexOfDot);
+					diffDays = Double.parseDouble(ss);
+					
+					diff2 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					s = String.valueOf(diffHours);
+					indexOfDot = s.indexOf(".");
+					ss = s.substring(0, indexOfDot);
+					diffHours = Double.parseDouble(ss);
+					
+					//SUM
+					sumOfDays2 += (diffDays+diffHours);
+					//COUNT
+					counter2++;
+					//MAX
+					if ((diffDays+diffHours)>maxOfDays2) {
+						maxOfDays2 = (diffDays+diffHours);
+					}
+				}
+				
+				listBooks.add(String.valueOf(sumOfDays+sumOfDays2));
+				listBooks.add(String.valueOf(counter+counter2));
+				
+				if(maxOfDays > maxOfDays2)
+				listBooks.add(String.valueOf(maxOfDays));
+				else
+				listBooks.add(String.valueOf(maxOfDays2));
+				
+				
+				//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the SortedSet - for books which have been returned
+				st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
+				rs = st.executeQuery();
+				
+				SortedSet<Double> sortedLoanCopies1 = new TreeSet<>();
+				
+				while(rs.next()) {
+					copyActualReturnDate = rs.getString(1);
+					copyExpectedReturnDate = rs.getString(2);
+
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					actualReturnDate = inFormat.parse(copyActualReturnDate); 
+					
+					diff1 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffDays = diff1 / (24 * 60 * 60 * 1000);
+					
+					diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					
+					sortedLoanCopies1.add(diffDays+diffHours);//All delayed copies in ascending order
+				}
+				
+				
+				CurrentTime = inFormat.parse(currentTime);
+				//Add the difference (days and hours) between Current Date and ExpectedReturnDate to the SortedSet - for books which yet haven't been returned
+				st = conn.prepareStatement("SELECT ExpectedReturnDate FROM loanbook WHERE IsReturned = 'false' AND  ExpectedReturnDate < ? ");
+				st.setString(1,currentTime);
+				rs = st.executeQuery();
+				
+				while(rs.next()) {
+					copyExpectedReturnDate = rs.getString(1);
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					 
+					////
+					diff1 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffDays = (diff1 / (24 * 60 * 60 * 1000));
+					String s = String.valueOf(diffDays);
+					int indexOfDot = s.indexOf(".");
+					String ss = s.substring(0, indexOfDot);
+					diffDays = Double.parseDouble(ss);
+					////
+					
+					////
+					diff2 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					s = String.valueOf(diffHours);
+					indexOfDot = s.indexOf(".");
+					ss = s.substring(0, indexOfDot);
+					diffHours = Double.parseDouble(ss);
+					////
+					
+					
+					sortedLoanCopies1.add(diffDays+diffHours);
+				}
+				
+				for (Double doubleTemp : sortedLoanCopies1) {
+					listBooks.add(String.valueOf(doubleTemp));
+					System.out.println("List Books:**** "+doubleTemp);
+				}
+
+
+				
+				break;
+				
+			case "Specific Book":
+				
+				listBooks.add("labels");
+				
+				//Add SUM, COUNT and MAX of days and hours late in return - specific book
+				sumOfDays=0;
+				maxOfDays=0;
+				counter=0;
+				counterEmpty=0;
+				st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
+				rs = st.executeQuery();
+				
+				if (!(rs.isBeforeFirst())) {
+					counterEmpty++;
+				}
+				
+				while(rs.next()) {
+					copyActualReturnDate = rs.getString(1);
+					copyExpectedReturnDate = rs.getString(2);
+
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					actualReturnDate = inFormat.parse(copyActualReturnDate); 
+					
+					diff1 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffDays = diff1 / (24 * 60 * 60 * 1000);
+					
+					diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					
+					//SUM
+					sumOfDays += (diffDays+diffHours);
+					//COUNT
+					counter++;
+					//MAX
+					if ((diffDays+diffHours)>maxOfDays) {
+						maxOfDays = (diffDays+diffHours);
+					}
+				}
+				
+				
+				//Add SUM, COUNT and MAX of days and hours late in return - specific book not yet returned
+				sumOfDays2=0;
+				maxOfDays2=0;
+				counter2=0;
+				CurrentTime = inFormat.parse(currentTime);
+				
+				st = conn.prepareStatement("SELECT ExpectedReturnDate FROM loanbook WHERE IsReturned = 'false' AND ExpectedReturnDate < ? AND  CopyID LIKE'"+bookID+"%'");
+				st.setString(1,currentTime);
+				
+				rs = st.executeQuery();
+				
+				if (!(rs.isBeforeFirst())) {
+					counterEmpty++;
+				}
+				if (counterEmpty==2) {
+					listBooks.add("Fail");
+				}
+				
+				while(rs.next()) {
+					copyExpectedReturnDate = rs.getString(1);
+
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					 
+					diff1 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffDays = (diff1 / (24 * 60 * 60 * 1000));
+					String s = String.valueOf(diffDays);
+					int indexOfDot = s.indexOf(".");
+					String ss = s.substring(0, indexOfDot);
+					diffDays = Double.parseDouble(ss);
+					
+					diff2 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					s = String.valueOf(diffHours);
+					indexOfDot = s.indexOf(".");
+					ss = s.substring(0, indexOfDot);
+					diffHours = Double.parseDouble(ss);
+					
+					//SUM
+					sumOfDays2 += (diffDays+diffHours);
+					//COUNT
+					counter2++;
+					//MAX
+					if ((diffDays+diffHours)>maxOfDays2) {
+						maxOfDays2 = (diffDays+diffHours);
+					}
+				}
+				
+				listBooks.add(String.valueOf(sumOfDays+sumOfDays2));
+				listBooks.add(String.valueOf(counter+counter2));
+				
+				if(maxOfDays > maxOfDays2)
+				listBooks.add(String.valueOf(maxOfDays));
+				else
+				listBooks.add(String.valueOf(maxOfDays2));
+				
+				
+				//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list - specific returned book
+				st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND CopyID LIKE'"+bookID+"%'");
+				rs = st.executeQuery();
+				
+				SortedSet<Double> sortedLoanCopies2 = new TreeSet<>();
+				
+				while(rs.next()) {
+					copyActualReturnDate = rs.getString(1);
+					copyExpectedReturnDate = rs.getString(2);
+
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					actualReturnDate = inFormat.parse(copyActualReturnDate); 
+					
+					diff1 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffDays = diff1 / (24 * 60 * 60 * 1000);
+					
+					diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					
+					sortedLoanCopies2.add(diffDays+diffHours);//All delayed copies in ascending order
+				}
+				
+				
+				CurrentTime = inFormat.parse(currentTime);
+				//Add the difference (days and hours) between Current Date and ExpectedReturnDate to the SortedSet - for books which yet haven't been returned
+				st = conn.prepareStatement("SELECT ExpectedReturnDate FROM loanbook WHERE IsReturned = 'false' AND  ExpectedReturnDate < ? AND CopyID LIKE'"+bookID+"%'");
+				st.setString(1,currentTime);
+				rs = st.executeQuery();
+				
+				while(rs.next()) {
+					copyExpectedReturnDate = rs.getString(1);
+					expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+					 
+					////
+					diff1 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffDays = (diff1 / (24 * 60 * 60 * 1000));
+					String s = String.valueOf(diffDays);
+					int indexOfDot = s.indexOf(".");
+					String ss = s.substring(0, indexOfDot);
+					diffDays = Double.parseDouble(ss);
+					////
+					
+					////
+					diff2 = CurrentTime.getTime() - expectedReturnDate.getTime();
+					diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+					s = String.valueOf(diffHours);
+					indexOfDot = s.indexOf(".");
+					ss = s.substring(0, indexOfDot);
+					diffHours = Double.parseDouble(ss);
+					////
+					
+					
+					sortedLoanCopies2.add(diffDays+diffHours);
+				}
+				
+				for (Double doubleTemp : sortedLoanCopies2) {
+					listBooks.add(String.valueOf(doubleTemp));
+					System.out.println("List Books:**** "+doubleTemp);
+				}
+				break;
+				
+				case "Specific LoanBook":
+				
+					listBooks.add("labels");
+					
+					//Add SUM, COUNT and MAX of days and hours loans - for books which have been returned
+					sumOfDays=0;
+					maxOfDays=0;
+					counter=0;
+					counterEmpty=0;
+					st = conn.prepareStatement("SELECT ActualReturnDate,LoanDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate > ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
+					rs = st.executeQuery();
+					
+					if (!(rs.isBeforeFirst())) {
+						counterEmpty++;
+					}
+					
+					while(rs.next()) {
+						copyActualReturnDate = rs.getString(1);
+						copyLoanDate = rs.getString(2);
+
+						LoanDate = inFormat.parse(copyLoanDate); 
+						actualReturnDate = inFormat.parse(copyActualReturnDate); 
+						
+						diff1 = actualReturnDate.getTime() - LoanDate.getTime();
+						diffDays = diff1 / (24 * 60 * 60 * 1000);
+						
+						diff2 = actualReturnDate.getTime() - LoanDate.getTime();
+						diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+						
+						//SUM
+						sumOfDays += (diffDays+diffHours);
+						//COUNT
+						counter++;
+						//MAX
+						if ((diffDays+diffHours)>maxOfDays) {
+							maxOfDays = (diffDays+diffHours);
+						}
+					}
+					
+					//Add SUM, COUNT and MAX of days and hours loans - for books which yet haven't been returned
+					sumOfDays2=0;
+					maxOfDays2=0;
+					counter2=0;
+					st = conn.prepareStatement("SELECT LoanDate FROM loanbook WHERE IsReturned = 'false' AND  CopyID LIKE'"+bookID+"%'");
+					rs = st.executeQuery();
+					
+					if (!(rs.isBeforeFirst())) {
+						counterEmpty++;
+					}
+					if (counterEmpty==2) {
+						listBooks.add("Fail");
+					}
+					
+					while(rs.next()) {
+						copyLoanDate = rs.getString(1);
+
+						LoanDate = inFormat.parse(copyLoanDate); 
+						CurrentTime = inFormat.parse(currentTime); 
+						
+						diff1 = CurrentTime.getTime() - LoanDate.getTime();
+						diffDays = (diff1 / (24 * 60 * 60 * 1000));
+						String s = String.valueOf(diffDays);
+						int indexOfDot = s.indexOf(".");
+						String ss = s.substring(0, indexOfDot);
+						diffDays = Double.parseDouble(ss);
+						
+						diff2 = CurrentTime.getTime() - LoanDate.getTime();
+						diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+						s = String.valueOf(diffHours);
+						indexOfDot = s.indexOf(".");
+						ss = s.substring(0, indexOfDot);
+						diffHours = Double.parseDouble(ss);
+						
+						//SUM
+						sumOfDays2 += (diffDays+diffHours);
+						//COUNT
+						counter2++;
+						//MAX
+						if ((diffDays+diffHours)>maxOfDays2) {
+							maxOfDays2 = (diffDays+diffHours);
+						}
+					}
+					
+					listBooks.add(String.valueOf(sumOfDays+sumOfDays2));
+					listBooks.add(String.valueOf(counter+counter2));
+					
+					if(maxOfDays > maxOfDays2)
+					listBooks.add(String.valueOf(maxOfDays));
+					else
+					listBooks.add(String.valueOf(maxOfDays2));
+					
+					//Add the difference (days and hours) between LoanDate and Current Date to the SortedSet - for books which have been returned
+					sumOfDays=0;
+					maxOfDays=0;
+					counter=0;
+					st = conn.prepareStatement("SELECT ActualReturnDate,LoanDate FROM loanbook WHERE IsReturned = 'true' AND CopyID LIKE'"+bookID+"%'");
+					rs = st.executeQuery();
+					
+					SortedSet<Double> sortedLoanCopies = new TreeSet<>();
+					
+					while(rs.next()) {
+						copyActualReturnDate = rs.getString(1);
+						copyLoanDate = rs.getString(2);
+
+						LoanDate = inFormat.parse(copyLoanDate); 
+						actualReturnDate = inFormat.parse(copyActualReturnDate); 
+						
+						diff1 = actualReturnDate.getTime() - LoanDate.getTime();
+						diffDays = diff1 / (24 * 60 * 60 * 1000);
+						
+						diff2 = actualReturnDate.getTime() - LoanDate.getTime();
+						diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+						
+						sortedLoanCopies.add(diffDays+diffHours);
+					}
+					
+					//Add the difference (days and hours) between LoanDate and Current Date to the SortedSet - for books which yet haven't been returned
+					sumOfDays=0;
+					maxOfDays=0;
+					counter=0;
+					st = conn.prepareStatement("SELECT LoanDate FROM loanbook WHERE IsReturned = 'false' AND  CopyID LIKE'"+bookID+"%'");
+					rs = st.executeQuery();
+					
+					while(rs.next()) {
+						copyLoanDate = rs.getString(1);
+
+						LoanDate = inFormat.parse(copyLoanDate); 
+						CurrentTime = inFormat.parse(currentTime); 
+						
+						////
+						diff1 = CurrentTime.getTime() - LoanDate.getTime();
+						diffDays = (diff1 / (24 * 60 * 60 * 1000));
+						String s = String.valueOf(diffDays);
+						int indexOfDot = s.indexOf(".");
+						String ss = s.substring(0, indexOfDot);
+						diffDays = Double.parseDouble(ss);
+						////
+						
+						////
+						diff2 = CurrentTime.getTime() - LoanDate.getTime();
+						diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+						s = String.valueOf(diffHours);
+						indexOfDot = s.indexOf(".");
+						ss = s.substring(0, indexOfDot);
+						diffHours = Double.parseDouble(ss);
+						////
+						
+						
+						sortedLoanCopies.add(diffDays+diffHours);
+					}
+					
+					for (Double doubleTemp : sortedLoanCopies) {
+						listBooks.add(String.valueOf(doubleTemp));
+						System.out.println("List Books:**** "+doubleTemp);
+					}
+				break;
+				
+			default:
+				break;
 			}
-			listBooks.add(String.valueOf(sumOfDaysS));
-			listBooks.add(String.valueOf(counterS));
-			listBooks.add(String.valueOf(maxOfDaysS));
-
-
-			//					PreparedStatement stmtB2 = conn.prepareStatement("SELECT DaysLateInReturn FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND CopyID LIKE'"+bookID+"%' ORDER BY DaysLateInReturn ASC");
-			//					ResultSet rsB2 = stmtB2.executeQuery();
-			//					while(rsB2.next()) {
-			//							listBooks.add(rsB2.getString(1));//All delayed copies in ascending order
-			//					}
-			//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
-			PreparedStatement stSS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND CopyID LIKE'"+bookID+"%' ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
-			ResultSet rSS = stSS.executeQuery();
-
-			Date dtSS = new java.util.Date();
-			SimpleDateFormat inFormatSS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTimeSS = inFormatSS.format(dtSS);
-
-			while(rSS.next()) {
-				String copyActualReturnDateSS = rSS.getString(1);
-				String copyExpectedReturnDateSS = rSS.getString(2);
-
-				Date expectedReturnDateSS = inFormatSS.parse(copyExpectedReturnDateSS); 
-				Date actualReturnDateSS = inFormatSS.parse(copyActualReturnDateSS); 
-
-				long diffSS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
-				long diffDaysSS = diffSS / (24 * 60 * 60 * 1000);
-
-				double diff2SS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
-				double diffHoursSS = (diff2SS / (60 * 60 * 1000) % 24)*0.01;
-
-				listBooks.add(String.valueOf(diffDaysSS+diffHoursSS));//All delayed copies in ascending order
-			}
-
-			break;
-
-
-		default:
-			break;
-		}
-
+		
 		return listBooks;
 	}
+
+		
+		
 	public void memberLostBook(ArrayList<String> data) throws SQLException {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

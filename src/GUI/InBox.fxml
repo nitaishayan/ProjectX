@@ -3,22 +3,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InBoxGUI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1026.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.InBoxGUI">
    <children>
-      <TableView fx:id="table" layoutX="48.0" layoutY="98.0" prefHeight="481.0" prefWidth="748.0">
+      <TableView fx:id="table" layoutX="26.0" layoutY="130.0" prefHeight="515.0" prefWidth="654.0">
         <columns>
           <TableColumn fx:id="dateCol" prefWidth="191.0" text="Date" />
           <TableColumn fx:id="topicCol" prefWidth="185.0" text="Topic" />
-            <TableColumn fx:id="contentCol" prefWidth="363.0" text="Content" />
+            <TableColumn fx:id="contentCol" prefWidth="277.0" text="Content" />
         </columns>
       </TableView>
-      <Label fx:id="inBoxLabel" layoutX="377.0" layoutY="24.0" prefHeight="30.0" prefWidth="90.0" text="INBOX" underline="true">
+      <Label fx:id="inBoxLabel" layoutX="452.0" layoutY="27.0" prefHeight="41.0" prefWidth="123.0" text="INBOX" underline="true">
          <font>
-            <Font name="Arial Bold" size="25.0" />
+            <Font name="Arial Bold" size="35.0" />
          </font>
       </Label>
+      <TextArea fx:id="txtArea" editable="false" layoutX="709.0" layoutY="262.0" prefHeight="195.0" prefWidth="277.0" wrapText="true" />
+      <Label layoutX="717.0" layoutY="234.0" text="Message Content :" underline="true" />
    </children>
 </AnchorPane>

@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -23,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import logic.CommonController;
 import logic.Main;
 
@@ -72,14 +75,37 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 	    
 	    @FXML
 	    void historyOfLoan(ActionEvent event) throws IOException {
-	    	MemberCardGUI.memberIDHistory = MemberIDLabel.getText(); //MemberIDLabel.setText(memberTemp.getId());;
-	    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
-	    	AnchorPane.getChildren().setAll(pane);
+	    	//Load page of loan history
+	    	MemberCardGUI.memberIDHistory=MemberIDLabel.getText();
+	    	MemberCardGUI.memberFirstName=FirstNameLabel.getText();
+	    	MemberCardGUI.memberLastName=LastNameLabel.getText();
+	    	MemberCardGUI.status=StatusLabel.getText();
+			Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
+			Scene scene=new Scene(parent);
+			Stage stage=new Stage();
+			stage.setScene(scene);
+			stage.setMaxHeight(628);
+			stage.setMinHeight(628);
+			stage.setMinWidth(916);
+			stage.setMaxWidth(916);
+			stage.show();
 	    }
 
 	    @FXML
-	    void latesLostBook(ActionEvent event) {
-
+	    void latesLostBook(ActionEvent event) throws IOException {
+			//load table view that present the late and lost book by member
+			MemberCardGUI.memberIDHistory=MemberIDLabel.getText();
+			MemberCardGUI.memberFirstName=FirstNameLabel.getText();
+			MemberCardGUI.memberLastName=LastNameLabel.getText();
+			Parent parent=FXMLLoader.load(getClass().getResource("/GUI/DelayandLostTableView.fxml"));
+			Scene scene=new Scene(parent);
+			Stage stage=new Stage();
+			stage.setScene(scene);
+			stage.setMaxHeight(571);
+			stage.setMinHeight(571);
+			stage.setMinWidth(904);
+			stage.setMaxWidth(904);
+			stage.show();
 	    }
 	    
 		@Override

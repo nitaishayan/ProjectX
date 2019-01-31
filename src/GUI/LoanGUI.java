@@ -73,25 +73,25 @@ public class LoanGUI implements Initializable, GuiInterface {
 			}
 		}
 	}
-    @FXML
-    void memberMouse(MouseEvent event) {
+	@FXML
+	void memberMouse(MouseEvent event) {
 		try {
 			CommonController.checkMemberExistence(txt_MemberID.getText());
 		} catch (Exception e) {
 			clearMemberFields();
 			showFailed(e.getMessage());
 		}
-    }
-    
-    @FXML
-    void copyMouse(MouseEvent event) {
+	}
+
+	@FXML
+	void copyMouse(MouseEvent event) {
 		try {
 			BookHandlerController.isCopyExist(txt_CopyID.getText());
 		} catch (Exception e) {
 			clearCopyFields();
 			showFailed(e.getMessage());
 		}
-    }
+	}
 	@FXML
 	void clickLoanButton(ActionEvent event) {
 		if(!returnedMember.getId().equals(txt_MemberID.getText())) {
@@ -198,62 +198,63 @@ public class LoanGUI implements Initializable, GuiInterface {
 			break;
 
 		case "Loan Book":
-			if(msg.size() == 1) {
+			if(msg.size() == 2) {
 				freshStart();
-				showFailed("Error occured!");
+				showFailed(msg.get(1));
 			}
 			else {
 				showSuccess("Copy " + returnedCopy.getCopyID() + " loaned successfully by the member " + returnedMember.getFirstName() + " " + returnedMember.getLastName() +
 						" and the expected return date is " + msg.get(2));
 				copyFlag = memberFlag = false;
 			}
-			break;
+			
+		break;
 
-		default:
-			break;
+	default:
+		break;
 		}
-	}
+}
 
-	@Override
-	public void showFailed(String message) {
-		Platform.runLater(() -> {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("An error occurred");
-			alert.setContentText(message);
-			alert.showAndWait();
-		});
-	}
+@Override
+public void showFailed(String message) {
+	Platform.runLater(() -> {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("An error occurred");
+		alert.setContentText(message);
+		alert.showAndWait();
+	});
+}
 
-	@Override
-	public void freshStart() {
-		txt_MemberID.clear();
-		txt_CopyID.clear();
-		txt_MemberStatus.clear();
-		txt_BookName.clear();
-		txt_MemberName.clear();
-		txt_BookStatus.clear();
-		buttonLoan.setDisable(true);
-	}
+@Override
+public void freshStart() {
+	txt_MemberID.clear();
+	txt_CopyID.clear();
+	txt_MemberStatus.clear();
+	txt_BookName.clear();
+	txt_MemberName.clear();
+	txt_BookStatus.clear();
+	buttonLoan.setDisable(true);
+}
 
-	public void clearMemberFields() {
-		txt_MemberID.clear();
-		txt_MemberStatus.clear();
-		txt_MemberName.clear();
-		buttonLoan.setDisable(true);
-	}
+public void clearMemberFields() {
+	txt_MemberID.clear();
+	txt_MemberStatus.clear();
+	txt_MemberName.clear();
+	buttonLoan.setDisable(true);
+}
 
-	public void clearCopyFields() {
-		txt_CopyID.clear();
-		txt_BookName.clear();
-		txt_BookStatus.clear();
-		buttonLoan.setDisable(true);
-	}
+public void clearCopyFields() {
+	txt_CopyID.clear();
+	txt_BookName.clear();
+	txt_BookStatus.clear();
+	buttonLoan.setDisable(true);
+}
 
 
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		Main.client.clientUI = this;
-	}
+@Override
+public void initialize(URL arg0, ResourceBundle arg1) {
+	Main.client.clientUI = this;
+}
 }
