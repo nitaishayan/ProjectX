@@ -47,14 +47,9 @@ public class DBController {
 	// register new user in database
 	public static int registration(ArrayList<String> data) throws SQLException
 	{
-<<<<<<< HEAD
-		PreparedStatement preparedRegistretion;
-		ResultSet rsRegistretion;
-		PreparedStatement UpdateStatus;
-=======
 		PreparedStatement preparedRegistration;
 		ResultSet rsRegistration;
->>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
+		PreparedStatement UpdateStatus;
 
 		preparedRegistration = conn.prepareStatement("SELECT  * FROM members WHERE MemberID=? ");
 		preparedRegistration.setString(1, data.get(2));
@@ -2127,7 +2122,6 @@ public class DBController {
 		return dataDetails;
 	}
 
-<<<<<<< HEAD
 	public static void handleLateLoans() throws SQLException {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -2262,10 +2256,6 @@ public class DBController {
 		}
 		return data;
 	}
-			
-=======
-	
->>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 
 	private static Connection connectToDatabase() {
 		try 
