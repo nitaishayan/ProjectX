@@ -136,6 +136,10 @@ public class DeclareGraduateGUI implements GuiInterface{
 		}
 	}
 
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String message) {
 		Platform.runLater(() -> {
@@ -153,6 +157,10 @@ public class DeclareGraduateGUI implements GuiInterface{
 
 	}
 
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param String- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Platform.runLater(() -> {
@@ -166,6 +174,9 @@ public class DeclareGraduateGUI implements GuiInterface{
 		});
 	}
 
+	/**
+	 * this method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		txt_MemberID.clear();
