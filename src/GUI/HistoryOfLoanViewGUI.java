@@ -221,9 +221,6 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		//row listener - when we receive row from DB
 		TableViewLoanHistory.getSelectionModel().selectedIndexProperty().addListener(new RowSelectListener());
 	}
-	//		 private void getHistoryOfLoans() {
-	//			 TableViewLoanHistory.setItems(getLoanDetails());
-	//	}
 	private class RowSelectListener implements ChangeListener {
 		@Override
 		public void changed(ObservableValue arg0, Object arg1, Object arg2) {
