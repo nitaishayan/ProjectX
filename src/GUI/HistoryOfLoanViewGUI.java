@@ -39,9 +39,20 @@ import logic.CommonController;
 import logic.Main;
 import logic.MemberCardController;
 import logic.SearchBookController;
-
+/**
+ * Class that present the data of all the loan book that the specific member 
+ * All books that the user held during the period in which he or she member in the library
+ * during his time in the library
+ * the presentation of the details is shown by a table view with a fxml page that call HistoryofLoanTableView.fxml
+ * if the librarian press a row in the table view she can declare a copy as lost by the member
+ * @author nitay shayan
+ *
+ */
 public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
-
+	Stage window;
+	VBox vBox;
+	String memberID;	
+	String status;
 	@FXML
 	private TableView<LoanDetails> TableViewLoanHistory;
 
@@ -63,10 +74,9 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 	private AnchorPane rootPane;
 	@FXML
 	private Label memberDetails;
-	Stage window;
-	VBox vBox;
-	String memberID;	
-	String status;
+/**
+ * show success message based on the String
+ */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -74,6 +84,16 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		alert.setHeaderText(string);
 		alert.showAndWait();			
 	}
+	/**
+	 * Display method
+	 * @param obj the object received by the server from the data base
+	 * the object is an array list with the values of the requested query
+	 * the order of the arraylist is below
+	 * j+2 Book name ; //j CopyID ; //J+1 Loan Date; //J+3 Actual Return Date; //J+4 Author name
+	 * j is the current counter for each iteration
+	 * if the member did not loan any books, a proper message is appeard
+	 * @param numberOfColumns number of columns in the table view
+	 */
 	@Override
 	public void display(Object obj) {
 
@@ -113,6 +133,10 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 				ActualReturnDate.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("ActualReturnDate"));
 				AuthorName.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("AuthorName"));
 
+				/**
+				 * if the librarian press a row in the able view - she is able to declare the requested copy as a lost copy
+				 * first it checks if the copy is borrowed, and pop up screen to the option 
+				*/
 				Platform.runLater(() -> {	
 					TableViewLoanHistory.setOnMouseClicked(new EventHandler<MouseEvent>() {
 						
@@ -144,7 +168,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 					}
 					//j+2 Book name ; //j CopyID ; //J+1 Loan Date; //J+3 Actual Return Date; //J+4 Author name
 					rowCounter++;
-					arrayJump+=5;
+					arrayJump+=5;//jump each iteration
 					loanDetails.add(loanTemp);
 
 				}
@@ -152,7 +176,12 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			}			
 		}
 	}
-
+/**
+ * 
+ * @param memberID memberID by user
+ * @param copyid	copyID of the lost book
+ * @param bookname	book name of the lost book
+ */
 	public void displayLoanDetails(String memberID, String copyid, String bookname) {
 		Stage 	   	 primaryStage   = new Stage();
 		VBox 	 	 mainVbox       = new VBox(20);
@@ -161,7 +190,9 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		Scene 		 scene 			= new Scene(mainVbox);
 		Button		 LostCopy = new Button("LOST COPY");
 		HBox 		 hbox2			= new HBox(20);
-
+/**
+ * send to the data base the lost copy details after the press
+ */
 		LostCopy.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -185,7 +216,9 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		primaryStage.setResizable(false);
 		primaryStage.showAndWait();
 	}
-
+	/**
+	 * show failed message based on the String
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
@@ -193,11 +226,15 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		alert.setHeaderText(message);
 		alert.showAndWait();		
 	}
+	
 	@Override
 	public void freshStart() {
-		// TODO Auto-generated method stub
-
 	}
+	/**
+	 * initialize method that launch page as he open from another screen
+	 * save the details of the member from MemberCardGUI
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
@@ -214,10 +251,9 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			memberID=Main.client.arrayUser.get(0);//get ID by arrayUser
 			memberDetails.setText(Main.client.arrayUser.get(2)+" "+Main.client.arrayUser.get(3));
 		}
-
-
-
-		//load data into tableView
+		/**
+		 * launch the query to DB
+		 */
 		MemberCardController.viewPersonalHistory(memberID);
 		//row listener - when we receive row from DB
 		TableViewLoanHistory.getSelectionModel().selectedIndexProperty().addListener(new RowSelectListener());
@@ -228,7 +264,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 			// TODO Auto-generated method stub		
 			LoanDetails loanDetailsTemp = TableViewLoanHistory.getSelectionModel().getSelectedItem();
 		}
-
+		
 	}
-
+	
 }

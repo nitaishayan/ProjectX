@@ -21,9 +21,14 @@ import javafx.scene.layout.AnchorPane;
 import logic.CommonController;
 import logic.Main;
 import logic.MemberCardController;
-
+/**
+ * Class that present the data of all the delay and lost book that the specific member lost
+ * during his time in the library
+ * the presentation of the details is shown by a table view with a fxml page that call HistoryofLoanTableView.fxml
+ * @author nitay shayan
+ */
 public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterface{
-
+	private String memberID;
     @FXML
     private AnchorPane AnchorPane;
 
@@ -42,8 +47,9 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
     @FXML
     private TableColumn<DelayandLostDetails,String> c;
 
-	private String memberID;
-
+/**
+ * show success message based on the input string
+ */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -51,7 +57,11 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
 		alert.setHeaderText(string);
 		alert.showAndWait();			
 	}
-
+/**
+ * Method that present the object receive from the DB
+ * the method is show the values based on the class DelayandLostDetails in common package
+ * create the table view columns and rows and insert it by the order
+ */
 	@Override
 	public void display(Object obj) {
 		int numberOfColumns=3;
@@ -107,7 +117,9 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
 		}
 		
 	}
-
+/**
+ * show failed message based on the input string
+ */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
@@ -121,7 +133,12 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 *Initialize method that save the memberID details based on the memberID received from the librarian search in MemberCardGUI
+	 *save also the first and last name of the member
+	 *after the use of the static veriables the method initialize them
+	 *
+	 * */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;

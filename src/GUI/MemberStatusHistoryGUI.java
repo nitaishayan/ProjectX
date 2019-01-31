@@ -22,6 +22,13 @@ import logic.CommonController;
 import logic.Main;
 import logic.MemberCardController;
 
+/**
+ * Class that present the data of all the status changes that the specific member had 
+ * during his time in the library
+ * the presentation of the details is shown by a table view with a fxml page that call MemberStatusHistory.fxml
+ * @author nitay shayan
+ *
+ */
 public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 	private String memberID;
     @FXML
@@ -38,7 +45,9 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 
     @FXML
     private Label memberDetails;
-
+    /**
+     * show success message based on the String
+     */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -46,7 +55,15 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 		alert.setHeaderText(string);
 		alert.showAndWait();		
 	}
-
+	/**
+	 * Display method
+	 * @param obj the object received by the server from the data base
+	 * the object is an array list with the values of the requested query
+	 * the order of the arraylist is below
+	 * j is the current counter for each iteration
+	 * j+2 current Status ; //j previous Status   ; //J+1 execution Date
+	 * the method insert the values to the table view 
+	 */
 	@Override
 	public void display(Object obj) {
 		int numberOfColumns=3;
@@ -102,7 +119,9 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 		}
 			
 	}
-
+	/**
+	 * show failed message based on the String
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
@@ -112,11 +131,14 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 	}
 
 	@Override
-	public void freshStart() {
-		// TODO Auto-generated method stub
-		
+	public void freshStart() {		
 	}
-
+	
+	/**
+	 * initialize method that launch page as he open from another screen
+	 * save the details of the member from MemberCardGUI
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
@@ -131,6 +153,9 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 			setMemberID(Main.client.arrayUser.get(0));//get ID by arrayUser
 			memberDetails.setText(Main.client.arrayUser.get(2)+" "+Main.client.arrayUser.get(3));
 		}
+		/**
+		 * launch the query to DB
+		 */
 		System.out.println("now in MemberStatusHistoryGUI");
     	MemberCardController.getStatusHistory(getMemberID());
 	}
