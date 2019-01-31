@@ -38,6 +38,11 @@ import logic.BookHandlerController;
 import logic.Main;
 
 public class SearchBookGUI implements Initializable, GuiInterface{
+	
+	/**
+	 * this class connect between the input in the gui to the controller of Search Book process.
+	 * the class giving the functionality to search book by is name, by author name, by free text and by genre.
+	 */
 
 	@FXML
 	private RadioButton radio_btn_book_name;
@@ -72,12 +77,22 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	@FXML
 	private Button btnBack;
 
+	/**
+	 * this method move the user back to the opening screen.
+	 * @param event -event from press on "Back" button.
+	 * @throws IOException
+	 */
 	@FXML
 	void onBackClick(ActionEvent event) throws IOException {
 		OBLcontroller.searchForReader.close();
 		Main.primary.show();
 	}
 
+	/**
+	 * this method get from gui the search request of the user and move it to the SearchBookController
+	 * for continue in the search process. (by pressing on "Search" button).
+	 * @param event - event from press on "Search" button.
+	 */
 	@FXML
 	void onSearchClick(ActionEvent event) {
 		String searchPick;
@@ -119,6 +134,11 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		}
 	}
 
+	/**
+	 * this method get from gui the search request of the user and move it to the SearchBookController
+	 * for continue in the search process. (by pressing on ENTER).
+	 * @param event - event from press on ENTER.
+	 */
 	@FXML
 	void enterPress(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
@@ -162,6 +182,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		}
 	}
 
+	/**
+	 * this method opening and closing the fields with regard to the chosen radio button of the group.
+	 * @param event - event from click on one of the radio buttons.
+	 */
 	@FXML
 	void openAndCloseFields(ActionEvent event) 
 	{
@@ -203,6 +227,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		}
 	}
 
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -211,6 +239,13 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		alert.showAndWait();	
 	}
 
+	/**
+	 * this method create a window with table view and puts inside all the books that return from the search
+	 * process.
+	 * the method give the user the functionality to press on some book and after to show the table of content
+	 * and reserve the book.
+	 * @param obj - ArrayList with the relevant data for create this window (all the information that needed).
+	 */
 	@Override
 	public void display(Object obj) 
 	{
@@ -253,6 +288,8 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 				table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
+						if (table.getSelectionModel().getSelectedItem()==null)
+							return;
 						if (Client.arrayUser.size() > 2)
 						{
 							SearchBookController.searchBookDetailes(table.getSelectionModel().getSelectedItem().getBookID().getValue(),table.getSelectionModel().getSelectedItem().getBookName().getValue(), table.getSelectionModel().getSelectedItem().getAuthorName().getValue());
@@ -279,6 +316,11 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		}
 	}
 
+	/**
+	 * this method create a window with message that describe the shelf location of the book if we have a copy of him
+	 * in the library (of this book) or the nearest return date of one of is copies if all the copies are loaned.
+	 * @param detailesData - ArrayList with the relevant data for create this window (all the information that needed).
+	 */
 	private void displayBookDetails(ArrayList<String> detailesData) {
 		Stage 	   	 primaryStage   = new Stage();
 		VBox 	 	 mainVbox       = new VBox(20);
@@ -342,6 +384,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 	}
 
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param String- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -350,6 +396,20 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		alert.showAndWait();
 	}
 
+	/**
+	 * this method clean up the fields on the screen.
+	 */
+	@Override
+	public void freshStart() {
+		txtBook_Name.clear();
+		txtAuthor_Name.clear();
+		txtBook_Theme.clear();
+		txtFree_Text.clear();
+	}
+
+	/**
+	 * this method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
@@ -358,11 +418,4 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		}
 	}
 
-	@Override
-	public void freshStart() {
-		txtBook_Name.clear();
-		txtAuthor_Name.clear();
-		txtBook_Theme.clear();
-		txtFree_Text.clear();
-	}
 }

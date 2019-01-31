@@ -1,11 +1,22 @@
 package Common;
 
 public class InBoxMessage {
-	
+
+	/**
+	 * this class is for the binding between the presentation of message in the in-box
+	 *  (table view) to the instance.
+	 */
+
 	private String date;
 	private String topic;
 	private String content;
-	
+
+	/**
+	 * constructor to build a instance of the class (use in table view of in box)
+	 * @param date - the date of the message sent
+	 * @param topic - the topic of the message.
+	 * @param content - the content of the message.
+	 */
 	public InBoxMessage(String date, String topic, String content) {
 		this.date = date;
 		this.topic = topic;

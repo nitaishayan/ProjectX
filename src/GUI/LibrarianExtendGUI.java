@@ -126,6 +126,8 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 				table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
+						if (table.getSelectionModel().getSelectedItem()==null)
+							return;
 						if (Client.arrayUser.size() > 2)
 						{
 							BookHandlerController.extendLoanPeriodByLibrarian(txtMember_ID.getText(),table.getSelectionModel().getSelectedItem().getCopyID(),table.getSelectionModel().getSelectedItem().getBookName(), table.getSelectionModel().getSelectedItem().getAuthorName(),Client.arrayUser.get(0));

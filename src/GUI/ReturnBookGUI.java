@@ -72,14 +72,14 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 	void clickReturnButton(ActionEvent event) {
 		if(txtCopy_ID.getText().equals(copyID)) {
 			if(memb.getStatus().equals("Active")) {
-				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
+				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus(),memb.getId());
 			}
 			else {
 				if(txtCopy_ID.getText().equals(memb.getFreezedOn())) {
 					BookHandlerController.isMemberLateOnReturn(memb.getId());
 				}
 				else {
-					BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
+					BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus(),memb.getId());
 				}
 			}
 		}
@@ -152,10 +152,10 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 						CommonController.changeMemberStatus(memb.getId(), memb.getStatus(), "Active");
 					}
 				}
-				BookHandlerController.returnBook(txtCopy_ID.getText(),oldStatus);
+				BookHandlerController.returnBook(txtCopy_ID.getText(),oldStatus,memb.getId());
 			}
 			else {
-				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus());
+				BookHandlerController.returnBook(txtCopy_ID.getText(),memb.getStatus(),memb.getId());
 			}
 			break;
 
