@@ -73,6 +73,12 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 	    @FXML
 	    private Button btn_latesLostBook;
 	    
+	    /**
+	     * This method is triggered after choosing a reader card from the table view and pressing the button "history Of Loan".
+	     * The method open a new window with the appropriate loan's history details.
+	     * @param event - event cause from pressing on "history Of Loan" button.
+	     * @throws IOException
+	     */
 	    @FXML
 	    void historyOfLoan(ActionEvent event) throws IOException {
 	    	//Load page of loan history
@@ -91,6 +97,12 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 			stage.show();
 	    }
 
+	    /**
+	     * This method is triggered after choosing a reader card from the table view and pressing the button "late/Lost Book".
+	     * The method open a new window with the appropriate late/lost's history details.
+	     * @param event - event cause from pressing on "late/Lost Book" button.
+	     * @throws IOException
+	     */
 	    @FXML
 	    void latesLostBook(ActionEvent event) throws IOException {
 			//load table view that present the late and lost book by member
@@ -108,6 +120,12 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 			stage.show();
 	    }
 	    
+	    /**
+		 * This method set the variable of the GuiInterface in the client to this.
+		 * Set properties to the specific columns of the table view.
+		 * Set the columns to the table view and add a click event when a row from the table view is pressed on.
+		 * The method give the user the functionality to press on some reader card and get his details.
+		 */
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			// TODO Auto-generated method stub
@@ -137,6 +155,10 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 			
 		}
 		
+		/**
+		 * This private class implements ChangeListener overrides the changed method to fulfill the functionality of pressing a row
+		 * in the table view and show the card reader's details in the specific labels.
+		 */
 			///////// row select listener
 		 private class RowSelectListener implements ChangeListener {
 					@Override
@@ -154,12 +176,18 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 
 			     }
 
+		/**
+		* Not used method(must implement because the implementation of GuiInterface)
+		*/
 		@Override
 		public void showSuccess(String string) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub	
 		}
 
+		/**
+		 *  This method puts inside the table view all the card readers that return from the search after initialize method is called.
+		 * @param obj - ArrayList with the relevant data for create this window and maneuver through the different methods (all the information that needed).
+		 */
 		@Override
 		public void display(Object obj) {
 			// TODO Auto-generated method stub
@@ -180,18 +208,25 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 			 
 		}
 
+		/**
+		* Not used method(must implement because the implementation of GuiInterface)
+		*/
 		@Override
 		public void showFailed(String message) {
 			// TODO Auto-generated method stub
-			
 		}
 
+		/**
+		* Not used method(must implement because the implementation of GuiInterface)
+		*/
 		@Override
 		public void freshStart() {
 			// TODO Auto-generated method stub
-			
 		}
 		
+		/**
+		 * This method call to a function from CommonController that get the members for the table view.
+		 */
 		 private void getMembers() {
 			 CommonController.ShowReaderCards();
 		  }

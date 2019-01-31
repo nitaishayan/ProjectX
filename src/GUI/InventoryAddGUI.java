@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import Client.Client;
@@ -26,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -222,6 +224,22 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
 		txtTable_Of_Content.setEditable(false);
+		LocalDate maxDate = LocalDate.now();
+		txtPrint_Date.setDayCellFactory(d ->
+		new DateCell() {
+			@Override 
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
+				setDisable(item.isAfter(maxDate));
+			}});
+
+		txtPurchase_Date.setDayCellFactory(d ->
+		new DateCell() {
+			@Override 
+			public void updateItem(LocalDate item, boolean empty) {
+				super.updateItem(item, empty);
+				setDisable(item.isAfter(maxDate));
+			}});
 	}
 
 	@Override
@@ -268,6 +286,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			btnCopy.setDisable(false);
 			btnAdd.setDisable(true);
 			btn_browse.setDisable(true);
+			showSuccess("Book is already exist in the library.");
 		});
 	}
 

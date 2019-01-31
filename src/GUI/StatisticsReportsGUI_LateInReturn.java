@@ -81,11 +81,7 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 	@FXML
     private Button btn_backScreen;
 
-    @FXML
-    void backScreen(ActionEvent event) throws IOException {
-     	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
-     	PaneLateInReturn.getChildren().setAll(pane);
-    }
+	
 
 	//global variables
 	public static final String TOTAL = "Total";
@@ -96,12 +92,31 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 	float sumOfDaysDelayed, numOfBookDelayed;
 
 
+	/**
+	 * This method move the user back to the Main Statistic Reports screen.	
+	 * @param event - event cause from pressing on "Back" button.
+	 * @throws IOException
+	 */
+    @FXML
+    void backScreen(ActionEvent event) throws IOException {
+     	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
+     	PaneLateInReturn.getChildren().setAll(pane);
+    }
+    
+    /**
+     * This method update labels and grid pane to the total statistics of the library.	
+     * @param event - event cause from pressing on "Total" button.
+     */
 	@FXML
 	void ReturnToTotal(ActionEvent event) {
 		StatisticReportsController.ShowBooks(TOTAL,null);
 		
 	}
-
+	
+	/**
+	 * this method show information pop-up on the screen with given message.
+	 * @param string- the message that is shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
@@ -112,6 +127,12 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 		alert.showAndWait();
 	}
 
+	/**
+	* This method set the variable of the GuiInterface in the client to this.
+	* Set properties to the specific columns of the table view.
+	* Set the columns to the table view and add a click event when a row from the table view is pressed on.
+	* The method give the user the functionality to press on some book and get his details.
+	*/
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -133,7 +154,6 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 		tableViewLates.getColumns().setAll(bookIDCol, bookNameCol,authorsNameCol,editionNoCol,isWantedCol);//attach the columns to the table view
 
 
-
 		bookIDCol.setCellValueFactory(new PropertyValueFactory<Book,String>("bookID"));//set column property to the fxml column
 		bookNameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("bookName"));
 		authorsNameCol.setCellValueFactory(new PropertyValueFactory<Book,String>("authorName"));
@@ -146,6 +166,12 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 		tableViewLates.getSelectionModel().selectedIndexProperty().addListener(new RowSelectListener());
 	}
 
+	/**
+	 * case "labels" - Get array list with the amount days book were late to return, the summary of days books were late to return and the maximum amount of time a book was late to return.
+	 * In addittion, this case get the average, median and decimal distribution of the specific book or total library and update the appropiate labels and grid pane. 
+	 * case "tableView" - This case puts inside the table view all the books that return from the search after initialize method is called.
+	 * @param obj - ArrayList with the relevant data for create this window and maneuver through the different methods (all the information that needed).
+	 */
 	@Override
 	public void display(Object obj) {
 
@@ -231,6 +257,10 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 		}
 	}
 
+	/**
+	 * this method show fail information pop-up on the screen with given message.
+	 * @param string- the message that is shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		// TODO Auto-generated method stub
@@ -242,13 +272,19 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 		});
 	}
 
+	/**
+	 * Not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void freshStart() {
 		// TODO Auto-generated method stub
 
 	}
 
-
+	/**
+	 * This private class implements ChangeListener overrides the changed method to fulfill the functionality of pressing a row
+	 * in the table view and show the statistic report for this specific book chosen.
+	 */
 	///////// row select listener
 	private class RowSelectListener implements ChangeListener {
 		@Override

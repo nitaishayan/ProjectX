@@ -12,6 +12,7 @@ import java.io.IOException;
 //license found at www.lloseng.com 
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -71,7 +72,7 @@ public class Server extends AbstractServer
 			switch (((ArrayList<String>)msg).get(0)) {
 			case "Registration":
 				try {
-					int registrationSuccess = DBController.getInstance().registretion((ArrayList<String>) msg);
+					int registrationSuccess = DBController.getInstance().registration((ArrayList<String>) msg);
 					((ArrayList<String>) msg).add(Integer.toString(registrationSuccess));
 					client.sendToClient(msg);
 				} catch (SQLException | IOException e) {
@@ -395,6 +396,9 @@ public class Server extends AbstractServer
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the EmployeeRecords method to the client with the employees details.
+				 */
 			case "EmployeeRecords":
 				try {
 					client.sendToClient(DBController.getInstance().EmployeeRecords());
@@ -404,9 +408,12 @@ public class Server extends AbstractServer
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the StatisticsShowBooks method to the client with the book details.
+				 * The StatisticsShowBooks method receives two values, an option and the book id.
+				 */
 			case "StatisticsBooks":
 				try {
-					System.out.println(arrayObject.toString()+" inside server");
 					client.sendToClient(DBController.getInstance().StatisticsShowBooks(arrayObject.get(1),arrayObject.get(2)));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -414,6 +421,9 @@ public class Server extends AbstractServer
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the showTableViewBooks method to the client with the book details for further dispalying in the table view..
+				 */
 			case "showTableView":
 				try {
 					client.sendToClient(DBController.getInstance().showTableViewBooks());
@@ -542,35 +552,7 @@ public class Server extends AbstractServer
 		("Server has stopped listening for connections.");
 	}
 
-	public void runServerApplications() {
-		DBController dbController = DBController.getInstance();
-		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 
-		executor.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					dbController.handleLateLoans();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}, 0, 24, TimeUnit.HOURS);
-
-		executor.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					dbController.handleLateLoans();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}, 0, 24, TimeUnit.HOURS);
-
-	}
 
 	//Class methods ***************************************************
 

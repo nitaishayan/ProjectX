@@ -109,6 +109,10 @@ public class LoanGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String message) {
 		Platform.runLater(() -> {
@@ -207,54 +211,63 @@ public class LoanGUI implements Initializable, GuiInterface {
 						" and the expected return date is " + msg.get(2));
 				copyFlag = memberFlag = false;
 			}
-			
-		break;
 
-	default:
-		break;
+			break;
+
+		default:
+			break;
 		}
-}
+	}
 
-@Override
-public void showFailed(String message) {
-	Platform.runLater(() -> {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("An error occurred");
-		alert.setContentText(message);
-		alert.showAndWait();
-	});
-}
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param String- the message that shown in the pop-up.
+	 */
+	@Override
+	public void showFailed(String message) {
+		Platform.runLater(() -> {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("An error occurred");
+			alert.setContentText(message);
+			alert.showAndWait();
+		});
+	}
 
-@Override
-public void freshStart() {
-	txt_MemberID.clear();
-	txt_CopyID.clear();
-	txt_MemberStatus.clear();
-	txt_BookName.clear();
-	txt_MemberName.clear();
-	txt_BookStatus.clear();
-	buttonLoan.setDisable(true);
-}
+	/**
+	 * this method clean up the fields on the screen.
+	 */
+	@Override
+	public void freshStart() {
+		txt_MemberID.clear();
+		txt_CopyID.clear();
+		txt_MemberStatus.clear();
+		txt_BookName.clear();
+		txt_MemberName.clear();
+		txt_BookStatus.clear();
+		buttonLoan.setDisable(true);
+	}
 
-public void clearMemberFields() {
-	txt_MemberID.clear();
-	txt_MemberStatus.clear();
-	txt_MemberName.clear();
-	buttonLoan.setDisable(true);
-}
+	public void clearMemberFields() {
+		txt_MemberID.clear();
+		txt_MemberStatus.clear();
+		txt_MemberName.clear();
+		buttonLoan.setDisable(true);
+	}
 
-public void clearCopyFields() {
-	txt_CopyID.clear();
-	txt_BookName.clear();
-	txt_BookStatus.clear();
-	buttonLoan.setDisable(true);
-}
+	public void clearCopyFields() {
+		txt_CopyID.clear();
+		txt_BookName.clear();
+		txt_BookStatus.clear();
+		buttonLoan.setDisable(true);
+	}
 
 
-
-@Override
-public void initialize(URL arg0, ResourceBundle arg1) {
-	Main.client.clientUI = this;
-}
+	/**
+	 * this method set the variable of the GuiInterface in the client to this.
+	 */
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		Main.client.clientUI = this;
+	}
 }

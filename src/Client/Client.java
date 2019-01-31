@@ -156,13 +156,19 @@ public class Client extends AbstractClient
 				}
 				break;
 			case "Check Member Existence":
-				clientUI.display(arrayObject);
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "Check Copy Loan Status":
-				clientUI.display(arrayObject);
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "Check Copy ID Existence":
-				clientUI.display(arrayObject);
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "Return Book":
 				Platform.runLater(()->{
@@ -209,10 +215,14 @@ public class Client extends AbstractClient
 				break;
 
 			case "Change Member Status":
-				clientUI.display(arrayObject);
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "CheckLibrarianManager":
-				clientUI.display(arrayObject);			
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "Edit":
 				if (arrayObject.get(arrayObject.size()-1).equals("1")) {
@@ -233,10 +243,14 @@ public class Client extends AbstractClient
 				});
 				break;
 			case "Check Copy Wanted Status":
-				clientUI.display(arrayObject);
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "Loan Book":
-				clientUI.display(arrayObject);
+				Platform.runLater(()->{
+					clientUI.display(arrayObject);
+				});
 				break;
 			case "Reserve":
 				Platform.runLater(()->{
@@ -248,7 +262,7 @@ public class Client extends AbstractClient
 						clientUI.showFailed("You can't reserve the book, because it is still loaned by you.");
 					if (arrayObject.get(arrayObject.size()-1).equals("Already reserve"))
 						clientUI.showFailed("Your reservetion of this book is still active.\ntherefore you can't reserve the book again.");
-			});
+				});
 				break;
 			case "ViewPersonalHistory":
 				Platform.runLater(()->{
@@ -292,10 +306,15 @@ public class Client extends AbstractClient
 
 			case "Extend Loan Period By Librarian"://show reader card details for read only - tableView
 				if(arrayObject.size() != 3) {
-					clientUI.showFailed(arrayObject.get(1));
+					Platform.runLater(()->{
+						clientUI.showFailed(arrayObject.get(1));
+					});
 				}
 				else {
-					clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
+					Platform.runLater(()->{
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
+					});
+					break;
 				}
 				break;
 
@@ -313,7 +332,7 @@ public class Client extends AbstractClient
 						clientUI.display(msg);
 				});
 				break;
-				
+
 			case "showTableView"://show book details - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
@@ -328,100 +347,100 @@ public class Client extends AbstractClient
 
 			default:
 				break;
+			}
 		}
 	}
-}
 
-public void getPDF(Object msg) {
-	MyFile msg2= new MyFile(((MyFile)msg).getFileName());
-	msg2=(MyFile) msg;
-	String LocalfilePath="./src/Client/"+msg2.getFileName()+".pdf";
-	FileOutputStream fos=null;
-	BufferedOutputStream bos=null;
+	public void getPDF(Object msg) {
+		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
+		msg2=(MyFile) msg;
+		String LocalfilePath="./src/Client/"+msg2.getFileName()+".pdf";
+		FileOutputStream fos=null;
+		BufferedOutputStream bos=null;
 
-	try{
+		try{
 
-		fos=new FileOutputStream(LocalfilePath);
-		bos=new BufferedOutputStream(fos);
-		bos.write(((MyFile)msg).getMybytearray(),0,((MyFile)msg).getSize());
-		bos.flush();
+			fos=new FileOutputStream(LocalfilePath);
+			bos=new BufferedOutputStream(fos);
+			bos.write(((MyFile)msg).getMybytearray(),0,((MyFile)msg).getSize());
+			bos.flush();
 
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	finally
-	{
-		if(fos!=null)
-			try {
-				fos.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		if(bos!=null)
-			try {
-				bos.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-	if (Desktop.isDesktopSupported())
-		try {
-			Desktop.getDesktop().open(new File(LocalfilePath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-}
-//Constructors ****************************************************
-
-/**
- * Constructs an instance of the chat client.
- *
- * @param host The server to connect to.
- * @param port The port number to connect on.
- * @param clientUI The interface type variable.
- */
-
-
-
-//Instance methods ************************************************
-
-/**
- * This method handles all data that comes in from the server.
- *
- * @param msg The message from the server.
- */
-
-
-/**
- * This method handles all data coming from the UI            
- *
- * @param message The message from the UI.    
- */
-public void handleMessageFromClientUI(Object message)  
-{
-	try {
-		sendToServer(message);
-	} catch(IOException e) {
-		clientUI.showFailed("Could not send message to server. Terminating client.");
-		quit();
+		finally
+		{
+			if(fos!=null)
+				try {
+					fos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			if(bos!=null)
+				try {
+					bos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		if (Desktop.isDesktopSupported())
+			try {
+				Desktop.getDesktop().open(new File(LocalfilePath));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
-}
+	//Constructors ****************************************************
 
-/**
- * This method terminates the client.
- */
-public void quit()
-{
-	try
+	/**
+	 * Constructs an instance of the chat client.
+	 *
+	 * @param host The server to connect to.
+	 * @param port The port number to connect on.
+	 * @param clientUI The interface type variable.
+	 */
+
+
+
+	//Instance methods ************************************************
+
+	/**
+	 * This method handles all data that comes in from the server.
+	 *
+	 * @param msg The message from the server.
+	 */
+
+
+	/**
+	 * This method handles all data coming from the UI            
+	 *
+	 * @param message The message from the UI.    
+	 */
+	public void handleMessageFromClientUI(Object message)  
 	{
-		closeConnection();
+		try {
+			sendToServer(message);
+		} catch(IOException e) {
+			clientUI.showFailed("Could not send message to server. Terminating client.");
+			quit();
+		}
 	}
-	catch(IOException e) {}
-	System.exit(0);
-}
+
+	/**
+	 * This method terminates the client.
+	 */
+	public void quit()
+	{
+		try
+		{
+			closeConnection();
+		}
+		catch(IOException e) {}
+		System.exit(0);
+	}
 }
 //End of Client class
