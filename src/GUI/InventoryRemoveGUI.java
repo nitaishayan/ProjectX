@@ -160,7 +160,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(12));
 		btnRemove.setDisable(false);
 		txtCatalog_Number.setEditable(false);
-		btn_browse.setDisable(false);
+		btn_browse.setDisable(true);
 		btn_lostbook.setDisable(false);
 	}
 
@@ -180,6 +180,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		alert.setHeaderText(message);
 		alert.showAndWait();	
 		freshStart();
+		txtCatalog_Number.setEditable(true);
 	}
 
 	@Override

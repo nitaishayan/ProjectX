@@ -19,10 +19,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.SplitPane.Divider;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.Main;
@@ -62,9 +65,31 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private Label lblUser_name;
+	
+	@FXML
+    private Button btnExtend;
 
 	@FXML
 	private AnchorPane rightPane;
+	
+	public void clerEffect(Button btn) {
+		btnRegistration.setEffect(null);
+		btnSearchReader.setEffect(null);
+		btnSearchBook.setEffect(null);
+		btn_LoanBook.setEffect(null);
+		btnReturnBook.setEffect(null);
+		btnInventory.setEffect(null);
+		btnShow_Report.setEffect(null);
+		btnExtend.setEffect(null);
+		btn.setEffect(setEffect());
+	}
+
+	public InnerShadow setEffect() {
+		InnerShadow innerShadow = new InnerShadow();
+		innerShadow.setChoke(0.32);
+		innerShadow.setColor(Color.web("#2176ff"));
+		return innerShadow;
+	}
 
 	@FXML
 	void InboxMouseClick(MouseEvent event) throws IOException {
@@ -88,6 +113,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		}
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
+		clerEffect(btnRegistration);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
 		lblUser_name.setText(Client.arrayUser.get(2)+" "+Client.arrayUser.get(3));               	
@@ -102,48 +128,56 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 
 	@FXML
 	void InventoryScreen(ActionEvent event) throws IOException {
+		clerEffect(btnInventory);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Inventory.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void RegistrationScreen(ActionEvent event) throws IOException {
+		clerEffect(btnRegistration);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Registration.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void ReturnBookScreen(ActionEvent event) throws IOException {
+		clerEffect(btnReturnBook);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReturnBook.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void SearchBookScreen(ActionEvent event) throws IOException {
+		clerEffect(btnSearchBook);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianBookSearch.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void SearchReaderScreen(ActionEvent event) throws IOException {
+		clerEffect(btnSearchReader);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderCard.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void ShowReportScreen(ActionEvent event) throws IOException {
+		clerEffect(btnShow_Report);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void showLoanScreen(ActionEvent event) throws IOException {
+		clerEffect(btn_LoanBook);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Loan.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void extendLoanScreen(ActionEvent event) throws IOException {
+		clerEffect(btnExtend);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/LibrarianExtend.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}

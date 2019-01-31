@@ -13,7 +13,7 @@
   <items>
       <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="572.0" prefWidth="233.0" style="-fx-background-color: white;">
          <children>
-            <VBox layoutY="228.0" prefHeight="725.0" prefWidth="275.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
+            <VBox layoutY="252.0" prefHeight="701.0" prefWidth="275.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="252.0">
                <children>
                   <Button fx:id="btnRegistration" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#RegistrationScreen" prefHeight="79.0" prefWidth="349.0" text="Registration">
                      <font>
@@ -35,7 +35,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#extendLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Extend loan period">
+                  <Button fx:id="btnExtend" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#extendLoanScreen" prefHeight="85.0" prefWidth="349.0" text="Extend loan period">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -50,24 +50,24 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnShow_Report" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ShowReportScreen" prefHeight="91.0" prefWidth="275.0" text="Show Report">
+                  <Button fx:id="btnShow_Report" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#ShowReportScreen" prefHeight="85.0" prefWidth="349.0" text="Show Report">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
                </children>
             </VBox>
-            <Label layoutX="90.0" layoutY="63.0" text="Menu" underline="true">
+            <Label layoutX="90.0" layoutY="75.0" text="Menu" underline="true">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
-            <Button fx:id="btnLog_out" layoutX="176.0" layoutY="149.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
+            <Button fx:id="btnLog_out" layoutX="175.0" layoutY="175.0" mnemonicParsing="false" onAction="#Logout" text="Log-out" />
             <Label fx:id="lblUser_name" layoutX="81.0" layoutY="21.0" text="Label">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="40.0" layoutY="140.0" onMouseClicked="#InboxMouseClick" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="54.0" fitWidth="50.0" layoutX="33.0" layoutY="165.0" onMouseClicked="#InboxMouseClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Image/Inbox.jpg" />
                </image>

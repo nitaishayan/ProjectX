@@ -13,12 +13,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.Main;
@@ -37,9 +40,36 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 
 	@FXML
 	private ImageView asd;
+	
+	@FXML
+    private Button btnPersonalData;
+
+    @FXML
+    private Button btnSearchBook;
+
+    @FXML
+    private Button btnHistoryActivities;
+
+    @FXML
+    private Button btnExtend;
 
 	@FXML
 	private AnchorPane rightPane;
+	
+	public void clerEffect(Button btn) {
+		btnExtend.setEffect(null);
+		btnHistoryActivities.setEffect(null);
+		btnPersonalData.setEffect(null);
+		btnSearchBook.setEffect(null);
+		btn.setEffect(setEffect());
+	}
+
+	public InnerShadow setEffect() {
+		InnerShadow innerShadow = new InnerShadow();
+		innerShadow.setChoke(0.32);
+		innerShadow.setColor(Color.web("#2176ff"));
+		return innerShadow;
+	}
 	
 	@FXML
     void InboxMouse(MouseEvent event) throws IOException {
@@ -75,6 +105,7 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 		leftPane.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		leftPane.minWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.1855));
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
+		clerEffect(btnPersonalData);
 		rightPane.getChildren().setAll(pane);
 	}
 
@@ -98,24 +129,28 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 	
 	@FXML
 	void HistoryActivities(ActionEvent event) throws IOException {
+		clerEffect(btnHistoryActivities);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ActivitiesHistory.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void PersonalDataScreen(ActionEvent event) throws IOException {
+		clerEffect(btnPersonalData);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/ReaderPersonalData.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void SearchScreen(ActionEvent event) throws IOException {
+		clerEffect(btnSearchBook);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/SearchBook.fxml"));
 		rightPane.getChildren().setAll(pane);
 	}
 	
     @FXML
     void extendLoanPeriodScreen(ActionEvent event) throws IOException{
+    	clerEffect(btnExtend);
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/MemberExtendLoanPeriod.fxml"));
 		rightPane.getChildren().setAll(pane);
     }
