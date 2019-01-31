@@ -20,7 +20,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSearchBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="349.0" text="Search/Extend book">
+                  <Button fx:id="btnSearchBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="349.0" text="Search/Reserve book">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

@@ -395,6 +395,9 @@ public class Server extends AbstractServer
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the EmployeeRecords method to the client with the employees details.
+				 */
 			case "EmployeeRecords":
 				try {
 					client.sendToClient(DBController.getInstance().EmployeeRecords());
@@ -404,9 +407,12 @@ public class Server extends AbstractServer
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the StatisticsShowBooks method to the client with the book details.
+				 * The StatisticsShowBooks method receives two values, an option and the book id.
+				 */
 			case "StatisticsBooks":
 				try {
-					System.out.println(arrayObject.toString()+" inside server");
 					client.sendToClient(DBController.getInstance().StatisticsShowBooks(arrayObject.get(1),arrayObject.get(2)));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -414,6 +420,9 @@ public class Server extends AbstractServer
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the showTableViewBooks method to the client with the book details for further dispalying in the table view..
+				 */
 			case "showTableView":
 				try {
 					client.sendToClient(DBController.getInstance().showTableViewBooks());

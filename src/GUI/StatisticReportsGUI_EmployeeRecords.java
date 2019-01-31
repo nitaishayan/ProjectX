@@ -62,13 +62,24 @@ public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initial
     @FXML
     private Button btn_backScreen;
 
+    
+    /**
+	 * This method move the user back to the Main Statistic Reports screen.	
+	 * @param event - event cause from pressing on "Back" button.
+	 * @throws IOException
+	 */
     @FXML
     void backScreen(ActionEvent event) throws IOException {
     	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
     	employeePane.getChildren().setAll(pane);
     }
 
-	
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 * Set properties to the specific columns of the table view.
+	 * Set the columns to the table view and add a click event when a row from the table view is pressed on.
+	 * The method give the user the functionality to press on some librarian and get her personal details.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -97,6 +108,10 @@ public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initial
 		TableViewLibrarian.getSelectionModel().selectedIndexProperty().addListener(new RowSelectListener());
 	}
 	
+	/**
+	 * This private class implements ChangeListener overrides the changed method to fulfill the functionality of pressing a row
+	 * in the table view and show the librarian's details in the specific labels.
+	 */
 		 private class RowSelectListener implements ChangeListener {
 				@Override
 				public void changed(ObservableValue arg0, Object arg1, Object arg2) {
@@ -110,12 +125,19 @@ public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initial
 				}
 	}
 
-	@Override
-	public void showSuccess(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+		/**
+		* Not used method(must implement because the implementation of GuiInterface)
+		*/
+		@Override
+		public void showSuccess(String string) {
+			// TODO Auto-generated method stub
+			
+		}
 
+		/**
+		 *  This method puts inside the table view all the librarians that return from the search after initialize method is called.
+		 * @param obj - ArrayList with the relevant data for create this window and maneuver through the different methods (all the information that needed).
+		 */
 	@Override
 	public void display(Object obj) {
 		// TODO Auto-generated method stub
@@ -134,18 +156,27 @@ public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initial
 		 TableViewLibrarian.setItems(librarianList);//set ObservableList to the table view (TableViewLibrarian)
 	}
 
+	/**
+	* Not used method(must implement because the implementation of GuiInterface)
+	*/
 	@Override
 	public void showFailed(String message) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	* Not used method(must implement because the implementation of GuiInterface)
+	*/
 	@Override
 	public void freshStart() {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	* Not used method(must implement because the implementation of GuiInterface)
+	*/
 	 private void getLibrarians() {
 		 CommonController.ShowEmployeeRecords();
 	  }
