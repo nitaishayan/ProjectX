@@ -216,7 +216,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	/**
 	 * Interface method that print the Object received by the Server
 	 * the display is check which Librarian is enter, if it's the Librarian manager is enable to edit other details from the member card reader.
-	 *  
+	 *  the object receive in the method is the member details as they saved in the data base.
 	 */
 	@Override
 	public void display(Object obj) {
@@ -251,6 +251,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			}
 		}
 	}
+	/**
+	 * Present the GUI components based on a regular librarian page
+	 */
 	private void setEditableLibrarian() {
 		txtFirst_Name.setEditable(false);
 		txtLast_Name.setEditable(false);
@@ -269,6 +272,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(false);
 		btnStatus.setDisable(false);
 	}
+	/**
+	 * Present the GUI components based on a librarian manager page
+	 */
 	private void setEditableLibrarianManager() {
 		txtFirst_Name.setEditable(false);
 		txtLast_Name.setEditable(false);
@@ -283,6 +289,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(false);
 		btnStatus.setDisable(false);
 	}
+	/**
+	 * Method that initialize the card reader details as they received from the data base
+	 * @param memberData is the member details
+	 */
 	private void setCardMember(ArrayList<String> memberData) {
 		txtMember_ID.setEditable(false);
 		txtFirst_Name.setText(memberData.get(5));
@@ -308,15 +318,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(cond);
 		btnSave.setDisable(cond);
 	}
-	public void resetField() {
-		txtFirst_Name.setText("");
-		txtLast_Name.setText("");
-		txtPhone_Number.setText("");
-		txtEmail.setText("");
-		txtArea_Notes.setText("");
-		cmbStatus.setValue("");
-	}
-
+/**
+ * Method that set the comboBox value in the card reader based on the status from data base
+ */
 	private void setMsStatusComboBox() {
 		ArrayList<String> msStatusList = new ArrayList<String>();	
 		msStatusList.add("Locked");
@@ -327,7 +331,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		cmbStatus.setItems(list);
 
 	}
-
+/**
+ * GUIInterface Method that clear the data from the GUI page
+ */
 	@Override
 	public void freshStart() {
 		txtFirst_Name.setText("");
