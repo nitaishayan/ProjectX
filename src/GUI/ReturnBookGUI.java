@@ -148,7 +148,7 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 					CommonController.changeMemberStatus(memb.getId(), memb.getStatus(), "Locked");	
 				}
 				else {
-					if(Integer.parseInt(memb.getDelayAmount()) != 3){
+					if(!memb.getStatus().equals("Deep - Frozen")){
 						CommonController.changeMemberStatus(memb.getId(), memb.getStatus(), "Active");
 					}
 				}
@@ -173,6 +173,10 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param String- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Platform.runLater(() -> {
@@ -185,11 +189,18 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		});
 	}
 
+	/**
+	 * this method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
 	}
 
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String message) {
 		Platform.runLater(() -> {
@@ -201,6 +212,9 @@ public class ReturnBookGUI implements Initializable, GuiInterface {
 		});
 	}
 
+	/**
+	 * this method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		txtCopy_ID.clear();

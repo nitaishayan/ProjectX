@@ -43,7 +43,6 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	 * this class connect between the input in the gui to the controller of Search Book process.
 	 * the class giving the functionality to search book by is name, by author name, by free text and by genre.
 	 */
-
 	@FXML
 	private RadioButton radio_btn_book_name;
 
