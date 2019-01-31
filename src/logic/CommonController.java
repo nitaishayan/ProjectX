@@ -39,49 +39,6 @@ public class CommonController {
 		memberData.add(newStatus);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
-	
-	/**
-	 * Get librarian ID, insert the ID into ArrayList and send it to the server.
-	 * @param String
-	 * @return void
-	 */
-	public static void checkManager(String ID) {
-		ArrayList<String> librarianData = new ArrayList<>();
-		librarianData.add("CheckLibrarianManager");
-		librarianData.add(ID);
-		Main.client.handleMessageFromClientUI(librarianData);
-	}
-
-	/**
-	 * Get the details that was insert by the librarian in the "search reader card" GUI and insert them into ArrayList, then send the ArrayList to server.
-	 * @param String, String, String, String, Boolean, String
-	 * @return void
-	 */
-	public static void librarianUpdateMember(String status, String ID, String notes, String isManager, boolean changeStatus,String prevStatus) {
-		ArrayList<String> memberData = new ArrayList<>();
-		if (changeStatus) {
-			//if the librarian changed the status of the member 
-			memberData.add("librarianUpdateMember");
-			memberData.add(ID);
-			memberData.add(status);
-			memberData.add(notes);
-			memberData.add("true");
-			memberData.add(prevStatus);
-        	System.out.println("Status changed to "+status+" now in common controller");
-			Main.client.handleMessageFromClientUI(memberData);			
-		}
-		else {
-			//if the librarian DID NOT changed the status of the member 
-			memberData.add("librarianUpdateMember");
-			memberData.add(ID);
-			memberData.add(status);
-			memberData.add(notes);
-			memberData.add("false");
-			Main.client.handleMessageFromClientUI(memberData);
-			
-		}
-
-	}
 
 	/**
 	 * get string of date in the format 0000-00-00 (year-month-day) then cut the string and return ArrayList of integer that contains the date as integer.
@@ -103,20 +60,7 @@ public class CommonController {
 		datearray.add(month3);
 		return datearray;
 	}
-
-	/**
-	 * Get the member ID,insert the ID into ArrayList and then sent the ArrayList to the server.
-	 * @param String
-	 * @return void
-	 */
-	public static void viewPersonalHistory(String memberID) {
-		ArrayList<String> memberData = new ArrayList<>();
-		memberData.add("ViewPersonalHistory");
-		memberData.add(memberID);
-		System.out.println(memberID);
-		Main.client.handleMessageFromClientUI(memberData);
-	}
-
+	
 	/**
 	 * Check for the current date and time and return it in the following format "yyyy-MM-dd HH:mm:ss".
 	 * @param 
@@ -210,34 +154,6 @@ public class CommonController {
 		col.setPrefWidth(prefWidth);
 		col.setMaxWidth(maxWidth);
 	}
-	
-	/**
-	 * Send request for the server to get the Delay and LostBooks of specific member ID.
-	 * the method get the member ID insert the ID into ArratList and send it to the server.
-	 * @param String
-	 * @return void
-	 */
-	public static void getDelayandLostBooks(String memberID) {
-		ArrayList<String> memberData = new ArrayList<>();
-		memberData.add("getDelayandLostBooks");
-		memberData.add(memberID);
-		Main.client.handleMessageFromClientUI(memberData);		
-	}
-
-	/**
-	 * Send request for the server to get the Status History of specific member ID.
-	 * Get the member ID insert the ID into ArratList and send it to the server.
-	 * @param String
-	 * @return void
-	 */
-	public static void getStatusHistory(String memberID) {
-		ArrayList<String> memberData = new ArrayList<>();
-		memberData.add("getStatusHistory");
-		memberData.add(memberID);
-		System.out.println("getStatusHistory-now in common controller");
-		Main.client.handleMessageFromClientUI(memberData);
-	}
-	
 	/**
 	 * Send request for the server to get the Employee Records .
 	 * @param

@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
+import logic.MemberCardController;
 import logic.RegistrationController;
 /**
  * This class show a details launched by search member in the system and returning details about that member.
@@ -127,7 +128,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	 */
     @FXML
     void mouseClick(MouseEvent event) {
-		RegistrationController.searchMember(txtMember_ID.getText());
+		if (txtMember_ID.getText().length()==9) {
+			MemberCardController.searchMember(txtMember_ID.getText());
+		}
+		else
+			showFailed("invalid memberID, please try again");
     }
 	/**
 	 * Method that launch a query to find the requested memberID inserted by the member
@@ -136,7 +141,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	@FXML
 	void searchMember(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
-			RegistrationController.searchMember(txtMember_ID.getText());
+			if (txtMember_ID.getText().length()==9) {
+				MemberCardController.searchMember(txtMember_ID.getText());
+			}
+			else
+				showFailed("invalid memberID, please try again");
 		}
 	}
 	/**
@@ -148,12 +157,12 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	void librarianUpdateMember(ActionEvent event) {
 		update=true;
 		if (!memberStatus.equals(cmbStatus.getValue().toString())) {
-			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
+			MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
 			System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
 		}
 		else
 		{
-			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
+			MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
 		}
 	}
 	/**
@@ -186,7 +195,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	public void initialize(URL location, ResourceBundle resources) {
 		Client.clientUI=this;
 		setMsStatusComboBox();
-		CommonController.checkManager(Client.arrayUser.get(0));
+		MemberCardController.checkManager(Client.arrayUser.get(0));
 
 	}
 	/**
@@ -216,7 +225,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	/**
 	 * Interface method that print the Object received by the Server
 	 * the display is check which Librarian is enter, if it's the Librarian manager is enable to edit other details from the member card reader.
-	 *  
+	 *  the object receive in the method is the member details as they saved in the data base.
 	 */
 	@Override
 	public void display(Object obj) {
@@ -251,6 +260,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			}
 		}
 	}
+	/**
+	 * Present the GUI components based on a regular librarian page
+	 */
 	private void setEditableLibrarian() {
 		txtFirst_Name.setEditable(false);
 		txtLast_Name.setEditable(false);
@@ -269,6 +281,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(false);
 		btnStatus.setDisable(false);
 	}
+	/**
+	 * Present the GUI components based on a librarian manager page
+	 */
 	private void setEditableLibrarianManager() {
 		txtFirst_Name.setEditable(false);
 		txtLast_Name.setEditable(false);
@@ -283,6 +298,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(false);
 		btnStatus.setDisable(false);
 	}
+	/**
+	 * Method that initialize the card reader details as they received from the data base
+	 * @param memberData is the member details
+	 */
 	private void setCardMember(ArrayList<String> memberData) {
 		txtMember_ID.setEditable(false);
 		txtFirst_Name.setText(memberData.get(5));
@@ -308,15 +327,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(cond);
 		btnSave.setDisable(cond);
 	}
-	public void resetField() {
-		txtFirst_Name.setText("");
-		txtLast_Name.setText("");
-		txtPhone_Number.setText("");
-		txtEmail.setText("");
-		txtArea_Notes.setText("");
-		cmbStatus.setValue("");
-	}
-
+/**
+ * Method that set the comboBox value in the card reader based on the status from data base
+ */
 	private void setMsStatusComboBox() {
 		ArrayList<String> msStatusList = new ArrayList<String>();	
 		msStatusList.add("Locked");
@@ -327,7 +340,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		cmbStatus.setItems(list);
 
 	}
-
+/**
+ * GUIInterface Method that clear the data from the GUI page
+ */
 	@Override
 	public void freshStart() {
 		txtFirst_Name.setText("");

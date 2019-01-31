@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import logic.CommonController;
 import logic.Main;
+import logic.MemberCardController;
 
 public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterface{
 
@@ -135,7 +136,7 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
 			setMemberID(Main.client.arrayUser.get(0));//get ID by arrayUser
 			memberDetails.setText(Main.client.arrayUser.get(2)+" "+Main.client.arrayUser.get(3));
 		}
-		CommonController.getDelayandLostBooks(getMemberID());
+		MemberCardController.getDelayandLostBooks(getMemberID());
 	}
 
 	public String getMemberID() {
