@@ -96,7 +96,7 @@ public class Client extends AbstractClient
 						if(pdf.delete())
 							System.out.println("File deleted successfully"); 
 						else
-				            System.out.println("Failed to delete the file"); 
+							System.out.println("Failed to delete the file"); 
 					}
 					if (!arrayObject.get(arrayObject.size()-1).equals("2")&&!arrayObject.get(arrayObject.size()-1).equals("1")) {
 						clientUI.showFailed("remove failed.");
@@ -166,7 +166,7 @@ public class Client extends AbstractClient
 				break;
 			case "Return Book":
 				Platform.runLater(()->{
-				clientUI.display(arrayObject);
+					clientUI.display(arrayObject);
 				});
 				break;
 			case "Registration":
@@ -242,9 +242,13 @@ public class Client extends AbstractClient
 				Platform.runLater(()->{
 					if (arrayObject.get(arrayObject.size()-1).equals("success"))
 						clientUI.showSuccess("resrve successed.");
-					else 
+					if (arrayObject.get(arrayObject.size()-1).equals("all the copies are allready reserved."))
 						clientUI.showFailed("cannot order, all the copies allready reserved.");
-				});
+					if (arrayObject.get(arrayObject.size()-1).equals("fail"))
+						clientUI.showFailed("You can't reserve the book, because it is still loaned by you.");
+					if (arrayObject.get(arrayObject.size()-1).equals("Already reserve"))
+						clientUI.showFailed("Your reservetion of this book is still active.\ntherefore you can't reserve the book again.");
+			});
 				break;
 			case "ViewPersonalHistory":
 				Platform.runLater(()->{
@@ -294,26 +298,26 @@ public class Client extends AbstractClient
 					clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
 				}
 				break;
-				
+
 			case "EmployeeRecords"://show employee details for read only - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});
 				break;
-				
+
 			case "StatisticsBooks"://show book details - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});
 				break;
-				
-				
+
+
 			case "showTableView"://show book details - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});
 				break;
-				
+
 			case "InBoxMessage":
 				Platform.runLater(()->{
 					clientUI.display(msg);
@@ -322,100 +326,100 @@ public class Client extends AbstractClient
 
 			default:
 				break;
-			}
 		}
 	}
+}
 
-	public void getPDF(Object msg) {
-		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
-		msg2=(MyFile) msg;
-		String LocalfilePath="./src/Client/"+msg2.getFileName()+".pdf";
-		FileOutputStream fos=null;
-		BufferedOutputStream bos=null;
+public void getPDF(Object msg) {
+	MyFile msg2= new MyFile(((MyFile)msg).getFileName());
+	msg2=(MyFile) msg;
+	String LocalfilePath="./src/Client/"+msg2.getFileName()+".pdf";
+	FileOutputStream fos=null;
+	BufferedOutputStream bos=null;
 
-		try{
+	try{
 
-			fos=new FileOutputStream(LocalfilePath);
-			bos=new BufferedOutputStream(fos);
-			bos.write(((MyFile)msg).getMybytearray(),0,((MyFile)msg).getSize());
-			bos.flush();
+		fos=new FileOutputStream(LocalfilePath);
+		bos=new BufferedOutputStream(fos);
+		bos.write(((MyFile)msg).getMybytearray(),0,((MyFile)msg).getSize());
+		bos.flush();
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally
-		{
-			if(fos!=null)
-				try {
-					fos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			if(bos!=null)
-				try {
-					bos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-		if (Desktop.isDesktopSupported())
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	finally
+	{
+		if(fos!=null)
 			try {
-				Desktop.getDesktop().open(new File(LocalfilePath));
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		if(bos!=null)
+			try {
+				bos.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
-	//Constructors ****************************************************
-
-	/**
-	 * Constructs an instance of the chat client.
-	 *
-	 * @param host The server to connect to.
-	 * @param port The port number to connect on.
-	 * @param clientUI The interface type variable.
-	 */
-
-
-
-	//Instance methods ************************************************
-
-	/**
-	 * This method handles all data that comes in from the server.
-	 *
-	 * @param msg The message from the server.
-	 */
-
-
-	/**
-	 * This method handles all data coming from the UI            
-	 *
-	 * @param message The message from the UI.    
-	 */
-	public void handleMessageFromClientUI(Object message)  
-	{
+	if (Desktop.isDesktopSupported())
 		try {
-			sendToServer(message);
-		} catch(IOException e) {
-			clientUI.showFailed("Could not send message to server. Terminating client.");
-			quit();
+			Desktop.getDesktop().open(new File(LocalfilePath));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
+}
+//Constructors ****************************************************
 
-	/**
-	 * This method terminates the client.
-	 */
-	public void quit()
-	{
-		try
-		{
-			closeConnection();
-		}
-		catch(IOException e) {}
-		System.exit(0);
+/**
+ * Constructs an instance of the chat client.
+ *
+ * @param host The server to connect to.
+ * @param port The port number to connect on.
+ * @param clientUI The interface type variable.
+ */
+
+
+
+//Instance methods ************************************************
+
+/**
+ * This method handles all data that comes in from the server.
+ *
+ * @param msg The message from the server.
+ */
+
+
+/**
+ * This method handles all data coming from the UI            
+ *
+ * @param message The message from the UI.    
+ */
+public void handleMessageFromClientUI(Object message)  
+{
+	try {
+		sendToServer(message);
+	} catch(IOException e) {
+		clientUI.showFailed("Could not send message to server. Terminating client.");
+		quit();
 	}
+}
+
+/**
+ * This method terminates the client.
+ */
+public void quit()
+{
+	try
+	{
+		closeConnection();
+	}
+	catch(IOException e) {}
+	System.exit(0);
+}
 }
 //End of Client class

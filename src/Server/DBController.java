@@ -182,7 +182,7 @@ public class DBController {
 		reStrings.add("RemoveCopy");
 		int answer=0;
 		copyid=data.get(1);
-		
+
 		PreparedStatement checkloan = conn.prepareStatement("SELECT * FROM loanbook WHERE CopyID=? AND IsReturned='false'");
 		checkloan.setString(1, copyid);
 		ResultSet rs1=checkloan.executeQuery();
@@ -190,7 +190,7 @@ public class DBController {
 			reStrings.add("-1");
 			return reStrings;
 		}
-		
+
 		PreparedStatement getbookid = conn.prepareStatement("SELECT BookID FROM copies WHERE CopyID=?");
 		getbookid.setString(1, copyid);
 		ResultSet rs = getbookid.executeQuery();
@@ -889,7 +889,7 @@ public class DBController {
 		}
 		return changeStatus;
 	}
-	
+
 	public static ArrayList<String> CheckLibrarianManager(ArrayList<String> msg) throws SQLException {
 		ArrayList<String> CheckLibrarianManager = new ArrayList<String>();
 		CheckLibrarianManager.add("CheckLibrarianManager");
@@ -925,12 +925,12 @@ public class DBController {
 			java.util.Date dt = new java.util.Date();
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(dt);
-			 UpdateStatus = conn.prepareStatement("INSERT memberstatus values(?,?,?,?)");
-			 UpdateStatus.setString(1, member.get(1));//memberID
-			 UpdateStatus.setString(2, member.get(5));//prev status
-			 UpdateStatus.setString(3, member.get(2));//current status
-			 UpdateStatus.setString(4,currentTime);
-			 UpdateStatus.executeUpdate();
+			UpdateStatus = conn.prepareStatement("INSERT memberstatus values(?,?,?,?)");
+			UpdateStatus.setString(1, member.get(1));//memberID
+			UpdateStatus.setString(2, member.get(5));//prev status
+			UpdateStatus.setString(3, member.get(2));//current status
+			UpdateStatus.setString(4,currentTime);
+			UpdateStatus.executeUpdate();
 		}
 	}
 
@@ -1037,14 +1037,30 @@ public class DBController {
 
 	public ArrayList<String> reserveBook(ArrayList<String> bookdata) throws SQLException {
 		int copies,answer,reserveamount=0;
-		String bookID=bookdata.get(1),currentTime;
+		String bookID=bookdata.get(1),currentTime,memberID=bookdata.get(2);
 		String copyID = null;
-		System.out.println(bookID);
+
+		PreparedStatement checkAlreadyReserve = conn.prepareStatement("SELECT * FROM reservations WHERE BookID = ? AND MemberID=? AND IsActive='true'");
+		checkAlreadyReserve.setString(1,bookID);
+		checkAlreadyReserve.setString(2,memberID);
+		ResultSet rs= checkAlreadyReserve.executeQuery();
+		if (rs.next()) {
+			bookdata.add("Already reserve");
+			return bookdata;
+		}
+		PreparedStatement checkForUser = conn.prepareStatement("SELECT * FROM loanbook WHERE BookID = ? AND MemberID=? AND IsReturned='false'");
+		checkForUser.setString(1,bookID);
+		checkForUser.setString(2,memberID);
+		ResultSet rs1= checkForUser.executeQuery();
+		if (rs1.next()) {
+			bookdata.add("fail");
+			return bookdata;
+		}
 		PreparedStatement ps = conn.prepareStatement("SELECT copies FROM book WHERE BookID = ?");
 		ps.setString(1,bookID);
-		ResultSet rs= ps.executeQuery();
-		if(rs.next()) {
-			copies=rs.getInt(1);
+		ResultSet rs2= ps.executeQuery();
+		if(rs2.next()) {
+			copies=rs2.getInt(1);
 		}
 		else {
 			System.out.println("cannot retrieve copies from book table.");
@@ -1054,9 +1070,9 @@ public class DBController {
 		System.out.println(copies);
 		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) FROM reservations WHERE BookID=? AND IsActive='true' ");
 		ps2.setString(1,bookID);
-		ResultSet rs1= ps2.executeQuery();
-		if(rs1.next()) {
-			reserveamount=rs1.getInt(1);
+		ResultSet rs3= ps2.executeQuery();
+		if(rs3.next()) {
+			reserveamount=rs3.getInt(1);
 			System.out.println(reserveamount);
 		}
 		else {
@@ -1069,9 +1085,9 @@ public class DBController {
 			PreparedStatement ps3 = conn.prepareStatement("SELECT CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReserved='false' ORDER BY ExpectedReturnDate LIMIT 1");
 			ps3.setString(1, currentTime);
 			ps3.setString(2, bookID);
-			ResultSet rs2=ps3.executeQuery();
-			if (rs2.next()) {
-				copyID=rs2.getString(1);
+			ResultSet rs4=ps3.executeQuery();
+			if (rs4.next()) {
+				copyID=rs4.getString(1);
 			}
 			else {
 				bookdata.add("fail-2");
@@ -1125,13 +1141,13 @@ public class DBController {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = inFormat.format(dt);
-		
+
 		ArrayList<String> changeMemberToGraduated = new ArrayList<String>();
 		if(data.get(12).equals("true")) {
 			changeMemberToGraduated.add("Member already graduated!");
 			return changeMemberToGraduated;
 		}
-		
+
 		ArrayList<String> getMemberLoans = new ArrayList<String>();
 		getMemberLoans.add("CurrentLoans");
 		getMemberLoans.add(data.get(1));
@@ -1139,7 +1155,7 @@ public class DBController {
 		int numberOfBook = (getMemberLoans.size()-1)/5;
 		int i = 0;
 		int j = 0;
-		
+
 		while(i<numberOfBook) {
 			if(i==0)
 			{
@@ -1148,7 +1164,7 @@ public class DBController {
 				ps7.setString(2, data.get(1));
 				ps7.executeUpdate();
 			}
-			
+
 			PreparedStatement ps1 = conn.prepareStatement("INSERT into delayonreturn values(?,?,?,?,?)");
 			ps1.setString(1, data.get(1));
 			ps1.setString(2, getMemberLoans.get(j+1));
@@ -1156,7 +1172,7 @@ public class DBController {
 			ps1.setString(4, getMemberLoans.get(j+2));
 			ps1.setString(5, currentTime);
 			ps1.executeUpdate();
-			
+
 			PreparedStatement ps3 = conn.prepareStatement("INSERT into currentdelayonreturn values(?,?,?)");
 			ps3.setString(1, data.get(1));
 			ps3.setString(2, getMemberLoans.get(j+1));
@@ -1165,7 +1181,7 @@ public class DBController {
 			i++;
 			j+=5;
 		}	
-		
+
 		if(getMemberLoans.size() <= 2) {
 			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ? WHERE MemberID = ?");
 			ps.setString(1, "true");
@@ -1208,12 +1224,12 @@ public class DBController {
 			changeMemberToGraduated.add("Couldn't insert memeber to graduated table!");
 			return changeMemberToGraduated;
 		}
-		
+
 		changeMemberToGraduated.add("Succsess!");
 		changeMemberToGraduated.add("Succsess!");
 		return changeMemberToGraduated;
 	}
-	
+
 	public ArrayList<String> getCurrentLoans(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan,searchAuthorName;
 		ResultSet rsLoan,rsAuthorName;
@@ -1264,7 +1280,7 @@ public class DBController {
 			return dataDetails;
 		}
 	}
-	
+
 	public ArrayList<String> extendLoanPeriodByMember(ArrayList<String> data) throws SQLException, ParseException {
 		ArrayList<String> msg = new ArrayList<>();
 		msg.add("Get BookID");
@@ -1327,8 +1343,8 @@ public class DBController {
 			extendLoan.add("Couldn't update the new expected return date!");
 			return extendLoan;
 		}
-		
-		
+
+
 		PreparedStatement ps4 = conn.prepareStatement("SELECT LibrarianID FROM librarian WHERE IsManager = ?");
 		ps4.setString(1, "false");
 		ResultSet rs1 = ps4.executeQuery();
@@ -1340,7 +1356,7 @@ public class DBController {
 			ps5.setString(4, "Member " + data.get(1) + " has extended the loan period of the copy " + data.get(2) + ".");	
 			ps5.executeUpdate();
 		}
-		
+
 		extendLoan.add(newExpectedReturnDate);
 		extendLoan.add("Success");
 		return extendLoan;
@@ -1408,7 +1424,7 @@ public class DBController {
 			extendLoan.add("Couldn't update the new expected return date!");
 			return extendLoan;
 		}
-		
+
 		PreparedStatement ps1 = conn.prepareStatement("INSERT into manualextend values(?,?,?,?)");
 		ps1.setString(1, data.get(1));
 		ps1.setString(2, data.get(2));
@@ -1447,7 +1463,7 @@ public class DBController {
 			return dataDetails;
 		}
 	}
-	
+
 	public ArrayList<String> EmployeeRecords () throws SQLException{
 		ArrayList<String> listLibrarians = new ArrayList<String>();
 		PreparedStatement stmt = conn.prepareStatement("SELECT LibrarianID,FirstName,LastName,Email,IsManager FROM librarian");
@@ -1462,189 +1478,189 @@ public class DBController {
 		}
 		return listLibrarians;
 	}
-	
+
 	//data for statistics - late in return
-		public ArrayList<String> StatisticsShowBooks (String option,String bookID) throws SQLException, ParseException{
-			
-			ArrayList<String> listBooks = new ArrayList<String>();
-			listBooks.add("StatisticsBooks");
-			listBooks.add(option);
-			
-			System.out.println(listBooks.toString()+" inside DB Controller");
-			
-			switch (option) {
-				case "Total":
-					
-					listBooks.add("labels");
-					
-					//Add SUM, COUNT and MAX of days and hours late in return
-					double sumOfDays=0,maxOfDays=0;
-					int counter=0;
-					PreparedStatement as = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate");
-					ResultSet a = as.executeQuery();
-					Date dt1 = new java.util.Date();
-					SimpleDateFormat inFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String currentTime1 = inFormat1.format(dt1);
-					
-					while(a.next()) {
-						String copyActualReturnDate1 = a.getString(1);
-						String copyExpectedReturnDate1 = a.getString(2);
+	public ArrayList<String> StatisticsShowBooks (String option,String bookID) throws SQLException, ParseException{
 
-						Date expectedReturnDate1 = inFormat1.parse(copyExpectedReturnDate1); 
-						Date actualReturnDate1 = inFormat1.parse(copyActualReturnDate1); 
-						
-						long diff1 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
-						long diffDays1 = diff1 / (24 * 60 * 60 * 1000);
-						
-						double diff11 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
-						double diffHours1 = (diff11 / (60 * 60 * 1000) % 24)*0.01;
-						
-						//SUM
-						sumOfDays += (diffDays1+diffHours1);
-						//COUNT
-						counter++;
-						//MAX
-						if ((diffDays1+diffHours1)>maxOfDays) {
-							maxOfDays = (diffDays1+diffHours1);
-						}
-					}
-					listBooks.add(String.valueOf(sumOfDays));
-					listBooks.add(String.valueOf(counter));
-					listBooks.add(String.valueOf(maxOfDays));
-					
-					//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
-					PreparedStatement st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
-					ResultSet r = st.executeQuery();
-					
-					Date dt = new java.util.Date();
-					SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String currentTime = inFormat.format(dt);
-					
-					while(r.next()) {
-						String copyActualReturnDate = r.getString(1);
-						String copyExpectedReturnDate = r.getString(2);
+		ArrayList<String> listBooks = new ArrayList<String>();
+		listBooks.add("StatisticsBooks");
+		listBooks.add(option);
 
-						Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
-						Date actualReturnDate = inFormat.parse(copyActualReturnDate); 
-						
-						long diff = actualReturnDate.getTime() - expectedReturnDate.getTime();
-						long diffDays = diff / (24 * 60 * 60 * 1000);
-						
-						double diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
-						double diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
-						
-						listBooks.add(String.valueOf(diffDays+diffHours));//All delayed copies in ascending order
-					}
-					
-					break;
-				case "Specific Book":
-					
-					listBooks.add("labels");
-					
-//					PreparedStatement stmtB1 = conn.prepareStatement("SELECT SUM(DaysLateInReturn), COUNT(MemberID), MAX(DaysLateInReturn) FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND  CopyID LIKE'"+bookID+"%'");
-//					ResultSet rsB1 = stmtB1.executeQuery();
-//					while(rsB1.next()) {
-//						System.out.println(rsB1.getString(1)+" "+rsB1.getString(2)+" "+rsB1.getString(3));
-//							listBooks.add(rsB1.getString(1));//SUM of DaysLateInReturn - Total
-//							listBooks.add(rsB1.getString(2));//COUNT of books delayed on return
-//							listBooks.add(rsB1.getString(3));//MAX of books delayed on return
-//							System.out.println(listBooks.toString()+" inside listBooks DB SUM COUNT MAX");
-//					}
-					
-					//Add SUM, COUNT and MAX of days and hours late in return
-					double sumOfDaysS=0,maxOfDaysS=0;
-					int counterS=0;
-					PreparedStatement asS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
-					ResultSet aS = asS.executeQuery();
-					Date dt1S = new java.util.Date();
-					SimpleDateFormat inFormat1S = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String currentTime1S = inFormat1S.format(dt1S);
-					
-					while(aS.next()) {
-						String copyActualReturnDate1S = aS.getString(1);
-						String copyExpectedReturnDate1S = aS.getString(2);
+		System.out.println(listBooks.toString()+" inside DB Controller");
 
-						Date expectedReturnDate1S = inFormat1S.parse(copyExpectedReturnDate1S); 
-						Date actualReturnDate1S = inFormat1S.parse(copyActualReturnDate1S); 
-						
-						long diff1S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
-						long diffDays1S = diff1S / (24 * 60 * 60 * 1000);
-						
-						double diff11S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
-						double diffHours1S = (diff11S / (60 * 60 * 1000) % 24)*0.01;
-						
-						//SUM
-						sumOfDaysS += (diffDays1S+diffHours1S);
-						//COUNT
-						counterS++;
-						//MAX
-						if ((diffDays1S+diffHours1S)>maxOfDaysS) {
-							maxOfDaysS = (diffDays1S+diffHours1S);
-						}
-					}
-					listBooks.add(String.valueOf(sumOfDaysS));
-					listBooks.add(String.valueOf(counterS));
-					listBooks.add(String.valueOf(maxOfDaysS));
-					
-					
-//					PreparedStatement stmtB2 = conn.prepareStatement("SELECT DaysLateInReturn FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND CopyID LIKE'"+bookID+"%' ORDER BY DaysLateInReturn ASC");
-//					ResultSet rsB2 = stmtB2.executeQuery();
-//					while(rsB2.next()) {
-//							listBooks.add(rsB2.getString(1));//All delayed copies in ascending order
-//					}
-					//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
-					PreparedStatement stSS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND CopyID LIKE'"+bookID+"%' ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
-					ResultSet rSS = stSS.executeQuery();
-					
-					Date dtSS = new java.util.Date();
-					SimpleDateFormat inFormatSS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					String currentTimeSS = inFormatSS.format(dtSS);
-					
-					while(rSS.next()) {
-						String copyActualReturnDateSS = rSS.getString(1);
-						String copyExpectedReturnDateSS = rSS.getString(2);
+		switch (option) {
+		case "Total":
 
-						Date expectedReturnDateSS = inFormatSS.parse(copyExpectedReturnDateSS); 
-						Date actualReturnDateSS = inFormatSS.parse(copyActualReturnDateSS); 
-						
-						long diffSS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
-						long diffDaysSS = diffSS / (24 * 60 * 60 * 1000);
-						
-						double diff2SS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
-						double diffHoursSS = (diff2SS / (60 * 60 * 1000) % 24)*0.01;
-						
-						listBooks.add(String.valueOf(diffDaysSS+diffHoursSS));//All delayed copies in ascending order
-					}
-					
-					break;
-					
-					
-				default:
-					break;
+			listBooks.add("labels");
+
+			//Add SUM, COUNT and MAX of days and hours late in return
+			double sumOfDays=0,maxOfDays=0;
+			int counter=0;
+			PreparedStatement as = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate");
+			ResultSet a = as.executeQuery();
+			Date dt1 = new java.util.Date();
+			SimpleDateFormat inFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime1 = inFormat1.format(dt1);
+
+			while(a.next()) {
+				String copyActualReturnDate1 = a.getString(1);
+				String copyExpectedReturnDate1 = a.getString(2);
+
+				Date expectedReturnDate1 = inFormat1.parse(copyExpectedReturnDate1); 
+				Date actualReturnDate1 = inFormat1.parse(copyActualReturnDate1); 
+
+				long diff1 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
+				long diffDays1 = diff1 / (24 * 60 * 60 * 1000);
+
+				double diff11 = actualReturnDate1.getTime() - expectedReturnDate1.getTime();
+				double diffHours1 = (diff11 / (60 * 60 * 1000) % 24)*0.01;
+
+				//SUM
+				sumOfDays += (diffDays1+diffHours1);
+				//COUNT
+				counter++;
+				//MAX
+				if ((diffDays1+diffHours1)>maxOfDays) {
+					maxOfDays = (diffDays1+diffHours1);
 				}
-			
-			return listBooks;
+			}
+			listBooks.add(String.valueOf(sumOfDays));
+			listBooks.add(String.valueOf(counter));
+			listBooks.add(String.valueOf(maxOfDays));
+
+			//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
+			PreparedStatement st = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
+			ResultSet r = st.executeQuery();
+
+			Date dt = new java.util.Date();
+			SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = inFormat.format(dt);
+
+			while(r.next()) {
+				String copyActualReturnDate = r.getString(1);
+				String copyExpectedReturnDate = r.getString(2);
+
+				Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+				Date actualReturnDate = inFormat.parse(copyActualReturnDate); 
+
+				long diff = actualReturnDate.getTime() - expectedReturnDate.getTime();
+				long diffDays = diff / (24 * 60 * 60 * 1000);
+
+				double diff2 = actualReturnDate.getTime() - expectedReturnDate.getTime();
+				double diffHours = (diff2 / (60 * 60 * 1000) % 24)*0.01;
+
+				listBooks.add(String.valueOf(diffDays+diffHours));//All delayed copies in ascending order
+			}
+
+			break;
+		case "Specific Book":
+
+			listBooks.add("labels");
+
+			//					PreparedStatement stmtB1 = conn.prepareStatement("SELECT SUM(DaysLateInReturn), COUNT(MemberID), MAX(DaysLateInReturn) FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND  CopyID LIKE'"+bookID+"%'");
+			//					ResultSet rsB1 = stmtB1.executeQuery();
+			//					while(rsB1.next()) {
+			//						System.out.println(rsB1.getString(1)+" "+rsB1.getString(2)+" "+rsB1.getString(3));
+			//							listBooks.add(rsB1.getString(1));//SUM of DaysLateInReturn - Total
+			//							listBooks.add(rsB1.getString(2));//COUNT of books delayed on return
+			//							listBooks.add(rsB1.getString(3));//MAX of books delayed on return
+			//							System.out.println(listBooks.toString()+" inside listBooks DB SUM COUNT MAX");
+			//					}
+
+			//Add SUM, COUNT and MAX of days and hours late in return
+			double sumOfDaysS=0,maxOfDaysS=0;
+			int counterS=0;
+			PreparedStatement asS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
+			ResultSet aS = asS.executeQuery();
+			Date dt1S = new java.util.Date();
+			SimpleDateFormat inFormat1S = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime1S = inFormat1S.format(dt1S);
+
+			while(aS.next()) {
+				String copyActualReturnDate1S = aS.getString(1);
+				String copyExpectedReturnDate1S = aS.getString(2);
+
+				Date expectedReturnDate1S = inFormat1S.parse(copyExpectedReturnDate1S); 
+				Date actualReturnDate1S = inFormat1S.parse(copyActualReturnDate1S); 
+
+				long diff1S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
+				long diffDays1S = diff1S / (24 * 60 * 60 * 1000);
+
+				double diff11S = actualReturnDate1S.getTime() - expectedReturnDate1S.getTime();
+				double diffHours1S = (diff11S / (60 * 60 * 1000) % 24)*0.01;
+
+				//SUM
+				sumOfDaysS += (diffDays1S+diffHours1S);
+				//COUNT
+				counterS++;
+				//MAX
+				if ((diffDays1S+diffHours1S)>maxOfDaysS) {
+					maxOfDaysS = (diffDays1S+diffHours1S);
+				}
+			}
+			listBooks.add(String.valueOf(sumOfDaysS));
+			listBooks.add(String.valueOf(counterS));
+			listBooks.add(String.valueOf(maxOfDaysS));
+
+
+			//					PreparedStatement stmtB2 = conn.prepareStatement("SELECT DaysLateInReturn FROM delayonreturn WHERE IsLostedOrDelayed = 'delayed' AND CopyID LIKE'"+bookID+"%' ORDER BY DaysLateInReturn ASC");
+			//					ResultSet rsB2 = stmtB2.executeQuery();
+			//					while(rsB2.next()) {
+			//							listBooks.add(rsB2.getString(1));//All delayed copies in ascending order
+			//					}
+			//Add the difference (days and hours) between ActualReturnDate and ExpectedReturnDate to the list.
+			PreparedStatement stSS = conn.prepareStatement("SELECT ActualReturnDate,ExpectedReturnDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate>ExpectedReturnDate AND CopyID LIKE'"+bookID+"%' ORDER BY (ActualReturnDate-ExpectedReturnDate) ASC");
+			ResultSet rSS = stSS.executeQuery();
+
+			Date dtSS = new java.util.Date();
+			SimpleDateFormat inFormatSS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTimeSS = inFormatSS.format(dtSS);
+
+			while(rSS.next()) {
+				String copyActualReturnDateSS = rSS.getString(1);
+				String copyExpectedReturnDateSS = rSS.getString(2);
+
+				Date expectedReturnDateSS = inFormatSS.parse(copyExpectedReturnDateSS); 
+				Date actualReturnDateSS = inFormatSS.parse(copyActualReturnDateSS); 
+
+				long diffSS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
+				long diffDaysSS = diffSS / (24 * 60 * 60 * 1000);
+
+				double diff2SS = actualReturnDateSS.getTime() - expectedReturnDateSS.getTime();
+				double diffHoursSS = (diff2SS / (60 * 60 * 1000) % 24)*0.01;
+
+				listBooks.add(String.valueOf(diffDaysSS+diffHoursSS));//All delayed copies in ascending order
+			}
+
+			break;
+
+
+		default:
+			break;
 		}
-		public void memberLostBook(ArrayList<String> data) throws SQLException {
-			java.util.Date dt = new java.util.Date();
-			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTime = sdf.format(dt);
-			PreparedStatement insert = conn.prepareStatement("insert into delayonreturn values(?,?,?,?,?)");
-			insert.setString(1, data.get(1));//MemberID
-			insert.setString(2, data.get(2));//CopyID
-			insert.setString(3,"Lost");//IslostedorDelayed
-			insert.setString(4, data.get(3));//CopyName
-			insert.setString(5,currentTime);//current time
-			insert.executeUpdate();			
-		}		
-		//get BOOKS from DB to show in tableView - for statistics-lateInReturn
-		public ArrayList<String> showTableViewBooks () throws SQLException{
-		
+
+		return listBooks;
+	}
+	public void memberLostBook(ArrayList<String> data) throws SQLException {
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(dt);
+		PreparedStatement insert = conn.prepareStatement("insert into delayonreturn values(?,?,?,?,?)");
+		insert.setString(1, data.get(1));//MemberID
+		insert.setString(2, data.get(2));//CopyID
+		insert.setString(3,"Lost");//IslostedorDelayed
+		insert.setString(4, data.get(3));//CopyName
+		insert.setString(5,currentTime);//current time
+		insert.executeUpdate();			
+	}		
+	//get BOOKS from DB to show in tableView - for statistics-lateInReturn
+	public ArrayList<String> showTableViewBooks () throws SQLException{
+
 		ArrayList<String> listBooks2 = new ArrayList<String>();
 		listBooks2.add("showTableView");
 		listBooks2.add(" ");
 		listBooks2.add("tableView");
-		
+
 		PreparedStatement stmtB3 = conn.prepareStatement("SELECT BookID,BookName,Wanted,AuthorsName,EditionNumber FROM book");
 		ResultSet rsB3 = stmtB3.executeQuery();
 
@@ -1654,126 +1670,126 @@ public class DBController {
 			listBooks2.add(rsB3.getString(3));//Wanted
 			listBooks2.add(rsB3.getString(4));//Authors Name
 			listBooks2.add(rsB3.getString(5));//Edition Number
-			}
+		}
 		return listBooks2;
-		}
-		public ArrayList<String> getInBoxMessage(ArrayList<String> arrayMessage) throws SQLException {
-			PreparedStatement MessageData;
-			ResultSet rsMessage;
-			MessageData = conn.prepareStatement("SELECT ExecutionDate,Topic,Contents FROM usermessages WHERE UserID=? ");
-			ArrayList<String> dataDetails = new ArrayList<String>();
-			dataDetails.add("InBoxMessage");
-			MessageData.setString(1,arrayMessage.get(1));
-			rsMessage = MessageData.executeQuery();
+	}
+	public ArrayList<String> getInBoxMessage(ArrayList<String> arrayMessage) throws SQLException {
+		PreparedStatement MessageData;
+		ResultSet rsMessage;
+		MessageData = conn.prepareStatement("SELECT ExecutionDate,Topic,Contents FROM usermessages WHERE UserID=? ");
+		ArrayList<String> dataDetails = new ArrayList<String>();
+		dataDetails.add("InBoxMessage");
+		MessageData.setString(1,arrayMessage.get(1));
+		rsMessage = MessageData.executeQuery();
 
-			while(rsMessage.next()) {
-				dataDetails.add(rsMessage.getString(1));//ExecutionDate
-				dataDetails.add(rsMessage.getString(2));//Topic
-				dataDetails.add(rsMessage.getString(3));//Contents
-			}	
-			return dataDetails;
-		}
-		
-		public static void handleLateLoans() throws SQLException {
-			Date dt = new java.util.Date();
-			SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTime = inFormat.format(dt);
-			
-			PreparedStatement ps = conn.prepareStatement("SELECT MemberID, CopyID, BookName FROM loanbook WHERE ExpectedReturnDate < ? AND ActualReturnDate = ? AND IsReturned = ?");
-			ps.setString(1, currentTime);
-			ps.setString(2, null);
-			ps.setString(3, "false");
-			ResultSet rs = ps.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				return;
-			}
-			while(rs.next()) {
-				PreparedStatement ps1 = conn.prepareStatement("INSERT into delayonreturn values(?,?,?,?,?)");
-				ps.setString(1, rs.getString(1));
-				ps.setString(2, rs.getString(2));
-				ps.setString(3, "Delayed");
-				ps.setString(4, rs.getString(3));
-				ps.setString(5, currentTime);
-				ps.executeUpdate();
-				
-				PreparedStatement ps3 = conn.prepareStatement("INSERT into currentdelayonreturn values(?,?,?)");
-				ps3.setString(1, rs.getString(1));
-				ps3.setString(2, rs.getString(2));
-				ps3.setString(3, rs.getString(3));
-				ps3.executeUpdate();
-				
-				ArrayList<String> getMemberInfo = new ArrayList<String>();
-				getMemberInfo.add("");
-				getMemberInfo.add(rs.getString(1));
-				getMemberInfo = isMemberExist(getMemberInfo);
-				if(getMemberInfo.get(7).equals("Active")) {
-					PreparedStatement ps2 = conn.prepareStatement("UPDATE members SET Status = ?, DelayAmount = ?, FreezedOn = ? WHERE MemberID = ?");
-					ps2.setString(1, "Frozen");
-					ps2.setString(2, Integer.toString(Integer.parseInt(rs.getString(9)) + 1));
-					ps2.setString(3, rs.getString(2));
-					ps2.setString(4, rs.getString(1));
-					ps2.executeUpdate();
-				}
-				else {
-					PreparedStatement ps2 = conn.prepareStatement("UPDATE members SET DelayAmount = ? WHERE MemberID = ?");
-					ps2.setString(1, Integer.toString(Integer.parseInt(rs.getString(9)) + 1));
-					ps2.setString(2, rs.getString(1));
-					ps2.executeUpdate();
-				}
-				
-				if((Integer.parseInt(rs.getString(9)) + 1) >= 3) {
-					PreparedStatement ps4 = conn.prepareStatement("SELECT LibrarianID FROM librarian WHERE IsManager = ?");
-					ps4.setString(1, "true");
-					ResultSet rs1 = ps4.executeQuery();
-					if(rs1.next()) {
-						PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessage values(?,?,?,?)");
-						ps5.setString(1, (rs1.getString(1)));
-						ps5.setString(2, "3 times delay");
-						ps5.setString(3, currentTime);
-						ps5.setString(4, "Member " + rs.getString(1) + " has been late on return for " + Integer.toString(Integer.parseInt(rs.getString(9)) + 1) + " times.");	
-						ps5.executeUpdate();
-					}
-				}
-			}
-		}
-		
-		
-		public static void handleReminderMessageDayBeforeReturn() throws SQLException, ParseException {
-			Date dt = new java.util.Date();
-			SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String currentTime = inFormat.format(dt);
-			
-			PreparedStatement ps = conn.prepareStatement("SELECT MemberID, CopyID, BookName, ExpectedReturnDate FROM loanbook WHERE ExpectedReturnDate > ? AND ActualReturnDate = ? AND IsReturned = ?");
-			ps.setString(1, currentTime);
-			ps.setString(2, null);
-			ps.setString(3, "false");
-			ResultSet rs = ps.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				return;
-			}
-			while(rs.next()) {
-				ArrayList<String> getMemberInfo = new ArrayList<String>();
-				getMemberInfo.add("");
-				getMemberInfo.add(rs.getString(1));
-				getMemberInfo = isMemberExist(getMemberInfo);
-				String copyExpectedReturnDate = rs.getString(4);
-				Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
-				Date currentDate = inFormat.parse(currentTime); 
-				long diff = expectedReturnDate.getTime() - currentDate.getTime();
-				
-				long hours = TimeUnit.MILLISECONDS.toHours(diff);
+		while(rsMessage.next()) {
+			dataDetails.add(rsMessage.getString(1));//ExecutionDate
+			dataDetails.add(rsMessage.getString(2));//Topic
+			dataDetails.add(rsMessage.getString(3));//Contents
+		}	
+		return dataDetails;
+	}
 
-				if(hours >= 24 && hours <=48) {
-						PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessage values(?,?,?,?)");
-						ps5.setString(1, (rs.getString(1)));
-						ps5.setString(2, "Return book");
-						ps5.setString(3, currentTime);
-						ps5.setString(4, "The Copy of the book " + rs.getString(3) + "should be returned in the date " + rs.getString(4));	
-						ps5.executeUpdate();
+	public static void handleLateLoans() throws SQLException {
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+
+		PreparedStatement ps = conn.prepareStatement("SELECT MemberID, CopyID, BookName FROM loanbook WHERE ExpectedReturnDate < ? AND ActualReturnDate = ? AND IsReturned = ?");
+		ps.setString(1, currentTime);
+		ps.setString(2, null);
+		ps.setString(3, "false");
+		ResultSet rs = ps.executeQuery();
+		if(!rs.isBeforeFirst()) {
+			return;
+		}
+		while(rs.next()) {
+			PreparedStatement ps1 = conn.prepareStatement("INSERT into delayonreturn values(?,?,?,?,?)");
+			ps.setString(1, rs.getString(1));
+			ps.setString(2, rs.getString(2));
+			ps.setString(3, "Delayed");
+			ps.setString(4, rs.getString(3));
+			ps.setString(5, currentTime);
+			ps.executeUpdate();
+
+			PreparedStatement ps3 = conn.prepareStatement("INSERT into currentdelayonreturn values(?,?,?)");
+			ps3.setString(1, rs.getString(1));
+			ps3.setString(2, rs.getString(2));
+			ps3.setString(3, rs.getString(3));
+			ps3.executeUpdate();
+
+			ArrayList<String> getMemberInfo = new ArrayList<String>();
+			getMemberInfo.add("");
+			getMemberInfo.add(rs.getString(1));
+			getMemberInfo = isMemberExist(getMemberInfo);
+			if(getMemberInfo.get(7).equals("Active")) {
+				PreparedStatement ps2 = conn.prepareStatement("UPDATE members SET Status = ?, DelayAmount = ?, FreezedOn = ? WHERE MemberID = ?");
+				ps2.setString(1, "Frozen");
+				ps2.setString(2, Integer.toString(Integer.parseInt(rs.getString(9)) + 1));
+				ps2.setString(3, rs.getString(2));
+				ps2.setString(4, rs.getString(1));
+				ps2.executeUpdate();
+			}
+			else {
+				PreparedStatement ps2 = conn.prepareStatement("UPDATE members SET DelayAmount = ? WHERE MemberID = ?");
+				ps2.setString(1, Integer.toString(Integer.parseInt(rs.getString(9)) + 1));
+				ps2.setString(2, rs.getString(1));
+				ps2.executeUpdate();
+			}
+
+			if((Integer.parseInt(rs.getString(9)) + 1) >= 3) {
+				PreparedStatement ps4 = conn.prepareStatement("SELECT LibrarianID FROM librarian WHERE IsManager = ?");
+				ps4.setString(1, "true");
+				ResultSet rs1 = ps4.executeQuery();
+				if(rs1.next()) {
+					PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessage values(?,?,?,?)");
+					ps5.setString(1, (rs1.getString(1)));
+					ps5.setString(2, "3 times delay");
+					ps5.setString(3, currentTime);
+					ps5.setString(4, "Member " + rs.getString(1) + " has been late on return for " + Integer.toString(Integer.parseInt(rs.getString(9)) + 1) + " times.");	
+					ps5.executeUpdate();
 				}
 			}
 		}
-		
+	}
+
+
+	public static void handleReminderMessageDayBeforeReturn() throws SQLException, ParseException {
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+
+		PreparedStatement ps = conn.prepareStatement("SELECT MemberID, CopyID, BookName, ExpectedReturnDate FROM loanbook WHERE ExpectedReturnDate > ? AND ActualReturnDate = ? AND IsReturned = ?");
+		ps.setString(1, currentTime);
+		ps.setString(2, null);
+		ps.setString(3, "false");
+		ResultSet rs = ps.executeQuery();
+		if(!rs.isBeforeFirst()) {
+			return;
+		}
+		while(rs.next()) {
+			ArrayList<String> getMemberInfo = new ArrayList<String>();
+			getMemberInfo.add("");
+			getMemberInfo.add(rs.getString(1));
+			getMemberInfo = isMemberExist(getMemberInfo);
+			String copyExpectedReturnDate = rs.getString(4);
+			Date expectedReturnDate = inFormat.parse(copyExpectedReturnDate); 
+			Date currentDate = inFormat.parse(currentTime); 
+			long diff = expectedReturnDate.getTime() - currentDate.getTime();
+
+			long hours = TimeUnit.MILLISECONDS.toHours(diff);
+
+			if(hours >= 24 && hours <=48) {
+				PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessage values(?,?,?,?)");
+				ps5.setString(1, (rs.getString(1)));
+				ps5.setString(2, "Return book");
+				ps5.setString(3, currentTime);
+				ps5.setString(4, "The Copy of the book " + rs.getString(3) + "should be returned in the date " + rs.getString(4));	
+				ps5.executeUpdate();
+			}
+		}
+	}
+
 	private static Connection connectToDatabase() {
 		try 
 		{
