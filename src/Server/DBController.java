@@ -49,6 +49,7 @@ public class DBController {
 	{
 		PreparedStatement preparedRegistretion;
 		ResultSet rsRegistretion;
+		PreparedStatement UpdateStatus;
 
 		preparedRegistretion = conn.prepareStatement("SELECT  * FROM members WHERE MemberID=? ");
 		preparedRegistretion.setString(1, data.get(2));
@@ -88,6 +89,15 @@ public class DBController {
 		insert.setString(11, null);
 		insert.setString(12, "false");
 		insert.executeUpdate();
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(dt);
+		UpdateStatus = conn.prepareStatement("INSERT memberstatus values(?,?,?,?)");
+		UpdateStatus.setString(1, data.get(2));//memberID
+		UpdateStatus.setString(2, "Active");//prev status
+		UpdateStatus.setString(3, "Active");//current status
+		UpdateStatus.setString(4,currentTime);
+		UpdateStatus.executeUpdate();
 		return 1;
 	}
 
@@ -2180,6 +2190,42 @@ public class DBController {
 			}
 		}
 	}
+	public ArrayList<Integer> getActiveMemberHistory(ArrayList<String> arrayObject) throws SQLException  {
+		ArrayList<Integer>data=new ArrayList<>();
+		int val;
+		System.out.println(arrayObject);
+		PreparedStatement ps = conn.prepareStatement("SELECT COUNT(DISTINCT MemberID) FROM memberstatus WHERE ExecutionDate>=? AND ExecutionDate<=? AND CurrentStatus=? ");
+		ps.setString(1,arrayObject.get(1));//startTime
+		ps.setString(2,arrayObject.get(2));//endTime
+		ps.setString(3,"Active");//requestedStatus
+		ResultSet rs1 = ps.executeQuery();
+		if (rs1.next()) {
+			System.out.println(rs1.getInt(1));
+			data.add(rs1.getInt(1));//return num of active members in the between startDate and endDate 
+		}
+		ps.setString(3,"Frozen");//requestedStatus
+		ResultSet rs2 = ps.executeQuery();
+		if (rs2.next()) {
+			System.out.println(rs2.getInt(1));
+			data.add(rs2.getInt(1));//return num of frozen members in the between startDate and endDate 
+		}
+		ps.setString(3,"Locked");//requestedStatus
+		ResultSet rs3 = ps.executeQuery();
+		if (rs3.next()) {
+			System.out.println(rs3.getInt(1));
+			data.add(rs3.getInt(1));//return num of locked members in the between startDate and endDate 
+		}
+		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(DISTINCT CopyID) FROM loanbook WHERE LoanDate>=? AND LoanDate<=? ");
+		ps2.setString(1,arrayObject.get(1));//startTime
+		ps2.setString(2,arrayObject.get(2));//endTime
+		ResultSet rs4 = ps2.executeQuery();
+		if (rs4.next()) {
+			System.out.println(rs4.getInt(1));
+			data.add(rs4.getInt(1));//return num of copies loaned in the between startDate and endDate 
+		}
+		return data;
+	}
+			
 
 	private static Connection connectToDatabase() {
 		try 
@@ -2200,7 +2246,5 @@ public class DBController {
 		}
 		return null;
 	}
-
-
-
+	
 }

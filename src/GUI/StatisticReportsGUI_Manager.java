@@ -10,10 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import logic.Main;
 
 public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
+	private static String startDate;
+	private static String endDate;
 
     @FXML
     private AnchorPane StatisticsPane;
@@ -33,10 +36,18 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
     @FXML
     private Button btnLateOnReturn_statistics;
     
-    
     @FXML
-    void ActivityScreen(ActionEvent event) {
+    private DatePicker pickDateStart;
 
+    @FXML
+    private DatePicker pickDateEnd;
+
+    @FXML
+    void ActivityScreen(ActionEvent event) throws IOException {
+    	startDate=pickDateStart.getValue().toString();
+    	endDate=pickDateEnd.getValue().toString();
+    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-Activity.fxml"));
+    	StatisticsPane.getChildren().setAll(pane);
     }
 
     @FXML
@@ -90,6 +101,22 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		Main.client.clientUI=this;
+	}
+
+	public static String getEndDate() {
+		return endDate;
+	}
+
+	public static void setEndDate(String endDate) {
+		StatisticReportsGUI_Manager.endDate = endDate;
+	}
+
+	public static String getStartDate() {
+		return startDate;
+	}
+
+	public static void setStartDate(String startDate) {
+		StatisticReportsGUI_Manager.startDate = startDate;
 	}
 	
 }

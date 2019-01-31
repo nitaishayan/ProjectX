@@ -119,4 +119,12 @@ public class StatisticReportsController {
 		BooksList.add("showTableView");
 		Main.client.handleMessageFromClientUI(BooksList);
 		}
+
+	public static void getActivityReport(String startDate, String endDate) {
+		ArrayList<String> data = new ArrayList<>();
+		data.add("getActivityReport");
+		data.add(startDate);
+		data.add(endDate);
+		Main.client.handleMessageFromClientUI(data);
 	}
+}

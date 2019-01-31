@@ -444,6 +444,15 @@ public class Server extends AbstractServer
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				break;
+			case "getActivityReport":
+				ArrayList<Integer> data=new ArrayList<>();
+				
+				try {
+					data=DBController.getInstance().getActiveMemberHistory(arrayObject);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			default:
 				break;
 			}
