@@ -131,7 +131,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		PDF=fileChooser.showOpenDialog(OBLcontroller.librarianStage);
-		txtTable_Of_Content.setText(PDF.getName());
+		if (PDF!=null)
+			txtTable_Of_Content.setText(PDF.getName());
 	}
 
 	@FXML
@@ -219,7 +220,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Main.client.clientUI=this;		
+		Main.client.clientUI=this;
+		txtTable_Of_Content.setEditable(false);
 	}
 
 	@Override

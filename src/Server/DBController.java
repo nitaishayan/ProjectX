@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
+import Common.LoanDetails;
 import GUI.LibrarianMenuGUI;
 import logic.CommonController;
 
@@ -1121,32 +1122,80 @@ public class DBController {
 	}
 
 	public ArrayList<String> changeMemberToGraduated(ArrayList<String> data) throws SQLException {
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+		
 		ArrayList<String> changeMemberToGraduated = new ArrayList<String>();
 		if(data.get(12).equals("true")) {
 			changeMemberToGraduated.add("Member already graduated!");
 			return changeMemberToGraduated;
 		}
 		
-		if(data.get(11) == null) {
-			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ?, Status = ? WHERE MemberID = ?");
+		ArrayList<String> getMemberLoans = new ArrayList<String>();
+		getMemberLoans.add("CurrentLoans");
+		getMemberLoans.add(data.get(1));
+		getMemberLoans = getCurrentLoans(getMemberLoans);
+		int numberOfBook = (getMemberLoans.size()-1)/5;
+		int i = 0;
+		int j = 0;
+		
+		while(i<numberOfBook) {
+			if(i==0)
+			{
+				PreparedStatement ps7 = conn.prepareStatement("UPDATE members SET FreezedOn = ? WHERE MemberID = ?");
+				ps7.setString(1, getMemberLoans.get(j+1));
+				ps7.setString(2, data.get(1));
+				ps7.executeUpdate();
+			}
+			
+			PreparedStatement ps1 = conn.prepareStatement("INSERT into delayonreturn values(?,?,?,?,?)");
+			ps1.setString(1, data.get(1));
+			ps1.setString(2, getMemberLoans.get(j+1));
+			ps1.setString(3, "Delayed");
+			ps1.setString(4, getMemberLoans.get(j+2));
+			ps1.setString(5, currentTime);
+			ps1.executeUpdate();
+			
+			PreparedStatement ps3 = conn.prepareStatement("INSERT into currentdelayonreturn values(?,?,?)");
+			ps3.setString(1, data.get(1));
+			ps3.setString(2, getMemberLoans.get(j+1));
+			ps3.setString(3, getMemberLoans.get(j+2));
+			ps3.executeUpdate();
+			i++;
+			j+=5;
+		}	
+		
+		if(getMemberLoans.size() <= 2) {
+			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ? WHERE MemberID = ?");
 			ps.setString(1, "true");
-			ps.setString(2, "Locked");
-			ps.setString(3, data.get(1)); // ? == memberID
+			ps.setString(2, data.get(1)); // ? == memberID
 			if(ps.executeUpdate() == 0) {
 				changeMemberToGraduated.add("Couldn't update memeber status!");
 				return changeMemberToGraduated;
 			}
+			ArrayList<String> changeStatus = new ArrayList<String>();
+			changeStatus.add("Change Member Status");
+			changeStatus.add(data.get(1));
+			changeStatus.add(data.get(7));
+			changeStatus.add("Locked");
+			changeStatus = changeMemberStatus(changeStatus);
 			changeMemberToGraduated.add("Locked");
 		}
 		else {
-			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ?, Status = ? WHERE MemberID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ? WHERE MemberID = ?");
 			ps.setString(1, "true");
-			ps.setString(2, "Frozen");
-			ps.setString(3, data.get(1)); // ? == memberID
+			ps.setString(2, data.get(1)); // ? == memberID
 			if(ps.executeUpdate() == 0) {
 				changeMemberToGraduated.add("Couldn't update memeber status!");
 				return changeMemberToGraduated;
 			}
+			ArrayList<String> changeStatus = new ArrayList<String>();
+			changeStatus.add("Change Member Status");
+			changeStatus.add(data.get(1));
+			changeStatus.add(data.get(7));
+			changeStatus.add("Frozen");
+			changeStatus = changeMemberStatus(changeStatus);
 			changeMemberToGraduated.add("Frozen");
 		}
 
@@ -1284,11 +1333,12 @@ public class DBController {
 		ps4.setString(1, "false");
 		ResultSet rs1 = ps4.executeQuery();
 		while(rs1.next()) {
-			PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessage values(?,?,?,?)");
-			ps5.setString(1, (data.get(1)));
+			PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessages values(?,?,?,?)");
+			ps5.setString(1, rs1.getString(1));
 			ps5.setString(2, "Book extension");
 			ps5.setString(3, currentTime);
-			ps5.setString(4, "Member " + data.get(1) + " has extended the return date of the copy " + data.get(2) + ".");	
+			ps5.setString(4, "Member " + data.get(1) + " has extended the loan period of the copy " + data.get(2) + ".");	
+			ps5.executeUpdate();
 		}
 		
 		extendLoan.add(newExpectedReturnDate);
@@ -1681,6 +1731,7 @@ public class DBController {
 						ps5.setString(2, "3 times delay");
 						ps5.setString(3, currentTime);
 						ps5.setString(4, "Member " + rs.getString(1) + " has been late on return for " + Integer.toString(Integer.parseInt(rs.getString(9)) + 1) + " times.");	
+						ps5.executeUpdate();
 					}
 				}
 			}
@@ -1718,6 +1769,7 @@ public class DBController {
 						ps5.setString(2, "Return book");
 						ps5.setString(3, currentTime);
 						ps5.setString(4, "The Copy of the book " + rs.getString(3) + "should be returned in the date " + rs.getString(4));	
+						ps5.executeUpdate();
 				}
 			}
 		}

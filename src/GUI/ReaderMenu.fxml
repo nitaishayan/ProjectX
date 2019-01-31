@@ -15,22 +15,22 @@
          <children>
             <VBox layoutY="228.0" prefHeight="725.0" prefWidth="275.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="228.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#PersonalDataScreen" prefHeight="85.0" prefWidth="349.0" text="Personal Data">
+                  <Button fx:id="btnPersonalData" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#PersonalDataScreen" prefHeight="85.0" prefWidth="349.0" text="Personal Data">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="349.0" text="Search/Extend book">
+                  <Button fx:id="btnSearchBook" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SearchScreen" prefHeight="85.0" prefWidth="349.0" text="Search/Extend book">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#HistoryActivities" prefHeight="85.0" prefWidth="349.0" text="History Activities">
+                  <Button fx:id="btnHistoryActivities" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#HistoryActivities" prefHeight="85.0" prefWidth="349.0" text="History Activities">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#extendLoanPeriodScreen" prefHeight="85.0" prefWidth="349.0" text="Extend Loan Period">
+                  <Button fx:id="btnExtend" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#extendLoanPeriodScreen" prefHeight="85.0" prefWidth="349.0" text="Extend Loan Period">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

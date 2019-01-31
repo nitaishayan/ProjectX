@@ -108,6 +108,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			}
 		});
 		memberStage=primaryStage;
+		primaryStage.setMinWidth(1540);
+		primaryStage.setMaxWidth(1540);
+		primaryStage.setResizable(false);
 		primaryStage.show();		
 	}
 
@@ -127,6 +130,8 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		});
 		primaryStage.setScene(scene);	
 		librarianStage=primaryStage;
+		primaryStage.setMinWidth(1540);
+		primaryStage.setMaxWidth(1540);
 		primaryStage.show();		
 	}
 

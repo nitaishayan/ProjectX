@@ -205,6 +205,7 @@ public class LoanGUI implements Initializable, GuiInterface {
 			else {
 				showSuccess("Copy " + returnedCopy.getCopyID() + " loaned successfully by the member " + returnedMember.getFirstName() + " " + returnedMember.getLastName() +
 						" and the expected return date is " + msg.get(2));
+				copyFlag = memberFlag = false;
 			}
 			break;
 
