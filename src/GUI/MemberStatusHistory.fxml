@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="571.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberStatusHistoryGUI">
+<AnchorPane prefHeight="505.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MemberStatusHistoryGUI">
    <children>
       <AnchorPane layoutX="20.0" layoutY="27.0" prefHeight="518.0" prefWidth="764.0">
          <children>
-            <TableView fx:id="memberStatusHistory" layoutX="17.0" layoutY="115.0" prefHeight="361.0" prefWidth="732.0">
+            <TableView fx:id="memberStatusHistory" layoutX="58.0" layoutY="78.0" prefHeight="362.0" prefWidth="647.0">
               <columns>
                 <TableColumn fx:id="executionDate" prefWidth="273.6000061035156" text="Execution Date" />
                 <TableColumn fx:id="previousStatus" minWidth="0.0" prefWidth="187.199951171875" text="Previous status" />
                   <TableColumn fx:id="currentStatus" prefWidth="270.4000244140625" text="Current status" />
               </columns>
             </TableView>
-            <Label layoutX="90.0" layoutY="40.0" text="Status history by member" underline="true">
+            <Label layoutX="90.0" layoutY="30.0" text="Status history by member" underline="true">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="memberDetails" layoutX="400.0" layoutY="40.0" prefHeight="28.0" prefWidth="181.0" underline="true">
+            <Label fx:id="memberDetails" layoutX="399.0" layoutY="30.0" prefHeight="28.0" prefWidth="181.0" underline="true">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
