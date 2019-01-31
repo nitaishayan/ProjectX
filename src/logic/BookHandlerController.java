@@ -26,11 +26,12 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 
-	public static void returnBook(String copyID, String status) {	
+	public static void returnBook(String copyID, String status, String memberID) {	
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Return Book");
 		memberData.add(copyID);
 		memberData.add(status);
+		memberData.add(memberID);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 

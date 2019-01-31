@@ -47,7 +47,7 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 	private TextField txtPassword;
 
 	/**
-	 * this method get all the input from the user for registration.
+	 * this method get all the input from the user for registration.(by press on the button "Search")
 	 * the method first check if all the fields are full with the method checkfields and after check if some
 	 * of the input is valid (email,id,password,phone number) with method checkRegistrationInput.
 	 * if all the test end with success the input go ahead to the RegistrationController.
@@ -68,6 +68,13 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	}
 
+	/**
+	 * this method get all the input from the user for registration. (by press on Enter)
+	 * the method first check if all the fields are full with the method checkfields and after check if some
+	 * of the input is valid (email,id,password,phone number) with method checkRegistrationInput.
+	 * if all the test end with success the input go ahead to the RegistrationController.
+	 * @param event - event from click on save
+	 */
 	@FXML
 	void registerEnter(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {

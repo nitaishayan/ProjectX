@@ -15,6 +15,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
@@ -210,8 +212,16 @@ public class DBController {
 			memberid=rs2.getString(2);
 			PreparedStatement delete = conn.prepareStatement("UPDATE reservations SET IsActive='false' where  CopyID=? AND IsActive='true'");
 			delete.setString(1, copyid);
-			delete.executeUpdate();//             add send message to member that his reservation is cancelled
-			//                                   donttttttttt forgeeeetttttttttt  !!!!!!!!!!!!!!!!!!!!!!!!!
+			delete.executeUpdate();
+			PreparedStatement sendMessage = conn.prepareStatement("INSERT INTO usermessages values(?,?,?,?)");
+			sendMessage.setString(1, memberid);
+			sendMessage.setString(2, "Reservation canceled");
+			java.util.Date date= new java.util.Date();
+			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTime = sdf.format(date);
+			sendMessage.setString(3, currentTime);
+			sendMessage.setString(4, "Your reservation is canceled, please try to reserv again.");
+			sendMessage.executeUpdate();
 		}
 		String deleteSQL = "DELETE FROM copies WHERE CopyID = ?";
 		PreparedStatement removestmt = conn.prepareStatement(deleteSQL);
@@ -699,15 +709,23 @@ public class DBController {
 		ps1.setString(2, currentTime);
 		ps1.setString(3, data.get(1));
 		ps1.setString(4, "false");
-		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(*) from reservations WHERE CopyID = ? AND CopyReadyForPickUpDate = ? AND IsActive = ?");
+		PreparedStatement ps2 = conn.prepareStatement("SELECT * from reservations WHERE CopyID = ? AND CopyReadyForPickUpDate = ? AND IsActive = ?");
 		ps2.setString(1, data.get(1));
-		ps2.setString(2,null);
+		ps2.setString(2,"0000-00-00 00:00:00");
 		ps2.setString(3, "true");
 		rs = ps2.executeQuery();
 		if(rs.isBeforeFirst()) {
-			PreparedStatement ps22 = conn.prepareStatement("UPDATE reservations SET CopyReadyForPickUpDate = ?");
+			PreparedStatement ps22 = conn.prepareStatement("UPDATE reservations SET CopyReadyForPickUpDate = ? WHERE CopyID = ? AND IsActive = ?");
 			ps22.setString(1, currentTime);
+			ps22.setString(2, data.get(1));
+			ps22.setString(3, "true");
 			ps22.executeUpdate();
+			PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessages values(?,?,?,?)");
+			ps5.setString(1, rs.getString(3)); //memberID
+			ps5.setString(2, "Youre reservation is arrived.");
+			ps5.setString(3, currentTime);
+			ps5.setString(4, "The book: " + " that you reserved arrived to the library.");	
+			ps5.executeUpdate();
 		}
 
 		if(!data.get(2).equals("Active")) {
@@ -1111,7 +1129,7 @@ public class DBController {
 			}
 			PreparedStatement insert = conn.prepareStatement("insert into reservations values(?,?,?,?,?)");
 			insert.setString(1, copyID);
-			insert.setString(2, null);
+			insert.setString(2, "0000-00-00 00:00:00");
 			insert.setString(3, bookdata.get(2));
 			insert.setString(4, bookID);
 			insert.setString(5, "true");

@@ -196,7 +196,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		LostCopy.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				BookHandlerController.returnBook(copyid, status);
+				BookHandlerController.returnBook(copyid, status,memberID);
 				BookHandlerController.memberLostBook(memberID, copyid, bookname);
 			}
 		});

@@ -93,6 +93,8 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 			table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
+					if (table.getSelectionModel().getSelectedItem()==null)
+						return;
 					if (Client.arrayUser.size() > 2)
 					{
 						BookHandlerController.extendLoanPeriodByMember(Client.arrayUser.get(0),table.getSelectionModel().getSelectedItem().getCopyID(),table.getSelectionModel().getSelectedItem().getBookName(), table.getSelectionModel().getSelectedItem().getAuthorName());
