@@ -16,11 +16,11 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <SplitPane dividerPositions="0.29797979797979796" layoutX="194.0" layoutY="259.0" prefHeight="391.0" prefWidth="794.0">
+      <SplitPane dividerPositions="0.3451025056947608" layoutX="177.0" layoutY="252.0" prefHeight="458.0" prefWidth="880.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="229.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="283.0">
                <children>
-                  <TableView fx:id="TableViewMembers" layoutY="-1.0" prefHeight="230.0" prefWidth="233.0">
+                  <TableView fx:id="TableViewMembers" layoutY="-1.0" prefHeight="456.0" prefWidth="299.0">
                     <columns>
                       <TableColumn fx:id="firstNameCol" prefWidth="75.0" text="First Name" />
                       <TableColumn fx:id="lastNameCol" prefWidth="75.0" text="Last Name" />
@@ -29,7 +29,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="369.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="493.0">
                <children>
                   <Label layoutX="62.0" layoutY="50.0" text="First Name:" />
                   <Label layoutX="62.0" layoutY="102.0" text="Last Name:" />

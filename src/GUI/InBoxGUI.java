@@ -5,18 +5,23 @@ import java.util.ResourceBundle;
 import Client.Client;
 import Common.GuiInterface;
 import Common.InBoxMessage;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import logic.CommonController;
 import logic.Main;
+import logic.SearchBookController;
 
 public class InBoxGUI implements Initializable, GuiInterface{
 
@@ -34,6 +39,9 @@ public class InBoxGUI implements Initializable, GuiInterface{
 
     @FXML
     private Label inBoxLabel;
+    
+    @FXML
+    private TextArea txtArea;
 
 	@Override
 	public void showSuccess(String string) {
@@ -63,7 +71,18 @@ public class InBoxGUI implements Initializable, GuiInterface{
 		
 		CommonController.setColumnWidth(topicCol, 150, 160, 170);
 		CommonController.setColumnWidth(dateCol, 160, 170, 180);
-
+		
+		Platform.runLater(() -> {	
+			table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					if (table.getSelectionModel().getSelectedItem()==null)
+						return;
+					txtArea.clear();
+					txtArea.setText(table.getSelectionModel().getSelectedItem().getContent());
+				}
+			});
+		});
 		while(i<numberOfMessage)
 		{
 			InBoxMessage newMessage = new InBoxMessage(arrayMessage.get(j+1), arrayMessage.get(j+2),arrayMessage.get(j+3));

@@ -3,10 +3,8 @@ package logic;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import Common.Book;
-import sun.security.action.GetBooleanAction;
 
 public class StatisticReportsController {
 	
@@ -16,7 +14,7 @@ public class StatisticReportsController {
 		ArrayList<String> BooksList = new ArrayList<>();
 		BooksList.add("StatisticsBooks");
 		BooksList.add(option);
-		if (option.equals("Specific Book")) {
+		if (option.equals("Specific Book") || option.equals("Specific LoanBook")) {
 			if(book == null) {
 				BooksList.add("null");
 				}
@@ -40,13 +38,8 @@ public class StatisticReportsController {
 		
 		for (int k = 0; k < 10; k++,partsTemp+=parts) {
 			Temp = partsTemp+parts;
-			//DecimalDistribution = DecimalDistribution + " " + df2.format(partsTemp) + " - " + df2.format(Temp) + " | ";
-			///
-			//
 			decimal.add(df2.format(partsTemp)+" - "+df2.format(Temp));
 		}
-	System.out.println("inside decimal distribution string");
-		////return DecimalDistribution;
 	return decimal;
 	}
 	
@@ -57,9 +50,9 @@ public class StatisticReportsController {
 		ArrayList<Integer> partsArray = new ArrayList<Integer>();
 		
 		String resultString = "";
-		float partsTemp = 0;
-		float parts = maxDelayedDays/10;
-		float Temp;
+		double partsTemp = 0;
+		double parts = maxDelayedDays/10;
+		double Temp;
 		int g=0,results;
 		
 		//initialize the arrayList to ZEROS
@@ -67,9 +60,12 @@ public class StatisticReportsController {
 			partsArray.add(0);
 		
 		for (int k = 0; k < 10; k++,partsTemp+=parts) {
+			partsTemp =Double.parseDouble(new DecimalFormat("##.#").format(partsTemp));
 			Temp = partsTemp+parts;
+			Temp =Double.parseDouble(new DecimalFormat("##.#").format(Temp));
 			
 			while((DaysArray.get(g)) <= Temp) {
+				
 				results = partsArray.get(k);
 				results++;
 				partsArray.set(k,results);
@@ -81,11 +77,9 @@ public class StatisticReportsController {
 		}
 		
 		for (int k = 0; k < 10; k++) {
-			//resultString = resultString + "             " + partsArray.get(k);
 			decimalCalc.add(String.valueOf(partsArray.get(k)));
 		}
 		return decimalCalc;
-		//return resultString;
 	}
 
 	public static String median(ArrayList<Float> DelayedBooksDays, int AmountDaysLate) {
@@ -108,14 +102,15 @@ public class StatisticReportsController {
 			index = (AmountDaysLate-1)/2;
 			medianRes = DelayedBooksDays.get(index+1);
 			}
-			
+
 		}
 		
 		return String.valueOf(medianRes);
 	}
 
-	public static String average(float numOfDaysDelayed, float numOfBookDelayed) {
-		return String.valueOf(numOfDaysDelayed/numOfBookDelayed);
+	public static String average(double numOfDaysDelayed, double numOfBookDelayed) {
+		Double result = numOfDaysDelayed/numOfBookDelayed;
+		return String.valueOf(Double.parseDouble(new DecimalFormat("##.#").format(result)));
 	}
 	
 	public static void showBookTableView () {

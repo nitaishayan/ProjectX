@@ -52,8 +52,9 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
     }
 
     @FXML
-    void LoansScreen(ActionEvent event) {
-
+    void LoansScreen(ActionEvent event) throws IOException {
+    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports-Loans.fxml"));
+    	StatisticsPane.getChildren().setAll(pane);
     }
 
     @FXML
