@@ -1127,26 +1127,42 @@ public class DBController {
 			return changeMemberToGraduated;
 		}
 		
-		if(data.get(11) == null) {
-			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ?, Status = ? WHERE MemberID = ?");
+		ArrayList<String> getMemberLoans = new ArrayList<String>();
+		getMemberLoans.add("CurrentLoans");
+		getMemberLoans.add(data.get(1));
+		getMemberLoans = getCurrentLoans(getMemberLoans);
+		
+		
+		if(getMemberLoans.size() == 2) {
+			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ? WHERE MemberID = ?");
 			ps.setString(1, "true");
-			ps.setString(2, "Locked");
-			ps.setString(3, data.get(1)); // ? == memberID
+			ps.setString(2, data.get(1)); // ? == memberID
 			if(ps.executeUpdate() == 0) {
 				changeMemberToGraduated.add("Couldn't update memeber status!");
 				return changeMemberToGraduated;
 			}
+			ArrayList<String> changeStatus = new ArrayList<String>();
+			changeStatus.add("Change Member Status");
+			changeStatus.add(data.get(1));
+			changeStatus.add(data.get(7));
+			changeStatus.add("Locked");
+			changeStatus = changeMemberStatus(changeStatus);
 			changeMemberToGraduated.add("Locked");
 		}
 		else {
-			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ?, Status = ? WHERE MemberID = ?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ? WHERE MemberID = ?");
 			ps.setString(1, "true");
-			ps.setString(2, "Frozen");
-			ps.setString(3, data.get(1)); // ? == memberID
+			ps.setString(2, data.get(1)); // ? == memberID
 			if(ps.executeUpdate() == 0) {
 				changeMemberToGraduated.add("Couldn't update memeber status!");
 				return changeMemberToGraduated;
 			}
+			ArrayList<String> changeStatus = new ArrayList<String>();
+			changeStatus.add("Change Member Status");
+			changeStatus.add(data.get(1));
+			changeStatus.add(data.get(7));
+			changeStatus.add("Frozen");
+			changeStatus = changeMemberStatus(changeStatus);
 			changeMemberToGraduated.add("Frozen");
 		}
 
