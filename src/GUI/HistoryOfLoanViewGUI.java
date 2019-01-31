@@ -37,6 +37,7 @@ import javafx.stage.Stage;
 import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
+import logic.MemberCardController;
 import logic.SearchBookController;
 
 public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
@@ -217,7 +218,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 
 
 		//load data into tableView
-		CommonController.viewPersonalHistory(memberID);
+		MemberCardController.viewPersonalHistory(memberID);
 		//row listener - when we receive row from DB
 		TableViewLoanHistory.getSelectionModel().selectedIndexProperty().addListener(new RowSelectListener());
 	}

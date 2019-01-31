@@ -20,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import logic.CommonController;
 import logic.Main;
+import logic.MemberCardController;
 
 public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 	private String memberID;
@@ -131,7 +132,7 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 			memberDetails.setText(Main.client.arrayUser.get(2)+" "+Main.client.arrayUser.get(3));
 		}
 		System.out.println("now in MemberStatusHistoryGUI");
-    	CommonController.getStatusHistory(getMemberID());
+    	MemberCardController.getStatusHistory(getMemberID());
 	}
 
 	public String getMemberID() {

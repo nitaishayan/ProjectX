@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
+import logic.MemberCardController;
 import logic.RegistrationController;
 /**
  * This class show a details launched by search member in the system and returning details about that member.
@@ -127,7 +128,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	 */
     @FXML
     void mouseClick(MouseEvent event) {
-		RegistrationController.searchMember(txtMember_ID.getText());
+		if (txtMember_ID.getText().length()==9) {
+			MemberCardController.searchMember(txtMember_ID.getText());
+		}
+		else
+			showFailed("invalid memberID, please try again");
     }
 	/**
 	 * Method that launch a query to find the requested memberID inserted by the member
@@ -136,7 +141,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	@FXML
 	void searchMember(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
-			RegistrationController.searchMember(txtMember_ID.getText());
+			if (txtMember_ID.getText().length()==9) {
+				MemberCardController.searchMember(txtMember_ID.getText());
+			}
+			else
+				showFailed("invalid memberID, please try again");
 		}
 	}
 	/**
@@ -148,12 +157,12 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	void librarianUpdateMember(ActionEvent event) {
 		update=true;
 		if (!memberStatus.equals(cmbStatus.getValue().toString())) {
-			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
+			MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
 			System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
 		}
 		else
 		{
-			CommonController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
+			MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
 		}
 	}
 	/**
@@ -186,7 +195,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	public void initialize(URL location, ResourceBundle resources) {
 		Client.clientUI=this;
 		setMsStatusComboBox();
-		CommonController.checkManager(Client.arrayUser.get(0));
+		MemberCardController.checkManager(Client.arrayUser.get(0));
 
 	}
 	/**
