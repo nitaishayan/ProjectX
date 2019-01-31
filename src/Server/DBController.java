@@ -722,7 +722,7 @@ public class DBController {
 			ps5.setString(1, rs.getString(3)); //memberID
 			ps5.setString(2, "Youre reservation is arrived.");
 			ps5.setString(3, currentTime);
-			ps5.setString(4, "Member " + data.get(1) + " has extended the loan period of the copy " + data.get(2) + ".");	
+			ps5.setString(4, "The book: " + " that you reserved arrived to the library.");	
 			ps5.executeUpdate();
 		}
 
