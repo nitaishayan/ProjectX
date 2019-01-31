@@ -234,7 +234,12 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 	@Override
 	public void showFailed(String message) {
 		// TODO Auto-generated method stub
-
+		Platform.runLater(()->{
+			Alert alert=new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(message);
+			alert.showAndWait();	
+		});
 	}
 
 	@Override
