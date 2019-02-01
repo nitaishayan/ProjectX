@@ -688,6 +688,8 @@ public class DBController {
 			checkCopyLoanStatus.add(rs.getString(8));
 			checkCopyLoanStatus.add(rs.getString(9));
 			checkCopyLoanStatus.add(rs.getString(10));
+			checkCopyLoanStatus.add(rs.getString(11));
+			checkCopyLoanStatus.add(rs.getString(12));
 		}
 		return checkCopyLoanStatus;
 	}
@@ -1068,7 +1070,7 @@ public class DBController {
 
 
 		String returnDate = sdf.format(c.getTime());
-		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, data.get(1));
 		ps.setString(2, returnDate);
 		ps.setString(3, null);
@@ -1079,6 +1081,8 @@ public class DBController {
 		ps.setString(8,"false");
 		ps.setString(9, data.get(5));
 		ps.setString(10, data.get(6));
+		ps.setString(11,"false");
+		ps.setString(12,"false");
 		if(ps.executeUpdate() == 0) {
 			loanBook.add("Error");
 			return loanBook;
@@ -2259,8 +2263,9 @@ public class DBController {
 			}
 		}
 	}
-	public ArrayList<Integer> getActiveMemberHistory(ArrayList<String> arrayObject) throws SQLException  {
-		ArrayList<Integer>data=new ArrayList<>();
+	public ArrayList<String> getActivityReport(ArrayList<String> arrayObject) throws SQLException  {
+		ArrayList<String>data=new ArrayList<>();
+		data.add("getActivityReport");
 		int val;
 		System.out.println(arrayObject);
 		PreparedStatement ps = conn.prepareStatement("SELECT COUNT(DISTINCT MemberID) FROM memberstatus WHERE ExecutionDate>=? AND ExecutionDate<=? AND CurrentStatus=? ");
@@ -2270,19 +2275,19 @@ public class DBController {
 		ResultSet rs1 = ps.executeQuery();
 		if (rs1.next()) {
 			System.out.println(rs1.getInt(1));
-			data.add(rs1.getInt(1));//return num of active members in the between startDate and endDate 
+			data.add(String.valueOf(rs1.getInt(1)));//return number of active members in time area between startDate and endDate 
 		}
 		ps.setString(3,"Frozen");//requestedStatus
 		ResultSet rs2 = ps.executeQuery();
 		if (rs2.next()) {
 			System.out.println(rs2.getInt(1));
-			data.add(rs2.getInt(1));//return num of frozen members in the between startDate and endDate 
+			data.add(String.valueOf(rs2.getInt(1)));//return number of frozen members in time area between startDate and endDate 
 		}
 		ps.setString(3,"Locked");//requestedStatus
 		ResultSet rs3 = ps.executeQuery();
 		if (rs3.next()) {
 			System.out.println(rs3.getInt(1));
-			data.add(rs3.getInt(1));//return num of locked members in the between startDate and endDate 
+			data.add(String.valueOf(rs3.getInt(1)));//return number of locked members in time area between startDate and endDate 
 		}
 		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(DISTINCT CopyID) FROM loanbook WHERE LoanDate>=? AND LoanDate<=? ");
 		ps2.setString(1,arrayObject.get(1));//startTime
@@ -2290,11 +2295,62 @@ public class DBController {
 		ResultSet rs4 = ps2.executeQuery();
 		if (rs4.next()) {
 			System.out.println(rs4.getInt(1));
-			data.add(rs4.getInt(1));//return num of copies loaned in the between startDate and endDate 
+			data.add(String.valueOf(rs4.getInt(1)));//return num of copies loaned in the between startDate and endDate 
 		}
+		PreparedStatement ps3 = conn.prepareStatement("SELECT COUNT(DISTINCT MemberID) FROM delayonreturn WHERE ExecutionDate>=? AND ExecutionDate<=? AND IsLostedOrDelayed=? ");
+		ps3.setString(1,arrayObject.get(1));//startTime
+		ps3.setString(2,arrayObject.get(2));//endTime
+		ps3.setString(3,"Delay");//endTime
+		ResultSet rs5 = ps3.executeQuery();
+		if (rs5.next()) {
+			System.out.println(rs5.getInt(1));
+			data.add(String.valueOf(rs5.getInt(1)));//return number of members that delay on return in between startDate and endDate 
+		}
+		updateActivityReportTable(data,arrayObject);
 		return data;
 	}
 
+	private void updateActivityReportTable(ArrayList<String> data, ArrayList<String> arrayObject) throws SQLException {
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+		PreparedStatement ps1 = conn.prepareStatement("INSERT into activityreport values(?,?,?,?,?,?,?,?)");
+		ps1.setString(1, currentTime);
+		ps1.setString(2, arrayObject.get(1));//startTime
+		ps1.setString(3, arrayObject.get(2));//endTime
+		ps1.setString(4, data.get(1));//numActive
+		ps1.setString(5, data.get(2));//numFreeze
+		ps1.setString(6, data.get(3));//numLocked
+		ps1.setString(7, data.get(4));//numLoanCopies
+		ps1.setString(8, data.get(5));//numDelayonReturn
+		ps1.executeUpdate();
+		
+	}
+	public ArrayList<String> getActivityReportHistory() throws SQLException {
+		PreparedStatement searchData = conn.prepareStatement("SELECT* FROM activityreport");
+		ResultSet rsData;
+		ArrayList<String> dataDetails = new ArrayList<String>();
+		rsData = searchData.executeQuery();
+		dataDetails.add("ActivityHistoryReport");
+		while(rsData.next()) {
+			dataDetails.add(rsData.getString(1));//CurrentTime
+			dataDetails.add(rsData.getString(2));////startTime
+			dataDetails.add(rsData.getString(3));//endTime
+			dataDetails.add(rsData.getString(4));//numActive
+			dataDetails.add(rsData.getString(5));//numFreeze
+			dataDetails.add(rsData.getString(6));//numLocked
+			dataDetails.add(rsData.getString(7));//numLoanCopies
+			dataDetails.add(rsData.getString(8));//numDelayonReturn
+		}
+		if (dataDetails.size()==1) {
+			dataDetails.add("NotExist");
+			System.out.println("Report not exist");
+			return dataDetails;
+		}
+		else {
+			return dataDetails;
+		}
+	}
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -2314,5 +2370,7 @@ public class DBController {
 		}
 		return null;
 	}
+
+
 	
 }
