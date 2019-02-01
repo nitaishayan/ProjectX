@@ -41,7 +41,7 @@ public class OnTimeDBControllerTick {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = inFormat.format(dt);
-
+		ArrayList<String> changeMemberStatus = new ArrayList<String>();
 		PreparedStatement ps = DBController.conn.prepareStatement("SELECT MemberID, CopyID, BookName, LoanDate FROM loanbook WHERE ExpectedReturnDate < ? AND IsReturned = ? AND HandleLateLoans = ?");
 		ps.setString(1, currentTime);
 		ps.setString(2, "false");
@@ -77,12 +77,17 @@ public class OnTimeDBControllerTick {
 			getMemberInfo.add(rs.getString(1));
 			getMemberInfo = DBController.getInstance().isMemberExist(getMemberInfo);
 			if(getMemberInfo.get(7).equals("Active")) {
-				PreparedStatement ps2 = DBController.conn.prepareStatement("UPDATE members SET Status = ?, DelayAmount = ?, FreezedOn = ? WHERE MemberID = ?");
-				ps2.setString(1, "Frozen");
-				ps2.setString(2, Integer.toString(Integer.parseInt(getMemberInfo.get(9)) + 1));
-				ps2.setString(3, rs.getString(2));
-				ps2.setString(4, rs.getString(1));
+				PreparedStatement ps2 = DBController.conn.prepareStatement("UPDATE members SET DelayAmount = ?, FreezedOn = ? WHERE MemberID = ?");
+				ps2.setString(1, Integer.toString(Integer.parseInt(getMemberInfo.get(9)) + 1));
+				ps2.setString(2, rs.getString(2));
+				ps2.setString(3, rs.getString(1));
 				ps2.executeUpdate();
+				changeMemberStatus.add("");
+				changeMemberStatus.add(rs.getString(1));
+				changeMemberStatus.add("Active");
+				changeMemberStatus.add("Frozen");
+				DBController.getInstance().changeMemberStatus(changeMemberStatus);
+				changeMemberStatus.clear();
 			}
 			else {
 				PreparedStatement ps6 = DBController.conn.prepareStatement("UPDATE members SET DelayAmount = ? WHERE MemberID = ?");
