@@ -163,10 +163,8 @@ public class CommonController {
 	}
 
 	/**
-	 * Send request for the server to get the Inbox Message of a specific user.
-	 * the method will receive an id for the user
-	 * @param
-	 * @return void
+	 * Send request for the server to get the Inbox Message of a specific member.
+	 * @param memberID - id of the member.
 	 */
 	public static void getMessage(String memberID) {
 		ArrayList<String> messageList = new ArrayList<>();
