@@ -31,7 +31,12 @@ import logic.CommonController;
 import logic.Main;
 import logic.StatisticReportsController;
 
+
 public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInterface{
+	/**
+	 * this class connect between the input in the GUI to the controller of Statistic Reports process.
+	 * The class giving the functionality to choose the library statistics in any time.
+	 */
 
 	@FXML
 	private AnchorPane PaneLateInReturn;

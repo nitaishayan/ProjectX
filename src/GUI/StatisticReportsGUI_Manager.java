@@ -22,6 +22,12 @@ import logic.Main;
 import logic.StatisticReportsController;
 
 public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
+	/**
+	 * this class connect between the input in the GUI to the controller of Statistic Reports (main manager) process.
+	 * The class giving the functionality to choose the library statistics in any time.
+	 */
+
+	
 	private static String startDate;
 	private static String endDate;
 

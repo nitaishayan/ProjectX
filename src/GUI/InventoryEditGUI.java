@@ -192,8 +192,8 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	}
 	
 	/**
-	 * 
-	 * @param event
+	 * This method get the data of the chosen book and call the function checkExistence() from the InventoryController that send to the server.
+	 * @param event -  event from press on "Magnifier" Icon - when the search is by book id.
 	 */
 	 @FXML
 	    void bookIdMouse(MouseEvent event) {
@@ -208,9 +208,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	    }
 
 	 /**
-	  * 
-	  * @param event
-	  */
+		 * This method get the data of the chosen book and call the function checkExistence() from the InventoryController that send to the server.
+		 * @param event -  event from press on "Magnifier" Icon - when the search is by book name.
+		 */
 	    @FXML
 	    void bookNameMouse(MouseEvent event) {
 	    	if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
@@ -225,9 +225,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	    }
 
 	    /**
-	     * 
-	     * @param event
-	     */
+		 * This method checks if the book (by book name) requested exists in the library by pressing "ENTER" after filling the book name and author fields.
+		 * @param event - event from click on ENTER on the keyboard.
+		 */
 	@FXML
 	void EnterBook_Name(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
@@ -243,6 +243,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		}
 	}
 
+	/**
+	 * This method checks if the book (by book name) requested exists in the library by pressing "ENTER" after filling the book name and author fields.
+	 * @param event - event from click on ENTER on the keyboard.
+	 */
 	@FXML
 	void Enter_BookID(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
@@ -257,6 +261,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		}
 	}
 
+	/**
+	 * This method send to editCopy() function in InventoryController the data receive from the screen for further sending to the server.
+	 * @param event - event from click on "Save" button.
+	 */
 	@FXML
 	void Save(ActionEvent event) {
 		if (checkfields())
@@ -276,6 +284,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		}
 	}
 
+	/**
+	 * This method checks if the one of the fields are empty.
+	 * @return return a boolean value if one field is empty or not.
+	 */
 	public boolean checkfields() {
 		if ((txtPdf.getText().isEmpty()))
 			return true;
@@ -300,6 +312,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		return false;
 	}
 
+	/**
+	 * This method show information pop-up on the screen with the given success message.
+	 * @param string - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -317,6 +333,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		}
 	}
 
+	/**
+	 * This method enable/disable the fields.
+	 * @param choice - a boolean variable that set enable/disable to the corresponding components.
+	 */
 	public void Disable(boolean choice) {
 		txtEdition.setDisable(choice);
 		txtTheme.setDisable(choice);
@@ -332,6 +352,11 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		txtBook_Name.setDisable(choice);
 	}
 
+	/**
+	 * This method update the inventory-edit screen with the data that return.
+	 * The method give the user the functionality to edit a copy of the specific book in the inventory.
+	 * @param obj - ArrayList with the relevant data for create this window (all the information that's needed).
+	 */
 	@Override
 	public void display(Object obj) {
 		Disable(false);
@@ -369,7 +394,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	}
 
 
-
+	/**
+	 * This method show an error pop-up on the screen with a given message.
+	 * @param String - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -378,6 +406,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		alert.showAndWait();
 	}
 
+	/**
+	 * This method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		Disable(true);
@@ -402,6 +433,9 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
 	}
 
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;		
