@@ -10,11 +10,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import logic.Main;
 import logic.StatisticReportsController;
 
@@ -111,8 +114,16 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
     	StatisticsPane.getChildren().setAll(pane);
     }
     @FXML
-    void getactivityHistoryReport(ActionEvent event) {
-    	StatisticReportsController.activityHistoryReport();
+    void getactivityHistoryReport(ActionEvent event) throws IOException {
+		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/ActivityReportHistoryTableView.fxml"));
+		Scene scene=new Scene(parent);
+		Stage stage=new Stage();
+		stage.setScene(scene);
+		stage.setMaxHeight(715);
+		stage.setMinHeight(715);
+		stage.setMinWidth(1477);
+		stage.setMaxWidth(1477);
+		stage.show();
     }
     /**
 	* Not used method(must implement because the implementation of GuiInterface)

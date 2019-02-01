@@ -8,7 +8,7 @@ public class ActivityReport {
 	private String freezeMembers;
 	private String lockedMembers;
 	private String loanCopies;
-	private String memberDelay;
+	private String member;
 	public String getExecutionTime() {
 		return executionTime;
 	}
@@ -19,7 +19,7 @@ public class ActivityReport {
 		return startTime;
 	}
 	public ActivityReport(String executionTime, String startTime, String endTime, String activeMembers,
-			String freezeMembers, String lockedMembers, String loanCopies, String memberDelay) {
+			String freezeMembers, String lockedMembers, String loanCopies, String memberDelayed) {
 		super();
 		this.executionTime = executionTime;
 		this.startTime = startTime;
@@ -28,7 +28,7 @@ public class ActivityReport {
 		this.freezeMembers = freezeMembers;
 		this.lockedMembers = lockedMembers;
 		this.loanCopies = loanCopies;
-		this.memberDelay = memberDelay;
+		this.member = memberDelayed;
 	}
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
@@ -64,9 +64,9 @@ public class ActivityReport {
 		this.loanCopies = loanCopies;
 	}
 	public String getMemberDelay() {
-		return memberDelay;
+		return member;
 	}
 	public void setMemberDelay(String memberDelay) {
-		this.memberDelay = memberDelay;
+		this.member = memberDelay;
 	}
 }

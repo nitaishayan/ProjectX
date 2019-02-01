@@ -52,7 +52,6 @@ public class MemberCardController {
 			memberData.add(notes);
 			memberData.add("true");
 			memberData.add(prevStatus);
-        	System.out.println("Status changed to "+status+" now in common controller");
 			Main.client.handleMessageFromClientUI(memberData);			
 		}
 		else {

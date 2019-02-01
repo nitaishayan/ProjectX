@@ -472,7 +472,8 @@ public class Server extends AbstractServer
 
 				try {
 					dataReport=DBController.getInstance().getActivityReportHistory();
-					System.out.println(dataReport);
+					client.sendToClient(dataReport);
+
 				} catch (Exception e){
 					e.printStackTrace();
 				}

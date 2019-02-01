@@ -156,14 +156,21 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	@FXML
 	void librarianUpdateMember(ActionEvent event) {
 		update=true;
-		if (!memberStatus.equals(cmbStatus.getValue().toString())) {
-			MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
-			System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
+		if (cmbStatus.getValue().toString().equals("Locked")) {
+			showFailed("Librarian Manager cannot lock a member");
 		}
 		else
 		{
-			MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
+			if (!memberStatus.equals(cmbStatus.getValue().toString())) {
+				MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
+				System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
+			}
+			else
+			{
+				MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,false," ");//should be false			
+			}		
 		}
+
 	}
 	/**
 	 *  Method that launch a query to find a loan history by a memberID inserted by the librarian and recieve the data from the data base
@@ -335,6 +342,8 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		msStatusList.add("Locked");
 		msStatusList.add("Frozen");
 		msStatusList.add("Active");
+		msStatusList.add("Deep - Frozen");
+
 
 		list = FXCollections.observableArrayList(msStatusList);
 		cmbStatus.setItems(list);

@@ -2289,7 +2289,7 @@ public class DBController {
 		ResultSet rsData;
 		ArrayList<String> dataDetails = new ArrayList<String>();
 		rsData = searchData.executeQuery();
-		dataDetails.add("getDelayandLostBooks");
+		dataDetails.add("ActivityHistoryReport");
 		while(rsData.next()) {
 			dataDetails.add(rsData.getString(1));//CurrentTime
 			dataDetails.add(rsData.getString(2));////startTime

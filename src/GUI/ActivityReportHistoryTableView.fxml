@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPane" prefHeight="700.0" prefWidth="1477.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ActivityReportHistoryTableViewGUI">
+   <children>
+      <Label layoutX="520.0" layoutY="49.0" text="Active History" underline="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewActivityReport" layoutX="39.0" layoutY="132.0" prefHeight="522.0" prefWidth="1393.0">
+        <columns>
+          <TableColumn fx:id="executionTime" prefWidth="234.39997100830078" text="Execution time" />
+          <TableColumn fx:id="startTime" minWidth="8.79998779296875" prefWidth="148.800048828125" text="Start time" />
+            <TableColumn fx:id="endTime" prefWidth="159.19992065429688" text="End time" />
+            <TableColumn fx:id="activeMembers" prefWidth="156.7999267578125" text="Active members" />
+            <TableColumn fx:id="freezeMembers" prefWidth="172.0" text="Freeze members" />
+            <TableColumn fx:id="lockedMembers" prefWidth="204.00006103515625" text="Locked members" />
+            <TableColumn fx:id="loanCopies" prefWidth="320.0" text="Loan copies/Delayed members" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
