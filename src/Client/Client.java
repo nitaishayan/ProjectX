@@ -318,21 +318,31 @@ public class Client extends AbstractClient
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the EmployeeRecords method to the client with the employees details.
+				 */
 			case "EmployeeRecords"://show employee details for read only - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});
 				break;
 
+				/**
+				 * This case send the array list receives from the StatisticsShowBooks method to the client with the book details.
+				 * Show a fail pop-up message in case there were no book that were late to return
+				 */
 			case "StatisticsBooks"://show book details
 				Platform.runLater(()->{
 					if (arrayObject.get(3).equals("Fail"))
-						clientUI.showFailed("There were no delayed books found.");
+						clientUI.showFailed("There were no books late to return found.");
 					else
 						clientUI.display(msg);
 				});
 				break;
 
+				/**
+				 * This case send the array list receives from the showTableViewBooks method to the client with the book details for further dispalying in the table view.
+				 */
 			case "showTableView"://show book details - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
@@ -354,7 +364,7 @@ public class Client extends AbstractClient
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath="./src/Client/"+msg2.getFileName()+".pdf";
+		String LocalfilePath="./PDF-client/"+msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 

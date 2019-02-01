@@ -397,7 +397,7 @@ public class Server extends AbstractServer
 				break;
 
 				/**
-				 * This case send the array list receives from the EmployeeRecords method to the client with the employees details.
+				 * This case call the EmployeeRecords() function in the DBController and send the array list receives from the EmployeeRecords method to the client with the employees details.
 				 */
 			case "EmployeeRecords":
 				try {
@@ -409,7 +409,7 @@ public class Server extends AbstractServer
 				break;
 
 				/**
-				 * This case send the array list receives from the StatisticsShowBooks method to the client with the book details.
+				 * This case call the StatisticsShowBooks() function in the DBController with the parameters - option and book ID - and send the array list receives from the StatisticsShowBooks method to the client with the book details.
 				 * The StatisticsShowBooks method receives two values, an option and the book id.
 				 */
 			case "StatisticsBooks":
@@ -422,7 +422,7 @@ public class Server extends AbstractServer
 				break;
 
 				/**
-				 * This case send the array list receives from the showTableViewBooks method to the client with the book details for further dispalying in the table view..
+				 * This case call showTableViewBooks() function in the DBController and send the array list receives from the showTableViewBooks method to the client with the book details for further dispalying in the table view.
 				 */
 			case "showTableView":
 				try {
@@ -472,7 +472,7 @@ public class Server extends AbstractServer
 	public MyFile sendPDF(String bookid) {
 		System.out.println(bookid);
 		MyFile msg= new MyFile(bookid);
-		String LocalfilePath="./PDF/"+bookid+".pdf";
+		String LocalfilePath="./PDF-server/"+bookid+".pdf";
 
 		try{
 
@@ -497,7 +497,7 @@ public class Server extends AbstractServer
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath="./PDF/"+msg2.getFileName()+".pdf";
+		String LocalfilePath="./PDF-server/"+msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 

@@ -312,6 +312,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtPurchase_Date.setValue(null);//purchasedate.fromString(msg.get(10)));
 		this.txtShelf_Location.clear();
 		this.txtCatlog_Number.clear();
+		this.txtTable_Of_Content.clear();
 		txtAuthor.setEditable(true);
 		txtBook_Name.setEditable(true);
 		Enablefields(true);
