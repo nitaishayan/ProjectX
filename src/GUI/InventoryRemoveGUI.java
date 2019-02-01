@@ -23,6 +23,10 @@ import javafx.scene.layout.AnchorPane;
 import logic.BookHandlerController;
 import logic.InventoryController;
 
+/**
+ * This class remove an existing copy in the library.
+ *
+ */
 public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	@FXML
@@ -73,32 +77,42 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 	@FXML
 	private TextField txtPdf;
 
-	@FXML
-	private Button btn_lostbook;
-
 	String wanted;
 
-	@FXML
-	void lostBook(ActionEvent event) {
-	}
 
+	/**
+	 * This method checks the "YES" option in the wanted section and clear the "NO" option.
+	 * @param event - event from press on CheckBox.
+	 */
 	@FXML
 	void WANTED_YES(ActionEvent event) {
 		CHBOX_NO.setSelected(false);
 		wanted="true";
 	}
 
+	/**
+	 * This method checks the "NO" option in the wanted section and clear the "YES" option.
+	 * @param event - event from press on CheckBox.
+	 */
 	@FXML
 	void WANTED_NO(ActionEvent event) {
 		CHBOX_YES.setSelected(false);
 		wanted="false";
 	}
 
+	/**
+	 * This method call the RemoveCopy() function of the InventoryController with the catalog number chosen.
+	 * @param event - event from press the "RemoveCopy" button.
+	 */
 	@FXML
 	void RemoveCopy(ActionEvent event) {
 		InventoryController.RemoveCopy(txtCatalog_Number.getText());
 	}
 
+	/**
+	 *  This method call the checkExistenceByCopy() function of the InventoryController with the catalog number chosen.
+	 * @param event - event from press the "ENTER" button on the keyboard.
+	 */
 	@FXML
 	void PressEnter(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
@@ -106,17 +120,30 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	/**
+	 * This method call the checkExistenceByCopy() function of the InventoryController with the catalog number chosen.
+	 * @param event - event from press the "Magnifier" Icon.
+	 */
 	@FXML
 	void copyIDMouse(MouseEvent event) {
 		InventoryController.checkExistenceByCopy(txtCatalog_Number.getText());
 	}
 
+	/**
+	 * This method move the user back to the Main Inventory screen.
+	 * @param event - event from press on "Back" button.
+	 * @throws IOException
+	 */
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Inventory.fxml"));
 		MainPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * This method enable/disable the fields.
+	 * @param choice - a boolean variable that set enable/disable to the corresponding components.
+	 */
 	public void enable(boolean choice) {
 		this.txtBook_Name.setDisable(choice);
 		this.txtEdition.setDisable(choice);
@@ -130,9 +157,11 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.CHBOX_NO.setDisable(choice);
 		this.CHBOX_YES.setDisable(choice);
 		this.btnRemove.setDisable(choice);
-		this.btn_lostbook.setDisable(choice);
-	}
+		}
 
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Client.clientUI=this;
@@ -140,7 +169,11 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 
 	}
 
-
+	/**
+	 * This method update the inventory-remove screen with the data that return.
+	 * The method give the user the functionality to remove a copy of the specific book in the inventory.
+	 * @param obj - ArrayList with the relevant data for create this window (all the information that's needed).
+	 */
 	@Override
 	public void display(Object msg) {
 		System.out.println(((ArrayList<String>) msg));
@@ -161,9 +194,12 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		btnRemove.setDisable(false);
 		txtCatalog_Number.setEditable(false);
 		btn_browse.setDisable(true);
-		btn_lostbook.setDisable(false);
 	}
 
+	/**
+	 * This method show an error pop-up on the screen with a given message.
+	 * @param String - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -173,6 +209,10 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		freshStart();
 	}
 
+	/**
+	 * This method show information pop-up on the screen with the given success message.
+	 * @param string - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -183,6 +223,9 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		txtCatalog_Number.setEditable(true);
 	}
 
+	/**
+	 * This method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		this.txtBook_Name.clear();
@@ -198,7 +241,6 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtShelf_Location.clear();
 		btnRemove.setDisable(true);
 		btn_browse.setDisable(true);
-		btn_lostbook.setDisable(true);
 	}
 }
 

@@ -25,7 +25,12 @@ import logic.CommonController;
 import logic.Main;
 
 public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initializable{
+	/**
+	 * this class connect between the input in the GUI to the controller of Statistic Reports (employee records) process.
+	 * The class giving the functionality to choose the library statistics in any time.
+	 */
 
+	
     @FXML
     private AnchorPane employeePane;
 	

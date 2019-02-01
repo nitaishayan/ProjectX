@@ -26,7 +26,12 @@ import logic.StatisticReportsController;
 import javafx.scene.layout.AnchorPane;
 
 public class StatisticReportGUI_Loans implements Initializable, GuiInterface{
+	/**
+	 * this class connect between the input in the GUI to the controller of Statistic Reports (loans) process.
+	 * The class giving the functionality to choose the library statistics in any time.
+	 */
 
+	
 	@FXML
 	private AnchorPane AnchorPane;
 

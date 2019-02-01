@@ -107,10 +107,5 @@
             <Image url="@../Image/magnifier%20icon.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="btn_lostbook" disable="true" layoutX="656.0" layoutY="709.0" mnemonicParsing="false" onAction="#lostBook" prefHeight="81.0" prefWidth="201.0" text="Lost Book">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

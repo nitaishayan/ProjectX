@@ -41,9 +41,7 @@ import logic.InventoryController;
 import logic.Main;
 
 /**
- * 
- * @author lior
- *
+ * This class add a new book to the library, or a new copy if the book already exists in the library.
  */
 public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String Location;
@@ -113,8 +111,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String nextBookID;
 
 	/**
-	 * 
-	 * @param event
+	 * This method checks if the book requested exists in the library by pressing "ENTER" after filling the book name and author fields.
+	 * @param event - event from click on ENTER on the keyboard.
 	 */
 	@FXML
 	void name_author(KeyEvent event) {
@@ -138,8 +136,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method open the "File Chooser" to choose the specific pdf file we want to upload and set the name of the pdf in the table of contents field.
+	 * @param event - event from press on "..."(Browse) button.
 	 */
 	@FXML
 	public void pdf(ActionEvent event) {
@@ -151,8 +149,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method checks the "YES" option in the wanted section and clear the "NO" option.
+	 * @param event - event from press on CheckBox.
 	 */
 	@FXML
 	void WANTED_YES(ActionEvent event) {
@@ -161,8 +159,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method checks the "NO" option in the wanted section and clear the "YES" option.
+	 * @param event - event from press on CheckBox.
 	 */
 	@FXML
 	void WANTED_NO(ActionEvent event) {
@@ -171,8 +169,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method get the data of the chosen book and call the function addCopy() from the InventoryController that send to the server.
 	 */
 	@FXML
 	void AddCopy(ActionEvent event) {
@@ -180,8 +177,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method get the data of the chosen book and call the function addBook() from the InventoryController that send to the server.
+	 * @param event - event from press on "AddBook" button.
 	 */
 	@FXML
 	void AddBook(ActionEvent event) {
@@ -192,8 +189,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param status
+	 * This method enable the fields.
+	 * @param status - a boolean variable that set disable to the corresponding component.
 	 */
 	public void Enablefields(boolean status) {
 		txtEdition.setDisable(status);
@@ -209,8 +206,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method move the user back to the Main Inventory screen.
+	 * @param event - event from press on "Back" button.
 	 * @throws IOException
 	 */
 	@FXML
@@ -220,8 +217,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @param event
+	 * This method checks if the book requested exists in the library or not.
+	 * @param event - event from click on the CheckExistense button.
 	 */
 	@FXML
 	void CheckExistense(ActionEvent event) {
@@ -243,8 +240,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * 
-	 * @return
+	 * This method checks if the one of the fields are empty.
+	 * @return return a boolean value if one field is empty or not.
 	 */
 	public boolean checkfields() {
 		if ((txtEdition.getText().isEmpty()))
@@ -267,7 +264,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	}
 
 	/**
-	 * this method set the variable of the GuiInterface in the client to this.
+	 * This method set the variable of the GuiInterface in the client to this.
+	 * Also prevent from the user to select a future date.
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -310,9 +308,8 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	/**
 	 * This method update the inventory-add screen with the data that return.
-	 * The method give the user the functionality to add a copy of the spec
-	 * and reserve the book.
-	 * @param obj - ArrayList with the relevant data for create this window (all the information that needed).
+	 * The method give the user the functionality to add a copy of the specific book to the inventory.
+	 * @param obj - ArrayList with the relevant data for create this window (all the information that's needed).
 	 */
 	@Override
 	public void display(Object obj) {

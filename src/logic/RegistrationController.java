@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import Client.Client;
 import GUI.OBLcontroller;
 
-/**
- * This class (RegistrationController) is of type Controller to handle specific functions regarding registration and login.
- * Is a connector between the GUI and the server, the message is sent with the method handleMessageFromClientUI();
- */
-public class RegistrationController {
 
+public class RegistrationController {
+	/**
+	 * This class (RegistrationController) is of type Controller to handle specific functions regarding registration and login.
+	 * Is a connector between the GUI and the server, the message is sent with the method handleMessageFromClientUI();
+	 */
+	
 	private static final int ID_SIZE = 9;
 
 	/**

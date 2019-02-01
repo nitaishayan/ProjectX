@@ -30,6 +30,10 @@ import logic.CommonController;
 import logic.Main;
 
 public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializable{
+	/**
+	 * This class connect between the input in the GUI to the controller of Statistic Reports (Reader Card) process.
+	 * The class giving the functionality to choose the library statistics in any time.
+	 */
 
 	    @FXML
 	    private AnchorPane AnchorPane;
