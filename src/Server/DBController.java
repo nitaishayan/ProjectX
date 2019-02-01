@@ -682,6 +682,8 @@ public class DBController {
 			checkCopyLoanStatus.add(rs.getString(8));
 			checkCopyLoanStatus.add(rs.getString(9));
 			checkCopyLoanStatus.add(rs.getString(10));
+			checkCopyLoanStatus.add(rs.getString(11));
+			checkCopyLoanStatus.add(rs.getString(12));
 		}
 		return checkCopyLoanStatus;
 	}
@@ -1055,7 +1057,7 @@ public class DBController {
 
 
 		String returnDate = sdf.format(c.getTime());
-		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = conn.prepareStatement("INSERT loanbook values(?,?,?,?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, data.get(1));
 		ps.setString(2, returnDate);
 		ps.setString(3, null);
@@ -1066,6 +1068,8 @@ public class DBController {
 		ps.setString(8,"false");
 		ps.setString(9, data.get(5));
 		ps.setString(10, data.get(6));
+		ps.setString(11,"false");
+		ps.setString(12,"false");
 		if(ps.executeUpdate() == 0) {
 			loanBook.add("Error");
 			return loanBook;
