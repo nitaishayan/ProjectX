@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 import Common.GuiInterface;
 import Common.Librarian;
 import Common.Member;

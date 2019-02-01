@@ -9,6 +9,9 @@ import ocsf.client.*;
 import java.awt.Desktop;
 import java.io.*;
 import java.util.ArrayList;
+
+import com.sun.javafx.geom.AreaOp.AddOp;
+
 import Common.Copy;
 import Common.GuiInterface;
 import Common.InventoryBook;
@@ -76,7 +79,7 @@ public class Client extends AbstractClient
 				Platform.runLater(()->{
 					if (arrayObject.get(arrayObject.size()-1).equals("1")) {
 						InventoryAddGUI.nextBookID=arrayObject.get(arrayObject.size()-4);
-						clientUI.showSuccess("Book Added successfull. \n copy id is: "+arrayObject.get(arrayObject.size()-3).toString());
+						clientUI.showSuccess("Book Added successfully. \nCopy id is: "+arrayObject.get(arrayObject.size()-3).toString());
 						clientUI.freshStart();
 					}
 					else 
@@ -106,7 +109,7 @@ public class Client extends AbstractClient
 			case "InventoryCheckExistense":
 				if (arrayObject.get(arrayObject.size()-1).equals("not exist")) {
 					Platform.runLater(()->{
-						clientUI.showFailed("book doesn't exist in the library.");
+						clientUI.showFailed("The book doesn't exist in the library.\nTo add the book fill the required information\nand click \"Add - Book\" button.");
 					});
 				}
 				else
@@ -193,7 +196,7 @@ public class Client extends AbstractClient
 			case "AddCopy":
 				if (arrayObject.get(arrayObject.size()-1).equals("success")) {
 					Platform.runLater(()->{
-						clientUI.showSuccess("Copy Added successfuly.   copy id is: "+arrayObject.get(arrayObject.size()-2).toString());
+						clientUI.showSuccess("Copy Added successfully.\nNew Copy id is: "+arrayObject.get(arrayObject.size()-2).toString());
 					});
 				}else
 					Platform.runLater(()->{

@@ -10,7 +10,7 @@ public class CommonController {
 	private static final int ID_SIZE = 9;
 
 
-	
+
 	public static void checkMemberExistence(String memberID) throws Exception {
 		if(memberID.length() == 0) {
 			throw new Exception("Member ID field can't be empty");
@@ -60,7 +60,7 @@ public class CommonController {
 		datearray.add(month3);
 		return datearray;
 	}
-	
+
 	/**
 	 * Check for the current date and time and return it in the following format "yyyy-MM-dd HH:mm:ss".
 	 * @param 
@@ -72,7 +72,7 @@ public class CommonController {
 		String currentTime = sdf.format(date);
 		return currentTime;
 	}
-	
+
 	/**
 	 * Check the propriety of the following fields:
 	 * Phone number 10 digits long.
@@ -82,25 +82,17 @@ public class CommonController {
 	 * @param String, String, String
 	 * @return String
 	 */
-	public static String checkInput(String phoneNumber,String Email,String ID) {
-		System.out.println(Email);
-		if (phoneNumber.length()!=10){
-			System.out.println("in phoneNumber error");
-			return "PhoneError";
+	public static String checkInput(String phoneNumber,String email,String ID) {
+		if (phoneNumber.length() != 10){
+			return "The phone number must include exactly 10 digits!";
 		}
-		if (!Email.contains("@")) {
-			System.out.println("in email error");
-			return "EmailError";
+		if (!email.contains("@")) {
+			return "The email must include '@' sign!";
 		}
-		if (ID.length()>9){
-			System.out.println("IDError");
-			return "IDError";
+		if (ID.length() != 9){
+			return "The Member ID must include exactly 9 digits!";
 		}
-		else
-		{
-			System.out.println("Success");
-			return "Success";
-		}
+		return "Success";
 	}	    	
 
 	/**
@@ -125,24 +117,21 @@ public class CommonController {
 	 * @return String
 	 */
 	public static String checkRegistrationInput(String phoneNumber,String email,String ID,String password) {
-		if (phoneNumber.length()!=10){
-			return "The phone number isn't included 10 digits";
+		if (phoneNumber.length() != 10){
+			return "The phone number must include exactly 10 digits!";
 		}
 		if (!email.contains("@")) {
-			return "The email isn't included @";
+			return "The email must include '@' sign!";
 		}
-		if (ID.length()>9){
-			return "IDError";
+		if (ID.length() != 9){
+			return "The Member ID must include exactly 9 digits!";
 		}
-		if (password.length()<6) {
-			return "The password isn't included 6 characters";
+		if (password.length() < 6) {
+			return "The password must include atleast 6 characters!";
 		}
-		else
-		{
-			return "Success";
-		}
+		return "Success";
 	}
-	
+
 	/**
 	 * Set the MinWith, PerfWith , MaxWith  of the TableView
 	 * @param TableColumnBase<S,T> , double(minWidth), double(prefWidth), double(maxWidth)
