@@ -40,6 +40,7 @@ public class CommonController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
+
 	/**
 	 * get string of date in the format 0000-00-00 (year-month-day) then cut the string and return ArrayList of integer that contains the date as integer.
 	 * @param String
