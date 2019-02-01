@@ -156,8 +156,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			}
 			else
 			{
-				showFailed("Error,ReEnter the page");
-
+				return;
 			}
 
 		}
