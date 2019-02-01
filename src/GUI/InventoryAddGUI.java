@@ -286,7 +286,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			btnCopy.setDisable(false);
 			btnAdd.setDisable(true);
 			btn_browse.setDisable(true);
-			showSuccess("Book is already exist in the library.");
+			showSuccess("Book already exist in the library.\nClick on \"Add - Copy\" button to add new copy.");
 		});
 	}
 
@@ -312,6 +312,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		this.txtPurchase_Date.setValue(null);//purchasedate.fromString(msg.get(10)));
 		this.txtShelf_Location.clear();
 		this.txtCatlog_Number.clear();
+		this.txtTable_Of_Content.clear();
 		txtAuthor.setEditable(true);
 		txtBook_Name.setEditable(true);
 		Enablefields(true);

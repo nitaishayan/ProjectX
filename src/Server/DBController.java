@@ -23,6 +23,7 @@ import Common.InventoryBook;
 import Common.LoanDetails;
 import GUI.LibrarianMenuGUI;
 import logic.CommonController;
+import sun.applet.resources.MsgAppletViewer;
 
 public class DBController {
 
@@ -132,18 +133,20 @@ public class DBController {
 	}
 
 	public static ArrayList<String> addCopyToInventory(ArrayList<String> data) throws SQLException{
-		int maxCopyID=0;
+		int temp = 0, maxCopyID = 0;
 		String copyid,bookid;
 		bookid=data.get(data.size()-1);
-		PreparedStatement stmt = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
+		
+		PreparedStatement stmt = conn.prepareStatement("SELECT CopyID FROM copies WHERE BookID = ?");
 		stmt.setString(1, bookid);
 		ResultSet rs = stmt.executeQuery();
-
-		if(rs.next()) {
-			if (rs.getString(1)!=null) {
-				maxCopyID=Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
+		while(rs.next()) {
+			temp = Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
+			if(temp > maxCopyID) {
+				maxCopyID = temp;
 			}
 		}
+
 		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?)");
 		copyid=(data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID);
 		insert.setString(1, copyid);
@@ -1550,6 +1553,11 @@ public class DBController {
 		}
 	}
 
+	/**
+	 * This method retrieves the employee's details from the Database.
+	 * @return return array list with the employees records of the library.
+	 * @throws SQLException
+	 */
 	public ArrayList<String> EmployeeRecords () throws SQLException{
 		ArrayList<String> listLibrarians = new ArrayList<String>();
 		PreparedStatement stmt = conn.prepareStatement("SELECT LibrarianID,FirstName,LastName,Email,IsManager FROM librarian");
@@ -1564,7 +1572,18 @@ public class DBController {
 		}
 		return listLibrarians;
 	}
-
+	
+	/**
+	 * This method is use for making statistic reports and is seperated with three cases depend on the option chosen:
+	 * case "Total" - retrieves the SUM, COUNT and MAX of days and hours of book that were late in return, additionalliy, retrieves the amount of time for each book which is/was late to return.
+	 * case "Specific Book" - retrieves the SUM, COUNT and MAX of days and hours of a specific book that was late in return, additionalliy, retrieves the amount of time for each book which is/was late to return.
+	 * case "Specific Loan Book" - retrieves the SUM, COUNT and MAX of days and hours(period) of book that is/was loan, additionalliy, retrieves the amount of time for each book which is/was loan.
+	 * @param option - This parameter distinguish the option chosen by the user - Total,Specific Book(late),Specific Book(loan).
+	 * @param bookID - If the option was Specific Book(late) or Specific Book(loan), this parameter will note the specific book chosen.
+	 * @return return an array list of strings that represents the SUM, COUNT and MAX for the option chosen and period of time for each book for the option chosen.
+	 * @throws SQLException
+	 * @throws ParseException
+	 */
 	//data for statistics - late in return
 	public ArrayList<String> StatisticsShowBooks (String option,String bookID) throws SQLException, ParseException{
 
@@ -2085,6 +2104,12 @@ public class DBController {
 		insert.setString(5,currentTime);//current time
 		insert.executeUpdate();			
 	}		
+	
+	/**
+	 * This method retrieves the total book's details for further use and show in a table view.
+	 * @return returns an array list with all the book's details.
+	 * @throws SQLException
+	 */
 	//get BOOKS from DB to show in tableView - for statistics-lateInReturn
 	public ArrayList<String> showTableViewBooks () throws SQLException{
 

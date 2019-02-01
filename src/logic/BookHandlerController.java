@@ -9,6 +9,10 @@ import Common.MyFile;
 
 public class BookHandlerController {
 
+	/**
+	 * This method check if the copy is alredy loaned.
+	 * @param copyID - this parameter describes the copy's ID we want to check if it's already loaned.
+	 */
 	public static void isCopyLoaned(String copyID) {	
 		ArrayList<String> copyData = new ArrayList<>();
 		copyData.add("Check Copy Loan Status");
@@ -16,6 +20,11 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 
+	/**
+	 * This method check if the copy exists in the library.
+	 * @param copyID - this parameter describes the copy's ID we want to check if it's already exists in the library.
+	 * @throws Exception
+	 */
 	public static void isCopyExist(String copyID) throws Exception {	
 		if(copyID.length() == 0) {
 			throw new Exception("Copy ID field can't be empty");
@@ -26,6 +35,12 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 
+	/**
+	 * This method returns a book from a user to the library.
+	 * @param copyID - copy ID of the specific copy to return.
+	 * @param status - status of the member that return the copy.
+	 * @param memberID - member ID of the member that return the copy.
+	 */
 	public static void returnBook(String copyID, String status, String memberID) {	
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Return Book");
@@ -35,13 +50,10 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
-	//	public static void isCopyLate(String copyID) {	
-	//		ArrayList<String> copyData = new ArrayList<>();
-	//		copyData.add("Check If Copy Is Late");
-	//		copyData.add(copyID);
-	//		Main.client.handleMessageFromClientUI(copyData);
-	//	}
-
+	/**
+	 * 
+	 * @param memberID
+	 */
 	public static void isMemberLateOnReturn(String memberID) {	
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Check If Member Is Late On Return");

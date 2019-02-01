@@ -9,6 +9,9 @@ import ocsf.client.*;
 import java.awt.Desktop;
 import java.io.*;
 import java.util.ArrayList;
+
+import com.sun.javafx.geom.AreaOp.AddOp;
+
 import Common.Copy;
 import Common.GuiInterface;
 import Common.InventoryBook;
@@ -76,7 +79,7 @@ public class Client extends AbstractClient
 				Platform.runLater(()->{
 					if (arrayObject.get(arrayObject.size()-1).equals("1")) {
 						InventoryAddGUI.nextBookID=arrayObject.get(arrayObject.size()-4);
-						clientUI.showSuccess("Book Added successfull. \n copy id is: "+arrayObject.get(arrayObject.size()-3).toString());
+						clientUI.showSuccess("Book Added successfully. \nCopy id is: "+arrayObject.get(arrayObject.size()-3).toString());
 						clientUI.freshStart();
 					}
 					else 
@@ -106,7 +109,7 @@ public class Client extends AbstractClient
 			case "InventoryCheckExistense":
 				if (arrayObject.get(arrayObject.size()-1).equals("not exist")) {
 					Platform.runLater(()->{
-						clientUI.showFailed("book doesn't exist in the library.");
+						clientUI.showFailed("The book doesn't exist in the library.\nTo add the book fill the required information\nand click \"Add - Book\" button.");
 					});
 				}
 				else
@@ -193,7 +196,7 @@ public class Client extends AbstractClient
 			case "AddCopy":
 				if (arrayObject.get(arrayObject.size()-1).equals("success")) {
 					Platform.runLater(()->{
-						clientUI.showSuccess("Copy Added successfuly.   copy id is: "+arrayObject.get(arrayObject.size()-2).toString());
+						clientUI.showSuccess("Copy Added successfully.\nNew Copy id is: "+arrayObject.get(arrayObject.size()-2).toString());
 					});
 				}else
 					Platform.runLater(()->{
@@ -318,21 +321,31 @@ public class Client extends AbstractClient
 				}
 				break;
 
+				/**
+				 * This case send the array list receives from the EmployeeRecords method to the client with the employees details.
+				 */
 			case "EmployeeRecords"://show employee details for read only - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
 				});
 				break;
 
+				/**
+				 * This case send the array list receives from the StatisticsShowBooks method to the client with the book details.
+				 * Show a fail pop-up message in case there were no book that were late to return
+				 */
 			case "StatisticsBooks"://show book details
 				Platform.runLater(()->{
 					if (arrayObject.get(3).equals("Fail"))
-						clientUI.showFailed("There were no delayed books found.");
+						clientUI.showFailed("There were no books late to return found.");
 					else
 						clientUI.display(msg);
 				});
 				break;
 
+				/**
+				 * This case send the array list receives from the showTableViewBooks method to the client with the book details for further dispalying in the table view.
+				 */
 			case "showTableView"://show book details - tableView
 				Platform.runLater(()->{
 					clientUI.display(msg);
@@ -363,7 +376,7 @@ public class Client extends AbstractClient
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath="./src/Client/"+msg2.getFileName()+".pdf";
+		String LocalfilePath="./PDF-client/"+msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 

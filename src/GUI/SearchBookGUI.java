@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
@@ -35,6 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.SearchBookController;
 import logic.BookHandlerController;
+import logic.CommonController;
 import logic.Main;
 
 public class SearchBookGUI implements Initializable, GuiInterface{
@@ -274,6 +276,12 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			authorNameCol.setCellValueFactory(cellData -> cellData.getValue().getAuthorName());
 			bookGenreCol.setCellValueFactory(cellData-> cellData.getValue().getBookGenre());
 			descriptionCol.setCellValueFactory(cellData -> cellData.getValue().getDescription());
+			
+			
+			CommonController.setColumnWidth(bookNameCol, 180, 190, 200);
+			CommonController.setColumnWidth(authorNameCol, 160, 170, 180);
+			CommonController.setColumnWidth(bookGenreCol, 90, 100, 110);
+			CommonController.setColumnWidth(bookIDCol, 60, 70, 80);
 
 			while(i<numberOfBook)
 			{
@@ -291,14 +299,42 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 							return;
 						if (Client.arrayUser.size() > 2)
 						{
-							SearchBookController.searchBookDetailes(table.getSelectionModel().getSelectedItem().getBookID().getValue(),table.getSelectionModel().getSelectedItem().getBookName().getValue(), table.getSelectionModel().getSelectedItem().getAuthorName().getValue());
+							SearchBookController.searchBookDetailes(table.getSelectionModel().getSelectedItem().getBookID().getValue(),table.getSelectionModel().getSelectedItem().getBookName().getValue(), table.getSelectionModel().getSelectedItem().getAuthorName().getValue(), table.getSelectionModel().getSelectedItem().getDescription().getValue());
+						}
+						else {
+							Stage 	   	 primaryStage     = new Stage();
+							Label		 title			  = new Label("Book description");
+							TextArea	 description	  = new TextArea();
+							Label		 desceiptionLabel = new Label("The description of the book:");
+							VBox 	 	 mainVbox         = new VBox(20);
+							Scene 		 scene 			  = new Scene(mainVbox);
+							
+							
+							title.setFont(new Font("Ariel", 25));
+							primaryStage.setTitle("Book description");
+							description.setMaxWidth(400);
+							description.setMinWidth(400);
+							description.setMaxHeight(150);
+							description.setMinHeight(150);
+							description.setEditable(false);
+							description.setWrapText(true);
+							primaryStage.initModality(Modality.APPLICATION_MODAL);
+							mainVbox.setMinHeight(390);
+							mainVbox.setMinWidth(550);
+							mainVbox.setMaxHeight(390);
+							mainVbox.setMaxWidth(550);
+							mainVbox.getChildren().addAll(title,desceiptionLabel,description);
+							mainVbox.setAlignment(Pos.CENTER);
+							description.setText(table.getSelectionModel().getSelectedItem().getDescription().getValue());
+							primaryStage.setScene(scene);
+							primaryStage.setResizable(false);
+							primaryStage.showAndWait();
 						}
 					}
 
 				});
 			});
 
-			System.out.println(obj);
 			table.setItems(bookList);
 			root.getChildren().addAll(searchLab,table);
 			searchLab.setFont(new Font(20));
@@ -306,6 +342,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			searchLab.setPrefWidth(180);
 			searchLab.setPrefHeight(35);
 			primaryStage.setTitle("Search book result");
+			primaryStage.setResizable(false);
 			root.setAlignment(Pos.CENTER);
 			root.setPrefWidth(800);
 			root.setPrefHeight(400);
@@ -321,14 +358,24 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 	 * @param detailesData - ArrayList with the relevant data for create this window (all the information that needed).
 	 */
 	private void displayBookDetails(ArrayList<String> detailesData) {
-		Stage 	   	 primaryStage   = new Stage();
-		VBox 	 	 mainVbox       = new VBox(20);
-		Label 		 ans  			= new Label();
-		Label		 detailes		= new Label();
-		Scene 		 scene 			= new Scene(mainVbox);
-		Button		 tableOfContent = new Button("Table Of Content");
-		HBox 		 hbox2			= new HBox(20);
-		String		 BookID			= detailesData.get(3);
+		Stage 	   	 primaryStage    = new Stage();
+		VBox 	 	 mainVbox        = new VBox(20);
+		Label 		 ans  			 = new Label();
+		Label		 detailes		 = new Label();
+		Scene 		 scene 			 = new Scene(mainVbox);
+		Button		 tableOfContent  = new Button("Table Of Content");
+		HBox 		 hbox2			 = new HBox(20);
+		String		 BookID			 = detailesData.get(3);
+		TextArea	 description	 = new TextArea();
+		Label		 descriptionBold = new Label();
+		
+		description.setMaxWidth(400);
+		description.setMinWidth(400);
+		description.setMaxHeight(150);
+		description.setMinHeight(150);
+		description.setEditable(false);
+		description.setWrapText(true);
+		descriptionBold.setText("The book description:");
 
 		tableOfContent.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -350,11 +397,12 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 		System.out.println(detailesData);
 
-		if (detailesData.get(4).equals("1")) //return the location
+		if (detailesData.get(5).equals("1")) //return the location
 		{
-			ans.setText("The book " + detailesData.get(1) + " of the author " + detailesData.get(2) + " is in shelf- " + detailesData.get(5));
+			description.setText(detailesData.get(4));
+			ans.setText("The book " + detailesData.get(1) + " of the author " + detailesData.get(2) + " is in shelf - " + detailesData.get(6));
 			ans.setFont(new Font("Ariel", 16));
-			mainVbox.getChildren().addAll(ans,tableOfContent);
+			mainVbox.getChildren().addAll(ans, descriptionBold,description, tableOfContent);
 		}
 		else {
 			Button reserveBtn = new Button("Reserve");
@@ -362,20 +410,20 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 
 				@Override
 				public void handle(ActionEvent event) {
-					System.out.println("liorrrrr"+detailesData);
-					BookHandlerController.reserveBook(detailesData.get(3),Client.arrayUser.get(0),detailesData.get(7));		
+					BookHandlerController.reserveBook(detailesData.get(3),Client.arrayUser.get(0),detailesData.get(9));		
 				}
 			});
 			Label  ans2		  = new Label();
+			description.setText("The book description: " + detailesData.get(4));
 			ans.setText("we don't have copy of " + detailesData.get(1) + " by the author " + detailesData.get(2) + " in the library.");
-			ans2.setText(" the nearest return date is in " + detailesData.get(5));
-			ans.setFont(new Font("Ariel", 16));
-			ans2.setFont(new Font("Ariel", 16));
+			ans2.setText(" the nearest return date is in " + detailesData.get(6));
+			ans.setFont(new Font("Ariel", 14));
+			ans2.setFont(new Font("Ariel", 14));
 			ans.setPadding(new Insets(0, 0, 0, 20));
 			ans2.setPadding(new Insets(0, 0, 0, 20));
 			hbox2.getChildren().addAll(reserveBtn,tableOfContent);
 			hbox2.setAlignment(Pos.CENTER);
-			mainVbox.getChildren().addAll(ans,ans2,hbox2);
+			mainVbox.getChildren().addAll(ans,ans2,descriptionBold,description,hbox2);
 		}
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);

@@ -14,12 +14,13 @@ public class SearchBookController  {
 		Main.client.handleMessageFromClientUI(searchBook);
 	}
 
-	public static void searchBookDetailes(String bookID, String bookName, String authorName) {
+	public static void searchBookDetailes(String bookID, String bookName, String authorName, String description) {
 		ArrayList<String> searchBookDetailes = new ArrayList<>();
 		searchBookDetailes.add("SearchBookDetailes");
 		searchBookDetailes.add(bookName);
 		searchBookDetailes.add(authorName);
 		searchBookDetailes.add(bookID);
+		searchBookDetailes.add(description);
 		Main.client.handleMessageFromClientUI(searchBookDetailes);
 	}
 
