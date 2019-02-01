@@ -141,9 +141,10 @@ public class CommonController {
 
 	/**
 	 * This method set the Minimum Width, Preferred Width , Maximum Width  of the TableView
-	 * @param TableColumnBase<S,T> - column we want to apply the changes.
-	 * @param double(minWidth), double(prefWidth), double(maxWidth)
-	 * @return void
+	 * @param col - the column we want to apply the changes.
+	 * @param minWidth - the minimum width of the column.
+	 * @param prefWidth - the preferred width of the column.
+	 * @param maxWidth - the maximum width of the column.
 	 */
 	public static <S,T> void setColumnWidth(TableColumnBase<S,T> col,double minWidth,double prefWidth, double maxWidth)
 	{
@@ -151,10 +152,9 @@ public class CommonController {
 		col.setPrefWidth(prefWidth);
 		col.setMaxWidth(maxWidth);
 	}
+	
 	/**
 	 * Send request for the server to get the Employee Records .
-	 * @param
-	 * @return void
 	 */
 	public static void ShowEmployeeRecords () {
 		ArrayList<String> EmployeeList = new ArrayList<>();
