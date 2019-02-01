@@ -2221,8 +2221,9 @@ public class DBController {
 			}
 		}
 	}
-	public ArrayList<Integer> getActiveMemberHistory(ArrayList<String> arrayObject) throws SQLException  {
-		ArrayList<Integer>data=new ArrayList<>();
+	public ArrayList<String> getActivityReport(ArrayList<String> arrayObject) throws SQLException  {
+		ArrayList<String>data=new ArrayList<>();
+		data.add("getActivityReport");
 		int val;
 		System.out.println(arrayObject);
 		PreparedStatement ps = conn.prepareStatement("SELECT COUNT(DISTINCT MemberID) FROM memberstatus WHERE ExecutionDate>=? AND ExecutionDate<=? AND CurrentStatus=? ");
@@ -2232,19 +2233,19 @@ public class DBController {
 		ResultSet rs1 = ps.executeQuery();
 		if (rs1.next()) {
 			System.out.println(rs1.getInt(1));
-			data.add(rs1.getInt(1));//return num of active members in the between startDate and endDate 
+			data.add(String.valueOf(rs1.getInt(1)));//return number of active members in time area between startDate and endDate 
 		}
 		ps.setString(3,"Frozen");//requestedStatus
 		ResultSet rs2 = ps.executeQuery();
 		if (rs2.next()) {
 			System.out.println(rs2.getInt(1));
-			data.add(rs2.getInt(1));//return num of frozen members in the between startDate and endDate 
+			data.add(String.valueOf(rs2.getInt(1)));//return number of frozen members in time area between startDate and endDate 
 		}
 		ps.setString(3,"Locked");//requestedStatus
 		ResultSet rs3 = ps.executeQuery();
 		if (rs3.next()) {
 			System.out.println(rs3.getInt(1));
-			data.add(rs3.getInt(1));//return num of locked members in the between startDate and endDate 
+			data.add(String.valueOf(rs3.getInt(1)));//return number of locked members in time area between startDate and endDate 
 		}
 		PreparedStatement ps2 = conn.prepareStatement("SELECT COUNT(DISTINCT CopyID) FROM loanbook WHERE LoanDate>=? AND LoanDate<=? ");
 		ps2.setString(1,arrayObject.get(1));//startTime
@@ -2252,7 +2253,16 @@ public class DBController {
 		ResultSet rs4 = ps2.executeQuery();
 		if (rs4.next()) {
 			System.out.println(rs4.getInt(1));
-			data.add(rs4.getInt(1));//return num of copies loaned in the between startDate and endDate 
+			data.add(String.valueOf(rs4.getInt(1)));//return num of copies loaned in the between startDate and endDate 
+		}
+		PreparedStatement ps3 = conn.prepareStatement("SELECT COUNT(DISTINCT MemberID) FROM delayonreturn WHERE ExecutionDate>=? AND ExecutionDate<=? AND IsLostedOrDelayed=? ");
+		ps3.setString(1,arrayObject.get(1));//startTime
+		ps3.setString(2,arrayObject.get(2));//endTime
+		ps3.setString(3,"Delay");//endTime
+		ResultSet rs5 = ps3.executeQuery();
+		if (rs5.next()) {
+			System.out.println(rs5.getInt(1));
+			data.add(String.valueOf(rs5.getInt(1)));//return number of members that delay on return in between startDate and endDate 
 		}
 		return data;
 	}

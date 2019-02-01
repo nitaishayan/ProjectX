@@ -344,7 +344,11 @@ public class Client extends AbstractClient
 					clientUI.display(msg);
 				});
 				break;
-
+			case "getActivityReport":
+				Platform.runLater(()->{
+					clientUI.display(msg);
+				});
+				break;
 			default:
 				break;
 			}

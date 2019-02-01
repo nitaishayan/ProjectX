@@ -57,12 +57,12 @@
       </Button>
       <DatePicker fx:id="pickDateStart" layoutX="582.0" layoutY="673.0" />
       <DatePicker fx:id="pickDateEnd" layoutX="582.0" layoutY="724.0" />
-      <Label layoutX="537.0" layoutY="676.0" prefHeight="19.0" prefWidth="38.0" text="Start:">
+      <Label layoutX="527.0" layoutY="676.0" prefHeight="22.0" prefWidth="48.0" text="Start:">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="537.0" layoutY="727.0" prefHeight="19.0" prefWidth="38.0" text="End:">
+      <Label layoutX="527.0" layoutY="727.0" prefHeight="22.0" prefWidth="48.0" text="End:">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>

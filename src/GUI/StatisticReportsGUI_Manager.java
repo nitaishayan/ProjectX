@@ -2,6 +2,7 @@ package GUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import Common.GuiInterface;
@@ -9,8 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import logic.Main;
 
@@ -41,13 +44,26 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 
     @FXML
     private DatePicker pickDateEnd;
-
+/**
+ * 
+ * @param event 
+ * @throws IOException
+ */
     @FXML
     void ActivityScreen(ActionEvent event) throws IOException {
-    	startDate=pickDateStart.getValue().toString();
-    	endDate=pickDateEnd.getValue().toString();
-    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-Activity.fxml"));
-    	StatisticsPane.getChildren().setAll(pane);
+    	if (pickDateStart.getValue()==null||pickDateEnd.getValue()==null) {
+			showFailed("Please enter two dates");
+		}
+    	else if (pickDateStart.getValue().isAfter(pickDateEnd.getValue())) {
+			showFailed("Wrong input, please enter valid period");
+
+		} 
+    	else{
+        	startDate=pickDateStart.getValue().toString();
+        	endDate=pickDateEnd.getValue().toString();
+        	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-Activity.fxml"));
+        	StatisticsPane.getChildren().setAll(pane);	
+    	}
     }
 
     /**
@@ -116,8 +132,11 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 	*/
 	@Override
 	public void showFailed(String message) {
-		// TODO Auto-generated method stub
-		
+		freshStart();
+		Alert alert=new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(message);
+		alert.showAndWait();		
 	}
 
 	/**
