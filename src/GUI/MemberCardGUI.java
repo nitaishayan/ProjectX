@@ -2,6 +2,7 @@ package GUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.channels.NonWritableChannelException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import Client.Client;
@@ -155,8 +156,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			}
 			else
 			{
-				showFailed("Error,ReEnter the page");
-
+				return;
 			}
 
 		}
@@ -170,12 +170,14 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	void librarianUpdateMember(ActionEvent event) {
 		update=true;
 		if (cmbStatus.getValue().toString().equals("Locked")) {
-			showFailed("Librarian Manager cannot lock a member");
+			showSuccess("Error - Librarian Manager cannot lock a member");
 		}
 		else
 		{
 			if (!memberStatus.equals(cmbStatus.getValue().toString())) {
-				MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,memberStatus);//should be true			
+				String str=memberStatus;
+				memberStatus=cmbStatus.getValue().toString();
+				MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,str);//should be true			
 				System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
 			}
 			else
@@ -267,6 +269,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			else {
 				b=true;
 				if (update) {
+					System.out.println("prev status is "+memberStatus);
 					showSuccess("The member "+txtFirst_Name.getText()+" "+txtLast_Name.getText()+" Details updated successfully");
 					memberStatus=cmbStatus.getValue().toString();
 					update=false;

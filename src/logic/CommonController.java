@@ -91,13 +91,13 @@ public class CommonController {
 	 */
 	public static String checkInput(String phoneNumber,String email,String ID) {
 		if (phoneNumber.length() != 10){
-			return "The phone number must include exactly 10 digits!";
+			return "PhoneError";
 		}
 		if (!email.contains("@")) {
-			return "The email must include '@' sign!";
+			return "EmailError";
 		}
 		if (ID.length() != 9){
-			return "The Member ID must include exactly 9 digits!";
+			return "IDError";
 		}
 		return "Success";
 	}	    	

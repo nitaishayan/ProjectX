@@ -61,6 +61,7 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	@FXML
 	void updateMemberDetails(ActionEvent event) {
 		String ans=CommonController.checkInput(txtPhone_Number.getText(),txtEmail.getText(),txtID.getText());
+		System.out.println(ans+" fgfdgsdfsdasfsa");
 		if (ans.equals("EmailError")) {
 			showFailed("Wrong Email, please enter new parameters");
 		}
