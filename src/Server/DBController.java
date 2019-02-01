@@ -2284,7 +2284,7 @@ public class DBController {
 		ps1.executeUpdate();
 		
 	}
-	public ArrayList<String> getActivityReportHistory(ArrayList<String> arrayObject) throws SQLException {
+	public ArrayList<String> getActivityReportHistory() throws SQLException {
 		PreparedStatement searchData = conn.prepareStatement("SELECT* FROM activityreport");
 		ResultSet rsData;
 		ArrayList<String> dataDetails = new ArrayList<String>();

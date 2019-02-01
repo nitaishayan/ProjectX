@@ -468,8 +468,10 @@ public class Server extends AbstractServer
 				}
 				break;
 			case "ActivityHistoryReport":
+				ArrayList<String> dataReport=new ArrayList<>();
+
 				try {
-					DBController.getInstance().getActivityReportHistory(arrayObject);
+					dataReport=DBController.getInstance().getActivityReportHistory();
 				} catch (Exception e){
 					e.printStackTrace();
 				}
