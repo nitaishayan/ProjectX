@@ -35,6 +35,9 @@ import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
 
+/**
+ * This class edit an existing book in the library.
+ */
 public class InventoryEditGUI implements Initializable,GuiInterface {
 	public static File PDF;
 
@@ -112,18 +115,30 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 	
 	String wanted;
 
+	/**
+	 * This method checks the "YES" option in the wanted section and clear the "NO" option.
+	 * @param event - event from press on CheckBox.
+	 */
 	@FXML
 	void WANTED_YES(ActionEvent event) {
 			CHBOX_NO.setSelected(false);
 			wanted="true";
 	}
 	
+	/**
+	 * This method checks the "NO" option in the wanted section and clear the "YES" option.
+	 * @param event - event from press on CheckBox.
+	 */
 	@FXML
 	void WANTED_NO(ActionEvent event) {
 			CHBOX_YES.setSelected(false);
 			wanted="false";
 	}
 	
+	/**
+	 * This method open the "File Chooser" to choose the specific pdf file we want to upload and set the name of the pdf in the table of contents field.
+	 * @param event - event from press on "..."(Browse) button.
+	 */
 	@FXML
 	public void pdf(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
@@ -133,12 +148,21 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 			txtPdf.setText(PDF.getName());
 	}
 
+	/**
+	 * This method move the user back to the Main Inventory screen.
+	 * @param event - event from press on "Back" button.
+	 * @throws IOException
+	 */
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Inventory.fxml"));
 		MainPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * This method enable/disable the fields.
+	 * @param event - event from press on "BookID" RadioButton - when the search is by book id.
+	 */
 	@FXML
 	void book_ID(ActionEvent event) {
 		freshStart();
@@ -150,6 +174,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		IDButton.setVisible(true);
 	}
 
+	/**
+	 * This method enable/disable the fields.
+	 * @param event - event from press on "BookName" RadioButton - when the search is by book name.
+	 */
 	@FXML
 	void book_name(ActionEvent event) {
 		freshStart();
@@ -163,6 +191,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 
 	}
 	
+	/**
+	 * 
+	 * @param event
+	 */
 	 @FXML
 	    void bookIdMouse(MouseEvent event) {
 		 if (txtBook_ID.getText().isEmpty()) {
@@ -175,6 +207,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 			}
 	    }
 
+	 /**
+	  * 
+	  * @param event
+	  */
 	    @FXML
 	    void bookNameMouse(MouseEvent event) {
 	    	if (txtBook_Name.getText().isEmpty()||txtAuthors.getText().isEmpty()) {
@@ -188,7 +224,10 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 			}
 	    }
 
-
+	    /**
+	     * 
+	     * @param event
+	     */
 	@FXML
 	void EnterBook_Name(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
