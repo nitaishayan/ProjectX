@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import logic.Main;
+import logic.StatisticReportsController;
 
 public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 	private static String startDate;
@@ -109,7 +110,10 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
     	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports-ReaderCards.fxml"));
     	StatisticsPane.getChildren().setAll(pane);
     }
-
+    @FXML
+    void getactivityHistoryReport(ActionEvent event) {
+    	StatisticReportsController.activityHistoryReport();
+    }
     /**
 	* Not used method(must implement because the implementation of GuiInterface)
 	*/

@@ -2284,7 +2284,31 @@ public class DBController {
 		ps1.executeUpdate();
 		
 	}
-
+	public ArrayList<String> getActivityReportHistory(ArrayList<String> arrayObject) throws SQLException {
+		PreparedStatement searchData = conn.prepareStatement("SELECT* FROM activityreport");
+		ResultSet rsData;
+		ArrayList<String> dataDetails = new ArrayList<String>();
+		rsData = searchData.executeQuery();
+		dataDetails.add("getDelayandLostBooks");
+		while(rsData.next()) {
+			dataDetails.add(rsData.getString(1));//CurrentTime
+			dataDetails.add(rsData.getString(2));////startTime
+			dataDetails.add(rsData.getString(3));//endTime
+			dataDetails.add(rsData.getString(4));//numActive
+			dataDetails.add(rsData.getString(5));//numFreeze
+			dataDetails.add(rsData.getString(6));//numLocked
+			dataDetails.add(rsData.getString(7));//numLoanCopies
+			dataDetails.add(rsData.getString(8));//numDelayonReturn
+		}
+		if (dataDetails.size()==1) {
+			dataDetails.add("NotExist");
+			System.out.println("Report not exist");
+			return dataDetails;
+		}
+		else {
+			return dataDetails;
+		}
+	}
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -2304,5 +2328,7 @@ public class DBController {
 		}
 		return null;
 	}
+
+
 	
 }

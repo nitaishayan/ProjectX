@@ -127,4 +127,12 @@ public class StatisticReportsController {
 		data.add(endDate);
 		Main.client.handleMessageFromClientUI(data);
 	}
+
+	public static void activityHistoryReport() {
+		ArrayList<String> data = new ArrayList<>();
+		data.add("ActivityHistoryReport");
+		System.out.println("in stat controller");
+		Main.client.handleMessageFromClientUI(data);
+
+	}
 }

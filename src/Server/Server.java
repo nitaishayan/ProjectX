@@ -466,6 +466,14 @@ public class Server extends AbstractServer
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				break;
+			case "ActivityHistoryReport":
+				try {
+					DBController.getInstance().getActivityReportHistory(arrayObject);
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+				break;
 			default:
 				break;
 			}
