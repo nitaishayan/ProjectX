@@ -40,6 +40,11 @@ import logic.CommonController;
 import logic.InventoryController;
 import logic.Main;
 
+/**
+ * 
+ * @author lior
+ *
+ */
 public class InventoryAddGUI implements GuiInterface,Initializable{
 	public static String Location;
 	public static String bookname;
@@ -107,6 +112,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 	String wanted;
 	public static String nextBookID;
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void name_author(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
@@ -128,6 +137,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 
 	}
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	public void pdf(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
@@ -137,23 +150,39 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			txtTable_Of_Content.setText(PDF.getName());
 	}
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void WANTED_YES(ActionEvent event) {
 		CHBOX_NO.setSelected(false);
 		wanted="true";
 	}
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void WANTED_NO(ActionEvent event) {
 		CHBOX_YES.setSelected(false);
 		wanted="false";
 	}
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void AddCopy(ActionEvent event) {
 		InventoryController.addCopy(Location,bookname,bookid);
 	}
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void AddBook(ActionEvent event) {
 		if (checkfields())
@@ -162,6 +191,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			InventoryController.addBook(txtBook_Name.getText(), txtEdition.getText(), txtTheme.getText(), txtAuthor.getText(), txtPrint_Date.getValue().toString(),txtCopies.getText(),txtPurchase_Date.getValue().toString(),txtShelf_Location.getText(),wanted,txtDescription.getText());
 	}
 
+	/**
+	 * 
+	 * @param status
+	 */
 	public void Enablefields(boolean status) {
 		txtEdition.setDisable(status);
 		txtTheme.setDisable(status);
@@ -175,12 +208,21 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		CHBOX_YES.setDisable(status);
 	}
 
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void BackToInventory(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/Inventory.fxml"));
 		MainPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void CheckExistense(ActionEvent event) {
 		if (txtBook_Name.getText().isEmpty()||txtAuthor.getText().isEmpty()) {
@@ -200,6 +242,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean checkfields() {
 		if ((txtEdition.getText().isEmpty()))
 			return true;
@@ -220,6 +266,9 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		return false;
 	}
 
+	/**
+	 * this method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
@@ -242,6 +291,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			}});
 	}
 
+	/**
+	 * This method show information pop-up on the screen with the given message.
+	 * @param string - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -255,6 +308,12 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		}
 	}
 
+	/**
+	 * This method update the inventory-add screen with the data that return.
+	 * The method give the user the functionality to add a copy of the spec
+	 * and reserve the book.
+	 * @param obj - ArrayList with the relevant data for create this window (all the information that needed).
+	 */
 	@Override
 	public void display(Object obj) {
 		Platform.runLater(()->{
@@ -290,6 +349,10 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		});
 	}
 
+	/**
+	 * This method show an error pop-up on the screen with a given message.
+	 * @param String - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String string) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -300,6 +363,9 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 		txtAuthor.setEditable(false);
 	}
 
+	/**
+	 * This method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		this.txtCopies.clear();

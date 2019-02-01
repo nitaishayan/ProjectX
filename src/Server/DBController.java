@@ -343,6 +343,14 @@ public class DBController {
 		return newData;
 	}
 
+	/**
+	 * This method retrieve the user's data that is trying to connect to the system.
+	 * First we check in the DB's table of the librarian because the size of the table is smaller than the member's table.
+	 * If the user isn't a librarian we'll check if the user that is trying to connect is a member.
+	 * @param data - an array list with the userID and the password which is trying to connect.
+	 * @return return an array list with the type of the user (specific type if the user wasn't found) found and the personal data of the librarian/member if the user was found.  
+	 * @throws SQLException
+	 */
 	public static ArrayList<String>  login(ArrayList<String> data) throws SQLException
 	{
 		ArrayList<String> userDetails = null;
@@ -363,8 +371,6 @@ public class DBController {
 			userDetails.add(rs.getString(2));//Add Password
 			userDetails.add(rs.getString(3));//Add FirstName
 			userDetails.add(rs.getString(4));//Add LastName
-
-			//System.out.println(userDetails+"userDetails");
 
 
 			//////////////////Check if user (librarian) is connected from another device
@@ -865,6 +871,13 @@ public class DBController {
 		return msg;
 	}
 
+	/**
+	 * This method retrieve the user's data that is trying to log-out from the system.
+	 * First we check in the DB's table of the librarian because the size of the table is smaller than the member's table.
+	 * If the user isn't a librarian we'll check if the user that is trying to log-out is a member.
+	 * @param data - an array list with the userID and the password which is trying to disconnect.
+	 * @throws SQLException
+	 */
 	public static  void logout(ArrayList<String> data) throws SQLException {
 		ArrayList<String> result=new ArrayList<String>();
 		PreparedStatement login;
