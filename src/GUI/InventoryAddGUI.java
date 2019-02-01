@@ -286,7 +286,7 @@ public class InventoryAddGUI implements GuiInterface,Initializable{
 			btnCopy.setDisable(false);
 			btnAdd.setDisable(true);
 			btn_browse.setDisable(true);
-			showSuccess("Book is already exist in the library.");
+			showSuccess("Book already exist in the library.\nClick on \"Add - Copy\" button to add new copy.");
 		});
 	}
 

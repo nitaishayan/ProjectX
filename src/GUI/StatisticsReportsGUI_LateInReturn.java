@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import org.w3c.dom.css.Counter;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 import Common.Book;
 import Common.GuiInterface;
 import Common.Librarian;

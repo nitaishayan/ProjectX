@@ -26,7 +26,6 @@ import logic.BookHandlerController;
 import logic.CommonController;
 import logic.LoanController;
 import logic.Main;
-import sun.applet.resources.MsgAppletViewer;
 
 public class LibrarianExtendGUI implements GuiInterface,Initializable{
 

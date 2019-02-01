@@ -23,6 +23,7 @@ import Common.InventoryBook;
 import Common.LoanDetails;
 import GUI.LibrarianMenuGUI;
 import logic.CommonController;
+import sun.applet.resources.MsgAppletViewer;
 
 public class DBController {
 
@@ -132,18 +133,20 @@ public class DBController {
 	}
 
 	public static ArrayList<String> addCopyToInventory(ArrayList<String> data) throws SQLException{
-		int maxCopyID=0;
+		int temp = 0, maxCopyID = 0;
 		String copyid,bookid;
 		bookid=data.get(data.size()-1);
-		PreparedStatement stmt = conn.prepareStatement("SELECT MAX(CopyID) FROM copies WHERE BookID = ?");
+		
+		PreparedStatement stmt = conn.prepareStatement("SELECT CopyID FROM copies WHERE BookID = ?");
 		stmt.setString(1, bookid);
 		ResultSet rs = stmt.executeQuery();
-
-		if(rs.next()) {
-			if (rs.getString(1)!=null) {
-				maxCopyID=Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
+		while(rs.next()) {
+			temp = Integer.parseInt(rs.getString(1).substring((rs.getString(1).indexOf("-"))+1));
+			if(temp > maxCopyID) {
+				maxCopyID = temp;
 			}
 		}
+
 		PreparedStatement insert = conn.prepareStatement("insert into copies values(?,?,?,?,?)");
 		copyid=(data.get(data.size()-1)) + "-" + Integer.toString(++maxCopyID);
 		insert.setString(1, copyid);
