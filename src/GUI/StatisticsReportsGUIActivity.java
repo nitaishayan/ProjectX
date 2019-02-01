@@ -18,7 +18,13 @@ import javafx.scene.layout.AnchorPane;
 import logic.Main;
 import logic.StatisticReportsController;
 import sun.awt.datatransfer.DataTransferer;
-
+/**
+ * Class that present the history of activity report that issed by the librarian manager
+ * all the report are saved in the DB and as requested - show them in table view
+ * 
+ * @author nitay shayan
+ *
+ */
 public class StatisticsReportsGUIActivity implements GuiInterface,Initializable{
 	
 	private String pickDateStart;
@@ -46,6 +52,11 @@ public class StatisticsReportsGUIActivity implements GuiInterface,Initializable{
 
     @FXML
     private Label activeLabel;
+    /**
+     * Method that return back to priginal screen 
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void backScreen(ActionEvent event) throws IOException {
      	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
@@ -66,18 +77,21 @@ public class StatisticsReportsGUIActivity implements GuiInterface,Initializable{
 	public void setPickDateStart(String pickDateStart) {
 		this.pickDateStart = pickDateStart;
 	}
-
+/**
+ * Method that activate actions before the load of the page
+ */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
 		setPickDateStart(StatisticReportsGUI_Manager.getStartDate());
 		setPickDateEnd(StatisticReportsGUI_Manager.getEndDate());
 		monthLabel.setText("Report for the requested time "+pickDateStart+" until - "+pickDateEnd);
-		//StatisticReportsGUI_Manager.setEndDate(null);
-		//StatisticReportsGUI_Manager.setStartDate(null);
 		StatisticReportsController.getActivityReport(StatisticReportsGUI_Manager.getStartDate(),StatisticReportsGUI_Manager.getEndDate());
 	}
-
+/**
+ * Method that print success based on input String
+ * 
+ */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -85,7 +99,10 @@ public class StatisticsReportsGUIActivity implements GuiInterface,Initializable{
 		alert.setHeaderText(string);
 		alert.showAndWait();		
 	}
-
+/**
+ * Method that display the values as they receieved from DB in obj
+ * @param obj that received from DB
+ */
 	@Override
 	public void display(Object obj) {
 		ArrayList<String>data=(ArrayList<String>) obj;
