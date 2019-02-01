@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
          <image>
-            <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
+            <Image url="file:/C:/Users/lior/git/ProjectX/src/Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="487.0" layoutY="38.0" prefHeight="53.0" prefWidth="271.0" text="Librarian search" textAlignment="CENTER" underline="true">
