@@ -79,10 +79,7 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
 		AnchorPane root = loader.load(getClass().getResource("/GUI/InBox.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setMinWidth(844);
-		primaryStage.setMaxWidth(844);
-		primaryStage.setMaxHeight(640);
-		primaryStage.setMinHeight(640);
+		primaryStage.setResizable(false);
 		primaryStage.showAndWait();
     }
 
