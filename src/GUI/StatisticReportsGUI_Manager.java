@@ -2,6 +2,7 @@ package GUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import Common.GuiInterface;
@@ -9,10 +10,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import logic.Main;
+import logic.StatisticReportsController;
 
 public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 	private static String startDate;
@@ -41,13 +48,26 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 
     @FXML
     private DatePicker pickDateEnd;
-
+/**
+ * 
+ * @param event 
+ * @throws IOException
+ */
     @FXML
     void ActivityScreen(ActionEvent event) throws IOException {
-    	startDate=pickDateStart.getValue().toString();
-    	endDate=pickDateEnd.getValue().toString();
-    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-Activity.fxml"));
-    	StatisticsPane.getChildren().setAll(pane);
+    	if (pickDateStart.getValue()==null||pickDateEnd.getValue()==null) {
+			showFailed("Please enter two dates");
+		}
+    	else if (pickDateStart.getValue().isAfter(pickDateEnd.getValue())) {
+			showFailed("Wrong input, please enter valid period");
+
+		} 
+    	else{
+        	startDate=pickDateStart.getValue().toString();
+        	endDate=pickDateEnd.getValue().toString();
+        	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticsReports-Activity.fxml"));
+        	StatisticsPane.getChildren().setAll(pane);	
+    	}
     }
 
     /**
@@ -93,7 +113,18 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
     	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports-ReaderCards.fxml"));
     	StatisticsPane.getChildren().setAll(pane);
     }
-
+    @FXML
+    void getactivityHistoryReport(ActionEvent event) throws IOException {
+		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/ActivityReportHistoryTableView.fxml"));
+		Scene scene=new Scene(parent);
+		Stage stage=new Stage();
+		stage.setScene(scene);
+		stage.setMaxHeight(715);
+		stage.setMinHeight(715);
+		stage.setMinWidth(1477);
+		stage.setMaxWidth(1477);
+		stage.show();
+    }
     /**
 	* Not used method(must implement because the implementation of GuiInterface)
 	*/
@@ -116,8 +147,11 @@ public class StatisticReportsGUI_Manager implements Initializable, GuiInterface{
 	*/
 	@Override
 	public void showFailed(String message) {
-		// TODO Auto-generated method stub
-		
+		freshStart();
+		Alert alert=new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(message);
+		alert.showAndWait();		
 	}
 
 	/**

@@ -10,6 +10,11 @@ public class StatisticReportsController {
 	
 	private static DecimalFormat df2 = new DecimalFormat("#.##");
 	
+	/**
+	 * This method sends request for the server to show books.
+	 * @param option - define the option arrived - Total,Specific Book,Specific Loan Book.
+	 * @param book - defines the specific book or null if it's Total option.
+	 */
 	public static void ShowBooks(String option,Book book) {
 		ArrayList<String> BooksList = new ArrayList<>();
 		BooksList.add("StatisticsBooks");
@@ -29,6 +34,11 @@ public class StatisticReportsController {
 		Main.client.handleMessageFromClientUI(BooksList);
 	}
 	
+	/**
+	 * Calculates the decimal distribution's parts.
+	 * @param maxDelayedDays - this is the maximum days delayed/loan of all book which are late in return/loaned.
+	 * @return return an array list with the decimal distribution's parts.
+	 */
 	public static ArrayList<String> decimalDistributionString(float maxDelayedDays) {
 		
 		ArrayList<String> decimal = new ArrayList<String>();
@@ -43,6 +53,12 @@ public class StatisticReportsController {
 	return decimal;
 	}
 	
+	/**
+	 * This method order the days delayed/loan.
+	 * @param DaysArray - an array list with all the days delayed/loan. 
+	 * @param maxDelayedDays - this is the maximum days delayed/loan of all book which are late in return/loaned.
+	 * @return return an array list with the decimal distribution's parts.
+	 */
 	public static ArrayList<String> decimalDistributionCalculation(ArrayList<Float> DaysArray,float maxDelayedDays) {
 		System.out.println(DaysArray.toString()+" "+maxDelayedDays+" inside statsController + maxdaysdelayed");
 		
@@ -82,6 +98,12 @@ public class StatisticReportsController {
 		return decimalCalc;
 	}
 
+	/**
+	 * This method calculates the median of the library/specific books which is/are delayed/loan.
+	 * @param DelayedBooksDays - an array list with all the days delayed/loan. 
+	 * @param AmountDaysLate - this is the amount of times a book was delayed/loan.
+	 * @return return a string with the value of the median.
+	 */
 	public static String median(ArrayList<Float> DelayedBooksDays, int AmountDaysLate) {
 		
 		int index;
@@ -108,11 +130,20 @@ public class StatisticReportsController {
 		return String.valueOf(medianRes);
 	}
 
+	/**
+	 * This method calculates the average of the library/specific books which is/are delayed/loan.
+	 * @param numOfDaysDelayed - this is the amount of days a book was delayed/loan.
+	 * @param numOfBookDelayed - this is the amount of times book was delayed/loan.
+	 * @return return a string with the value of the average.
+	 */
 	public static String average(double numOfDaysDelayed, double numOfBookDelayed) {
 		Double result = numOfDaysDelayed/numOfBookDelayed;
 		return String.valueOf(Double.parseDouble(new DecimalFormat("##.#").format(result)));
 	}
 	
+	/**
+	 * This method sends request for the server to show books for table view.
+	 */
 	public static void showBookTableView () {
 		
 		ArrayList<String> BooksList = new ArrayList<>();
@@ -120,11 +151,24 @@ public class StatisticReportsController {
 		Main.client.handleMessageFromClientUI(BooksList);
 		}
 
+	/**
+	 * This method sends request for the server to show books for the activity report.
+	 * @param startDate - the start period date.
+	 * @param endDate - the end period time.
+	 */
 	public static void getActivityReport(String startDate, String endDate) {
 		ArrayList<String> data = new ArrayList<>();
 		data.add("getActivityReport");
 		data.add(startDate);
 		data.add(endDate);
 		Main.client.handleMessageFromClientUI(data);
+	}
+
+	public static void activityHistoryReport() {
+		ArrayList<String> data = new ArrayList<>();
+		data.add("ActivityHistoryReport");
+		System.out.println("in stat controller");
+		Main.client.handleMessageFromClientUI(data);
+
 	}
 }

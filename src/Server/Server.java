@@ -456,13 +456,28 @@ public class Server extends AbstractServer
 				}
 				break;
 			case "getActivityReport":
-				ArrayList<Integer> data=new ArrayList<>();
+				ArrayList<String> data=new ArrayList<>();
 				
 				try {
-					data=DBController.getInstance().getActiveMemberHistory(arrayObject);
+					data=DBController.getInstance().getActivityReport(arrayObject);
+					client.sendToClient(data);
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+				break;
+			case "ActivityHistoryReport":
+				ArrayList<String> dataReport=new ArrayList<>();
+
+				try {
+					dataReport=DBController.getInstance().getActivityReportHistory();
+					client.sendToClient(dataReport);
+
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+				break;
 			default:
 				break;
 			}
