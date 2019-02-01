@@ -104,15 +104,17 @@ public class DBController {
 
 	//add book to inventory database
 	public static int addBookToInventory(ArrayList<String> data) throws SQLException{
-		int Result,maxBookID=0;
-		String string = "SELECT MAX(BookID) FROM book";
-		PreparedStatement getMaxID = conn.prepareStatement(string);
-		ResultSet rs=getMaxID.executeQuery();
-		if(rs.next()) {
-			if (rs.getString(1)!=null) {
-				maxBookID=Integer.parseInt(rs.getString(1));
+		int Result,maxBookID=0, temp = 0;
+		
+		PreparedStatement stmt = conn.prepareStatement("SELECT BookID FROM book");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			temp = Integer.parseInt(rs.getString(1));
+			if(temp > maxBookID) {
+				maxBookID = temp;
 			}
-		}
+		}	
+
 		PreparedStatement insert = conn.prepareStatement("insert into book values(?,?,?,?,?,?,?,?,?,?,?,?)");
 		insert.setString(1, Integer.toString(++maxBookID));// book id
 		insert.setString(2, data.get(1));//book name
