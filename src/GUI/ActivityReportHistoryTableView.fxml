@@ -21,7 +21,7 @@
             <TableColumn fx:id="activeMembers" prefWidth="156.7999267578125" text="Active members" />
             <TableColumn fx:id="freezeMembers" prefWidth="172.0" text="Freeze members" />
             <TableColumn fx:id="lockedMembers" prefWidth="204.00006103515625" text="Locked members" />
-            <TableColumn fx:id="loanCopies" prefWidth="320.0" text="Loan copies/Delayed members" />
+            <TableColumn fx:id="loanCopies" prefWidth="320.0" text="Loan copies / Delayed members" />
         </columns>
       </TableView>
    </children>

@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +44,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	String isManager;
 	ObservableList<String> list;
 	boolean update=false;
+	boolean b=false;
 	private  String memberStatus=null;
 	@FXML
 	private ComboBox cmbStatus;
@@ -73,9 +75,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	@FXML
 	private Button btnSave;
 
-
 	@FXML
 	private Button btnStatus;
+
+    @FXML
+    private ImageView buttonSearch;
 /**
  * This method is launch a query in data base to get all the books 
  * information by a specific member that is delayed or lost books in the library.
@@ -131,8 +135,9 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		if (txtMember_ID.getText().length()==9) {
 			MemberCardController.searchMember(txtMember_ID.getText());
 		}
-		else
+		else {
 			showFailed("invalid memberID, please try again");
+		}
     }
 	/**
 	 * Method that launch a query to find the requested memberID inserted by the member
@@ -141,11 +146,19 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	@FXML
 	void searchMember(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
-			if (txtMember_ID.getText().length()==9) {
-				MemberCardController.searchMember(txtMember_ID.getText());
+			if (b==false) {
+				if (txtMember_ID.getText().length()==9) {
+					MemberCardController.searchMember(txtMember_ID.getText());
+				}
+				else
+					showFailed("invalid memberID, please try again");
 			}
 			else
-				showFailed("invalid memberID, please try again");
+			{
+				showFailed("Error,ReEnter the page");
+
+			}
+
 		}
 	}
 	/**
@@ -252,6 +265,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 				showFailed("Member does not exist");
 			}
 			else {
+				b=true;
 				if (update) {
 					showSuccess("The member "+txtFirst_Name.getText()+" "+txtLast_Name.getText()+" Details updated successfully");
 					memberStatus=cmbStatus.getValue().toString();
@@ -333,6 +347,8 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnHistory.setDisable(cond);
 		btnLates_Lostbook.setDisable(cond);
 		btnSave.setDisable(cond);
+		btnStatus.setDisable(cond);
+		buttonSearch.setDisable(cond);
 	}
 /**
  * Method that set the comboBox value in the card reader based on the status from data base
