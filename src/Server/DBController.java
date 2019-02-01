@@ -2264,7 +2264,25 @@ public class DBController {
 			System.out.println(rs5.getInt(1));
 			data.add(String.valueOf(rs5.getInt(1)));//return number of members that delay on return in between startDate and endDate 
 		}
+		updateActivityReportTable(data,arrayObject);
 		return data;
+	}
+
+	private void updateActivityReportTable(ArrayList<String> data, ArrayList<String> arrayObject) throws SQLException {
+		Date dt = new java.util.Date();
+		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = inFormat.format(dt);
+		PreparedStatement ps1 = conn.prepareStatement("INSERT into activityreport values(?,?,?,?,?,?,?,?)");
+		ps1.setString(1, currentTime);
+		ps1.setString(2, arrayObject.get(1));//startTime
+		ps1.setString(3, arrayObject.get(2));//endTime
+		ps1.setString(4, data.get(1));//numActive
+		ps1.setString(5, data.get(2));//numFreeze
+		ps1.setString(6, data.get(3));//numLocked
+		ps1.setString(7, data.get(4));//numLoanCopies
+		ps1.setString(8, data.get(5));//numDelayonReturn
+		ps1.executeUpdate();
+		
 	}
 
 	private static Connection connectToDatabase() {
