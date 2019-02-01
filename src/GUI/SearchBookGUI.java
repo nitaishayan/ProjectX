@@ -301,6 +301,35 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 						{
 							SearchBookController.searchBookDetailes(table.getSelectionModel().getSelectedItem().getBookID().getValue(),table.getSelectionModel().getSelectedItem().getBookName().getValue(), table.getSelectionModel().getSelectedItem().getAuthorName().getValue(), table.getSelectionModel().getSelectedItem().getDescription().getValue());
 						}
+						else {
+							Stage 	   	 primaryStage     = new Stage();
+							Label		 title			  = new Label("Book description");
+							TextArea	 description	  = new TextArea();
+							Label		 desceiptionLabel = new Label("The description of the book:");
+							VBox 	 	 mainVbox         = new VBox(20);
+							Scene 		 scene 			  = new Scene(mainVbox);
+							
+							
+							title.setFont(new Font("Ariel", 25));
+							primaryStage.setTitle("Book description");
+							description.setMaxWidth(400);
+							description.setMinWidth(400);
+							description.setMaxHeight(150);
+							description.setMinHeight(150);
+							description.setEditable(false);
+							description.setWrapText(true);
+							primaryStage.initModality(Modality.APPLICATION_MODAL);
+							mainVbox.setMinHeight(390);
+							mainVbox.setMinWidth(550);
+							mainVbox.setMaxHeight(390);
+							mainVbox.setMaxWidth(550);
+							mainVbox.getChildren().addAll(title,desceiptionLabel,description);
+							mainVbox.setAlignment(Pos.CENTER);
+							description.setText(table.getSelectionModel().getSelectedItem().getDescription().getValue());
+							primaryStage.setScene(scene);
+							primaryStage.setResizable(false);
+							primaryStage.showAndWait();
+						}
 					}
 
 				});
@@ -313,6 +342,7 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			searchLab.setPrefWidth(180);
 			searchLab.setPrefHeight(35);
 			primaryStage.setTitle("Search book result");
+			primaryStage.setResizable(false);
 			root.setAlignment(Pos.CENTER);
 			root.setPrefWidth(800);
 			root.setPrefHeight(400);
