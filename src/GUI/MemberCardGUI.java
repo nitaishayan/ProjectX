@@ -272,7 +272,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 
 				}
 			}
-			if (isManager.equals("true")) {
+			if (isManager.equals("true")&&!(cmbStatus.getValue().toString().equals("Locked")) ) {
 				setEditableLibrarianManager();
 			}
 			else {
@@ -302,6 +302,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnStatus.setDisable(false);
 		buttonSearch.setDisable(true);
 	}
+	
 	/**
 	 * Present the GUI components based on a librarian manager page
 	 */
@@ -320,6 +321,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnStatus.setDisable(false);
 		buttonSearch.setDisable(true);
 	}
+	
 	/**
 	 * Method that initialize the card reader details as they received from the data base
 	 * @param memberData is the member details
@@ -349,6 +351,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnStatus.setDisable(cond);
 		buttonSearch.setDisable(false);
 	}
+	
 /**
  * Method that set the comboBox value in the card reader based on the status from data base
  */
@@ -359,11 +362,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		msStatusList.add("Active");
 		msStatusList.add("Deep - Frozen");
 
-
 		list = FXCollections.observableArrayList(msStatusList);
 		cmbStatus.setItems(list);
-
 	}
+	
 /**
  * GUIInterface Method that clear the data from the GUI page
  */
@@ -376,9 +378,11 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		txtArea_Notes.setText("");
 		cmbStatus.setValue("");			
 	}
+	
 	public String getMemberStatus() {
 		return memberStatus;
 	}
+	
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
 	}

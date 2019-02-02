@@ -23,6 +23,11 @@ import logic.CommonController;
 import logic.Main;
 import logic.SearchBookController;
 
+/**
+ * this class create a window of a message the received from the system of a different action that happened by users or automatically
+ * @author lior
+ *
+ */
 public class InBoxGUI implements Initializable, GuiInterface{
 
     @FXML
@@ -42,12 +47,18 @@ public class InBoxGUI implements Initializable, GuiInterface{
     
     @FXML
     private TextArea txtArea;
+    
 
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub	
 	}
 
+	/**
+	 * create a table view of all the message the received for the user to see.
+	 * and sorted the message by date,sender,topic
+	 * @param obj- all the content of the message.
+	 */
 	@Override
 	public void display(Object obj) {
 		
@@ -93,6 +104,9 @@ public class InBoxGUI implements Initializable, GuiInterface{
 		table.setItems(list);
 	}
 
+	/**
+	 * show failed message based on the String
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
@@ -101,12 +115,20 @@ public class InBoxGUI implements Initializable, GuiInterface{
 		alert.showAndWait();	
 	}
 
+	/* (non-Javadoc)
+	 * @see Common.GuiInterface#freshStart()
+	 */
 	@Override
 	public void freshStart() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * initialize method that launch page as he open from another screen
+	 * save the details of the member from MemberCardGUI
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI = this;

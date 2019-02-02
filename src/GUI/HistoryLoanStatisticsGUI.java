@@ -137,21 +137,6 @@ public class HistoryLoanStatisticsGUI implements Initializable,GuiInterface{
 				 * if the librarian press a row in the able view - she is able to declare the requested copy as a lost copy
 				 * first it checks if the copy is borrowed, and pop up screen to the option 
 				*/
-//				Platform.runLater(() -> {	
-//					TableViewLoanHistory.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//						
-//						@Override
-//						public void handle(MouseEvent event) {
-//							if (TableViewLoanHistory.getSelectionModel().getSelectedItem()==null)
-//								return;
-//							if (!TableViewLoanHistory.getSelectionModel().getSelectedItem().getActualReturnDate().equals("The book is borrowed")) {
-//								showFailed("The book is not loaned at the moment.");
-//								return;
-//							}
-//							displayLoanDetails(memberID,TableViewLoanHistory.getSelectionModel().getSelectedItem().getCopyID(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getBookName(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getAuthorName());						}
-//					});
-//				});
-
 
 				ObservableList<LoanDetails> loanDetails=FXCollections.observableArrayList();
 				int loanRowSize = (loanList.size()-nonRelevantString)/numberOfColumns;

@@ -24,6 +24,11 @@ import logic.CommonController;
 import logic.LoanController;
 import logic.Main;
 
+/**
+ * this is a controller of the 'MemberExtendLoanPeriodGUI' fxml .
+ * @author lior
+ *
+ */
 public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 
 	@FXML
@@ -50,6 +55,11 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 	@FXML
 	private TableColumn<LoanDetails, String> endLoanDateCol;
 
+	
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String message) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -59,6 +69,10 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 			alert.showAndWait();
 	}
 
+	/**
+	 * This method show all the books that are currently on loan by a specific user.
+	 * and put in in a table view.
+	 */
 	@Override
 	public void display(Object obj) {
 
@@ -110,6 +124,10 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 		table.setItems(loanarray);
 	}
 
+	/**
+	 * this method show information pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
@@ -118,10 +136,15 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 		alert.showAndWait();
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see Common.GuiInterface#freshStart()
+	 */
 	@Override
 	public void freshStart() {
 	}
 
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;

@@ -65,14 +65,15 @@ public class Client extends AbstractClient
 
 	/**
 	 * This method handles all data that comes in from the server.
-	 *
-	 * @param msg The message from the server.
+	 *The data that received from the server sorted for each case.
+	 *each case handle the message individually and implement the gui interface properly.  
+	 *in addition each case prompt a message of success / failed to the user.  
+	 * @param msg The message (data) from the server.
 	 */
 	public void handleMessageFromServer(Object msg) 
 	{
 		System.out.println("Message received: " + msg+" receive on the client side");
 		if (msg instanceof MyFile) {
-			System.out.println("filee");
 			getPDF(msg);
 		}
 		else {
@@ -342,7 +343,7 @@ public class Client extends AbstractClient
 			case "StatisticsBooks"://show book details
 				Platform.runLater(()->{
 					if (arrayObject.get(3).equals("Fail"))
-						clientUI.showFailed("There were no books late to return found.");
+						clientUI.showFailed("There were no books found.");
 					else
 						clientUI.display(msg);
 				});
@@ -377,11 +378,15 @@ public class Client extends AbstractClient
 			}
 		}
 	}
-
+	
+	/**
+	 * This method handles the PDF files.
+ 	* @param msg - represents the PDF file.
+ 	*/
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath="./PDF-client/"+msg2.getFileName()+".pdf";
+		String LocalfilePath=msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 

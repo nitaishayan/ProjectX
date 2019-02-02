@@ -60,12 +60,12 @@ public class StatisticReportsController {
 	
 	/**
 	 * This method order the days delayed/loan.
-	 * @param DaysArray - an array list with all the days delayed/loan. 
+	 * @param delayedBooksDays - an array list with all the days delayed/loan. 
 	 * @param maxDelayedDays - this is the maximum days delayed/loan of all book which are late in return/loaned.
 	 * @return return an array list with the decimal distribution's parts.
 	 */
-	public static ArrayList<String> decimalDistributionCalculation(ArrayList<Float> DaysArray,float maxDelayedDays) {
-		System.out.println(DaysArray.toString()+" "+maxDelayedDays+" inside statsController + maxdaysdelayed");
+	public static ArrayList<String> decimalDistributionCalculation(ArrayList<Float> delayedBooksDays,float maxDelayedDays) {
+		System.out.println(delayedBooksDays.toString()+" "+maxDelayedDays+" inside statsController + maxdaysdelayed");
 		
 		ArrayList<String> decimalCalc = new ArrayList<String>();
 		ArrayList<Integer> partsArray = new ArrayList<Integer>();
@@ -85,14 +85,14 @@ public class StatisticReportsController {
 			Temp = partsTemp+parts;
 			Temp =Double.parseDouble(new DecimalFormat("##.#").format(Temp));
 			
-			while((DaysArray.get(g)) <= Temp) {
+			while((delayedBooksDays.get(g)) <= Temp) {
 				
 				results = partsArray.get(k);
 				results++;
 				partsArray.set(k,results);
 				g++;
 				
-				if(g == DaysArray.size())
+				if(g == delayedBooksDays.size())
 					break;
 			}
 		}
@@ -105,29 +105,29 @@ public class StatisticReportsController {
 
 	/**
 	 * This method calculates the median of the library/specific books which is/are delayed/loan.
-	 * @param DelayedBooksDays - an array list with all the days delayed/loan. 
+	 * @param delayedBooksDays - an array list with all the days delayed/loan. 
 	 * @param AmountDaysLate - this is the amount of times a book was delayed/loan.
 	 * @return return a string with the value of the median.
 	 */
-	public static String median(ArrayList<Float> DelayedBooksDays, int AmountDaysLate) {
+	public static String median(ArrayList<Float> delayedBooksDays, int AmountDaysLate) {
 		
 		int index;
-		float medianRes;
+		Float medianRes;
 		
 		if ((AmountDaysLate%2)==0) {//if pair
 			index = AmountDaysLate/2;
-			Float part1 = DelayedBooksDays.get(index-1);
-			Float part2 = DelayedBooksDays.get(index);
+			Float part1 = delayedBooksDays.get(index-1);
+			Float part2 = delayedBooksDays.get(index);
 			medianRes = (float)(part1+part2)/2;
 		}
 		else {//if un-pair
 			if (AmountDaysLate == 1) {
 				index = 0;
-				medianRes = DelayedBooksDays.get(index);
+				medianRes = delayedBooksDays.get(index);
 			}
 			else {
 			index = (AmountDaysLate-1)/2;
-			medianRes = DelayedBooksDays.get(index+1);
+			medianRes = delayedBooksDays.get(index+1);
 			}
 
 		}

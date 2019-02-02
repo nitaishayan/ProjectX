@@ -98,6 +98,12 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(copyData);
 	}
 
+	/**
+	 * This method get the bookID,memberID and the copyID of the reservation and send them to the server for continue the process.
+	 * @param bookID- the bookID of the specific book the user want to reserve.
+	 * @param memberID - the memberID of the user.
+	 * @param copyID - the copyID of the specific book the user want to reserve.
+	 */
 	public static void reserveBook(String bookID, String memberID,String copyID) {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("Reserve");
@@ -107,6 +113,11 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
+	/**
+	 * This method send pdf file to the server.
+	 * @param file - the pdf that the user want to send.
+	 * @param bookid - the book that relate to the pdf.
+	 */
 	public static void sendPdf(File file,String bookid) {
 		System.out.println(bookid);
 		MyFile msg= new MyFile(bookid);
@@ -131,6 +142,10 @@ public class BookHandlerController {
 		}
 	}
 
+	/**
+	 * This method get the pdf file that requested from the server.
+	 * @param bookid - the bookID of the requested pdf.
+	 */
 	public static void getPDF(String bookid) {
 		ArrayList<String> requestPDF = new ArrayList<>();
 		requestPDF.add("get-pdf");
@@ -156,6 +171,14 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(extendData);
 	}
 
+	/**
+	 * This method receive the following parameters and send them to the server to extend the loan period by the librarian.
+	 * @param memberID - the userID that request the extension.
+	 * @param copyID - the copyID of the specific copy.
+	 * @param bookName - the book name of the specific book.
+	 * @param authorsName - the author name of the book.
+	 * @param librarianID - the librarian id that execute the extension.
+	 */
 	public static void extendLoanPeriodByLibrarian(String memberID, String copyID, String bookName, String authorsName, String librarianID) {
 		ArrayList<String> extendData = new ArrayList<>();
 		extendData.add("Extend Loan Period By Librarian");

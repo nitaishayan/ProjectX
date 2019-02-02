@@ -10,11 +10,18 @@ import java.util.Date;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class handles the methods which run on a defined time (hours, minutes, seconds, and so on...).
+ * @param dbController - Holds a object of DBController.
+ */
 public class OnTimeDBControllerTick {
 
 	private static DBController dbController = null;
 
 
+	/**
+	 * This method creates a thread pool which run defined methods to our choice in times we choose. 
+	 */
 	public static void runServerApplications() {
 		dbController = DBController.getInstance();
 		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
@@ -37,6 +44,11 @@ public class OnTimeDBControllerTick {
 	}
 
 
+	/**
+	 * This method handles books that their expected return date exceed the current date.
+	 * If so, perform a number of queries to handle this situation, else does nothing.
+	 * @throws SQLException
+	 */
 	public static void handleLateLoans() throws SQLException {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -113,6 +125,12 @@ public class OnTimeDBControllerTick {
 	}
 
 
+	/**
+	 * This method handles copies that their expected return date is in a range of 24 to 48 hours.
+	 * If a copy is in that range that related member receives a message.
+	 * @throws SQLException
+	 * @throws ParseException
+	 */
 	public static void handleReminderMessageDayBeforeReturn() throws SQLException, ParseException {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

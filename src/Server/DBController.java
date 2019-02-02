@@ -22,6 +22,10 @@ import Common.LoanDetails;
 import GUI.LibrarianMenuGUI;
 import logic.CommonController;
 
+/**
+* This class is a Controller type, it receives an object from the server and handle request from the DataBase, basically is a connector between the server and the data base.
+* After handling the requests, the controller send the require data the the server for further communication with the clien side.
+**/
 public class DBController {
 
 	private static DBController dbController = null;
@@ -42,7 +46,13 @@ public class DBController {
 		return dbController;
 	}
 
-	// register new user in database
+	/**
+	 * This method register a new member to the library.
+	* It also checks for duplicate data.
+	 * @param data - user's data.
+	 * @return - success or fail.
+	 * @throws SQLException
+		*/
 	public static int registration(ArrayList<String> data) throws SQLException
 	{
 		PreparedStatement preparedRegistration;
@@ -99,7 +109,12 @@ public class DBController {
 		return 1;
 	}
 
-	//add book to inventory database
+	/**
+	 * This method add a book to the inventory (data base).
+	 * @param data - an array list with the book's data.
+	 * @return - return if the adding succeded.
+	 * @throws SQLException
+		*/
 	public static int addBookToInventory(ArrayList<String> data) throws SQLException{
 		int Result,maxBookID=0, temp = 0;
 		
@@ -131,6 +146,12 @@ public class DBController {
 		return Result;
 	}
 
+	/**
+	 * This method add a copy to the inventory (data base).
+	 * @param data - an array list with the copy's data.
+	 * @return - return the copy id and a messge if the adding succeded.
+	 * @throws SQLException
+		*/
 	public static ArrayList<String> addCopyToInventory(ArrayList<String> data) throws SQLException{
 		int temp = 0, maxCopyID = 0;
 		String copyid,bookid;
@@ -161,6 +182,13 @@ public class DBController {
 		return data;
 	}
 
+	/**
+	 * This method updates the copy amount.
+	 * @param action - can be increase or decrease.
+	 * @param bookid - book's id.
+	 * @return - eturn if the updating succeded.
+	 * @throws SQLException
+		*/
 	public static int updatecopyamount(String action,String bookid) throws SQLException {
 		int amountcopies=0,answer;
 		switch (action) {
@@ -606,6 +634,11 @@ public class DBController {
 		return searchData;
 	}
 
+	/**
+	 * Method that send to data base the memberID and get the member tuple from DB
+	 * @param stu 	array list with memberID 
+	 * @return 		Object with the member full data 
+	 */
 	public static Object memberSearch(ArrayList<String> stu) throws SQLException
 	{
 		PreparedStatement execute;
@@ -951,6 +984,13 @@ public class DBController {
 		return changeStatus;
 	}
 
+	/**
+	 * Method that return the current status of the librarian
+	 * if she is librarian manager - return true else false
+	 * @param msg	the librarianID
+	 * @return an array list with the column result
+	 * @throws SQLException
+	 */
 	public static ArrayList<String> CheckLibrarianManager(ArrayList<String> msg) throws SQLException {
 		ArrayList<String> CheckLibrarianManager = new ArrayList<String>();
 		CheckLibrarianManager.add("CheckLibrarianManager");
@@ -967,6 +1007,12 @@ public class DBController {
 		else
 			return null;
 	}
+	
+	/**
+	 * Method that update the card reader details based on edit by the member
+	 * the method update the DB
+	 * @param member 			an array list that contain the phone number and email and the memberID based on the GUI page
+	 */
 	public void MemberUpdateMemberDetails(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement("UPDATE members SET PhoneNumber = ?, Email = ? WHERE MemberID = ?");
 		ps.setString(1, member.get(2));
@@ -974,6 +1020,12 @@ public class DBController {
 		ps.setString(3, member.get(1));
 		ps.executeUpdate();
 	}
+	
+	/**
+	 * Method that update the member details in the DB based on the options: status, notes and memberID(Key)
+	 * @param member that contains the options of librarian to 
+	 * @throws SQLException
+	 */
 	public void librarianUpdateMember(ArrayList<String> member) throws SQLException {
 		PreparedStatement ps;
 		PreparedStatement UpdateStatus;
@@ -992,6 +1044,12 @@ public class DBController {
 			UpdateStatus.setString(3, member.get(2));//current status
 			UpdateStatus.setString(4,currentTime);
 			UpdateStatus.executeUpdate();
+			if(member.get(2).equals("Deep - Frozen")){
+				PreparedStatement ps1 = conn.prepareStatement("UPDATE members SET DelayAmount = ? WHERE MemberID = ?");
+				ps1.setString(1, "0");
+				ps1.setString(2, member.get(1));
+				ps1.executeUpdate();
+			}
 		}
 	}
 
@@ -1102,6 +1160,13 @@ public class DBController {
 		return loanBook;
 	}
 
+	/**
+	 * Method that get from DB the loan history of a specific member
+	 * get the loan history based on a memberID
+	 * @param searchData contains the memberID 
+	 * @return Object with all columns that returned from DB 
+	 * @throws SQLException
+	 */
 	public Object viewPersonalHistory(ArrayList<String> searchData) throws SQLException {
 		PreparedStatement searchLoan;
 		ResultSet rsLoan;
@@ -1281,7 +1346,7 @@ public class DBController {
 			PreparedStatement ps1 = conn.prepareStatement("INSERT into delayonreturn values(?,?,?,?,?)");
 			ps1.setString(1, data.get(1));
 			ps1.setString(2, getMemberLoans.get(j+1));
-			ps1.setString(3, "Delayed");
+			ps1.setString(3, "Delay");
 			ps1.setString(4, getMemberLoans.get(j+2));
 			ps1.setString(5, currentTime);
 			ps1.executeUpdate();
@@ -1379,6 +1444,13 @@ public class DBController {
 		return currentLoans;
 	}
 
+	/**
+	 * Method that returns the lost and delayed books history based on a specific member
+	 * 
+	 * @param msg contain the memberID(key)
+	 * @return Array list with the columns of the requested query
+	 * @throws SQLException
+	 */
 	public ArrayList<String> getDelayandLostBooks(ArrayList<String> msg) throws SQLException {
 		PreparedStatement searchData;
 		ResultSet rsData;
@@ -1582,6 +1654,13 @@ public class DBController {
 		return extendLoan;
 	}
 
+	/**
+	 * Method that get from DB the status history of a specific member
+	 * get the status history based on a memberID
+	 * @param searchData contains the memberID 
+	 * @return Object with all columns that returned from DB 
+	 * @throws SQLException
+	 */
 	public ArrayList<String> getStatusHistory(ArrayList<String> msg) throws SQLException {
 		PreparedStatement searchData;
 		ResultSet rsData;
@@ -1988,7 +2067,7 @@ public class DBController {
 			maxOfDays=0;
 			counter=0;
 			counterEmpty=0;
-			st = conn.prepareStatement("SELECT ActualReturnDate,LoanDate FROM loanbook WHERE IsReturned = 'true' AND ActualReturnDate > ExpectedReturnDate AND  CopyID LIKE'"+bookID+"%'");
+			st = conn.prepareStatement("SELECT ActualReturnDate,LoanDate FROM loanbook WHERE IsReturned = 'true' AND  CopyID LIKE'"+bookID+"%'");
 			rs = st.executeQuery();
 
 			if (!(rs.isBeforeFirst())) {
@@ -2145,6 +2224,12 @@ public class DBController {
 
 
 
+	/**
+	 * Method that notify the DB that a specific member lost a book
+	 * @param data	object with the : MemberID, CopyID,IsLostedOrDelayed
+	 * the Method generate the current time for execution
+	 * @throws SQLException
+	 */
 	public void memberLostBook(ArrayList<String> data) throws SQLException {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -2217,7 +2302,7 @@ public class DBController {
 			PreparedStatement ps1 = conn.prepareStatement("INSERT into delayonreturn values(?,?,?,?,?)");
 			ps.setString(1, rs.getString(1));
 			ps.setString(2, rs.getString(2));
-			ps.setString(3, "Delayed");
+			ps.setString(3, "Delay");
 			ps.setString(4, rs.getString(3));
 			ps.setString(5, currentTime);
 			ps.executeUpdate();
@@ -2363,6 +2448,13 @@ public class DBController {
 		return data;
 	}
 
+	/**
+	 * Method that get from DB the Activity report history issued by the Librarian manager
+	 * get the status history based on a memberID
+	 * @param searchData contains the memberID 
+	 * @return Object with all columns that returned from DB 
+	 * @throws SQLException
+	 */
 	private void updateActivityReportTable(ArrayList<String> data, ArrayList<String> arrayObject) throws SQLException {
 		Date dt = new java.util.Date();
 		SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -2382,13 +2474,18 @@ public class DBController {
 	
 	
 	/**
-	 * Method that get from the DB: //All the Activity reports issued along history//
 	 * 
-	 * @return 		contains in an arraylist the values order by: 
+	 * Method that get from DB the values based on two parameters: Start date,End time
 	 * 
-	 * CurrentTime(ExecutionTime),startDate,endTime,numActive,numFreeze,numLocked,numLoanCopies,numDelayonReturn
-	 * The history wll appear to the L.M in a table view
+	 * @param 		arrayObject contains : startTime,endTime
+	 * @return		The requested data 
 	 * 
+	 * Return number of active members in time area between startDate and endDate 
+	 * Return number of frozen members in time area between startDate and endDate
+	 * Return number of locked members in time area between startDate and endDate 
+	 * Return num of copies loaned in the between startDate and endDate 
+	 * Return number of members that delay on return in between startDate and endDate 
+	 * The values return in an Array list
 	 * @throws 		SQLException
 	 */
 	public ArrayList<String> getActivityReportHistory() throws SQLException {

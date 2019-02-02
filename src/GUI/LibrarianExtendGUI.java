@@ -27,6 +27,9 @@ import logic.CommonController;
 import logic.LoanController;
 import logic.Main;
 
+/**
+	* This class represents the process extend book by a librarian.
+ */
 public class LibrarianExtendGUI implements GuiInterface,Initializable{
 
 	@FXML
@@ -50,6 +53,12 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 	@FXML
 	private TableView<LoanDetails> table;
 
+	
+	/**
+	 * This method get from GUI the search request of the user by the "ENTER" key and move it to the CommonController
+	 * for continue in the search process. (by pressing on ENTER).
+	 * @param event - event from press on ENTER.
+	 */
 	@FXML
 	void memberID_Enter(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER){
@@ -61,7 +70,12 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 			}
 		}
 	}
-
+	
+	/**
+	 * This method get from GUI the search request of the user by the "Magnifier" icon and move it to the CommonController
+	 * for continue in the search process. (by pressing on the "Magnifier" icon).
+	 * @param event - event from press on the "Magnifier" icon.
+	 */
 	@FXML
 	void memberID_mouse(MouseEvent event) {
 		try {
@@ -72,6 +86,9 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 		}
 	}
 
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
 		Main.client.clientUI=this;	
@@ -80,6 +97,10 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 		CommonController.setColumnWidth(endLoanDateCol, 160, 160, 160);
 	}
 
+	/**
+	 * This method show information pop-up on the screen with the given success message.
+	 * @param string - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Platform.runLater(()->{
@@ -91,6 +112,10 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 		});
 	}
 
+	/**
+	 * shows the table view that contain all the books that are current on loans by specific user.
+	 * @param obj- the data of all the loaned books.
+	 */
 	@Override
 	public void display(Object obj) {
 		ArrayList<String> msg = (ArrayList<String>)obj;
@@ -158,6 +183,10 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 	}		
 
 
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param string- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Platform.runLater(()->{
@@ -168,6 +197,9 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 		});
 	}
 
+	/**
+	 * this method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		txtMember_ID.clear();

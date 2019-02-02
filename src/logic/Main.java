@@ -16,13 +16,23 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+ * This method runs a main client
+ * @param DEFAULT_PORT - This is the default port in our system.
+ * @param host - This holds the host recived ip or localhost.
+ * @param client - This holds the Client object that is being created.
+ * @param primary - This variable saves the relevant stage.
+ */
 public class Main extends Application implements GuiInterface {
 
 	final public static int DEFAULT_PORT = 5555;
 	public static String host;
 	public static Client client;
 	public static Stage primary;
+	
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -46,6 +56,11 @@ public class Main extends Application implements GuiInterface {
 		primaryStage.show();	
 	}
 
+
+	/**
+	 * This is a standard class Application method.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -67,18 +82,30 @@ public class Main extends Application implements GuiInterface {
 		});
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see Common.GuiInterface#display(java.lang.Object)
+	 */
 	@Override
 	public void display(Object obj) {
 		// TODO Auto-generated method stub
 
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see Common.GuiInterface#showSuccess(java.lang.String)
+	 */
 	@Override
 	public void showSuccess(String message) {
 		// TODO Auto-generated method stub
 
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see Common.GuiInterface#freshStart()
+	 */
 	@Override
 	public void freshStart() {
 		// TODO Auto-generated method stub

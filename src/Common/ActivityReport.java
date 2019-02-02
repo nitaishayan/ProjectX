@@ -14,15 +14,32 @@ public class ActivityReport {
 	private String lockedMembers;
 	private String loanCopies;
 	private String member;
+	
 	public String getExecutionTime() {
 		return executionTime;
 	}
+	
 	public void setExecutionTime(String executionTime) {
 		this.executionTime = executionTime;
 	}
+	
 	public String getStartTime() {
 		return startTime;
 	}
+	
+	/**
+	 * 
+	 * The constructor that generate object that will be show in the table view
+	 * 
+	 * @param executionTime		time of issuing the activity report
+	 * @param startTime			the start time for the form
+	 * @param endTime			the end time for the form
+	 * @param activeMembers		the amount of active members in requested time
+	 * @param freezeMembers		the amount of freeze members in requested time
+	 * @param lockedMembers		the amount of locked members in requested time
+	 * @param loanCopies		the amount of loan copies by members in requested time
+	 * @param memberDelayed		the amount of  delaies by members in the requested time
+	 */
 	public ActivityReport(String executionTime, String startTime, String endTime, String activeMembers,
 			String freezeMembers, String lockedMembers, String loanCopies, String memberDelayed) {
 		super();

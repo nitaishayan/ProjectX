@@ -45,6 +45,8 @@ public class RegistrationGUI implements Initializable, GuiInterface{
 
 	@FXML
 	private TextField txtPassword;
+	
+
 
 	/**
 	 * this method get all the input from the user for registration.(by press on the button "Search")

@@ -39,6 +39,9 @@ import logic.CommonController;
 import logic.Main;
 import logic.SearchBookController;
 
+/**
+	* This class represents the Librarian Search Book process.
+ */
 public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 
 	@FXML
@@ -74,6 +77,11 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 	@FXML
 	private TextField txtFree_Text;
 
+	/**
+	 * This method get from GUI the search request of the librarian and move it to the SearchBookController.
+	 * Continue in the search process dependes on the option chosen in the ComboBox - it gives the funcionality of searching a book by different paramaters.
+	 * @param event - event from press on "Search" button.
+	 */
 	@FXML
 	void SearchBook(ActionEvent event) {
 		String searchPick;
@@ -124,6 +132,11 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		}
 	}
 
+	/**
+	 * This method get from GUI the search request of the librarian and move it to the SearchBookController.
+	 * Continue in the search process dependes on the option chosen in the ComboBox - it gives the funcionality of searching a book by different paramaters.
+	 * @param event - event from press on "ENTER" key.
+	 */
 	@FXML
 	void searchBookEnter(KeyEvent event) {
 		String searchPick;
@@ -174,6 +187,10 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		}
 	}
 
+	/**
+	 * This method disable the ComboBox components expect the one chosen.
+	 * @param event - event from press on a ComboBox component.
+	 */
 	@FXML
 	void openAndCloseFields(ActionEvent event) 
 	{
@@ -229,12 +246,20 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 	}
 
 
+	/**
+	* Not used method(must implement because the implementation of GuiInterface)
+	*/
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Display method
+	 * @param obj the object received by the server from the data base.
+	 * The object is an array list with the values of the requested query.
+	 */
 	@Override
 	public void display(Object obj) {
 
@@ -401,6 +426,10 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		primaryStage.showAndWait();
 	}
 
+	/**
+	 * This method show an error pop-up on the screen with a given message.
+	 * @param String - the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -409,6 +438,9 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		alert.showAndWait();
 	}
 
+	/**
+	* This method clear the gui components.
+	*/ 
 	@Override
 	public void freshStart() {
 		txtCopy_ID.clear();
@@ -418,6 +450,9 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		txtFree_Text.clear();
 	}
 
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI = this;
