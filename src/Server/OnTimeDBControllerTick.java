@@ -127,13 +127,6 @@ public class OnTimeDBControllerTick {
 			return;
 		}
 		while(rs.next()) {
-			PreparedStatement ps10 = DBController.conn.prepareStatement("UPDATE loanbook SET HandleReminderMessageDayBeforeReturn = ? WHERE MemberID = ? AND CopyID = ? AND LoanDate = ?");
-			ps10.setString(1, "true");
-			ps10.setString(2, rs.getString(1));
-			ps10.setString(3, rs.getString(2));
-			ps10.setString(4, rs.getString(5));
-			ps10.executeUpdate();
-			
 			ArrayList<String> getMemberInfo = new ArrayList<String>();
 			getMemberInfo.add("");
 			getMemberInfo.add(rs.getString(1));
@@ -146,6 +139,13 @@ public class OnTimeDBControllerTick {
 			long hours = TimeUnit.MILLISECONDS.toHours(diff);
 
 			if(hours >= 24 && hours <=48) {
+				PreparedStatement ps10 = DBController.conn.prepareStatement("UPDATE loanbook SET HandleReminderMessageDayBeforeReturn = ? WHERE MemberID = ? AND CopyID = ? AND LoanDate = ?");
+				ps10.setString(1, "true");
+				ps10.setString(2, rs.getString(1));
+				ps10.setString(3, rs.getString(2));
+				ps10.setString(4, rs.getString(5));
+				ps10.executeUpdate();
+				
 				PreparedStatement ps5 = DBController.conn.prepareStatement("INSERT into usermessages values(?,?,?,?)");
 				ps5.setString(1, (rs.getString(1)));
 				ps5.setString(2, "Return book");

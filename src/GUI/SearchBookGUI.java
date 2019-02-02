@@ -395,8 +395,6 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 		mainVbox.setAlignment(Pos.CENTER);
 		primaryStage.setTitle("Detailes result");
 
-		System.out.println(detailesData);
-
 		if (detailesData.get(5).equals("1")) //return the location
 		{
 			description.setText(detailesData.get(4));

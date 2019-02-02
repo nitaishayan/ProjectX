@@ -110,9 +110,7 @@ public class InBoxGUI implements Initializable, GuiInterface{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI = this;
-		System.out.println("before get loans");
 		CommonController.getMessage(Client.arrayUser.get(0));
-		System.out.println("after get loans");
 	}
 
 }

@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import Common.MyFile;
 
+/**
+ * @author Idan
+ *
+ */
 public class BookHandlerController {
 
 	/**
@@ -50,8 +54,8 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
+
 	/**
-	 * 
 	 * @param memberID
 	 */
 	public static void isMemberLateOnReturn(String memberID) {	
@@ -141,6 +145,7 @@ public class BookHandlerController {
 		extendData.add(librarianID);		
 		Main.client.handleMessageFromClientUI(extendData);
 	}
+	
 	/**
 	 * Method that update the data base that a copy is lost by a member
 	 * the method update the copy table and delayonreturn table
@@ -155,7 +160,5 @@ public class BookHandlerController {
 		data.add(copyID);
 		data.add(copyName);
 		Main.client.handleMessageFromClientUI(data);
-
-
 	}
 }

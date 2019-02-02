@@ -1,12 +1,9 @@
 package GUI;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import Common.Book;
-import Common.Copy;
 import Common.GuiInterface;
-import Common.Member;
 import Server.DBController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,36 +13,91 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import logic.BookHandlerController;
-import logic.CommonController;
-import logic.Main;
 
+
+/**
+ * The class connect between the input in the GUI to the DBController.
+ * The class giving the functionality to change member status to graduated by his member id.
+ * @ID_SIZE - Default ID size
+ * @param txt_MemberID - Member ID field in the GUI.
+ */
 public class DeclareGraduateGUI implements GuiInterface{
 
 	private static final int ID_SIZE = 9;
-	private boolean flag;
 
 	@FXML
 	private TextField txt_MemberID;
 
+	/**
+	 * Once the commit button is pressed method checks the txt_MemberID field and catch exception if neeeded.
+	 * If exception is thrown by the inner method this method will call another method called showFailed, else 
+	 * the method checks if the member exist in the DB, if the member doesn't exist it calls showFailed method, else
+	 * call changeMemberToGraduated method who do the relevant changes in the DB and shows a relevant fail or success pop-up.
+	 * @param event - event from commit button pressed.
+	 */
 	@FXML
 	void commitButtonPressed(ActionEvent event) {
-		flag = false;
-		switch(checkMemberField(txt_MemberID.getText())) {
-		case "1":
-			showFailed("Member ID field can't be empty");
-			break;
-		case "2":
-			showFailed("Wrong ID size");
-			break;
-		case "3":
-			flag = true;
-			break;
-		default:
-			break;
+		try {
+			checkMemberField(txt_MemberID.getText());
+		} catch (Exception e) {
+			showFailed(e.getMessage());
+			return;
+		}		
+
+		ArrayList<String> checkMemberExistence = new ArrayList<>();
+		ArrayList<String> changeMemberToGraduated = new ArrayList<>();
+
+		checkMemberExistence.add("");
+		checkMemberExistence.add(txt_MemberID.getText());
+		try {
+			checkMemberExistence = DBController.getInstance().isMemberExist(checkMemberExistence);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		if(flag) {
+		if(checkMemberExistence.size() == 1) {
+			showFailed("Member doesn't exist!");
+			return;
+		}
+		else {
+			try {
+				changeMemberToGraduated = DBController.getInstance().changeMemberToGraduated(checkMemberExistence);
+				if(changeMemberToGraduated.size() == 1 || changeMemberToGraduated.size() == 2){
+					if(changeMemberToGraduated.size() == 1) {
+						showFailed(changeMemberToGraduated.get(0));
+					}
+					else {
+						showFailed(changeMemberToGraduated.get(1));
+					}
+				}
+				else {
+					showSuccess("Member is now graduated and his status is " + changeMemberToGraduated.get(0) + ".");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * If the key pressed is enter the method checks the txt_MemberID field and catch exception if neeeded.
+	 * If exception is thrown by the inner method this method will call another method called showFailed, else 
+	 * the method checks if the member exist in the DB, if the member doesn't exist it calls showFailed method, else
+	 * call changeMemberToGraduated method who do the relevant changes in the DB and shows a relevant fail or success pop-up.
+	 * If the key pressed isn't enter the method doesn't do anything.
+	 * @param event - event from keyboard, key pressed.
+	 */
+	@FXML
+	void enterKeyPressed(KeyEvent event) {
+		if (event.getCode()==KeyCode.ENTER) {
+			try {
+				checkMemberField(txt_MemberID.getText());
+			} catch (Exception e) {
+				showFailed(e.getMessage());
+				return;
+			}		
+
 			ArrayList<String> checkMemberExistence = new ArrayList<>();
 			ArrayList<String> changeMemberToGraduated = new ArrayList<>();
 
@@ -59,6 +111,7 @@ public class DeclareGraduateGUI implements GuiInterface{
 
 			if(checkMemberExistence.size() == 1) {
 				showFailed("Member doesn't exist!");
+				return;
 			}
 			else {
 				try {
@@ -81,61 +134,6 @@ public class DeclareGraduateGUI implements GuiInterface{
 		}
 	}
 
-	@FXML
-	void enterKeyPressed(KeyEvent event) {
-		flag = false;
-		if (event.getCode()==KeyCode.ENTER) {
-			switch(checkMemberField(txt_MemberID.getText())) {
-			case "1":
-				showFailed("Member ID field can't be empty");
-				break;
-			case "2":
-				showFailed("Wrong ID size");
-				break;
-			case "3":
-				flag = true;
-				break;
-			default:
-				break;
-			}
-
-			if(flag) {
-				ArrayList<String> checkMemberExistence = new ArrayList<>();
-				ArrayList<String> changeMemberToGraduated = new ArrayList<>();
-
-				checkMemberExistence.add("");
-				checkMemberExistence.add(txt_MemberID.getText());
-				try {
-					checkMemberExistence = DBController.getInstance().isMemberExist(checkMemberExistence);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
-				if(checkMemberExistence.size() == 1) {
-					showFailed("Member doesn't exist!");
-				}
-				else {
-					try {
-						changeMemberToGraduated = DBController.getInstance().changeMemberToGraduated(checkMemberExistence);
-						if(changeMemberToGraduated.size() == 1 || changeMemberToGraduated.size() == 2){
-							if(changeMemberToGraduated.size() == 1) {
-								showFailed(changeMemberToGraduated.get(0));
-							}
-							else {
-								showFailed(changeMemberToGraduated.get(1));
-							}
-						}
-						else {
-							showSuccess("Member is now graduated and his status is " + changeMemberToGraduated.get(0) + ".");
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
 	/**
 	 * this method show information pop-up on the screen with given message
 	 * @param string- the message that shown in the pop-up.
@@ -151,7 +149,10 @@ public class DeclareGraduateGUI implements GuiInterface{
 			freshStart();
 		});
 	}
-
+	
+	/**
+	 *  not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void display(Object obj) {
 
@@ -175,22 +176,25 @@ public class DeclareGraduateGUI implements GuiInterface{
 	}
 
 	/**
-	 * this method clean up the fields on the screen.
+	 * this method clean up the memberID field on the screen.
 	 */
 	@Override
 	public void freshStart() {
 		txt_MemberID.clear();
 	}
 
-	public String checkMemberField(String memberID) {
+	/**
+	 * The method 
+	 * @param memberID - memberID to do the validtion on.
+	 * @throws IOException - throws input exception
+	 */
+	public void checkMemberField(String memberID) throws IOException {
 		if(memberID.length() == 0) {
-			return "1";
+			throw new IOException("Member ID field can't be empty");
 		}	
 
 		if(memberID.length() != ID_SIZE) {
-			return "2";
+			throw new IOException("Wrong ID size");
 		}
-
-		return "3";
 	}
 }

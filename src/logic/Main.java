@@ -5,6 +5,7 @@ import Common.GuiInterface;
 import GUI.OBLcontroller;
 import GUI.RegistrationGUI;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -50,13 +51,20 @@ public class Main extends Application implements GuiInterface {
 	}
 
 
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param String- the message that shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("An error occurred");
-		alert.setContentText(message);
-		alert.showAndWait();
+		Platform.runLater(() -> {
+			freshStart();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("An error occurred");
+			alert.setContentText(message);
+			alert.showAndWait();
+		});
 	}
 
 	@Override

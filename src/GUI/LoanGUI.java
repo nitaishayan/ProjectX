@@ -22,6 +22,15 @@ import logic.BookHandlerController;
 import logic.CommonController;
 import logic.Main;
 
+/**
+ * The class connect between the input in the GUI to the related controller.
+ * The class giving the functionality to loan a book by copy id and a member id.
+ * @param returnedCopy - Saves the returned Copy object from the DB.
+ * @param returnedMember - Saves the returned Member object from the DB.
+ * @param returnedBook - Saves the returned Book object from the DB.
+ * @param memberFlag - Checks if the member field has been entered successfully
+ * @param copyFlag - Checks if the copy field has been entered successfully
+ */
 public class LoanGUI implements Initializable, GuiInterface {
 
 	@FXML
@@ -50,6 +59,10 @@ public class LoanGUI implements Initializable, GuiInterface {
 	private Book returnedBook;
 	private boolean memberFlag, copyFlag;
 
+	/**
+	 * The method checks if the key pressed was 'Enter' key, if so calls the checkMemberExistence with the memberID field in the GUI.
+	 * @param event - event from any key being pressed.
+	 */
 	@FXML
 	void memberKeyPressed(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
@@ -62,6 +75,10 @@ public class LoanGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	/**
+	 * The method checks if the key pressed was 'Enter' key, if so calls the isCopyExist with the copyID field in the GUI.
+	 * @param event - event from any key being pressed.
+	 */
 	@FXML
 	void copyKeyPressed(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
@@ -73,6 +90,11 @@ public class LoanGUI implements Initializable, GuiInterface {
 			}
 		}
 	}
+
+	/**
+	 * The method calls checkMemberExistence with the memberID field in the GUI.
+	 * @param event - event from mouse click on search button.
+	 */
 	@FXML
 	void memberMouse(MouseEvent event) {
 		try {
@@ -83,6 +105,10 @@ public class LoanGUI implements Initializable, GuiInterface {
 		}
 	}
 
+	/**
+	 * The method calls isCopyExist with the copyID field in the GUI.
+	 * @param event - event from mouse click on search button.
+	 */
 	@FXML
 	void copyMouse(MouseEvent event) {
 		try {
@@ -92,6 +118,13 @@ public class LoanGUI implements Initializable, GuiInterface {
 			showFailed(e.getMessage());
 		}
 	}
+
+	/**
+	 * The method checks if the copy id field and member id field are filled correctly.
+	 * If they have been changed it shows a relevant error.
+	 * Else, calls "loanBook" method.
+	 * @param event - event from mouse click on "Loan" button.
+	 */
 	@FXML
 	void clickLoanButton(ActionEvent event) {
 		if(!returnedMember.getId().equals(txt_MemberID.getText())) {
@@ -125,6 +158,23 @@ public class LoanGUI implements Initializable, GuiInterface {
 		});
 	}
 
+	/**
+	 * This method uses switch-case to determine which action to perform based on the returned value.
+	 * In case "Check Member Existence" - if the returned obj size is 1 it clears the member fields, else it saves the returned 
+	 * member information in a Member object and checks the member status.
+	 * if the member status is not active it shows an error, if active it checks the copy flag and based on its value determine the button loan status.
+	 * In case "Check Copy ID Existence" - if the returned obj size is 1 it clears the copy fields, else it saves the returned
+	 * copy information in Copy object. Than it calls isCopyLoaned method and set the bookName field with the returned relvant value.
+	 * In case "Check Copy Loan Status" - if the returned obj size if 1 clear the copy fields and show an error pop-up, else call the 
+	 * isCopyWanted method .
+	 * In case "Check Copy Wanted Status" - if the returned obj size is 1 clear the copy fields and show error pop-up, else
+	 * save the returned book values in Book object. If the book is labeled as wanted show in book status field
+	 * "yes" else show "no. If memberFlag is true change the button disable status to true.
+	 * In case "Loan Book" - if the returned obj size is 2 checks if the 2nd item in the array is "Error" string, if it is clear
+	 * clear all the fields and show a error message, else clear only the copy fields and show a error message.
+	 * If the size isn't 2 show a success message pop-up. 
+	 * @param obj - This is the returned value from the server.
+	 */
 	@Override
 	public void display(Object obj) {
 		ArrayList<String> msg = (ArrayList<String>)obj;
@@ -179,6 +229,7 @@ public class LoanGUI implements Initializable, GuiInterface {
 				BookHandlerController.isCopyWanted(returnedCopy.getBookID());
 			}
 			break;
+
 		case "Check Copy Wanted Status":
 			if(msg.size() == 1) {
 				clearCopyFields();
@@ -203,8 +254,14 @@ public class LoanGUI implements Initializable, GuiInterface {
 
 		case "Loan Book":
 			if(msg.size() == 2) {
-				freshStart();
-				showFailed(msg.get(1));
+				if(!msg.get(1).equals("Error")) {
+					clearCopyFields();
+					showFailed(msg.get(1));
+				}
+				else {
+					freshStart();
+					showFailed(msg.get(1));
+				}
 			}
 			else {
 				showSuccess("Copy " + returnedCopy.getCopyID() + " loaned successfully by the member " + returnedMember.getFirstName() + " " + returnedMember.getLastName() +
@@ -235,7 +292,7 @@ public class LoanGUI implements Initializable, GuiInterface {
 	}
 
 	/**
-	 * this method clean up the fields on the screen.
+	 * This method clean up the fields on the screen.
 	 */
 	@Override
 	public void freshStart() {
@@ -248,6 +305,9 @@ public class LoanGUI implements Initializable, GuiInterface {
 		buttonLoan.setDisable(true);
 	}
 
+	/**
+	 * This method clears the member related fields on the screen.
+	 */
 	public void clearMemberFields() {
 		txt_MemberID.clear();
 		txt_MemberStatus.clear();
@@ -255,6 +315,9 @@ public class LoanGUI implements Initializable, GuiInterface {
 		buttonLoan.setDisable(true);
 	}
 
+	/**
+	 * This method clears the copy related fields on the screen.
+	 */
 	public void clearCopyFields() {
 		txt_CopyID.clear();
 		txt_BookName.clear();

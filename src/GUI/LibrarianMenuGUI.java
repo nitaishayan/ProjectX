@@ -98,6 +98,7 @@ public class LibrarianMenuGUI implements Initializable, GuiInterface{
 		FXMLLoader loader = new FXMLLoader();
 		AnchorPane root = loader.load(getClass().getResource("/GUI/InBox.fxml"));
 		Scene scene = new Scene(root);
+		primaryStage.setTitle("User Messages");
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.showAndWait();

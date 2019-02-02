@@ -2,28 +2,38 @@ package GUI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import Client.Client;
 import Common.BookPro;
 import Common.GuiInterface;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logic.BookHandlerController;
 import logic.Main;
 import logic.SearchBookController;
 
@@ -112,8 +122,8 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		}
 	}
 
-    @FXML
-    void searchBookEnter(KeyEvent event) {
+	@FXML
+	void searchBookEnter(KeyEvent event) {
 		String searchPick;
 		if (group.getSelectedToggle().equals(radio_btn_book_name))
 		{
@@ -160,8 +170,8 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 			searchPick = "Copy ID";
 			SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
 		}
-    }
-    
+	}
+
 	@FXML
 	void openAndCloseFields(ActionEvent event) 
 	{
@@ -226,10 +236,11 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 	@Override
 	public void display(Object obj) {
 
-		ArrayList<String>    		 datalist 			 = 	(ArrayList<String>)obj;
-		int 				 		 numberOfBook  	 	 =  (datalist.size()-4)/8;
-		int 			 			 i					 =	0;
-		int							 j					 =  0;
+		ArrayList<String>    		  datalist 			 = 	(ArrayList<String>)obj;
+		int 				 		  numberOfBook  	 	 =  (datalist.size()-4)/8;
+		int 			 			  i					 =	0;
+		int							  j					 =  0;
+		String						  ans				 =  null;
 		Label						  searchLab			 =  new Label("Search book result");
 		Stage 				 		  primaryStage 		 =  new Stage();
 		VBox 					 	  root				 =  new VBox(20);
@@ -244,7 +255,7 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		TableColumn<BookPro, String>  wantedCol			 =  new TableColumn<>("Is wanted");
 		TableColumn<BookPro, String>  shelfLocationCol	 =  new TableColumn<>("Shelf location");
 
-		
+
 		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		table.getColumns().addAll(bookIDCol,bookNameCol,authorNameCol,bookGenreCol,descriptionCol,numberOfCopiesCol,wantedCol,shelfLocationCol);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -259,12 +270,74 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		shelfLocationCol.setCellValueFactory(cellData -> cellData.getValue().getShelfLocation());
 		while(i<numberOfBook)
 		{
-			BookPro newBook = new BookPro(datalist.get(j+4), datalist.get(j+5),datalist.get(j+6),datalist.get(j+7),datalist.get(j+8),datalist.get(j+10),datalist.get(j+11),datalist.get(j+9));
+			if (datalist.get(j+10).equals("false"))
+				ans= "No";
+			else {
+				ans = "Yes";
+			}
+			BookPro newBook = new BookPro(datalist.get(j+4), datalist.get(j+5),datalist.get(j+6),datalist.get(j+7),datalist.get(j+8),ans,datalist.get(j+11),datalist.get(j+9));
 			bookList.add(newBook);
 			i++;
 			j+=8;
 		}
-		System.out.println(obj);
+
+
+		Platform.runLater(() -> {	
+			table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					if (table.getSelectionModel().getSelectedItem()==null)
+						return;
+					else {
+						Stage 	   	 stage    		 = new Stage();
+						VBox 	 	 mainVbox        = new VBox(20);
+						Label		 detailes		 = new Label();
+						Scene 		 scene 			 = new Scene(mainVbox);
+						Button		 tableOfContent  = new Button("Table Of Content");
+						HBox 		 hbox2			 = new HBox(20);
+						String		 BookID			 = table.getSelectionModel().getSelectedItem().getBookID().getValue();
+						TextArea	 description	 = new TextArea();
+						Label		 descriptionBold = new Label();
+
+						description.setMaxWidth(400);
+						description.setMinWidth(400);
+						description.setMaxHeight(150);
+						description.setMinHeight(150);
+						description.setEditable(false);
+						description.setWrapText(true);
+						descriptionBold.setText("The book description:");
+
+						tableOfContent.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								BookHandlerController.getPDF(BookID);
+							}
+						});
+
+						stage.initModality(Modality.APPLICATION_MODAL);
+						mainVbox.setMinHeight(390);
+						mainVbox.setMinWidth(550);
+						mainVbox.setMaxHeight(390);
+						mainVbox.setMaxWidth(550);
+						detailes.setText("Detailes result");
+						detailes.setFont(new Font("Ariel", 22));
+						mainVbox.getChildren().add(detailes);
+						mainVbox.setAlignment(Pos.CENTER);
+						stage.setTitle("Detailes result");
+
+						description.setText("The book description: " + table.getSelectionModel().getSelectedItem().getDescription().getValue());
+						hbox2.getChildren().addAll(tableOfContent);
+						hbox2.setAlignment(Pos.CENTER);
+						mainVbox.getChildren().addAll(descriptionBold,description,hbox2);
+
+						stage.setScene(scene);
+						stage.setResizable(false);
+						stage.showAndWait();
+					}
+				}
+			});
+		});
+
 		table.setItems(bookList);
 		root.getChildren().addAll(searchLab,table);
 		searchLab.setFont(new Font(20));

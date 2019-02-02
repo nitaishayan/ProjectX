@@ -9,6 +9,7 @@ import ocsf.client.*;
 import java.awt.Desktop;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.sun.javafx.geom.AreaOp.AddOp;
 
@@ -21,6 +22,9 @@ import GUI.InventoryRemoveGUI;
 import GUI.OBLcontroller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import logic.InventoryController;
 import logic.Main;
 import logic.RegistrationController;
@@ -46,8 +50,7 @@ public class Client extends AbstractClient
 		try {
 			openConnection();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			showFailed("Server isn't listening yet, before running the client you must run the server!");
 		}
 	}
 
@@ -463,6 +466,24 @@ public class Client extends AbstractClient
 		}
 		catch(IOException e) {}
 		System.exit(0);
+	}
+
+
+	/**
+	 * this method show error pop-up on the screen with given message
+	 * @param String- the message that shown in the pop-up.
+	 */
+	public void showFailed(String message) {
+		Platform.runLater(() -> {
+			Alert alert = new Alert(AlertType.ERROR, 
+					"Server isn't listening yet, before running the client you must run the server!", 
+					ButtonType.OK);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				quit();
+			}
+		});
 	}
 }
 //End of Client class

@@ -14,16 +14,13 @@ import java.util.Date;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
-
 import com.mysql.fabric.xmlrpc.base.Data;
-
 import Client.Client;
 import Common.Book;
 import Common.InventoryBook;
 import Common.LoanDetails;
 import GUI.LibrarianMenuGUI;
 import logic.CommonController;
-import sun.applet.resources.MsgAppletViewer;
 
 public class DBController {
 
@@ -1246,7 +1243,7 @@ public class DBController {
 		ArrayList<String> getMemberLoans = new ArrayList<String>();
 		getMemberLoans.add("CurrentLoans");
 		getMemberLoans.add(data.get(1));
-		getMemberLoans = getCurrentLoans(getMemberLoans);
+		getMemberLoans = getCurrentUnhandledLoans(getMemberLoans);
 		int numberOfBook = (getMemberLoans.size()-1)/5;
 		int i = 0;
 		int j = 0;
@@ -1256,12 +1253,14 @@ public class DBController {
 		if (rs12.next()) {
 			ManagerID=rs12.getString(1);
 		}
+		
 		PreparedStatement ps5 = conn.prepareStatement("INSERT into usermessages values(?,?,?,?)");
 		ps5.setString(1, ManagerID);
 		ps5.setString(2, "Graduated");
 		ps5.setString(3, currentTime);
 		ps5.setString(4, "MemberID " + data.get(1) + " has graduated.");	
 		ps5.executeUpdate();
+		
 		while(i<numberOfBook) {
 			if(i==0)
 			{
@@ -1288,7 +1287,13 @@ public class DBController {
 			j+=5;
 		}	
 
-		if(getMemberLoans.size() <= 2) {
+		
+		ArrayList<String> getCurrentLoans = new ArrayList<String>();
+		getCurrentLoans.add("CurrentLoans");
+		getCurrentLoans.add(data.get(1));
+		getCurrentLoans = getCurrentLoans(getCurrentLoans);
+		
+		if(getCurrentLoans.size() <= 2) {
 			PreparedStatement ps = conn.prepareStatement("UPDATE members SET IsGraduted = ? WHERE MemberID = ?");
 			ps.setString(1, "true");
 			ps.setString(2, data.get(1)); // ? == memberID
@@ -1400,6 +1405,17 @@ public class DBController {
 		String currentTime = inFormat.format(dt);
 		ArrayList<String> extendLoan = new ArrayList<String>();
 		extendLoan.add("Extend Loan Period By Member");
+		
+		
+		ArrayList<String> getMemberInfo = new ArrayList<String>();
+		getMemberInfo.add("");
+		getMemberInfo.add(data.get(1));
+		getMemberInfo = isMemberExist(getMemberInfo);
+		if(!getMemberInfo.get(7).equals("Active")) {
+			extendLoan.add("Your status isn't Active hence you can't extend your books loan period.");
+			return extendLoan;
+		}
+		
 		ArrayList<String> checkWanted = new ArrayList<String>();
 		checkWanted.add("Check Copy Wanted Status");
 		checkWanted.add(msg.get(1));
@@ -1481,6 +1497,16 @@ public class DBController {
 		String currentTime = inFormat.format(dt);
 		ArrayList<String> extendLoan = new ArrayList<String>();
 		extendLoan.add("Extend Loan Period By Librarian");
+		
+		ArrayList<String> getMemberInfo = new ArrayList<String>();
+		getMemberInfo.add("");
+		getMemberInfo.add(data.get(1));
+		getMemberInfo = isMemberExist(getMemberInfo);
+		if(!getMemberInfo.get(7).equals("Active")) {
+			extendLoan.add("Member status isn't Active hence you can't extend his books loan period.");
+			return extendLoan;
+		}
+		
 		ArrayList<String> checkWanted = new ArrayList<String>();
 		checkWanted.add("Check Copy Wanted Status");
 		checkWanted.add(msg.get(1));
@@ -2152,7 +2178,7 @@ public class DBController {
 	public ArrayList<String> getInBoxMessage(ArrayList<String> arrayMessage) throws SQLException {
 		PreparedStatement MessageData;
 		ResultSet rsMessage;
-		MessageData = conn.prepareStatement("SELECT ExecutionDate,Topic,Contents FROM usermessages WHERE UserID=? ");
+		MessageData = conn.prepareStatement("SELECT ExecutionDate,Topic,Contents FROM usermessages WHERE UserID=? ORDER BY ExecutionDate DESC");
 		ArrayList<String> dataDetails = new ArrayList<String>();
 		dataDetails.add("InBoxMessage");
 		MessageData.setString(1,arrayMessage.get(1));
@@ -2265,6 +2291,8 @@ public class DBController {
 			}
 		}
 	}
+	
+	
 	public ArrayList<String> getActivityReport(ArrayList<String> arrayObject) throws SQLException  {
 		ArrayList<String>data=new ArrayList<>();
 		data.add("getActivityReport");
@@ -2328,6 +2356,8 @@ public class DBController {
 		ps1.executeUpdate();
 		
 	}
+	
+	
 	public ArrayList<String> getActivityReportHistory() throws SQLException {
 		PreparedStatement searchData = conn.prepareStatement("SELECT* FROM activityreport");
 		ResultSet rsData;
@@ -2353,6 +2383,38 @@ public class DBController {
 			return dataDetails;
 		}
 	}
+	
+	public ArrayList<String> getCurrentUnhandledLoans(ArrayList<String> searchData) throws SQLException {
+		PreparedStatement searchLoan,searchAuthorName;
+		ResultSet rsLoan,rsAuthorName;
+		searchLoan = conn.prepareStatement("SELECT CopyID,BookName,LoanDate,ExpectedReturnDate,BookID FROM loanbook WHERE MemberID=? AND IsReturned = 'false' AND HandleLateLoans = ? AND HandleReminderMessageDayBeforeReturn = ? ORDER BY ExpectedReturnDate DESC");
+		searchLoan.setString(1,searchData.get(1));
+		searchLoan.setString(2,"false");
+		searchLoan.setString(3,"false");
+
+		rsLoan = searchLoan.executeQuery();
+		ArrayList<String> currentLoans = new ArrayList<>();
+		currentLoans.add("CurrentLoans");
+
+		while(rsLoan.next()) {
+			searchAuthorName = conn.prepareStatement("SELECT AuthorsName FROM book WHERE BookID=?");
+			searchAuthorName.setString(1,rsLoan.getString(5));
+			rsAuthorName = searchAuthorName.executeQuery();
+
+			currentLoans.add(rsLoan.getString(1));//CopyID
+			currentLoans.add(rsLoan.getString(2));//BookName
+			while(rsAuthorName.next())
+				currentLoans.add(rsAuthorName.getString(1));//AuthorsName
+			currentLoans.add(rsLoan.getString(3));//LoanDate
+			currentLoans.add(rsLoan.getString(4));//ExpectedReturnDate	
+		}
+
+		if (currentLoans.size()==1) {
+			currentLoans.add("NotExist");
+		}
+		return currentLoans;
+	}
+	
 	private static Connection connectToDatabase() {
 		try 
 		{
@@ -2372,7 +2434,5 @@ public class DBController {
 		}
 		return null;
 	}
-
-
 	
 }
