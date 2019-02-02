@@ -56,7 +56,8 @@ public class BookHandlerController {
 
 
 	/**
-	 * @param memberID
+	 * This method checks if member is late on return.
+	 * @param memberID - member ID of the member that return the copy.
 	 */
 	public static void isMemberLateOnReturn(String memberID) {	
 		ArrayList<String> memberData = new ArrayList<>();
