@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class handles the methods which run on a defined time (hours, minutes, seconds, and so on...).
- * @param dbController - Holds a object of DBController.
  */
 public class OnTimeDBControllerTick {
 

@@ -30,6 +30,7 @@ import logic.Main;
 import logic.RegistrationController;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * This class overrides some of the methods defined in the abstract
  * superclass in order to give more functionality to the client.
@@ -41,9 +42,20 @@ import logic.RegistrationController;
  */
 public class Client extends AbstractClient
 {
+	
+	/** The client UI. */
 	public static GuiInterface clientUI;
+	
+	/** The array user. */
 	public static  ArrayList<String> arrayUser=new ArrayList<String>();
 
+	/**
+	 * Instantiates a new client.
+	 *
+	 * @param host the host
+	 * @param port the port
+	 * @param clientUI the client UI
+	 */
 	public Client(String host, int port,GuiInterface clientUI) {
 		super(host, port);
 		this.clientUI=clientUI;
@@ -59,6 +71,8 @@ public class Client extends AbstractClient
 	/**
 	 * The interface type variable.  It allows the implementation of 
 	 * the display method in the client.
+	 *
+	 * @param msg the msg
 	 */
 	//	ClientGuiController clientUI; 
 
@@ -381,8 +395,10 @@ public class Client extends AbstractClient
 	
 	/**
 	 * This method handles the PDF files.
- 	* @param msg - represents the PDF file.
- 	*/
+	 *
+	 * @param msg - represents the PDF file.
+	 * @return the pdf
+	 */
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
@@ -431,9 +447,7 @@ public class Client extends AbstractClient
 	/**
 	 * Constructs an instance of the chat client.
 	 *
-	 * @param host The server to connect to.
-	 * @param port The port number to connect on.
-	 * @param clientUI The interface type variable.
+	 * @param message the message
 	 */
 
 
@@ -477,8 +491,9 @@ public class Client extends AbstractClient
 
 
 	/**
-	 * this method show error pop-up on the screen with given message
-	 * @param String- the message that shown in the pop-up.
+	 * this method show error pop-up on the screen with given message.
+	 *
+	 * @param message the message
 	 */
 	public void showFailed(String message) {
 		Platform.runLater(() -> {

@@ -18,8 +18,6 @@ import javafx.scene.input.KeyEvent;
 /**
  * The class connect between the input in the GUI to the DBController.
  * The class giving the functionality to change member status to graduated by his member id.
- * @ID_SIZE - Default ID size
- * @param txt_MemberID - Member ID field in the GUI.
  */
 public class DeclareGraduateGUI implements GuiInterface{
 

@@ -25,11 +25,6 @@ import logic.Main;
 /**
  * The class connect between the input in the GUI to the related controller.
  * The class giving the functionality to loan a book by copy id and a member id.
- * @param returnedCopy - Saves the returned Copy object from the DB.
- * @param returnedMember - Saves the returned Member object from the DB.
- * @param returnedBook - Saves the returned Book object from the DB.
- * @param memberFlag - Checks if the member field has been entered successfully
- * @param copyFlag - Checks if the copy field has been entered successfully
  */
 public class LoanGUI implements Initializable, GuiInterface {
 

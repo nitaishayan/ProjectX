@@ -23,9 +23,6 @@ import logic.Main;
 /**
  * The class connect between the input in the GUI to the related controller.
  * The class giving the functionality to return a book based on copy id.
- * @param copyID - private string field to save temp copy id field
- * @param memb - Saves the returned Member object from the DB.
- * @param oldStatus -private string field to save temp status field
  */
 public class ReturnBookGUI implements Initializable, GuiInterface {
 
