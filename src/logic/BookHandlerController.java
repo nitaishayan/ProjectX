@@ -66,6 +66,10 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 
+	/**
+	 * This method checks if member is late on return.
+	 * @param memberID - member ID of the member that return the copy.
+	 */
 	public static void isCopyWanted(String bookID) {	
 		ArrayList<String> bookData = new ArrayList<>();
 		bookData.add("Check Copy Wanted Status");
@@ -111,7 +115,6 @@ public class BookHandlerController {
 			msg.setSize(mybytearray.length);
 
 			bis.read(msg.getMybytearray(),0,mybytearray.length);
-			bis.close();
 			Main.client.handleMessageFromClientUI(msg);
 		}
 		catch (Exception e) {
