@@ -87,14 +87,13 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 				
 				memberStatusHistory.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //resize the columns to the table view
 
-
 				//set up size
 				currentStatus.setMinWidth(100);
 				previousStatus.setMinWidth(100);
 				executionDate.setMinWidth(100);
 				//set up order descending
-				currentStatus.setSortType(TableColumn.SortType.DESCENDING);
-				previousStatus.setSortType(TableColumn.SortType.DESCENDING);
+				//currentStatus.setSortType(TableColumn.SortType.ASCENDING);
+				//previousStatus.setSortType(TableColumn.SortType.ASCENDING);
 				executionDate.setSortType(TableColumn.SortType.DESCENDING);
 				//Set up the fields that will be attached to the table view
 				memberStatusHistory.getColumns().setAll(currentStatus,previousStatus,executionDate);//attach the columns to the table view (personTable)

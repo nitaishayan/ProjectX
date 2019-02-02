@@ -117,6 +117,8 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 				AuthorName = new TableColumn<>("Author name");
 				LoanDate = new TableColumn<>("Loan Date");
 				ActualReturnDate = new TableColumn<>("Actual return date");
+				CommonController.setColumnWidth(CopyID,80, 80, 80);
+				CommonController.setColumnWidth(BookName,290, 290, 290);
 
 				//set up order descending
 				BookName.setSortType(TableColumn.SortType.DESCENDING);

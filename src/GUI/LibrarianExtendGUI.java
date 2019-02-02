@@ -74,7 +74,8 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Main.client.clientUI=this;		
+		Main.client.clientUI=this;
+		
 	}
 
 	@Override

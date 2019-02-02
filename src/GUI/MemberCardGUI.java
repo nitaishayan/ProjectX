@@ -98,10 +98,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(575);
-		stage.setMinHeight(575);
-		stage.setMinWidth(745);
-		stage.setMaxWidth(745);
+		stage.setMaxHeight(555);
+		stage.setMinHeight(555);
+		stage.setMinWidth(767);
+		stage.setMaxWidth(767);
 		stage.show();
 	}
 	/**
@@ -121,10 +121,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(518);
-		stage.setMinHeight(518);
-		stage.setMinWidth(764);
-		stage.setMaxWidth(764);
+		stage.setMaxHeight(522);
+		stage.setMinHeight(522);
+		stage.setMinWidth(818);
+		stage.setMaxWidth(818);
 		stage.show();
 	}
 	/**
@@ -206,10 +206,10 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(628);
-		stage.setMinHeight(628);
-		stage.setMinWidth(916);
-		stage.setMaxWidth(916);
+		stage.setMaxHeight(648);
+		stage.setMinHeight(648);
+		stage.setMinWidth(1107);
+		stage.setMaxWidth(1107);
 		stage.show();
 	}
 
@@ -304,6 +304,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnHistory.setDisable(false);
 		btnLates_Lostbook.setDisable(false);
 		btnStatus.setDisable(false);
+		buttonSearch.setDisable(true);
 	}
 	/**
 	 * Present the GUI components based on a librarian manager page
@@ -321,6 +322,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnHistory.setDisable(false);
 		btnLates_Lostbook.setDisable(false);
 		btnStatus.setDisable(false);
+		buttonSearch.setDisable(true);
 	}
 	/**
 	 * Method that initialize the card reader details as they received from the data base
@@ -335,8 +337,6 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		cmbStatus.setValue(memberData.get(7));
 		txtArea_Notes.setText(memberData.get(8));
 		memberStatus=cmbStatus.getValue().toString();
-		System.out.println(memberStatus+" member status in card reader");
-
 
 	}
 
@@ -351,7 +351,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		btnLates_Lostbook.setDisable(cond);
 		btnSave.setDisable(cond);
 		btnStatus.setDisable(cond);
-		buttonSearch.setDisable(cond);
+		buttonSearch.setDisable(false);
 	}
 /**
  * Method that set the comboBox value in the card reader based on the status from data base

@@ -1597,7 +1597,7 @@ public class DBController {
 	public ArrayList<String> getStatusHistory(ArrayList<String> msg) throws SQLException {
 		PreparedStatement searchData;
 		ResultSet rsData;
-		searchData = conn.prepareStatement("SELECT PreviousStatus,CurrentStatus,ExecutionDate FROM memberstatus WHERE MemberID=? ");
+		searchData = conn.prepareStatement("SELECT PreviousStatus,CurrentStatus,ExecutionDate FROM memberstatus WHERE MemberID=? ORDER BY ExecutionDate DESC ");
 		ArrayList<String> dataDetails = new ArrayList<String>();
 		searchData.setString(1,msg.get(1));
 		rsData = searchData.executeQuery();
