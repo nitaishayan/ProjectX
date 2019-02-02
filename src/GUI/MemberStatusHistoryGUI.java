@@ -77,9 +77,9 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 		}
 		else {
 			//Naming the columns
-			currentStatus = new TableColumn<>("current status");
-			previousStatus = new TableColumn<>("previous status");
-			executionDate = new TableColumn<>("execution date");
+			currentStatus = new TableColumn<>("Current status");
+			previousStatus = new TableColumn<>("Previous status");
+			executionDate = new TableColumn<>("Execution date");
 			if (dataList.get(1).equals("NotExist")) {
 				showFailed("The member "+memberDetails.getText()+ " has no status changes yet");
 			}
