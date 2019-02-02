@@ -10,10 +10,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-<<<<<<< HEAD
-=======
 import javafx.event.Event;
->>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,11 +34,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-<<<<<<< HEAD
 import logic.BookHandlerController;
-=======
 import logic.CommonController;
->>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 import logic.Main;
 import logic.SearchBookController;
 

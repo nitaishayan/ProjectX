@@ -67,8 +67,8 @@ public class BookHandlerController {
 	}
 
 	/**
-	 * This method checks if member is late on return.
-	 * @param memberID - member ID of the member that return the copy.
+	 * This method checks if the given book is labeled as wanted.
+	 * @param bookID - book id of the book to check.
 	 */
 	public static void isCopyWanted(String bookID) {	
 		ArrayList<String> bookData = new ArrayList<>();
@@ -77,6 +77,15 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(bookData);
 	}
 
+	/**
+	 * This method loan a book based on the given information from the calling method.
+	 * @param copyID - Given copyID to pass on to the DB
+	 * @param bookStatus - Given bookStatus to pass on to the DB
+	 * @param bookID - Given bookID to pass on to the DB
+	 * @param memberID - Given memberID to pass on to the DB
+	 * @param bookName - Given bookName to pass on to the DB
+	 * @param authorName - Given authorName to pass on to the DB
+	 */
 	public static void loanBook(String copyID,String bookStatus,String bookID,String memberID, String bookName, String authorName) {	
 		ArrayList<String> copyData = new ArrayList<>();
 		copyData.add("Loan Book");
@@ -130,6 +139,13 @@ public class BookHandlerController {
 		Main.client.handleMessageFromClientUI(requestPDF);
 	}
 	
+	/**
+	 * 
+	 * @param copyID - Given copyID to pass on to the DB
+	 * @param memberID - Given memberID to pass on to the DB
+	 * @param bookName - Given bookName to pass on to the DB
+	 * @param authorName - Given authorName to pass on to the DB
+	 */
 	public static void extendLoanPeriodByMember(String memberID, String copyID, String bookName, String authorsName) {
 		ArrayList<String> extendData = new ArrayList<>();
 		extendData.add("Extend Loan Period By Member");
