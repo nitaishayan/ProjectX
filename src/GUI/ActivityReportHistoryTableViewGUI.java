@@ -139,7 +139,6 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 								public void handle(MouseEvent event) {
 									if (tableViewActivityReport.getSelectionModel().getSelectedItem()==null)
 										return;
-							System.out.println(tableViewActivityReport.getSelectionModel().getSelectedItem().getMemberDelay());
 								}
 							});
 						});
