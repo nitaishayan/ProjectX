@@ -1,5 +1,9 @@
 package Common;
 
+
+/**
+ * This class represents the Copy object.
+ */
 public class Copy {
 	private String copyID;
 	private String copyName;
@@ -7,6 +11,14 @@ public class Copy {
 	private String bookID;
 	private String actucalReturnDate;
 	
+	/**
+	 * Constructor to the Book object.
+	 * @param copyID - The copy's ID.
+	 * @param copyName - The copy's name.
+	 * @param isLoaned - Describes if the copy is loaned or not.
+	 * @param bookID - The book's ID.
+	 * @param actucalReturnDate - The copy's actual return date.
+	 */
 	public Copy(String copyID, String copyName, String isLoaned, String bookID, String actucalReturnDate) {
 		super();
 		this.copyID = copyID;
