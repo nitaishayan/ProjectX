@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
@@ -40,7 +41,7 @@ import logic.Main;
 import logic.SearchBookController;
 
 /**
-	* This class represents the Librarian Search Book process.
+ * This class represents the Librarian Search Book process.
  */
 public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 
@@ -139,51 +140,53 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 	 */
 	@FXML
 	void searchBookEnter(KeyEvent event) {
-		String searchPick;
-		if (group.getSelectedToggle().equals(radio_btn_book_name))
-		{
-			if(txtBook_Name.getText().equals(""))
+		if (event.getCode() == KeyCode.ENTER){
+			String searchPick;
+			if (group.getSelectedToggle().equals(radio_btn_book_name))
 			{
-				return;
+				if(txtBook_Name.getText().equals(""))
+				{
+					return;
+				}
+				searchPick = "Book Name";
+				SearchBookController.searchBook(searchPick,txtBook_Name.getText());
 			}
-			searchPick = "Book Name";
-			SearchBookController.searchBook(searchPick,txtBook_Name.getText());
-		}
-		else if (group.getSelectedToggle().equals(radio_btn_authors_name))
-		{
-			if(txtAuthor_name.getText().equals(""))
+			else if (group.getSelectedToggle().equals(radio_btn_authors_name))
 			{
-				return;
+				if(txtAuthor_name.getText().equals(""))
+				{
+					return;
+				}
+				searchPick = "Authors Name";
+				SearchBookController.searchBook(searchPick,txtAuthor_name.getText());
 			}
-			searchPick = "Authors Name";
-			SearchBookController.searchBook(searchPick,txtAuthor_name.getText());
-		}
-		else if (group.getSelectedToggle().equals(radio_btn_book_theme))
-		{
-			if(txtBook_Theme.getText().equals(""))
+			else if (group.getSelectedToggle().equals(radio_btn_book_theme))
 			{
-				return;
+				if(txtBook_Theme.getText().equals(""))
+				{
+					return;
+				}
+				searchPick = "Book Theme";
+				SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
 			}
-			searchPick = "Book Theme";
-			SearchBookController.searchBook(searchPick,txtBook_Theme.getText());
-		}
-		else if (group.getSelectedToggle().equals(radio_btn_free_text))
-		{
-			if(txtFree_Text.getText().equals(""))
+			else if (group.getSelectedToggle().equals(radio_btn_free_text))
 			{
-				return;
+				if(txtFree_Text.getText().equals(""))
+				{
+					return;
+				}
+				searchPick = "Free text";
+				SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
 			}
-			searchPick = "Free text";
-			SearchBookController.searchBook(searchPick, txtFree_Text.getText());	
-		}
-		else if (group.getSelectedToggle().equals(radio_btn_copy_id))
-		{
-			if(txtCopy_ID.getText().equals(""))
+			else if (group.getSelectedToggle().equals(radio_btn_copy_id))
 			{
-				return;
+				if(txtCopy_ID.getText().equals(""))
+				{
+					return;
+				}
+				searchPick = "Copy ID";
+				SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
 			}
-			searchPick = "Copy ID";
-			SearchBookController.searchBook(searchPick, txtCopy_ID.getText());	
 		}
 	}
 
@@ -247,8 +250,8 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 
 
 	/**
-	* Not used method(must implement because the implementation of GuiInterface)
-	*/
+	 * Not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
@@ -439,8 +442,8 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 	}
 
 	/**
-	* This method clear the gui components.
-	*/ 
+	 * This method clear the gui components.
+	 */ 
 	@Override
 	public void freshStart() {
 		txtCopy_ID.clear();
