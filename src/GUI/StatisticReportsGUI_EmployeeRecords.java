@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +34,11 @@ public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initial
 	
     @FXML
     private AnchorPane employeePane;
+    @FXML
+    private AnchorPane leftPane;
+    
+    @FXML
+    private SplitPane MainSplitPane;
 	
 	@FXML
     private TableView<Librarian> TableViewLibrarian;
@@ -86,7 +92,8 @@ public class StatisticReportsGUI_EmployeeRecords implements GuiInterface,Initial
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		Main.client.clientUI=this;
-		
+		leftPane.maxWidthProperty().bind(MainSplitPane.widthProperty().multiply(0.4947));
+		leftPane.minWidthProperty().bind(MainSplitPane.widthProperty().multiply(0.4947));
 		
 		TableViewLibrarian.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //resize the columns to the table view
 		TableColumn<Librarian,String> firstNameCol = new TableColumn<Librarian,String>("First Name");//attach the fxml column to the property of the column

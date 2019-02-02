@@ -232,7 +232,7 @@ public class DBController {
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
 			sendMessage.setString(3, currentTime);
-			sendMessage.setString(4, "Your reservation is canceled, please try to reserv again.");
+			sendMessage.setString(4, "Your reservation is canceled, for more details pls check with the librarian.");
 			sendMessage.executeUpdate();
 		}
 		String deleteSQL = "DELETE FROM copies WHERE CopyID = ?";
@@ -1132,6 +1132,14 @@ public class DBController {
 		String bookID=bookdata.get(1),currentTime,memberID=bookdata.get(2);
 		String copyID = null;
 
+		PreparedStatement checkMemberStatus = conn.prepareStatement("SELECT * FROM members WHERE MemberID=? AND Status!='Active' ");
+		checkMemberStatus.setString(1,memberID);
+		ResultSet rs50= checkMemberStatus.executeQuery();
+		if (rs50.next()) {
+			bookdata.add("Member is not 'Active', therefore he can't reserve the book.");
+			return bookdata;
+		}
+		
 		PreparedStatement checkAlreadyReserve = conn.prepareStatement("SELECT * FROM reservations WHERE BookID = ? AND MemberID=? AND IsActive='true'");
 		checkAlreadyReserve.setString(1,bookID);
 		checkAlreadyReserve.setString(2,memberID);

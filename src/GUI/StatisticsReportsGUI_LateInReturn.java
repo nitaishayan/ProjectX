@@ -237,10 +237,14 @@ public class StatisticsReportsGUI_LateInReturn implements Initializable, GuiInte
 				break;
 
 		case "tableView":
-
+			String wanted;
+			if (list.get(j+2).equals("true")) {
+				wanted="Yes";
+			}
+			else wanted="No";
 			i=0;
 			while(i<numOfBooks) {
-				bookTemp = new Book(list.get(j),list.get(j+1),null,list.get(j+2),list.get(j+3),list.get(j+4),null,null,null,null,null,null);
+				bookTemp = new Book(list.get(j),list.get(j+1),null,wanted,list.get(j+3),list.get(j+4),null,null,null,null,null,null);
 				i++;
 				j += 5;
 				BookListTemp.add(bookTemp);

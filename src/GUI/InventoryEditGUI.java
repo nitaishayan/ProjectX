@@ -417,6 +417,7 @@ public class InventoryEditGUI implements Initializable,GuiInterface {
 		txtTheme.clear();
 		txtCopies.clear();
 		txtLocation.clear();
+		txtPdf.clear();
 		CHBOX_NO.setSelected(false);
 		CHBOX_YES.setSelected(false);
 		txtPrint_date.setValue(null);

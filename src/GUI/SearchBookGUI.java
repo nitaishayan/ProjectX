@@ -278,10 +278,10 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			descriptionCol.setCellValueFactory(cellData -> cellData.getValue().getDescription());
 			
 			
-			CommonController.setColumnWidth(bookNameCol, 180, 190, 200);
-			CommonController.setColumnWidth(authorNameCol, 160, 170, 180);
+			CommonController.setColumnWidth(bookNameCol, 260, 270, 280);
+			CommonController.setColumnWidth(authorNameCol, 200, 210, 230);
 			CommonController.setColumnWidth(bookGenreCol, 90, 100, 110);
-			CommonController.setColumnWidth(bookIDCol, 60, 70, 80);
+			CommonController.setColumnWidth(bookIDCol, 70, 80, 90);
 
 			while(i<numberOfBook)
 			{
@@ -348,6 +348,8 @@ public class SearchBookGUI implements Initializable, GuiInterface{
 			root.setPrefHeight(400);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setMinHeight(500);
+			primaryStage.setMinWidth(1100);
 			primaryStage.showAndWait();
 		}
 	}

@@ -33,13 +33,13 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtBook_Name" layoutX="351.0" layoutY="302.0" onKeyPressed="#EnterBook_Name" prefHeight="31.0" prefWidth="178.0" promptText="fill and click &quot;Enter&quot;" />
-      <TextField fx:id="txtEdition" disable="true" layoutX="791.0" layoutY="345.0" prefHeight="31.0" prefWidth="218.0" />
+      <TextField fx:id="txtBook_Name" layoutX="351.0" layoutY="302.0" onKeyPressed="#EnterBook_Name" prefHeight="31.0" prefWidth="210.0" promptText="fill and click &quot;Enter&quot;" />
+      <TextField fx:id="txtEdition" disable="true" layoutX="791.0" layoutY="345.0" prefHeight="31.0" prefWidth="258.0" />
       <Label layoutX="642.0" layoutY="346.0" text="Edition:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtTheme" disable="true" layoutX="351.0" layoutY="396.0" prefHeight="31.0" prefWidth="178.0" />
+      <TextField fx:id="txtTheme" disable="true" layoutX="351.0" layoutY="396.0" prefHeight="31.0" prefWidth="210.0" />
       <Label layoutX="179.0" layoutY="384.0" text="Theme:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -57,12 +57,12 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtCopies" disable="true" layoutX="351.0" layoutY="443.0" prefHeight="31.0" prefWidth="178.0" />
+      <TextField fx:id="txtCopies" disable="true" layoutX="351.0" layoutY="443.0" prefHeight="31.0" prefWidth="210.0" />
       <Label layoutX="635.0" layoutY="443.0" text="purchase date:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtLocation" disable="true" layoutX="351.0" layoutY="492.0" prefHeight="31.0" prefWidth="178.0" />
+      <TextField fx:id="txtLocation" disable="true" layoutX="351.0" layoutY="492.0" prefHeight="31.0" prefWidth="210.0" />
       <Label layoutX="179.0" layoutY="487.0" text="Shelf location:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -71,7 +71,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextArea fx:id="txtDescription" disable="true" layoutX="791.0" layoutY="492.0" prefHeight="89.0" prefWidth="218.0" />
+      <TextArea fx:id="txtDescription" disable="true" layoutX="791.0" layoutY="492.0" prefHeight="192.0" prefWidth="258.0" />
       <Button layoutX="694.0" layoutY="732.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
@@ -86,8 +86,8 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="794.0" layoutY="444.0" prefHeight="31.0" prefWidth="218.0" />
-      <DatePicker fx:id="txtPrint_date" disable="true" layoutX="791.0" layoutY="397.0" prefHeight="31.0" prefWidth="218.0" />
+      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="794.0" layoutY="444.0" prefHeight="31.0" prefWidth="258.0" />
+      <DatePicker fx:id="txtPrint_date" disable="true" layoutX="791.0" layoutY="397.0" prefHeight="31.0" prefWidth="258.0" />
       <RadioButton fx:id="rdioBook_ID" layoutX="618.0" layoutY="204.0" mnemonicParsing="false" onAction="#book_ID" text="Book ID:">
          <toggleGroup>
             <ToggleGroup fx:id="choice" />
@@ -100,7 +100,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></RadioButton>
-      <TextField fx:id="txtBook_ID" disable="true" layoutX="351.0" layoutY="341.0" onAction="#book_ID" onKeyPressed="#Enter_BookID" prefHeight="31.0" prefWidth="178.0" />
+      <TextField fx:id="txtBook_ID" disable="true" layoutX="351.0" layoutY="341.0" onAction="#book_ID" onKeyPressed="#Enter_BookID" prefHeight="31.0" prefWidth="210.0" />
       <Label layoutX="181.0" layoutY="341.0" text="Book ID:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -125,12 +125,12 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Label>
-      <ImageView fx:id="AuthorButton" fitHeight="31.0" fitWidth="39.0" layoutX="1012.0" layoutY="302.0" onMouseClicked="#bookNameMouse" pickOnBounds="true" visible="false">
+      <ImageView fx:id="AuthorButton" fitHeight="31.0" fitWidth="39.0" layoutX="1012.0" layoutY="302.0" onMouseClicked="#bookNameMouse" pickOnBounds="true">
          <image>
             <Image url="@../Image/magnifier%20icon.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="IDButton" fitHeight="31.0" fitWidth="39.0" layoutX="535.0" layoutY="340.0" onMouseClicked="#bookIdMouse" pickOnBounds="true" visible="false">
+      <ImageView fx:id="IDButton" fitHeight="31.0" fitWidth="39.0" layoutX="567.0" layoutY="340.0" onMouseClicked="#bookIdMouse" pickOnBounds="true" visible="false">
          <image>
             <Image url="@../Image/magnifier%20icon.jpg" />
          </image>

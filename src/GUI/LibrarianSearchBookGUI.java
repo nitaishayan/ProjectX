@@ -10,6 +10,10 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+<<<<<<< HEAD
+=======
+import javafx.event.Event;
+>>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +37,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import logic.BookHandlerController;
+=======
+import logic.CommonController;
+>>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 import logic.Main;
 import logic.SearchBookController;
 
@@ -268,6 +276,52 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		numberOfCopiesCol.setCellValueFactory(cellData -> cellData.getValue().getNumberOfCopies());
 		wantedCol.setCellValueFactory(cellData -> cellData.getValue().getWanted());
 		shelfLocationCol.setCellValueFactory(cellData -> cellData.getValue().getShelfLocation());
+
+		CommonController.setColumnWidth(wantedCol, 110, 110, 110);
+		CommonController.setColumnWidth(bookIDCol, 70, 70, 70);
+		CommonController.setColumnWidth(numberOfCopiesCol, 145, 145, 145);
+		CommonController.setColumnWidth(shelfLocationCol, 110, 110, 110);
+		CommonController.setColumnWidth(bookGenreCol, 110, 110, 110);
+
+		Platform.runLater(()->{
+			table.setOnMouseClicked(new EventHandler<Event>() {
+
+				@Override
+				public void handle(Event event) {
+					if (table.getSelectionModel().getSelectedItem()==null)
+						return;
+					Stage 	   	 primaryStage     = new Stage();
+					Label		 title			  = new Label("Book description");
+					TextArea	 description	  = new TextArea();
+					Label		 desceiptionLabel = new Label("The description of the book:");
+					VBox 	 	 mainVbox         = new VBox(20);
+					Scene 		 scene 			  = new Scene(mainVbox);
+
+
+					title.setFont(new Font("Ariel", 25));
+					primaryStage.setTitle("Book description");
+					description.setMaxWidth(400);
+					description.setMinWidth(400);
+					description.setMaxHeight(150);
+					description.setMinHeight(150);
+					description.setEditable(false);
+					description.setWrapText(true);
+					primaryStage.initModality(Modality.APPLICATION_MODAL);
+					mainVbox.setMinHeight(390);
+					mainVbox.setMinWidth(550);
+					mainVbox.setMaxHeight(390);
+					mainVbox.setMaxWidth(550);
+					mainVbox.getChildren().addAll(title,desceiptionLabel,description);
+					mainVbox.setAlignment(Pos.CENTER);
+					description.setText(table.getSelectionModel().getSelectedItem().getDescription().getValue());
+					primaryStage.setScene(scene);
+					primaryStage.setResizable(false);
+					primaryStage.showAndWait();				
+				}
+
+			});
+		});
+
 		while(i<numberOfBook)
 		{
 			if (datalist.get(j+10).equals("false"))
@@ -346,8 +400,8 @@ public class LibrarianSearchBookGUI implements GuiInterface, Initializable{
 		searchLab.setPrefHeight(35);
 		primaryStage.setTitle("Search book result");
 		root.setAlignment(Pos.CENTER);
-		root.setPrefWidth(800);
-		root.setPrefHeight(400);
+		root.setPrefWidth(1400);
+		root.setPrefHeight(500);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.showAndWait();
