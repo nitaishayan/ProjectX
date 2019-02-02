@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
          <image>
-            <Image url="file:/C:/Users/lior/git/ProjectX/src/Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
+            <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
       </ImageView>
       <Label layoutX="456.0" layoutY="41.0" text="Extend loan period" underline="true">
@@ -38,7 +38,7 @@
       </TableView>
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="769.0" layoutY="226.0" onMouseClicked="#memberID_mouse" pickOnBounds="true">
          <image>
-            <Image url="file:/C:/Users/lior/git/ProjectX/src/Image/magnifier%20icon.jpg" />
+            <Image url="@../Image/magnifier%20icon.jpg" />
          </image>
       </ImageView>
    </children>

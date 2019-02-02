@@ -295,14 +295,14 @@ public class Client extends AbstractClient
 				break;
 
 			case "Extend Loan Period By Member"://show reader card details for read only - tableView
-				if(((ArrayList<String>)msg).size() != 3) {
+				if(arrayObject.size() != 3) {
 					Platform.runLater(() -> {
 						clientUI.showFailed(arrayObject.get(1));
 					});
 				}
 				else {
 					Platform.runLater(() -> {
-						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + arrayObject.get(1));
 					});
 				}
 				break;
@@ -315,7 +315,7 @@ public class Client extends AbstractClient
 				}
 				else {
 					Platform.runLater(()->{
-						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + arrayObject.get(1));
 					});
 					break;
 				}

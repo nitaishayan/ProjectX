@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="928.0" fitWidth="1232.0" pickOnBounds="true">
          <image>
-            <Image url="file:/C:/Users/lior/git/ProjectX/src/Image/Books%201_21.jpg" />
+            <Image url="@../Image/Books%201_21.jpg" />
          </image>
       </ImageView>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="439.0" layoutY="41.0" prefHeight="53.0" prefWidth="341.0" text="Inventory - Remove" textAlignment="CENTER" underline="true" wrapText="true">
@@ -104,7 +104,7 @@
          </font></Label>
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="549.0" layoutY="297.0" onMouseClicked="#copyIDMouse" pickOnBounds="true">
          <image>
-            <Image url="file:/C:/Users/lior/git/ProjectX/src/Image/magnifier%20icon.jpg" />
+            <Image url="@../Image/magnifier%20icon.jpg" />
          </image>
       </ImageView>
    </children>

@@ -501,6 +501,7 @@ public class Server extends AbstractServer
 			msg.setSize(mybytearray.length);
 
 			bis.read(msg.getMybytearray(),0,mybytearray.length);
+			bis.close();
 			return msg;
 		}
 		catch (Exception e) {
