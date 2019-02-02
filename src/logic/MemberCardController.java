@@ -91,7 +91,6 @@ public class MemberCardController {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("ViewPersonalHistory");
 		memberData.add(memberID);
-		System.out.println(memberID);
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 	
@@ -118,7 +117,6 @@ public class MemberCardController {
 		ArrayList<String> memberData = new ArrayList<>();
 		memberData.add("getStatusHistory");
 		memberData.add(memberID);
-		System.out.println("getStatusHistory-now in common controller");
 		Main.client.handleMessageFromClientUI(memberData);
 	}
 }

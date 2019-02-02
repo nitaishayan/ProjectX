@@ -378,7 +378,6 @@ public class DBController {
 			//////////////////Check if user (librarian) is connected from another device
 
 			if(rs.getString(5).equals("true")) { 
-				//System.out.println("librarian is already connceted from another device");
 				userDetails.add("0");//Add 0 to the arrayList to identify that the user is already connected
 				return userDetails;
 			}
@@ -387,7 +386,6 @@ public class DBController {
 				login = conn.prepareStatement("UPDATE librarian SET IsLoggedIn='true' where LibrarianID=?");
 				login.setString(1, data.get(1));
 				login.executeUpdate();
-				//System.out.println("librarian connceted");
 			}
 			userDetails.add("1");//Add 1 to the arrayList to identify that the librarian is connected
 			userDetails.add(rs.getString(6));
@@ -416,7 +414,6 @@ public class DBController {
 				}
 
 				if(rs.getString(10).equals("true")) { 
-					//System.out.println("librarian is already connceted from another device");
 					userDetails.add("0");//Add 0 to the arrayList to identify that the member is already connected
 					return userDetails;
 				}
@@ -636,7 +633,6 @@ public class DBController {
 			member.add(rs.getString(10));
 			member.add(rs.getString(11));
 			member.add(rs.getString(12));
-			System.out.println(member);
 			return member;
 		}
 		else
@@ -854,7 +850,6 @@ public class DBController {
 			java.util.Date date= new java.util.Date();
 			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String currentTime = sdf.format(date);
-			System.out.println(currentTime);
 			PreparedStatement ps3 = conn.prepareStatement("SELECT ExpectedReturnDate,MemberID,CopyID FROM loanbook WHERE ExpectedReturnDate > ? AND BookID = ? AND IsReturned = ? ORDER BY ExpectedReturnDate LIMIT 1");
 
 			ps3.setString(1, currentTime);
@@ -973,7 +968,6 @@ public class DBController {
 		rs = ps.executeQuery();
 		if(rs.next()) {
 			CheckLibrarianManager.add(rs.getString(7));
-			System.out.println(CheckLibrarianManager);
 			return CheckLibrarianManager;
 
 		}
@@ -1153,7 +1147,6 @@ public class DBController {
 		}
 		if (loanDetails.size()==1) {
 			loanDetails.add("NotExist");
-			System.out.println("Member not exist");
 			return loanDetails;
 		}
 		else {
@@ -1418,7 +1411,6 @@ public class DBController {
 		}
 		if (dataDetails.size()==1) {
 			dataDetails.add("NotExist");
-			System.out.println("Member not exist");
 			return dataDetails;
 		}
 		else {
@@ -1613,7 +1605,6 @@ public class DBController {
 			return dataDetails;
 		}
 		else {
-			System.out.println(dataDetails);
 			return dataDetails;
 		}
 	}
@@ -2435,7 +2426,6 @@ public class DBController {
 		}
 		if (dataDetails.size()==1) {
 			dataDetails.add("NotExist");
-			System.out.println("Report not exist");
 			return dataDetails;
 		}
 		else {

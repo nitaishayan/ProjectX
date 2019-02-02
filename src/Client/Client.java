@@ -123,11 +123,7 @@ public class Client extends AbstractClient
 				arrayUser.add(arrayObject.get(3));//First Name
 				arrayUser.add(arrayObject.get(4));//Last Name
 				arrayUser.add(arrayObject.get(arrayObject.size()-1));
-				System.out.println(arrayUser);
-				//System.out.println((ArrayList<String>)msg+"inside Client - login");
 				Platform.runLater(()->{
-					//System.out.println(clientUI);
-					System.out.println("lior");
 					clientUI.display(arrayObject);
 				});
 				break;

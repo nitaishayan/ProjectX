@@ -178,7 +178,6 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 				String str=memberStatus;
 				memberStatus=cmbStatus.getValue().toString();
 				MemberCardController.librarianUpdateMember(cmbStatus.getValue().toString(),txtMember_ID.getText(),txtArea_Notes.getText(),isManager,true,str);//should be true			
-				System.out.println("Status changed to "+cmbStatus.getValue().toString()+" now in display");
 			}
 			else
 			{
@@ -201,7 +200,6 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		memberFirstName=txtFirst_Name.getText();
 		memberLastName=txtLast_Name.getText();
 		status=cmbStatus.getValue().toString();
-		System.out.println("combobox "+status);
 		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
@@ -258,7 +256,6 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 		}
 		else if (userData.get(0).equals("SearchMember"))
 		{
-			System.out.println(userData);
 			if (update==false) {
 				setCardMember(userData);
 			}
@@ -269,7 +266,6 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 			else {
 				b=true;
 				if (update) {
-					System.out.println("prev status is "+memberStatus);
 					showSuccess("The member "+txtFirst_Name.getText()+" "+txtLast_Name.getText()+" Details updated successfully");
 					memberStatus=cmbStatus.getValue().toString();
 					update=false;

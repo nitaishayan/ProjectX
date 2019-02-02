@@ -95,7 +95,6 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 		int numberOfColumns=8;
 		int nonRelevantString=1;
 		ArrayList<String> dataList = (ArrayList<String>)obj;
-		System.out.println(dataList.toString()+"in Activity Report GUI");
 			if (dataList.get(1).equals("NotExist")) {
 				showFailed("No reports issued yet.");
 			}
@@ -128,7 +127,6 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 				 ActivityReport tableTemp;
 				 while(rowCounter<loanRowSize) {				 
 						 tableTemp = new ActivityReport(dataList.get(arrayJump), dataList.get(arrayJump+1),dataList.get(arrayJump+2),dataList.get(arrayJump+3),dataList.get(arrayJump+4),dataList.get(arrayJump+5),dataList.get(arrayJump+6)+" / "+dataList.get(arrayJump+7),dataList.get(arrayJump+7));//create a new object ActivityReport
-						 System.out.println(tableTemp.getMemberDelay());
 					 rowCounter++;
 					 arrayJump+=8;
 					 ActivityReportDetails.add(tableTemp);
