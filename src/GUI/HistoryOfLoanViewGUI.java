@@ -150,7 +150,8 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 								showFailed("The book is not loaned at the moment.");
 								return;
 							}
-							displayLoanDetails(memberID,TableViewLoanHistory.getSelectionModel().getSelectedItem().getCopyID(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getBookName());						}
+							if (Client.arrayUser.size() != 6)
+							displayLoanDetails(memberID,TableViewLoanHistory.getSelectionModel().getSelectedItem().getCopyID(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getBookName(),TableViewLoanHistory.getSelectionModel().getSelectedItem().getAuthorName());						}
 					});
 				});
 
@@ -184,7 +185,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
  * @param copyid	copyID of the lost book
  * @param bookname	book name of the lost book
  */
-	public void displayLoanDetails(String memberID, String copyid, String bookname) {
+	public void displayLoanDetails(String memberID, String copyid, String bookname,String author) {
 		Stage 	   	 primaryStage   = new Stage();
 		VBox 	 	 mainVbox       = new VBox(20);
 		Label 		 ans  			= new Label();
@@ -208,7 +209,7 @@ public class HistoryOfLoanViewGUI implements Initializable,GuiInterface{
 		mainVbox.setMinWidth(580);
 		mainVbox.setMaxHeight(390);
 		mainVbox.setMaxWidth(580);
-		detailes.setText("Press 'LOST COPY' to declare the copy as lost.\n"+"Book name: "+bookname+" \nCopy id: "+copyid);
+		detailes.setText("Press 'LOST COPY' to declare the copy as lost.\n"+"Book name: "+bookname+"\n Author: "+author+" \nCopy id: "+copyid);
 		detailes.setFont(new Font("Ariel", 18));
 		mainVbox.getChildren().add(detailes);
 		mainVbox.setAlignment(Pos.CENTER);

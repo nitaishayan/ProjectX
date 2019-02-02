@@ -1,8 +1,15 @@
 package logic;
 import java.util.ArrayList;
 
-public class InventoryController {
 
+public class InventoryController {
+	/**
+	 * This class connect between the input in the GUI to the server.
+	 * The class giving the functionality to add/edit/remove book by is name and by author name.
+	 */
+	
+	
+	
 	public  static void addBook(String bookname,String edition,String theme,String author,String printdate, String copies, String purchasedate, String shelflocation, String wanted, String description)
 	{
 		ArrayList<String> inventoryData = new ArrayList<>();

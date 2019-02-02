@@ -486,7 +486,7 @@ public class Server extends AbstractServer
 	public MyFile sendPDF(String bookid) {
 		System.out.println(bookid);
 		MyFile msg= new MyFile(bookid);
-		String LocalfilePath="./PDF-server/"+bookid+".pdf";
+		String LocalfilePath=bookid+".pdf";
 
 		try{
 
@@ -500,6 +500,7 @@ public class Server extends AbstractServer
 			msg.setSize(mybytearray.length);
 
 			bis.read(msg.getMybytearray(),0,mybytearray.length);
+			bis.close();
 			return msg;
 		}
 		catch (Exception e) {
@@ -511,7 +512,7 @@ public class Server extends AbstractServer
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath="./PDF-server/"+msg2.getFileName()+".pdf";
+		String LocalfilePath=msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 

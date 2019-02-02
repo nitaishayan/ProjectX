@@ -73,9 +73,11 @@ public class LibrarianExtendGUI implements GuiInterface,Initializable{
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		Main.client.clientUI=this;
-		
+	public void initialize(URL location, ResourceBundle resources) {		
+		Main.client.clientUI=this;	
+		CommonController.setColumnWidth(CopyIDCol, 70, 70, 70);
+		CommonController.setColumnWidth(startLoanDateCol, 160, 160, 160);
+		CommonController.setColumnWidth(endLoanDateCol, 160, 160, 160);
 	}
 
 	@Override

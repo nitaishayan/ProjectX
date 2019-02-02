@@ -53,9 +53,6 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	private Button btnSearchBook;
 
 	@FXML
-	private Label lblForgot;
-
-	@FXML
 	private TextField txtUserName;
 
 	@FXML
@@ -111,6 +108,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
    	 * @throws IOException
    	 */
 	public void openMemberMenuScreen() throws IOException {
+		System.out.println("member array user size: " + Client.arrayUser.size());
 		Main.primary.hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
@@ -135,6 +133,7 @@ public class OBLcontroller implements Initializable, GuiInterface {
   	 * @throws IOException
   	 */
 	public void openLibrarianMenuScreen() throws IOException {
+		System.out.println("librarian array user size: " + Client.arrayUser.size());
 		Main.primary.hide();
 		Stage primaryStage = new Stage();
 		FXMLLoader loader = new FXMLLoader();

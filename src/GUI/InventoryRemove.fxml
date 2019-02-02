@@ -30,7 +30,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtBook_Name" disable="true" layoutX="746.0" layoutY="296.0" />
+      <TextField fx:id="txtBook_Name" disable="true" layoutX="746.0" layoutY="296.0" prefHeight="31.0" prefWidth="245.0" />
       <TextField fx:id="txtEdition" disable="true" layoutX="354.0" layoutY="344.0" />
       <Label disable="true" layoutX="179.0" layoutY="347.0" text="Edition:">
          <font>
@@ -41,12 +41,12 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtAuthor" disable="true" layoutX="746.0" layoutY="343.0" />
+      <TextField fx:id="txtAuthor" disable="true" layoutX="746.0" layoutY="343.0" prefHeight="31.0" prefWidth="245.0" />
       <Label disable="true" layoutX="613.0" layoutY="349.0" text="Author:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtPrint_Date" disable="true" layoutX="746.0" layoutY="387.0" />
+      <TextField fx:id="txtPrint_Date" disable="true" layoutX="746.0" layoutY="387.0" prefHeight="31.0" prefWidth="245.0" />
       <Label disable="true" layoutX="609.0" layoutY="393.0" text="Print date:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -65,7 +65,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtPurchase_Date" disable="true" layoutX="746.0" layoutY="435.0" />
+      <TextField fx:id="txtPurchase_Date" disable="true" layoutX="746.0" layoutY="435.0" prefHeight="31.0" prefWidth="245.0" />
       <TextField fx:id="txtShelf_Location" disable="true" layoutX="354.0" layoutY="486.0" />
       <Label disable="true" layoutX="179.0" layoutY="489.0" text="Shelf location:">
          <font>
@@ -75,7 +75,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextArea fx:id="txtDescription" disable="true" layoutX="746.0" layoutY="483.0" prefHeight="63.0" prefWidth="187.0" />
+      <TextArea fx:id="txtDescription" disable="true" layoutX="746.0" layoutY="483.0" prefHeight="210.0" prefWidth="245.0" />
       <Button layoutX="905.0" layoutY="727.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
@@ -107,10 +107,5 @@
             <Image url="@../Image/magnifier%20icon.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="btn_lostbook" disable="true" layoutX="656.0" layoutY="709.0" mnemonicParsing="false" onAction="#lostBook" prefHeight="81.0" prefWidth="201.0" text="Lost Book">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

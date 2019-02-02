@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -30,9 +31,19 @@ import logic.CommonController;
 import logic.Main;
 
 public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializable{
+	/**
+	 * This class connect between the input in the GUI to the controller of Statistic Reports (Reader Card) process.
+	 * The class giving the functionality to choose the library statistics in any time.
+	 */
 
 	    @FXML
 	    private AnchorPane AnchorPane;
+	    
+	    @FXML
+	    private SplitPane MainSplitPane;
+	    
+	    @FXML
+	    private AnchorPane leftPane;
     
 	    @FXML
 	    private TableView<Member> TableViewMembers;
@@ -73,6 +84,12 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 	    @FXML
 	    private Button btn_latesLostBook;
 	    
+	    @FXML
+	    void backToReport(ActionEvent event) throws IOException {
+	    	AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/StatisticReports.fxml"));
+	    	AnchorPane.getChildren().setAll(pane);
+	    }
+	    
 	    /**
 	     * This method is triggered after choosing a reader card from the table view and pressing the button "history Of Loan".
 	     * The method open a new window with the appropriate loan's history details.
@@ -86,7 +103,7 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 	    	MemberCardGUI.memberFirstName=FirstNameLabel.getText();
 	    	MemberCardGUI.memberLastName=LastNameLabel.getText();
 	    	MemberCardGUI.status=StatusLabel.getText();
-			Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryOfLoanTableView.fxml"));
+			Parent parent=FXMLLoader.load(getClass().getResource("/GUI/HistoryLoan-Statistics.fxml"));
 			Scene scene=new Scene(parent);
 			Stage stage=new Stage();
 			stage.setScene(scene);
@@ -130,6 +147,8 @@ public class StatisticReportsGUI_ReaderCards implements GuiInterface,Initializab
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			// TODO Auto-generated method stub
 			Main.client.clientUI=this;
+			leftPane.maxWidthProperty().bind(MainSplitPane.widthProperty().multiply(0.4017));
+			leftPane.minWidthProperty().bind(MainSplitPane.widthProperty().multiply(0.4017));
 			
 			
 			TableViewMembers.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //resize the columns to the table view

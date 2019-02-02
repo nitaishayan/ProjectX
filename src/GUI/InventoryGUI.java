@@ -22,54 +22,87 @@ import javafx.stage.Stage;
 import logic.InventoryController;
 import logic.Main;
 
+/**
+ * This class present the main inventory GUI and his options to select.
+ *
+ */
 public class InventoryGUI implements Initializable, GuiInterface {
 	@FXML
 	private AnchorPane MainPane;
 
 
-
+	/**
+	 * This method shows the user the Inventory Add screen.	
+	 * @param event - event cause from pressing on "Add" button.
+	 * @throws IOException
+	 */
 	@FXML
 	void AddScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/InventoryAdd.fxml"));
 		MainPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * This method shows the user the Inventory Edit screen.	
+	 * @param event - event cause from pressing on "Edit" button.
+	 * @throws IOException
+	 */
 	@FXML
 	void EditScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/InventoryEdit.fxml"));
 		MainPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * This method shows the user the Inventory Remove screen.	
+	 * @param event - event cause from pressing on "Remove" button.
+	 * @throws IOException
+	 */
 	@FXML
 	void RemoveScreen(ActionEvent event) throws IOException {
 		AnchorPane pane=FXMLLoader.load(getClass().getResource("/GUI/InventoryRemove.fxml"));
 		MainPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;		
 
 	}
 
+	/**
+	 * Not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void showSuccess(String string) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void display(Object obj) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void showFailed(String message) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Not used method(must implement because the implementation of GuiInterface)
+	 */
 	@Override
 	public void freshStart() {
 		// TODO Auto-generated method stub

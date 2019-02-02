@@ -26,6 +26,9 @@ import sun.awt.datatransfer.DataTransferer;
  *
  */
 public class StatisticsReportsGUIActivity implements GuiInterface,Initializable{
+	/**
+	 * This class connect between the input in the GUI to the controller of Statistic Reports(Activity) process.
+	 */
 	
 	private String pickDateStart;
 	private String pickDateEnd;

@@ -106,6 +106,7 @@ public class BookHandlerController {
 			msg.setSize(mybytearray.length);
 
 			bis.read(msg.getMybytearray(),0,mybytearray.length);
+			bis.close();
 			Main.client.handleMessageFromClientUI(msg);
 		}
 		catch (Exception e) {

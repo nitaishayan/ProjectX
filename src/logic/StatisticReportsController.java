@@ -6,7 +6,12 @@ import java.util.ArrayList;
 
 import Common.Book;
 
+
 public class StatisticReportsController {
+	/**
+	 * This class connect between the input in the GUI to the controller of Statistic reports process.
+	 * The class giving the functionality to search book by is name, by author name.
+	 */
 	
 	private static DecimalFormat df2 = new DecimalFormat("#.##");
 	

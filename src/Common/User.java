@@ -14,6 +14,7 @@ public class User  {
 	private String lastName;
 	private String isLoggedIn;
 
+<<<<<<< HEAD
 	/**
 	 * Constructor to the User object.
 	 * @param id - The user's ID.
@@ -24,6 +25,9 @@ public class User  {
 	 * @param lastName - The user's lastName.
 	 * @param isLoggedIn - Describes if the User is logged-in in the system("true") or not("false").
 	 */
+=======
+
+>>>>>>> branch 'master' of https://github.com/nitaishayan/ProjectX
 	public User(String id, String phoneNumber, String email, String password, String firstName, String lastName, String isLoggedIn) {
 		this.id=id;
 		this.phoneNumber = phoneNumber;
