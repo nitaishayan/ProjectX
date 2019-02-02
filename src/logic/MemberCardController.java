@@ -21,9 +21,9 @@ public class MemberCardController {
 	
 	/**
 	 * Method that update the card reader details based on edit by the member
-	 * @param ID
-	 * @param phoneNumber
-	 * @param Email
+	 * @param ID 			the memberID based on the GUI page
+	 * @param phoneNumber 	of the member
+	 * @param Email 		by the member
 	 */
 	public  static void memberUpdateDetails(String ID,String phoneNumber, String Email) {
 		ArrayList<String> updateData = new ArrayList<>();
@@ -36,12 +36,15 @@ public class MemberCardController {
 
 	}
 	
-	/**
-	 * 
-	 * Get the details that was insert by the librarian in the "search reader card" GUI and insert them into ArrayList, then send the ArrayList to server.
-	 * @param String, String, String, String, Boolean, String
-	 * @return void
-	 */
+/**
+ *  Get the details that was insert by the librarian in the "search reader card" GUI and insert them into ArrayList, then send the ArrayList to server.
+ * @param status the current status issued by the librarian manager
+ * @param ID			the memberID
+ * @param notes			notes that the librarian can write in the reader card
+ * @param isManager		check if the Librarian is a librrian manager
+ * @param changeStatus	boolean condition to check if there was change in the member status
+ * @param prevStatus	previous status that the member had
+ */
 	public static void librarianUpdateMember(String status, String ID, String notes, String isManager, boolean changeStatus,String prevStatus) {
 		ArrayList<String> memberData = new ArrayList<>();
 		if (changeStatus) {
@@ -69,8 +72,8 @@ public class MemberCardController {
 	
 	/**
 	 * Get librarian ID, insert the ID into ArrayList and send it to the server.
-	 * @param String
-	 * @return void
+	 * @param String	memberID 
+	 * @return void		
 	 */
 	public static void checkManager(String ID) {
 		ArrayList<String> librarianData = new ArrayList<>();
@@ -81,7 +84,7 @@ public class MemberCardController {
 	
 	/**
 	 * Get the member ID,insert the ID into ArrayList and then sent the ArrayList to the server.
-	 * @param String
+	 * @param String	memberID of the member
 	 * @return void
 	 */
 	public static void viewPersonalHistory(String memberID) {
@@ -95,7 +98,7 @@ public class MemberCardController {
 	/**
 	 * Send request for the server to get the Delay and LostBooks of specific member ID.
 	 * the method get the member ID insert the ID into ArratList and send it to the server.
-	 * @param String
+	 * @param String	memberID of the member
 	 * @return void
 	 */
 	public static void getDelayandLostBooks(String memberID) {
@@ -108,7 +111,7 @@ public class MemberCardController {
 	/**
 	 * Send request for the server to get the Status History of specific member ID.
 	 * Get the member ID insert the ID into ArratList and send it to the server.
-	 * @param String
+	 * @param String	memberID of the member
 	 * @return void
 	 */
 	public static void getStatusHistory(String memberID) {
