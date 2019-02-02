@@ -27,13 +27,13 @@
          </font>
       </Label>
       <TextField fx:id="txtMember_ID" layoutX="576.0" layoutY="226.0" onKeyPressed="#memberID_Enter" />
-      <TableView fx:id="table" layoutX="242.0" layoutY="347.0" prefHeight="461.0" prefWidth="856.0">
+      <TableView fx:id="table" layoutX="99.0" layoutY="337.0" prefHeight="570.0" prefWidth="1039.0">
          <columns>
             <TableColumn fx:id="CopyIDCol" prefWidth="101.0" text="Copy ID" />
-            <TableColumn fx:id="bookNameCol" prefWidth="96.0" text="Book Name" />
-            <TableColumn fx:id="authorNameCol" prefWidth="121.0" text="Authors Name" />
-            <TableColumn fx:id="startLoanDateCol" prefWidth="265.0" text="Start Loan Date" />
-            <TableColumn fx:id="endLoanDateCol" prefWidth="265.0" text="End LoanDate" />
+            <TableColumn fx:id="bookNameCol" prefWidth="185.0" text="Book Name" />
+            <TableColumn fx:id="authorNameCol" prefWidth="432.0" text="Authors Name" />
+            <TableColumn fx:id="startLoanDateCol" prefWidth="150.0" text="Start Loan Date" />
+            <TableColumn fx:id="endLoanDateCol" prefWidth="163.0" text="End LoanDate" />
          </columns>
       </TableView>
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="769.0" layoutY="226.0" onMouseClicked="#memberID_mouse" pickOnBounds="true">

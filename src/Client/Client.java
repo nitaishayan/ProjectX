@@ -123,6 +123,8 @@ public class Client extends AbstractClient
 				arrayUser.add(arrayObject.get(3));//First Name
 				arrayUser.add(arrayObject.get(4));//Last Name
 				arrayUser.add(arrayObject.get(arrayObject.size()-1));
+				if (arrayObject.get(5).equals("2"))
+					arrayUser.add("member");
 				System.out.println(arrayUser);
 				//System.out.println((ArrayList<String>)msg+"inside Client - login");
 				Platform.runLater(()->{
@@ -265,6 +267,8 @@ public class Client extends AbstractClient
 						clientUI.showFailed("You can't reserve the book, because it is still loaned by you.");
 					if (arrayObject.get(arrayObject.size()-1).equals("Already reserve"))
 						clientUI.showFailed("Your reservetion of this book is still active.\ntherefore you can't reserve the book again.");
+					if (arrayObject.get(arrayObject.size()-1).equals("Member is not 'Active', therefore he can't reserve the book."))
+						clientUI.showFailed("Member is not 'Active', therefore he can't reserve the book.");
 				});
 				break;
 			case "ViewPersonalHistory":

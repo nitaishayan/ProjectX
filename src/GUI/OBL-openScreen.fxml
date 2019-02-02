@@ -29,7 +29,6 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Label fx:id="lblForgot" layoutX="22.0" layoutY="107.0" onMouseClicked="#forgot" text="Forgot your password?" textFill="#4000ff" />
             <Label layoutX="23.0" layoutY="25.0" text="User name:" />
             <Label layoutX="27.0" layoutY="73.0" text="Password:" />
             <TextField fx:id="txtUserName" layoutX="117.0" layoutY="20.0" promptText="Enter user name" />

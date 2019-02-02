@@ -170,7 +170,7 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	void librarianUpdateMember(ActionEvent event) {
 		update=true;
 		if (cmbStatus.getValue().toString().equals("Locked")) {
-			showSuccess("Error - Librarian Manager cannot lock a member");
+			lockMember("Error - Librarian Manager cannot lock a member");
 		}
 		else
 		{
@@ -386,5 +386,15 @@ public class MemberCardGUI implements Initializable,GuiInterface{
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
 	}
-
+	/**
+	 * Method that show pop up if the librarian try to lock a member card reader
+	 * 
+	 * @param string 	the String that contain the message
+	 */
+	public void lockMember(String string) {
+		Alert alert=new Alert(AlertType.INFORMATION);
+		alert.setTitle("Lock Error");
+		alert.setHeaderText(string);
+		alert.showAndWait();
+	}
 }

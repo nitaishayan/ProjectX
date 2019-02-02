@@ -23,7 +23,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="btnAdd" disable="true" layoutX="555.0" layoutY="606.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="174.0" text="Add - Book">
+      <Button fx:id="btnAdd" disable="true" layoutX="567.0" layoutY="686.0" mnemonicParsing="false" onAction="#AddBook" prefHeight="81.0" prefWidth="174.0" text="Add - Book">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Button>
@@ -32,7 +32,7 @@
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
       <TextField fx:id="txtBook_Name" layoutX="305.0" layoutY="245.0" onKeyPressed="#name_author" prefHeight="26.0" prefWidth="158.0" />
-      <TextField fx:id="txtAuthor" layoutX="707.0" layoutY="245.0" onKeyPressed="#name_author" prefHeight="31.0" prefWidth="158.0" />
+      <TextField fx:id="txtAuthor" layoutX="707.0" layoutY="245.0" onKeyPressed="#name_author" prefHeight="31.0" prefWidth="229.0" />
       <TextField fx:id="txtEdition" disable="true" layoutX="305.0" layoutY="293.0" prefHeight="26.0" prefWidth="158.0" />
       <Label layoutX="133.0" layoutY="292.0" text="Edition:">
          <font>
@@ -51,7 +51,7 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="707.0" layoutY="339.0" prefHeight="31.0" prefWidth="158.0" />
+      <TextField fx:id="txtCatlog_Number" disable="true" layoutX="707.0" layoutY="339.0" prefHeight="31.0" prefWidth="229.0" />
       <Label layoutX="548.0" layoutY="342.0" text="Catalog number:">
          <font>
             <Font name="System Bold Italic" size="19.0" />
@@ -74,8 +74,8 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <TextArea fx:id="txtDescription" disable="true" layoutX="707.0" layoutY="434.0" prefHeight="82.0" prefWidth="158.0" />
-      <Button layoutX="780.0" layoutY="624.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
+      <TextArea fx:id="txtDescription" disable="true" layoutX="707.0" layoutY="434.0" prefHeight="191.0" prefWidth="229.0" />
+      <Button layoutX="786.0" layoutY="704.0" mnemonicParsing="false" onAction="#BackToInventory" prefHeight="45.0" prefWidth="85.0" text="Back">
          <font>
             <Font size="21.0" />
          </font></Button>
@@ -89,17 +89,17 @@
          <font>
             <Font name="System Bold Italic" size="19.0" />
          </font></Label>
-      <Button layoutX="945.0" layoutY="246.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="174.0" text="Check book existence">
+      <Button layoutX="959.0" layoutY="246.0" mnemonicParsing="false" onAction="#CheckExistense" prefHeight="61.0" prefWidth="174.0" text="Check book existence">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Button>
-      <Button fx:id="btnCopy" disable="true" layoutX="280.0" layoutY="606.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="174.0" text="Add - Copy">
+      <Button fx:id="btnCopy" disable="true" layoutX="292.0" layoutY="686.0" mnemonicParsing="false" onAction="#AddCopy" prefHeight="81.0" prefWidth="174.0" text="Add - Copy">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="707.0" layoutY="386.0" prefWidth="158.0" />
-      <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="707.0" layoutY="293.0" prefWidth="158.0" />
+      <DatePicker fx:id="txtPurchase_Date" disable="true" layoutX="707.0" layoutY="386.0" prefHeight="31.0" prefWidth="229.0" />
+      <DatePicker fx:id="txtPrint_Date" disable="true" layoutX="707.0" layoutY="293.0" prefHeight="31.0" prefWidth="229.0" />
       <CheckBox fx:id="CHBOX_YES" disable="true" layoutX="320.0" layoutY="534.0" mnemonicParsing="false" onAction="#WANTED_YES" text="YES" />
       <CheckBox fx:id="CHBOX_NO" disable="true" layoutX="414.0" layoutY="534.0" mnemonicParsing="false" onAction="#WANTED_NO" text="NO" />
       <Label layoutX="106.0" layoutY="247.0" text="*" textFill="RED">

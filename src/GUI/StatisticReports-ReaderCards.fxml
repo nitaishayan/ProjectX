@@ -6,47 +6,55 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="AnchorPane" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.StatisticReportsGUI_ReaderCards">
    <children>
-      <Label layoutX="542.0" layoutY="78.0" text="Reader Cards" underline="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="527.0" layoutY="55.0" text="Reader Cards" underline="true">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <SplitPane dividerPositions="0.3451025056947608" layoutX="177.0" layoutY="252.0" prefHeight="458.0" prefWidth="880.0">
+      <SplitPane fx:id="MainSplitPane" dividerPositions="0.4017" layoutX="35.0" layoutY="263.0" prefHeight="568.0" prefWidth="1162.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="283.0">
+          <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="283.0">
                <children>
-                  <TableView fx:id="TableViewMembers" layoutY="-1.0" prefHeight="456.0" prefWidth="299.0">
+                  <TableView fx:id="TableViewMembers" layoutY="-1.0" prefHeight="566.0" prefWidth="462.0">
                     <columns>
-                      <TableColumn fx:id="firstNameCol" prefWidth="75.0" text="First Name" />
-                      <TableColumn fx:id="lastNameCol" prefWidth="75.0" text="Last Name" />
-                      <TableColumn fx:id="memberIDCol" prefWidth="75.0" text="Member ID" />
+                      <TableColumn fx:id="firstNameCol" prefWidth="156.0" text="First Name" />
+                      <TableColumn fx:id="lastNameCol" prefWidth="159.0" text="Last Name" />
+                      <TableColumn fx:id="memberIDCol" prefWidth="138.0" text="Member ID" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="493.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="566.0" prefWidth="645.0">
                <children>
-                  <Label layoutX="62.0" layoutY="50.0" text="First Name:" />
-                  <Label layoutX="62.0" layoutY="102.0" text="Last Name:" />
-                  <Label fx:id="FirstNameLabel" layoutX="183.0" layoutY="50.0" />
-                  <Label fx:id="LastNameLabel" layoutX="183.0" layoutY="102.0" />
-                  <Label layoutX="62.0" layoutY="147.0" text="Member ID:" />
-                  <Label fx:id="MemberIDLabel" layoutX="183.0" layoutY="147.0" />
-                  <Label layoutX="62.0" layoutY="186.0" text="E-mail:" />
-                  <Label fx:id="EmailLabel" layoutX="183.0" layoutY="186.0" />
-                  <Label layoutX="62.0" layoutY="259.0" text="Status:" />
-                  <Label fx:id="StatusLabel" layoutX="183.0" layoutY="259.0" />
-                  <Label layoutX="62.0" layoutY="224.0" text="Phone Number:" />
-                  <Label fx:id="PhoneNumberLabel" layoutX="183.0" layoutY="224.0" />
-                  <Button fx:id="btn_historyOfLoan" layoutX="408.0" layoutY="299.0" mnemonicParsing="false" onAction="#historyOfLoan" text="History of loan" />
-                  <Button fx:id="btn_latesLostBook" layoutX="302.0" layoutY="299.0" mnemonicParsing="false" onAction="#latesLostBook" prefHeight="25.0" prefWidth="102.0" text="Lates/Lost book" />
-                  <Label layoutX="302.0" layoutY="50.0" text="Notes:" />
-                  <TextArea fx:id="textareaNotes" layoutX="302.0" layoutY="76.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Label layoutX="14.0" layoutY="61.0" text="First Name:" />
+                  <Label layoutX="14.0" layoutY="113.0" text="Last Name:" />
+                  <Label fx:id="FirstNameLabel" layoutX="132.0" layoutY="62.0" />
+                  <Label fx:id="LastNameLabel" layoutX="132.0" layoutY="113.0" />
+                  <Label layoutX="14.0" layoutY="158.0" text="Member ID:" />
+                  <Label fx:id="MemberIDLabel" layoutX="132.0" layoutY="158.0" />
+                  <Label layoutX="14.0" layoutY="197.0" text="E-mail:" />
+                  <Label fx:id="EmailLabel" layoutX="133.0" layoutY="197.0" />
+                  <Label layoutX="14.0" layoutY="270.0" text="Status:" />
+                  <Label fx:id="StatusLabel" layoutX="132.0" layoutY="270.0" />
+                  <Label layoutX="14.0" layoutY="235.0" text="Phone Number:" />
+                  <Label fx:id="PhoneNumberLabel" layoutX="133.0" layoutY="235.0" />
+                  <Button fx:id="btn_historyOfLoan" layoutX="538.0" layoutY="297.0" mnemonicParsing="false" onAction="#historyOfLoan" prefHeight="53.0" prefWidth="136.0" text="History of loan" />
+                  <Button fx:id="btn_latesLostBook" layoutX="364.0" layoutY="297.0" mnemonicParsing="false" onAction="#latesLostBook" prefHeight="53.0" prefWidth="136.0" text="Lates/Lost book" />
+                  <Label layoutX="364.0" layoutY="49.0" text="Notes:" />
+                  <TextArea fx:id="textareaNotes" layoutX="364.0" layoutY="74.0" prefHeight="200.0" prefWidth="292.0" />
+                  <Button layoutX="448.0" layoutY="405.0" mnemonicParsing="false" onAction="#backToReport" text="Back to Reports" />
                </children>
             </AnchorPane>
         </items>

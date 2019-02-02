@@ -191,6 +191,7 @@ public class InventoryRemoveGUI implements Initializable, GuiInterface {
 		this.txtDescription.setText(((ArrayList<String>) msg).get(9));
 		this.txtPurchase_Date.setText(((ArrayList<String>) msg).get(10));
 		this.txtShelf_Location.setText(((ArrayList<String>) msg).get(12));
+		this.txtPdf.setText("pdf");
 		btnRemove.setDisable(false);
 		txtCatalog_Number.setEditable(false);
 		btn_browse.setDisable(true);

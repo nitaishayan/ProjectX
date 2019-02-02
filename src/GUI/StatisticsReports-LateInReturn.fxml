@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,7 +14,12 @@
 
 <AnchorPane fx:id="PaneLateInReturn" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.StatisticsReportsGUI_LateInReturn">
    <children>
-      <Label layoutX="333.0" layoutY="82.0" text="Statistic Reports - Late On Return">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
+         <image>
+            <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="333.0" layoutY="58.0" text="Statistic Reports - Late On Return" underline="true">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
@@ -34,7 +41,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tableViewLates" layoutX="472.0" layoutY="464.0" prefHeight="337.0" prefWidth="428.0">
+      <TableView fx:id="tableViewLates" layoutX="427.0" layoutY="464.0" prefHeight="379.0" prefWidth="787.0">
         <columns>
           <TableColumn fx:id="bookIDCol" prefWidth="75.0" text="Book ID" />
           <TableColumn fx:id="bookNameCol" prefWidth="75.0" text="Book Name" />
@@ -45,7 +52,7 @@
       </TableView>
       <Button fx:id="btn_Total" layoutX="60.0" layoutY="464.0" mnemonicParsing="false" onAction="#ReturnToTotal" prefHeight="53.0" prefWidth="210.0" text="Press For Total Books">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font></Button>
       <GridPane fx:id="gridPane" layoutX="82.0" layoutY="373.0">
         <columnConstraints>
@@ -67,7 +74,7 @@
       </GridPane>
       <Button fx:id="btn_backScreen" layoutX="304.0" layoutY="464.0" mnemonicParsing="false" onAction="#backScreen" prefHeight="53.0" prefWidth="98.0" text="Back">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font size="18.0" />
          </font>
       </Button>
    </children>

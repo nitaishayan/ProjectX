@@ -9,9 +9,6 @@ public class User  {
 	private String lastName;
 	private String isLoggedIn;
 
-	
-	
-	
 
 	public User(String id, String phoneNumber, String email, String password, String firstName, String lastName, String isLoggedIn) {
 		this.setId(id);

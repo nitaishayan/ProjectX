@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import logic.BookHandlerController;
+import logic.CommonController;
 import logic.LoanController;
 import logic.Main;
 
@@ -80,6 +81,8 @@ public class MemberExtendLoanPeriodGUI implements Initializable, GuiInterface {
 		authorNameCol.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("authorName"));
 		startLoanDateCol.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("LoanDate"));
 		endLoanDateCol.setCellValueFactory(new PropertyValueFactory<LoanDetails,String>("ActualReturnDate"));
+		
+		CommonController.setColumnWidth(CopyIDCol, 70, 80, 90);
 
 		while(i<numberOfBook)
 		{

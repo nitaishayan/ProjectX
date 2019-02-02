@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="StatisticsPane" prefHeight="928.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.StatisticReportsGUI_Manager">
    <children>
-      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.8" pickOnBounds="true">
+      <ImageView fitHeight="928.0" fitWidth="1232.0" opacity="0.7" pickOnBounds="true">
          <image>
             <Image url="@../Image/01-Science-Has-Figured-Out-Why-You-Love-the-Smell-of-Old-Books-1024x683.jpg" />
          </image>
@@ -20,57 +20,62 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="288.0" layoutY="251.0" text="Read Only:">
+      <Label layoutX="127.0" layoutY="254.0" text="Read Only:">
          <font>
             <Font name="System Bold Italic" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="288.0" layoutY="589.0" text="Statistic Reports:">
+      <Label layoutX="127.0" layoutY="438.0" text="Statistic Reports:">
          <font>
             <Font name="System Bold Italic" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="btnReaderCards_statistics" layoutX="589.0" layoutY="247.0" mnemonicParsing="false" onAction="#ReaderCardsScreen" text="Reader Cards">
+      <Button fx:id="btnReaderCards_statistics" layoutX="439.0" layoutY="238.0" mnemonicParsing="false" onAction="#ReaderCardsScreen" prefHeight="81.0" prefWidth="235.0" text="Reader Cards">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="btnLoans_statistics" layoutX="589.0" layoutY="587.0" mnemonicParsing="false" onAction="#LoansScreen" text="Loans">
+      <Button fx:id="btnLoans_statistics" layoutX="446.0" layoutY="422.0" mnemonicParsing="false" onAction="#LoansScreen" prefHeight="67.0" prefWidth="148.0" text="Loans">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="btnEmployeeRecords_statistics" layoutX="774.0" layoutY="247.0" mnemonicParsing="false" onAction="#EmployeeRecordsScreen" text="Employee Records">
+      <Button fx:id="btnEmployeeRecords_statistics" layoutX="779.0" layoutY="238.0" mnemonicParsing="false" onAction="#EmployeeRecordsScreen" prefHeight="81.0" prefWidth="235.0" text="Employee Records">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="btnActivity_statistics" layoutX="801.0" layoutY="687.0" mnemonicParsing="false" onAction="#ActivityScreen" text="Activity">
+      <Button fx:id="btnActivity_statistics" layoutX="878.0" layoutY="638.0" mnemonicParsing="false" onAction="#ActivityScreen" text="Get activities report">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnLateOnReturn_statistics" layoutX="744.0" layoutY="587.0" mnemonicParsing="false" onAction="#LateOnReturnScreen" text="Late on Return">
+      <Button fx:id="btnLateOnReturn_statistics" layoutX="618.0" layoutY="422.0" mnemonicParsing="false" onAction="#LateOnReturnScreen" prefHeight="67.0" prefWidth="218.0" text="Late on Return">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="23.0" />
          </font>
       </Button>
-      <DatePicker fx:id="pickDateStart" layoutX="582.0" layoutY="673.0" />
-      <DatePicker fx:id="pickDateEnd" layoutX="582.0" layoutY="724.0" />
-      <Label layoutX="527.0" layoutY="676.0" prefHeight="22.0" prefWidth="48.0" text="Start:">
+      <DatePicker fx:id="pickDateStart" layoutX="637.0" layoutY="622.0" />
+      <DatePicker fx:id="pickDateEnd" layoutX="637.0" layoutY="673.0" />
+      <Label layoutX="557.0" layoutY="624.0" prefHeight="22.0" prefWidth="48.0" text="Start:">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="527.0" layoutY="727.0" prefHeight="22.0" prefWidth="48.0" text="End:">
+      <Label layoutX="557.0" layoutY="675.0" prefHeight="22.0" prefWidth="48.0" text="End:">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="17.0" />
          </font>
       </Label>
-      <Button layoutX="908.0" layoutY="587.0" mnemonicParsing="false" onAction="#getactivityHistoryReport" prefHeight="39.0" prefWidth="156.0" text="Activity history">
+      <Button layoutX="858.0" layoutY="422.0" mnemonicParsing="false" onAction="#getactivityHistoryReport" prefHeight="67.0" prefWidth="156.0" text="Past reports">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="22.0" />
          </font>
       </Button>
+      <Label layoutX="127.0" layoutY="637.0" text="Produce reports by time period: ">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
