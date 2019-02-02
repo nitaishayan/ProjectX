@@ -95,7 +95,7 @@ public class Client extends AbstractClient
 					if (arrayObject.get(arrayObject.size()-1).equals("2")) {
 						System.out.println("delete"+arrayObject);
 						clientUI.showSuccess("book Remove from librariy successfully");
-						File pdf=new File("./src/Server/PDF-server/"+arrayObject.get(1)+".pdf");
+						File pdf=new File(arrayObject.get(1)+".pdf");
 						if(pdf.delete())
 							System.out.println("File deleted successfully"); 
 						else
@@ -376,7 +376,7 @@ public class Client extends AbstractClient
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath="./src/Client/PDF-client/"+msg2.getFileName()+".pdf";
+		String LocalfilePath=msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 
