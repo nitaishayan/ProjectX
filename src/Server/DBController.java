@@ -1123,7 +1123,11 @@ public class DBController {
 				}
 			}
 		}
-
+		
+		PreparedStatement ps60 = conn.prepareStatement("UPDATE reservations SET IsActive = 'false' WHERE CopyID=? AND MemberID=? AND IsActive='true'");
+		ps60.setString(1, data.get(1));
+		ps60.setString(2, data.get(4));
+		ps60.executeUpdate();
 
 
 		String returnDate = sdf.format(c.getTime());
