@@ -38,7 +38,10 @@ import logic.Main;
 import logic.RegistrationController;
 
 public class OBLcontroller implements Initializable, GuiInterface {
-
+	/**
+	 * This class connect between the input in the GUI to the controller of login,log-out and registration process.
+	 * The class giving the functionality to login/log-out to the system and registration of a new member.
+	 */
 	@FXML
 	private Pane pane;
 
@@ -59,7 +62,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public static Stage searchForReader;
 
 
-
+	/**
+	 * This method call to a function from RegistrationController that execute the login process - by pressing the "Login" button.
+	 * Also, checks if the user didn't fill one of the fields.
+	 * @param event - event from pressing on "Login" button.
+	 * @throws IOException
+	 */
 	public void login(ActionEvent event) throws IOException {
 		Main.client.clientUI=this;
 		if(!(txtUserName.getText().isEmpty()==false&&txtPassword.getText().isEmpty()==false))
@@ -75,7 +83,12 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	public void forgot(MouseEvent  event) throws IOException {
 	}
 
-
+	/**
+	 * This method call to a function from RegistrationController that execute the login process - by pressing "ENTER" on the keyboard.
+	 * Also, checks if the user didn't fill one of the fields.
+	 * @param event - event from pressing on "ENTER" on the keyboard.
+	 * @throws IOException 
+	 */
     @FXML
     void loginEnter(KeyEvent event) {
 		if (event.getCode()==KeyCode.ENTER) {
@@ -88,7 +101,11 @@ public class OBLcontroller implements Initializable, GuiInterface {
 			}			
 		}
     }
-    
+    /**
+   	 * This method transfer the user to the ReaderMenu screen - if the user is a member.
+   	 * It's has an event handler in case of exiting the screen which trigger the log-out process.
+   	 * @throws IOException
+   	 */
 	public void openMemberMenuScreen() throws IOException {
 		System.out.println("member array user size: " + Client.arrayUser.size());
 		Main.primary.hide();
@@ -109,7 +126,11 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		primaryStage.setMaxWidth(1540);
 		primaryStage.show();		
 	}
-
+	 /**
+  	 * This method transfer the user to the LibrarianMenu screen - if the user is a librarian.
+  	 * It's has an event handler in case of exiting the screen which trigger the log-out process.
+  	 * @throws IOException
+  	 */
 	public void openLibrarianMenuScreen() throws IOException {
 		System.out.println("librarian array user size: " + Client.arrayUser.size());
 		Main.primary.hide();
@@ -131,7 +152,11 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		primaryStage.setMaxWidth(1540);
 		primaryStage.show();		
 	}
-
+	/**
+	* This method transfer the user to the SearchBook screen.
+	* @param event - event from press on "Search Book" button in the left pane.
+	* @throws IOException
+	*/
 	public void searchBook(ActionEvent event) throws IOException {
 		((Node)event.getSource()).getScene().getWindow().hide();
 		Stage primaryStage = new Stage();
@@ -148,14 +173,21 @@ public class OBLcontroller implements Initializable, GuiInterface {
 	}
 
 
-
+	/**
+	 * This method set the variable of the GuiInterface in the client to this.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.client.clientUI=this;
 		freshStart();
 	}
 
-
+	/**
+	 * This method gets the values which have returned from the login process.
+	 * The option are - the user doesn't exists in system, the user is already connected to the system, the member trying to login is graduated hence cannot login,
+	 * the member trying to connect is locked (Status) hence can't login, the user is a member and the user is a librarian.
+	 * @param obj - ArrayList with the relevant data for create this window and maneuver through the different methods (all the information that needed).
+	 */
 	@Override
 	public void display(Object obj) {
 		ArrayList<String> msg = (ArrayList<String>)obj;
@@ -193,14 +225,19 @@ public class OBLcontroller implements Initializable, GuiInterface {
 		}
 	}
 
-
+	/**
+	* Not used method(must implement because the implementation of GuiInterface)
+	*/
 	@Override
 	public void showSuccess(String message) {
 		// TODO Auto-generated method stub
 
 	}
 
-
+	/**
+	 * This method show error pop-up on the screen with given message.
+	 * @param String- the message that will be shown in the pop-up.
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
@@ -212,7 +249,9 @@ public class OBLcontroller implements Initializable, GuiInterface {
 
 	}
 
-
+	/**
+	 * This method clean up the fields on the screen.
+	 */
 	@Override
 	public void freshStart() {
 		txtUserName.clear();

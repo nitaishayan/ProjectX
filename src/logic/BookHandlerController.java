@@ -170,9 +170,10 @@ public class BookHandlerController {
 	/**
 	 * Method that update the data base that a copy is lost by a member
 	 * the method update the copy table and delayonreturn table
-	 * @param memberID memberID of the member that lost
-	 * @param copyID copiId of the book that was lost
-	 * @param copyName name of the copy that lost
+	 * 
+	 * @param 			memberID memberID of the member that lost
+	 * @param 			copyID copiId of the book that was lost
+	 * @param 			copyName name of the copy that lost
 	 */
 	public static void memberLostBook(String memberID,String copyID,String copyName) {
 		ArrayList<String> data = new ArrayList<>();

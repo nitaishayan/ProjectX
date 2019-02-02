@@ -2301,6 +2301,21 @@ public class DBController {
 	}
 	
 	
+	/**
+	 * 
+	 * Method that get from DB the values based on two parameters: Start date,End time
+	 * 
+	 * @param 		arrayObject contains : startTime,endTime
+	 * @return		The requested data 
+	 * 
+	 * Return number of active members in time area between startDate and endDate 
+	 * Return number of frozen members in time area between startDate and endDate
+	 * Return number of locked members in time area between startDate and endDate 
+	 * Return num of copies loaned in the between startDate and endDate 
+	 * Return number of members that delay on return in between startDate and endDate 
+	 * The values return in an Array list
+	 * @throws 		SQLException
+	 */
 	public ArrayList<String> getActivityReport(ArrayList<String> arrayObject) throws SQLException  {
 		ArrayList<String>data=new ArrayList<>();
 		data.add("getActivityReport");
@@ -2366,6 +2381,16 @@ public class DBController {
 	}
 	
 	
+	/**
+	 * Method that get from the DB: //All the Activity reports issued along history//
+	 * 
+	 * @return 		contains in an arraylist the values order by: 
+	 * 
+	 * CurrentTime(ExecutionTime),startDate,endTime,numActive,numFreeze,numLocked,numLoanCopies,numDelayonReturn
+	 * The history wll appear to the L.M in a table view
+	 * 
+	 * @throws 		SQLException
+	 */
 	public ArrayList<String> getActivityReportHistory() throws SQLException {
 		PreparedStatement searchData = conn.prepareStatement("SELECT* FROM activityreport");
 		ResultSet rsData;

@@ -181,7 +181,6 @@ public class Server extends AbstractServer
 						member=new ArrayList<String>();
 						member.add("SearchMember");
 						member.add("NotExist");
-						System.out.println("did not found any memberID");
 						try {
 							client.sendToClient(member);
 						} catch (IOException e) {

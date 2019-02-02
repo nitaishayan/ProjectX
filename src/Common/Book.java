@@ -1,5 +1,9 @@
 package Common;
 
+
+/**
+ * This class represents the Book object.
+ */
 public class Book {
 	private String bookID;
 	private String bookName;
@@ -14,6 +18,21 @@ public class Book {
 	private String tableOfContent;
 	private String shelfLocation;
 	
+	/**
+	 * Constructor to the Book object.
+	 * @param bookID - The book's ID.
+	 * @param bookName - The book's name.
+	 * @param copies - The book's quantity of copies.
+	 * @param wanted - Describes if the book is wanted or not.
+	 * @param authorName - The book author's name.
+	 * @param editionNumber - The book's edition number.
+	 * @param printDate - The book's print date.
+	 * @param bookGenere - The book's genre.
+	 * @param description - The book's description.
+	 * @param purchaseDate - The book's purchase date.
+	 * @param tableOfContent - The book's table of contents.
+	 * @param shelfLocation - The book's shelf location.
+	 */
 	public Book(String bookID, String bookName, String copies, String wanted, String authorName, String editionNumber,
 			String printDate, String bookGenere, String description, String purchaseDate, String tableOfContent,
 			String shelfLocation) {

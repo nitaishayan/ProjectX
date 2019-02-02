@@ -1,5 +1,10 @@
 package Common;
-
+/**
+ * Class that present the history of Activity report requested by the librarian manager
+ * the Class is shown in table view window
+ * @author nitay shayan
+ *
+ */
 public class ActivityReport {
 	private String executionTime;
 	private String startTime;

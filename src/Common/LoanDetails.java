@@ -11,7 +11,14 @@ public class LoanDetails {
 	private String copyID;
 	private String loanDate;
 	private String actualReturnDate;
-	
+	/**
+	 * Constructor for creating an object to the table view
+	 * 
+	 * @param bookName			The book name
+	 * @param authorName		The author name
+	 * @param copyID			Copy identification
+	 * @param loanDate			The date that the Loan has been issued
+	 */
 	public LoanDetails(String bookName, String copyID, String loanDate,String actualReturnDate) {
 		super();
 		this.bookName = bookName;
@@ -19,7 +26,15 @@ public class LoanDetails {
 		this.loanDate = loanDate;
 		this.actualReturnDate=actualReturnDate;
 	}
-	
+	/**
+	 * Constructor for creating an object to the table view
+	 * 
+	 * @param bookName			The book name
+	 * @param authorName		The author name
+	 * @param copyID			Copy identification
+	 * @param loanDate			The date that the Loan has been issued
+	 * @param actualReturnDate	The actual return date(if the book returned yet)
+	 */
 	public LoanDetails(String bookName,String authorName, String copyID, String loanDate,String actualReturnDate) {
 		super();
 		this.bookName = bookName;
@@ -28,7 +43,9 @@ public class LoanDetails {
 		this.loanDate = loanDate;
 		this.actualReturnDate=actualReturnDate;
 	}
-
+/**
+ * Default constructor
+ */
 	public LoanDetails() {
 		this.bookName="";
 		this.copyID="";

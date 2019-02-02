@@ -85,11 +85,8 @@ public class MemberMenuGUI implements Initializable,GuiInterface{
     }
 
 	public void Display() throws IOException {
-		System.out.println("1");
 		Stage primaryStage=new Stage();
-		System.out.println("2");
 		Parent root = FXMLLoader.load(getClass().getResource("/GUI/ReaderMenu.fxml"));
-		System.out.println("3");
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Member Menu");
 		primaryStage.setScene(scene);

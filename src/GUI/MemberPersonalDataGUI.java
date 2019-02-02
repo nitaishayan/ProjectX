@@ -61,12 +61,11 @@ public class MemberPersonalDataGUI implements Initializable,GuiInterface{
 	@FXML
 	void updateMemberDetails(ActionEvent event) {
 		String ans=CommonController.checkInput(txtPhone_Number.getText(),txtEmail.getText(),txtID.getText());
-		System.out.println(ans+" fgfdgsdfsdasfsa");
 		if (ans.equals("EmailError")) {
 			showFailed("Wrong Email, please enter new parameters");
 		}
 		else if (ans.equals("PhoneError")) {
-			showFailed("Wrong phone number, please enter new parameters");
+			showFailed("Wrong phone number input, please enter valid digits and correct phone number length");
 		}
 		else {
 			MemberCardController.memberUpdateDetails(txtID.getText(),txtPhone_Number.getText(), txtEmail.getText());

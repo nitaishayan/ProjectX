@@ -1,5 +1,10 @@
 package Common;
 
+
+/**
+ * This class represents the Inventory book object.
+ */
+
 public class InventoryBook {
 	private String bookName;
 	private String bookID;
@@ -13,6 +18,21 @@ public class InventoryBook {
 	private String purchaseDate;
 	private String location;
 	
+	
+	/**
+	 * Constructor to the Inventory book object.
+	 * @param bookID - The book's ID.
+	 * @param bookName - The book's name.
+	 * @param copies - The book's quantity of copies.
+	 * @param wanted - Describes if the book is wanted or not.
+	 * @param authorName - The book author's name.
+	 * @param edition - The book's edition number.
+	 * @param printDate - The book's print date.
+	 * @param theme - The book's theme.
+	 * @param description - The book's description.
+	 * @param purchaseDate - The book's purchase date.
+	 * @param location - The book's location.
+	 */
 	public InventoryBook(String bookID, String bookName, String copies, String wanted, String authorName,
 			String edition, String printDate, String theme, String description, String purchaseDate, String location)
 	{

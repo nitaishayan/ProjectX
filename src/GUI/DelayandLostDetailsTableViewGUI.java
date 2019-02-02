@@ -67,7 +67,6 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
 		int numberOfColumns=3;
 		int nonRelevantString=1;
 		ArrayList<String> dataList = (ArrayList<String>)obj;
-		System.out.println(dataList.toString()+"in delayLostGUI");
 		if (dataList.get(0).equals("SearchMember")) {
 			showSuccess("The member "+memberDetails.getText()+" details updated successfully");
 		}
@@ -105,7 +104,6 @@ public class DelayandLostDetailsTableViewGUI implements Initializable,GuiInterfa
 				 DelayandLostDetails tableTemp;
 				 while(rowCounter<loanRowSize) {				 
 						 tableTemp = new DelayandLostDetails(dataList.get(arrayJump+2), dataList.get(arrayJump),dataList.get(arrayJump+1));//create a new object by DelayandLostDetails
-						 System.out.println(tableTemp.getCopyName()+" "+tableTemp.getCopyID()+" "+tableTemp.getDelay());
 						 
 					 //j+2 Book name ; //j CopyID ; //J+1 Delay or lost
 					 rowCounter++;

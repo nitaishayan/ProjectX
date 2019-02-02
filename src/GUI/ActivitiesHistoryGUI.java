@@ -15,25 +15,45 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
+/**
+ * Class that present the activities history based on the options that the member can enter
+ * the options are - status history , loan history, delay history
+ * when the member will press the button - a table view appeared with all the details 
+ * @author nitay shayan
+ *
+ */
 public class ActivitiesHistoryGUI implements Initializable,GuiInterface {
 
 	@FXML
 	private Button btnHistory;
 
+	/**
+	 * This method is launch a query in data base to get all the books 
+	 * information by a specific member that is delayed or lost books in the library.
+	 * @param event Event happend by click on the button
+	 * @throws IOException
+	 *  
+	 */
 	@FXML
 	void delayHistory(ActionEvent event) throws IOException {
 		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/DelayandLostTableView.fxml"));
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(639);
-		stage.setMinHeight(639);
-		stage.setMinWidth(922);
-		stage.setMaxWidth(922);
+		stage.setMaxHeight(555);
+		stage.setMinHeight(555);
+		stage.setMinWidth(767);
+		stage.setMaxWidth(767);
 		stage.show();
 	}
-
+	
+	/**
+	 *  Method that launch a query to find a loan history by a memberID inserted by the librarian and recieve the data from the data base
+	 * eventually display the data in table view window
+	 * 
+	 * @param event press the button
+	 * @throws IOException
+	 */
 	@FXML
 	void loanHistory(ActionEvent event) throws IOException {
 		//Load page of loan history
@@ -41,27 +61,36 @@ public class ActivitiesHistoryGUI implements Initializable,GuiInterface {
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(628);
-		stage.setMinHeight(628);
-		stage.setMinWidth(916);
-		stage.setMaxWidth(916);
+		stage.setMaxHeight(648);
+		stage.setMinHeight(648);
+		stage.setMinWidth(1107);
+		stage.setMaxWidth(1107);
 		stage.show();
 	}
 
+	/**
+	 *  Method that launch a query to find status activity of a specific member in the data base.
+	 * eventually display the data in table view window
+	 * 
+	 * @param  event press the button
+	 * @throws IOException
+	 */
 	@FXML
 	void statusHistory(ActionEvent event) throws IOException {
 		Parent parent=FXMLLoader.load(getClass().getResource("/GUI/MemberStatusHistory.fxml"));
 		Scene scene=new Scene(parent);
 		Stage stage=new Stage();
 		stage.setScene(scene);
-		stage.setMaxHeight(571);
-		stage.setMinHeight(571);
-		stage.setMinWidth(806);
-		stage.setMaxWidth(806);
+		stage.setMaxHeight(522);
+		stage.setMinHeight(522);
+		stage.setMinWidth(818);
+		stage.setMaxWidth(818);
 		stage.show();
 	}
 
-
+	/**
+	 * show Success message based on the String
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -74,6 +103,9 @@ public class ActivitiesHistoryGUI implements Initializable,GuiInterface {
 		// TODO Auto-generated method stub
 
 	}
+	/**
+	 * show failed message based on the String
+	 */
 	@Override
 	public void showFailed(String message) {
 		// TODO Auto-generated method stub
@@ -84,6 +116,9 @@ public class ActivitiesHistoryGUI implements Initializable,GuiInterface {
 		// TODO Auto-generated method stub
 
 	}
+	/**
+	 * initialize method that launch page as he open from another screen
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

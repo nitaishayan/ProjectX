@@ -71,15 +71,14 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 		int numberOfColumns=3;
 		int nonRelevantString=1;
 		ArrayList<String> dataList = (ArrayList<String>)obj;
-		System.out.println(dataList.toString()+"in MemberStatusHistoryGUI");
 		if (dataList.get(0).equals("SearchMember")) {
 			showSuccess("The member "+memberDetails.getText()+" details updated successfully");
 		}
 		else {
 			//Naming the columns
-			currentStatus = new TableColumn<>("current Status");
-			previousStatus = new TableColumn<>("previousStatus");
-			executionDate = new TableColumn<>("execution Date");
+			currentStatus = new TableColumn<>("Current status");
+			previousStatus = new TableColumn<>("Previous status");
+			executionDate = new TableColumn<>("Execution date");
 			if (dataList.get(1).equals("NotExist")) {
 				showFailed("The member "+memberDetails.getText()+ " has no status changes yet");
 			}
@@ -87,14 +86,13 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 				
 				memberStatusHistory.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //resize the columns to the table view
 
-
 				//set up size
 				currentStatus.setMinWidth(100);
 				previousStatus.setMinWidth(100);
 				executionDate.setMinWidth(100);
 				//set up order descending
-				currentStatus.setSortType(TableColumn.SortType.DESCENDING);
-				previousStatus.setSortType(TableColumn.SortType.DESCENDING);
+				//currentStatus.setSortType(TableColumn.SortType.ASCENDING);
+				//previousStatus.setSortType(TableColumn.SortType.ASCENDING);
 				executionDate.setSortType(TableColumn.SortType.DESCENDING);
 				//Set up the fields that will be attached to the table view
 				memberStatusHistory.getColumns().setAll(currentStatus,previousStatus,executionDate);//attach the columns to the table view (personTable)
@@ -109,7 +107,6 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 				MemberStatusDetails tableTemp;
 				 while(rowCounter<loanRowSize) {				 
 						 tableTemp = new MemberStatusDetails(dataList.get(arrayJump+2), dataList.get(arrayJump),dataList.get(arrayJump+1));//create a new object by MemberStatusDetails
-						 System.out.println(tableTemp.getExecutionDate()+" "+tableTemp.getPreviousStatus()+" "+tableTemp.getCurrentStatus());
 						 
 					 //j+2 current Status ; //j previous Status   ; //J+1 execution Date
 					 rowCounter++;
@@ -158,7 +155,6 @@ public class MemberStatusHistoryGUI implements Initializable,GuiInterface{
 		/**
 		 * launch the query to DB
 		 */
-		System.out.println("now in MemberStatusHistoryGUI");
     	MemberCardController.getStatusHistory(getMemberID());
 	}
 

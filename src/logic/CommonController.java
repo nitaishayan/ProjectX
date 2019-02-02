@@ -90,9 +90,9 @@ public class CommonController {
 	 * @return string of the corresponding message.
 	 */
 	public static String checkInput(String phoneNumber,String email,String ID) {
-		if (phoneNumber.length() != 10){
-			return "PhoneError";
-		}
+		if (checkDigitsOnly(phoneNumber)==false || phoneNumber.length()!=10) {
+				return "PhoneError";
+			}
 		if (!email.contains("@")) {
 			return "EmailError";
 		}
@@ -101,7 +101,13 @@ public class CommonController {
 		}
 		return "Success";
 	}	    	
-
+	 public static boolean checkDigitsOnly(String str) {
+		    for (int i = 0; i < str.length(); i++) {
+		      if (!Character.isDigit(str.charAt(i))) 
+			        return false;
+		    }
+		    return true;
+		  }
 	/**
 	 * This method sends to the server a request to show the reader's details in the GUI.
 	 */
@@ -124,7 +130,7 @@ public class CommonController {
 	 * @return string of the corresponding message.
 	 */
 	public static String checkRegistrationInput(String phoneNumber,String email,String ID,String password) {
-		if (phoneNumber.length() != 10){
+		if (phoneNumber.length() != 10 || checkDigitsOnly(phoneNumber)==false){
 			return "The phone number must include exactly 10 digits!";
 		}
 		if (!email.contains("@")) {

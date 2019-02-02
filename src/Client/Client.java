@@ -131,8 +131,6 @@ public class Client extends AbstractClient
 				System.out.println(arrayUser);
 				//System.out.println((ArrayList<String>)msg+"inside Client - login");
 				Platform.runLater(()->{
-					//System.out.println(clientUI);
-					System.out.println("lior");
 					clientUI.display(arrayObject);
 				});
 				break;
@@ -309,7 +307,7 @@ public class Client extends AbstractClient
 				}
 				else {
 					Platform.runLater(() -> {
-						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + arrayObject.get(1));
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
 					});
 				}
 				break;
@@ -322,7 +320,7 @@ public class Client extends AbstractClient
 				}
 				else {
 					Platform.runLater(()->{
-						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + arrayObject.get(1));
+						clientUI.showSuccess("The extension preformed susccesfully and the new expected return date is " + ((ArrayList<String>)msg).get(1));
 					});
 					break;
 				}
@@ -383,7 +381,7 @@ public class Client extends AbstractClient
 	public void getPDF(Object msg) {
 		MyFile msg2= new MyFile(((MyFile)msg).getFileName());
 		msg2=(MyFile) msg;
-		String LocalfilePath=msg2.getFileName()+".pdf";
+		String LocalfilePath="./PDF-client/"+msg2.getFileName()+".pdf";
 		FileOutputStream fos=null;
 		BufferedOutputStream bos=null;
 

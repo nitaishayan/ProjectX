@@ -23,6 +23,16 @@ import logic.CommonController;
 import logic.Main;
 import logic.StatisticReportsController;
 import javafx.scene.layout.AnchorPane;
+/**
+ * 
+ * Class that show all the Activity reports that ever issued by the Librarian manager
+ * 
+ * the class show the details based on these parameters:
+ * execution time,start time,end time,active members, freeze members,locked members,loan copies.
+ * the results will appear on table view.
+ * @author nitay shayan
+ *
+ */
 public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializable{
 
     @FXML
@@ -51,13 +61,22 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 
     @FXML
     private TableColumn<ActivityReport,String> loanCopies;
+    
+	/**
+	 * 
+	 *Initialize method that launch the request for the report to DB
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.client.clientUI=this;
     	StatisticReportsController.activityHistoryReport();
-		
 	}
-
+	
+	/**
+	 * show success message based on the input string
+	 * @param string 	the input string that contains the message
+	 */
 	@Override
 	public void showSuccess(String string) {
 		Alert alert=new Alert(AlertType.INFORMATION);
@@ -65,23 +84,17 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 		alert.setHeaderText(string);
 		alert.showAndWait();			
 	}
-
+	/**
+	 * Display method that get from DB the object that contains all the parameters
+	 * the parameters
+	 * execution time,start time,end time,active members, freeze members,locked members,loan copies.
+	 * This method also set the values and sizes of the table columns and eventually display on the screen
+	 */
 	@Override
 	public void display(Object obj) {
 		int numberOfColumns=8;
 		int nonRelevantString=1;
 		ArrayList<String> dataList = (ArrayList<String>)obj;
-		System.out.println(dataList.toString()+"in Activity Report GUI");
-		/*
-		executionTime = new TableColumn<>("execution Time");
-		startTime = new TableColumn<>("start Time");
-		endTime = new TableColumn<>("end Time");
-		activeMembers = new TableColumn<>("active Members");
-		freezeMembers = new TableColumn<>("freeze Members");
-		lockedMembers = new TableColumn<>("locked Members");
-		loanCopies = new TableColumn<>("loanCopies");
-		memberDelayed = new TableColumn<>("member delayed");
-		*/
 			if (dataList.get(1).equals("NotExist")) {
 				showFailed("No reports issued yet.");
 			}
@@ -99,7 +112,7 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 				lockedMembers.setCellValueFactory(new PropertyValueFactory<ActivityReport,String>("lockedMembers"));
 				loanCopies.setCellValueFactory(new PropertyValueFactory<ActivityReport,String>("loanCopies"));
 				
-				//setsize
+				//set size
 				CommonController.setColumnWidth(executionTime, 234, 234, 234);
 				CommonController.setColumnWidth(startTime, 170, 170, 170);
 				CommonController.setColumnWidth(endTime, 170, 170, 170);
@@ -114,7 +127,6 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 				 ActivityReport tableTemp;
 				 while(rowCounter<loanRowSize) {				 
 						 tableTemp = new ActivityReport(dataList.get(arrayJump), dataList.get(arrayJump+1),dataList.get(arrayJump+2),dataList.get(arrayJump+3),dataList.get(arrayJump+4),dataList.get(arrayJump+5),dataList.get(arrayJump+6)+" / "+dataList.get(arrayJump+7),dataList.get(arrayJump+7));//create a new object ActivityReport
-						 System.out.println(tableTemp.getMemberDelay());
 					 rowCounter++;
 					 arrayJump+=8;
 					 ActivityReportDetails.add(tableTemp);
@@ -125,7 +137,6 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 								public void handle(MouseEvent event) {
 									if (tableViewActivityReport.getSelectionModel().getSelectedItem()==null)
 										return;
-							System.out.println(tableViewActivityReport.getSelectionModel().getSelectedItem().getMemberDelay());
 								}
 							});
 						});
@@ -133,7 +144,10 @@ public class ActivityReportHistoryTableViewGUI implements GuiInterface,Initializ
 				 tableViewActivityReport.setItems(ActivityReportDetails);
 			}			
 		}
-
+	/**
+	 * show failed message based on the input string
+	 * @param string 	the input string that contains the message
+	 */
 	@Override
 	public void showFailed(String message) {
 		Alert alert=new Alert(AlertType.ERROR);
